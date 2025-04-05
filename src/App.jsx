@@ -1,16 +1,12 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Editor from "./LexicalEditor";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      Basic App
-    </>
-  )
+    <div className="App">
+      <h1>My Lexical Editor</h1>
+      <Editor />
+    </div>
+  );
 }
 
-export default App
+export default App;
