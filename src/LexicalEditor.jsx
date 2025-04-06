@@ -9,6 +9,8 @@ import {ContentEditable} from '@lexical/react/LexicalContentEditable';
 import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
 import {LexicalErrorBoundary} from '@lexical/react/LexicalErrorBoundary';
 
+import ExportButton from './ActionBar';
+
 // Catch any errors that occur during Lexical updates and log them
 // or throw them as needed. If you don't throw them, Lexical will
 // try to recover gracefully without losing user data.
@@ -37,6 +39,7 @@ function Editor() {
       />
       <HistoryPlugin />
       <AutoFocusPlugin />
+      <ExportButton />
     </LexicalComposer>
   );
 }
