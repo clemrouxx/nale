@@ -2,7 +2,6 @@ import {
     $isTextNode,
   } from 'lexical';
 
-
 const TEXT_FORMAT_COMMANDS = {bold:"\\textbf",italic:"\\textit",capitalize:"\\textsc"}
 
 function putInCommand(string,command){
