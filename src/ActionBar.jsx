@@ -1,6 +1,6 @@
 import {$getRoot} from 'lexical';
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
-import convertToLatex from './exportUtils';
+import convertToLatex from './LatexExport';
 
 const ExportButton = () => {
     const [editor] = useLexicalComposerContext();
