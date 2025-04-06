@@ -23,6 +23,14 @@ function Editor() {
 
   return (
     <>
+      <ToolbarContext>
+        <ToolbarPlugin
+            editor={editor}
+            activeEditor={activeEditor}
+            setActiveEditor={setActiveEditor}
+            setIsLinkEditMode={setIsLinkEditMode}
+          />
+      </ToolbarContext>
       <RichTextPlugin
         contentEditable={
           <ContentEditable
@@ -36,14 +44,7 @@ function Editor() {
       <HistoryPlugin />
       <AutoFocusPlugin />
       <MarkdownShortcutPlugin transformers={TRANSFORMERS}/>
-      <ToolbarContext>
-        <ToolbarPlugin
-            editor={editor}
-            activeEditor={activeEditor}
-            setActiveEditor={setActiveEditor}
-            setIsLinkEditMode={setIsLinkEditMode}
-          />
-      </ToolbarContext>
+      
       <ExportButton />
     </>
   );
