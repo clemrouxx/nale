@@ -1,3 +1,33 @@
 #main-textbox{
     font-family: Times, 'Times New Roman', serif;
 }
+
+.editor-paragraph{
+    margin-block: 0.1rem;
+}
+
+.editor-paragraph + .editor-paragraph{
+    text-indent: 1.5rem;
+}
+
+.editor-heading{
+    margin-block-end: 0.6rem;
+    font-weight: bold;
+}
+
+h2.editor-heading{ /*Section*/
+    font-size: 1.6rem;
+    margin-block-start: 1.6rem;
+}
+
+h3.editor-heading{ /*Subsection*/
+    font-size: 1.4rem;
+    margin-block-start: 1.4rem;
+    margin-block-end: 0.6rem;
+}
+
+h4.editor-heading{
+    font-size: 1rem;
+    margin-block-start: 1.4rem;
+    margin-block-end: 0.6rem;
+}
