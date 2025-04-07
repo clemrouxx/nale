@@ -41,6 +41,7 @@ import {
  * @param updateType - The type of change, either increment or decrement
  * @returns the next font size
  */
+/*
 export const calculateNextFontSize = (
   currentFontSize,
   updateType,
@@ -101,11 +102,12 @@ export const calculateNextFontSize = (
       break;
   }
   return updatedFontSize;
-};
+};*/
 
 /**
  * Patches the selection with the updated font size.
  */
+/*
 export const updateFontSizeInSelection = (
   editor,
   newFontSize,
@@ -146,7 +148,8 @@ export const updateFontSize = (
   } else {
     updateFontSizeInSelection(editor, null, updateType);
   }
-};
+};*/
+
 
 export const formatParagraph = (editor) => {
   editor.update(() => {

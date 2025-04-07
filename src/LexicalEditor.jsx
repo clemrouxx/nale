@@ -34,8 +34,8 @@ function Editor() {
       <RichTextPlugin
         contentEditable={
           <ContentEditable
-            aria-placeholder={'Enter some text...'}
-            placeholder={<div>Enter some text...</div>}
+            aria-placeholder={""}
+            placeholder={<></>}
             id='main-textbox'
           />
         }

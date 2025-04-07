@@ -8,7 +8,7 @@ function putInCommand(string,command){
 }
 
 const TEXT_FORMAT_COMMANDS = {bold:"\\textbf",italic:"\\textit",capitalize:"\\textsc"}
-const HEADING_COMMANDS = ["\\section","\\subsection","\\subsubsection","\\paragraph","\\subparagraph","\\subparagraph"];
+const HEADING_COMMANDS = ["\\chapter","\\section","\\subsection","\\subsubsection","\\paragraph","\\subparagraph"];
 
 function convertToLatex(node){
     var string = "";
@@ -29,7 +29,7 @@ function convertToLatex(node){
             string += "\n";
             break;
         case "heading":
-            const index = node.getTag()[1]-1;
+            const index = node.getTag()[1];
             string = putInCommand(string,HEADING_COMMANDS[index])+"\n";
             break;
         default:
