@@ -33,7 +33,7 @@ function convertToLatex(node){
             string += "\n";
             break;
         case "heading":
-            const index = node.getTag()[1];
+            const index = node.getTag()[1]-1;
             string = putInCommand(string,HEADING_COMMANDS[index])+"\n";
             break;
         case "list":
