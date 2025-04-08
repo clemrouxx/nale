@@ -34,6 +34,7 @@ import {
   MIN_ALLOWED_FONT_SIZE,
 } from '../../context/ToolbarContext';
 import { $createLatexNode } from '../LatexExportPlugin/LatexNode';
+import { $createNumberedHeadingNode } from '../NumberedHeadingPlugin/NumberedHeadingNode';
 
 
 /**
@@ -167,7 +168,7 @@ export const formatHeading = (
   if (blockType !== headingSize) {
     editor.update(() => {
       const selection = $getSelection();
-      $setBlocksType(selection, () => $createHeadingNode(headingSize));
+      $setBlocksType(selection, () => $createNumberedHeadingNode(headingSize));
     });
   }
 };
