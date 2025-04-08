@@ -7,6 +7,10 @@ function putInCommand(string,command){
     return `${command}{${string}}`;
 }
 
+function putInEnvironment(string,envname){
+    return `\\begin{${envname}}\n${string}\\end{${envname}}\n`;
+}
+
 const TEXT_FORMAT_COMMANDS = {bold:"\\textbf",italic:"\\textit",capitalize:"\\textsc"}
 const HEADING_COMMANDS = ["\\chapter","\\section","\\subsection","\\subsubsection","\\paragraph","\\subparagraph"];
 
@@ -31,6 +35,12 @@ function convertToLatex(node){
         case "heading":
             const index = node.getTag()[1];
             string = putInCommand(string,HEADING_COMMANDS[index])+"\n";
+            break;
+        case "list":
+            string = putInEnvironment(string,"itemize");
+            break;
+        case "listitem":
+            string = "\t\\item " + string + "\n";
             break;
         default:
             console.log("Node type : ", node.getType());
