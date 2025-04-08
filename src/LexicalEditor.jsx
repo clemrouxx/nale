@@ -14,6 +14,7 @@ import {$convertFromMarkdownString, TRANSFORMERS} from '@lexical/markdown';
 import ExportButton from './ActionBar';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
 import { ToolbarContext } from './context/ToolbarContext';
+import { AutoNumberer } from './plugins/NumberedHeadingPlugin/AutoNumberer';
 
 function Editor() {
   const [editor] = useLexicalComposerContext();

@@ -6,21 +6,30 @@ import {HeadingNode} from '@lexical/rich-text';
 
 
 export class NumberedHeadingNode extends HeadingNode{
+  constructor(tag, number, key) {
+    super(tag,key);
+    this.number = number; // Store heading number as node property
+    console.log(this);
+  }
+
   static getType() {
     return 'numbered-heading';
   }
 
   static clone(node) {
-    return new NumberedHeadingNode(node.__tag,node.__key);
+    return new NumberedHeadingNode(node.__tag,node.number,node.__key);
   }
 
   // View
 
   createDOM(config) {
-    const element = document.createElement(this.__tag);
-    addClassNamesToElement(element, config.theme.heading, "editor-debug");
-    return element;
+    const dom = super.createDOM(config);
+    const textContent = dom.textContent || ''; // Get current text content
+    dom.textContent = `${this.number}. ${textContent}`; // Prefix the text with the heading number
+    addClassNamesToElement(dom, config.theme.heading, "editor-debug");
+    return dom;
   }
+  
   updateDOM(prevNode, dom) {
     return false;
   }
@@ -64,6 +73,7 @@ export class NumberedHeadingNode extends HeadingNode{
   static exportJSON() {
     return {
       ...super.exportJSON(),
+      number:this.number
     };
   }
 
@@ -89,5 +99,5 @@ export class NumberedHeadingNode extends HeadingNode{
 }
 
 export function $createNumberedHeadingNode(headingTag) {
-  return $applyNodeReplacement(new NumberedHeadingNode(headingTag));
+  return $applyNodeReplacement(new NumberedHeadingNode(headingTag,0));
 }
