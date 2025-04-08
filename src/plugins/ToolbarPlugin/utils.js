@@ -33,6 +33,7 @@ import {
   MAX_ALLOWED_FONT_SIZE,
   MIN_ALLOWED_FONT_SIZE,
 } from '../../context/ToolbarContext';
+import { $createLatexNode } from '../LatexExportPlugin/LatexNode';
 
 
 /**
@@ -203,6 +204,15 @@ export const formatQuote = (editor, blockType) => {
     editor.update(() => {
       const selection = $getSelection();
       $setBlocksType(selection, () => $createQuoteNode());
+    });
+  }
+};
+
+export const formatLatex = (editor, blockType) => {
+  if (blockType !== 'latex') {
+    editor.update(() => {
+      const selection = $getSelection();
+      $setBlocksType(selection, () => $createLatexNode());
     });
   }
 };

@@ -15,7 +15,6 @@ import ExportButton from './ActionBar';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
 import { ToolbarContext } from './context/ToolbarContext';
 
-
 function Editor() {
   const [editor] = useLexicalComposerContext();
   const [activeEditor, setActiveEditor] = useState(editor);

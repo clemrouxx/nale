@@ -33,3 +33,8 @@ h4.editor-heading{
     margin-block-start: 1.4rem;
     margin-block-end: 0.6rem;
 }
+
+.editor-latex{
+    background-color: lightgreen;
+    font-family: Helvetica, sans-serif;
+}

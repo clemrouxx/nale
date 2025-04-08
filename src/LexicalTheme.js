@@ -3,6 +3,7 @@ const theme = {
     rtl: 'rtl',
     paragraph: 'editor-paragraph',
     quote: 'editor-quote',
+    latex: 'editor-latex',
     heading: {
       h1: 'editor-heading',
       h2: 'editor-heading',

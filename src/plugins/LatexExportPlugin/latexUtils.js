@@ -28,6 +28,7 @@ function convertToLatex(node){
     switch (node.getType()){
         case "root":
         case "text":
+        case "latex":
             break;
         case "paragraph":
             string += "\n";

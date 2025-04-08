@@ -91,6 +91,7 @@ import {
     formatNumberedList,
     formatParagraph,
     formatQuote,
+    formatLatex,
   } from './utils';
 /*
 const rootTypeToRootName = {
@@ -274,6 +275,15 @@ function BlockFormatDropDown({
         <div className="icon-text-container">
           <i className="icon code" />
           <span className="text">{blockTypeToBlockName["code"]}</span>
+        </div>
+        <span className="shortcut">{SHORTCUTS.CODE_BLOCK}</span>
+      </DropDownItem>
+      <DropDownItem
+        className={'item wide ' + dropDownActiveClass(blockType === 'latex')}
+        onClick={() => formatLatex(editor, blockType)}>
+        <div className="icon-text-container">
+          <i className="icon latex" />
+          <span className="text">{blockTypeToBlockName["latex"]}</span>
         </div>
         <span className="shortcut">{SHORTCUTS.CODE_BLOCK}</span>
       </DropDownItem>

@@ -39,6 +39,7 @@ export const blockTypeToBlockName = {
   number: 'Numbered List',
   paragraph: 'Normal',
   quote: 'Quote',
+  latex : 'Raw LaTeX',
 };
 
 //disable eslint sorting rule for quick reference to toolbar state

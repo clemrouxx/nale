@@ -6,6 +6,7 @@ import {ListNode, ListItemNode} from '@lexical/list';
 import {CodeNode} from '@lexical/code';
 import {LinkNode} from '@lexical/link';
 import {HorizontalRuleNode} from '@lexical/react/LexicalHorizontalRuleNode';
+import { LatexNode } from "./plugins/LatexExportPlugin/LatexNode";
 
 // Catch any errors that occur during Lexical updates and log them
 // or throw them as needed. If you don't throw them, Lexical will
@@ -13,7 +14,6 @@ import {HorizontalRuleNode} from '@lexical/react/LexicalHorizontalRuleNode';
 function onError(error) {
   console.error(error);
 }
-
 
 function App() {
   const initialConfig = {
@@ -28,6 +28,7 @@ function App() {
         HorizontalRuleNode,
         CodeNode,
         LinkNode,
+        LatexNode
       ],
     };
 
