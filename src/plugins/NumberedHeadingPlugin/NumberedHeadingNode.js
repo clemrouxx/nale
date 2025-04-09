@@ -20,18 +20,26 @@ export class NumberedHeadingNode extends HeadingNode{
     return new NumberedHeadingNode(node.__tag,node.number,node.__key);
   }
 
+  setNumber(number){
+    this.number = number;
+  }
+
   // View
 
   createDOM(config) {
     const dom = super.createDOM(config);
-    const textContent = dom.textContent || ''; // Get current text content
-    dom.textContent = `${this.number}. ${textContent}`; // Prefix the text with the heading number
+    //dom.contentEditable = false;
+    
+    const numberingElement = document.createElement("span");
+    numberingElement.innerText = `${this.number}...`
+    dom.appendChild(numberingElement);
+    console.log(dom);
     addClassNamesToElement(dom, config.theme.heading, "editor-debug");
     return dom;
   }
   
   updateDOM(prevNode, dom) {
-    return false;
+    return this.number !== prevNode.number;
   }
 
   /*

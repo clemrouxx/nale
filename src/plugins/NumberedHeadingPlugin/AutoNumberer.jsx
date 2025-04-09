@@ -6,22 +6,21 @@ import { $getRoot } from "lexical";
 export function AutoNumberer(){
     const [editor] = useLexicalComposerContext();
 
+    // Need to work on this to avoid infinite loop.
+
     editor.registerUpdateListener(({editorState}) => {
-        editorState.read(() => {
-            const headings = [];
+        editor.update(() => {
+            var number = 1;
             const root = $getRoot();
             root.getChildren().forEach((node) => {
-                console.log(node);
                 if (node instanceof NumberedHeadingNode && node.getTag() === 'h1') {
-                    headings.push(node);
+                    if (node.number !== number){
+                        const writable = node.getWritable();
+                        writable.number = number;
+                    }
+                    number++;
                 }
-            });
-        
-            headings.forEach((node, index) => {
-                const dom = editor.getElementByKey(node.getKey());
-                if (dom) {
-                    //dom.textContent = `${index + 1}. ${node.getTextContent()}`;
-                }
+                console.log(node);
             });
         });
     });      

@@ -44,6 +44,7 @@ function Editor() {
       <HistoryPlugin />
       <AutoFocusPlugin />
       <MarkdownShortcutPlugin transformers={TRANSFORMERS}/>
+      <AutoNumberer />
       
       <ExportButton />
     </>
