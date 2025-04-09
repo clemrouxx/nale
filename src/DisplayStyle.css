@@ -1,37 +1,52 @@
+
 #main-textbox{
-    font-family: Times, 'Times New Roman', serif;
+    font-family: 'CMU Serif', Arial;
     background-color: white;
     color: black;
+
+    --editor-scale : 1;
+
+    --fontsize-normal: calc(var(--editor-scale)*10pt);
+    --fontsize-large: calc(var(--fontsize-normal)*1.2);
+    --fontsize-Large: calc(var(--fontsize-large)*1.2);
+    --fontsize-LARGE: calc(var(--fontsize-Large)*1.2);
+    --fontsize-huge: calc(var(--fontsize-LARGE)*1.2);
+    --fontsize-HUGE: calc(var(--fontsize-huge)*1.2);
+    --fontsize-tiny: calc(var(--fontsize-normal)/1.2);
+    --fontsize-scriptsize: calc(var(--fontsize-tiny)/1.2);
+
+    font-size: var(--fontsize-normal);
 }
 
 .editor-paragraph{
-    margin-block: 0.1rem;
+    margin-block: 0;
 }
 
 .editor-paragraph + .editor-paragraph{
-    text-indent: 1.5rem;
+    text-indent: 1.5em;
 }
 
 .editor-heading{
-    margin-block-end: 0.6rem;
     font-weight: bold;
 }
 
 .editor-heading-section{
-    font-size: 1.6rem;
-    margin-block-start: 1.6rem;
+    font-size: var(--fontsize-Large);
+    margin-block-start: 2.5ex;
+    margin-block-end: 1ex;
 }
 
 .editor-heading-subsection{
-    font-size: 1.4rem;
-    margin-block-start: 1.4rem;
-    margin-block-end: 0.6rem;
+    font-size: var(--fontsize-large);
+}
+
+.editor-heading-subsubsection, .editor-heading-subsection{
+    margin-block-start: 2.2ex;
+    margin-block-end: 0.7ex;
 }
 
 .editor-heading-subsubsection{
-    font-size: 1rem;
-    margin-block-start: 1.4rem;
-    margin-block-end: 0.6rem;
+    font-size: var(--fontsize-normal);
 }
 
 .editor-latex{
