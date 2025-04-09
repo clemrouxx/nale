@@ -12,7 +12,7 @@ function putInEnvironment(string,envname){
 }
 
 const TEXT_FORMAT_COMMANDS = {bold:"\\textbf",italic:"\\textit",capitalize:"\\textsc"}
-const HEADING_COMMANDS = ["\\chapter","\\section","\\subsection","\\subsubsection","\\paragraph","\\subparagraph"];
+const HEADING_COMMANDS = ["\\section","\\subsection","\\subsubsection","\\paragraph","\\subparagraph"];
 
 function convertToLatex(node){
     var string = "";

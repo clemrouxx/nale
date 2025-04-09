@@ -17,18 +17,18 @@
     font-weight: bold;
 }
 
-h2.editor-heading{ /*Section*/
+h1.editor-heading{ /*Section*/
     font-size: 1.6rem;
     margin-block-start: 1.6rem;
 }
 
-h3.editor-heading{ /*Subsection*/
+h2.editor-heading{ /*Subsection*/
     font-size: 1.4rem;
     margin-block-start: 1.4rem;
     margin-block-end: 0.6rem;
 }
 
-h4.editor-heading{
+h3.editor-heading{
     font-size: 1rem;
     margin-block-start: 1.4rem;
     margin-block-end: 0.6rem;

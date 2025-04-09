@@ -9,7 +9,6 @@ export class NumberedHeadingNode extends HeadingNode{
   constructor(tag, number, key) {
     super(tag,key);
     this.number = number; // Store heading number as node property
-    console.log(this);
   }
 
   static getType() {
@@ -20,21 +19,18 @@ export class NumberedHeadingNode extends HeadingNode{
     return new NumberedHeadingNode(node.__tag,node.number,node.__key);
   }
 
-  setNumber(number){
-    this.number = number;
+  getHeadingLevel(){
+    return Number(this.getTag()[1]);
   }
 
   // View
 
   createDOM(config) {
     const dom = super.createDOM(config);
-    //dom.contentEditable = false;
-    
     const numberingElement = document.createElement("span");
     numberingElement.innerText = `${this.number}...`
     dom.appendChild(numberingElement);
-    console.log(dom);
-    addClassNamesToElement(dom, config.theme.heading, "editor-debug");
+    addClassNamesToElement(dom, config.theme.heading);
     return dom;
   }
   
