@@ -3,12 +3,13 @@
 import { ElementNode,$applyNodeReplacement,$createParagraphNode } from "lexical";
 import {addClassNamesToElement} from '@lexical/utils';
 import {HeadingNode} from '@lexical/rich-text';
+import { areIdentical } from "../../utils/areObjectsIdentical";
 
 
 export class NumberedHeadingNode extends HeadingNode{
-  constructor(tag, number, key) {
+  constructor(tag, numbering, key) {
     super(tag,key);
-    this.number = number; // Store heading number as node property
+    this.numbering = numbering; // Store heading numbering as node property
   }
 
   static getType() {
@@ -16,7 +17,7 @@ export class NumberedHeadingNode extends HeadingNode{
   }
 
   static clone(node) {
-    return new NumberedHeadingNode(node.__tag,node.number,node.__key);
+    return new NumberedHeadingNode(node.__tag,node.numbering,node.__key);
   }
 
   getHeadingLevel(){
@@ -26,16 +27,26 @@ export class NumberedHeadingNode extends HeadingNode{
   // View
 
   createDOM(config) {
-    const dom = super.createDOM(config);
+    const dom = document.createElement(this.__tag);
+    dom.classList.add(config.theme.heading[this.__tag]);
+
     const numberingElement = document.createElement("span");
-    numberingElement.innerText = `${this.number}...`
+    var numberingText = "";
+    for (let level = 1; level <= this.getHeadingLevel(); level++) {
+      numberingText += this.numbering[level] + ".";
+    }
+    numberingElement.innerText = numberingText + " ";
+    numberingElement.contentEditable = false;
+
+    const contentElement = document.createElement('span');
+
     dom.appendChild(numberingElement);
-    addClassNamesToElement(dom, config.theme.heading);
+    dom.appendChild(contentElement);
     return dom;
   }
   
   updateDOM(prevNode, dom) {
-    return this.number !== prevNode.number;
+    return !areIdentical(this.numbering,prevNode.numbering);
   }
 
   /*
@@ -77,7 +88,7 @@ export class NumberedHeadingNode extends HeadingNode{
   static exportJSON() {
     return {
       ...super.exportJSON(),
-      number:this.number
+      numbering:this.numbering
     };
   }
 
@@ -103,5 +114,5 @@ export class NumberedHeadingNode extends HeadingNode{
 }
 
 export function $createNumberedHeadingNode(headingTag) {
-  return $applyNodeReplacement(new NumberedHeadingNode(headingTag,0));
+  return $applyNodeReplacement(new NumberedHeadingNode(headingTag,{}));
 }
