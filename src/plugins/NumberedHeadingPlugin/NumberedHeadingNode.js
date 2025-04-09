@@ -28,7 +28,7 @@ export class NumberedHeadingNode extends HeadingNode{
 
   createDOM(config) {
     const dom = document.createElement(this.__tag);
-    dom.classList.add(config.theme.heading[this.__tag]);
+    dom.classList.add(config.theme.heading[this.__tag],config.theme.headingCommon);
 
     const numberingElement = document.createElement("span");
     var numberingText = "";

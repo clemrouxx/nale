@@ -4,13 +4,11 @@ const theme = {
     paragraph: 'editor-paragraph',
     quote: 'editor-quote',
     latex: 'editor-latex',
+    headingCommon: "editor-heading",
     heading: {
-      h1: 'editor-heading',
-      h2: 'editor-heading',
-      h3: 'editor-heading',
-      h4: 'editor-heading',
-      h5: 'editor-heading',
-      h6: 'editor-heading',
+      h1: 'editor-heading-section',
+      h2: 'editor-heading-subsection',
+      h3: 'editor-heading-subsubsection',
     },
     list: {
       nested: {
