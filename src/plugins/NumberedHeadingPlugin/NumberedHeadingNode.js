@@ -5,6 +5,11 @@ import {addClassNamesToElement} from '@lexical/utils';
 import {HeadingNode} from '@lexical/rich-text';
 import { areIdentical } from "../../utils/areObjectsIdentical";
 
+const HEADING_NUMBERING_TEMPLATES = {
+  1 : "{1}   ",
+  2 : "{1}.{2}   ",
+  3 : "{1}.{2}.{3}   ",
+}
 
 export class NumberedHeadingNode extends HeadingNode{
   constructor(tag, numbering, key) {
@@ -24,6 +29,14 @@ export class NumberedHeadingNode extends HeadingNode{
     return Number(this.getTag()[1]);
   }
 
+  getHeadingNumberingString(){
+    var s = HEADING_NUMBERING_TEMPLATES[this.getHeadingLevel()];
+    for (let level = 1; level <= this.getHeadingLevel(); level++) {
+      s = s.replace(`{${level}}`,String(this.numbering[level]));
+    }
+    return s;
+  }
+
   // View
 
   createDOM(config) {
@@ -31,11 +44,7 @@ export class NumberedHeadingNode extends HeadingNode{
     dom.classList.add(config.theme.heading[this.__tag],config.theme.headingCommon);
 
     const numberingElement = document.createElement("span");
-    var numberingText = "";
-    for (let level = 1; level <= this.getHeadingLevel(); level++) {
-      numberingText += this.numbering[level] + ".";
-    }
-    numberingElement.innerText = numberingText + " ";
+    numberingElement.innerText = this.getHeadingNumberingString();
     numberingElement.contentEditable = false;
 
     const contentElement = document.createElement('span');
