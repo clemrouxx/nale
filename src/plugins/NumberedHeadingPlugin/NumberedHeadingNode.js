@@ -2,10 +2,33 @@ import { $applyNodeReplacement,$createParagraphNode } from "lexical";
 import {HeadingNode} from '@lexical/rich-text';
 import { areIdentical } from "../../utils/areObjectsIdentical";
 
-const HEADING_NUMBERING_TEMPLATES = {
-  1 : "{1}   ",
-  2 : "{1}.{2}   ",
-  3 : "{1}.{2}.{3}   ",
+const HEADING_NUMBERING_STYLES = { // { <headingLevel> : <style> }
+  1 : "Roman",
+  2 : "Alph",
+  3 : "alph",
+}
+
+const HEADING_NUMBERING_TEMPLATES = { // Always from the highest level to the lowest. { <headingLevel> : <template> }
+  1 : "{}   ",
+  2 : "{}.{}   ",
+  3 : "{}.{}.{}   ",
+}
+
+function getNumberingString(num,style){
+  if (style==="a") return String(num); // Arab numerals
+  else if (num < 1 || num > 26) return null;
+  else if (style.toLowerCase()==="alph"){ // Alphanumeric
+    const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    return (style==="alph") ? ALPHABET[num-1].toLowerCase() : ALPHABET[num-1];
+  }
+  else if (style.toLowerCase()==="roman"){ // Roman numeral
+    const ROMAN_NUMERALS = [
+      'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX',
+      'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX',
+      'XX', 'XXI', 'XXII', 'XXIII', 'XXIV', 'XXV', 'XXVI'
+    ];
+    return (style==="roman") ? ROMAN_NUMERALS[num-1].toLowerCase() : ROMAN_NUMERALS[num-1];
+  }
 }
 
 export class NumberedHeadingNode extends HeadingNode{
@@ -27,7 +50,8 @@ export class NumberedHeadingNode extends HeadingNode{
   getHeadingNumberingString(){
     var s = HEADING_NUMBERING_TEMPLATES[this.level];
     for (let level = 1; level <= this.level; level++) {
-      s = s.replace(`{${level}}`,String(this.numbering[level]));
+      console.log(this.numbering);
+      s = s.replace("{}",this.numbering[level]?getNumberingString(this.numbering[level],HEADING_NUMBERING_STYLES[level]):"0");
     }
     return s;
   }
