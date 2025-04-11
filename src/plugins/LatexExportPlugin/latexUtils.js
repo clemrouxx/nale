@@ -38,7 +38,7 @@ function convertToLatex(node){
             string = putInCommand(string,HEADING_COMMANDS[index])+"\n";
             break;
         case "list":
-            string = putInEnvironment(string,"itemize");
+            string = putInEnvironment(string,node.getTag()==="ul"?"itemize":"enumerate");
             break;
         case "listitem":
             string = "\t\\item " + string + "\n";

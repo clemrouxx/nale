@@ -4,7 +4,7 @@
     background-color: white;
     color: black;
 
-    --editor-scale : 1.8;
+    --editor-scale : 1.5;
 
     --fontsize-normal: calc(var(--editor-scale)*10pt);
     --fontsize-large: calc(var(--fontsize-normal)*1.2);
