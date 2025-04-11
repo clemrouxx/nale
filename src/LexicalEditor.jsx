@@ -37,6 +37,7 @@ function Editor() {
             aria-placeholder={""}
             placeholder={<></>}
             id='main-textbox'
+            spellCheck={false}
           />
         }
         ErrorBoundary={LexicalErrorBoundary}

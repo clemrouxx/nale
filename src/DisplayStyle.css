@@ -4,7 +4,7 @@
     background-color: white;
     color: black;
 
-    --editor-scale : 1;
+    --editor-scale : 1.8;
 
     --fontsize-normal: calc(var(--editor-scale)*10pt);
     --fontsize-large: calc(var(--fontsize-normal)*1.2);
@@ -47,6 +47,16 @@
 
 .editor-heading-subsubsection{
     font-size: var(--fontsize-normal);
+}
+
+.editor-list-ul, .editor-list-ol{
+    padding-inline-start: 2.4em;
+    margin-block-start: 1.5ex;
+    margin-block-end: 1ex;
+}
+
+.editor-listItem{
+    margin-block-start: 1.4ex;
 }
 
 .editor-latex{
