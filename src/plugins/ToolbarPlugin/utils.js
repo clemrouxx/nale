@@ -168,7 +168,7 @@ export const formatHeading = (
   if (blockType !== headingSize) {
     editor.update(() => {
       const selection = $getSelection();
-      $setBlocksType(selection, () => $createNumberedHeadingNode(headingSize));
+      $setBlocksType(selection, () => $createNumberedHeadingNode(Number(headingSize[1])));
     });
   }
 };

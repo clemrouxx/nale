@@ -1,7 +1,4 @@
-// The code for quote blocks has been used as a template
-
-import { ElementNode,$applyNodeReplacement,$createParagraphNode } from "lexical";
-import {addClassNamesToElement} from '@lexical/utils';
+import { $applyNodeReplacement,$createParagraphNode } from "lexical";
 import {HeadingNode} from '@lexical/rich-text';
 import { areIdentical } from "../../utils/areObjectsIdentical";
 
@@ -12,8 +9,10 @@ const HEADING_NUMBERING_TEMPLATES = {
 }
 
 export class NumberedHeadingNode extends HeadingNode{
-  constructor(tag, numbering, key) {
+  constructor(level, numbering, key) {
+    const tag = `h${level}`;
     super(tag,key);
+    this.level = level;
     this.numbering = numbering; // Store heading numbering as node property
   }
 
@@ -22,16 +21,12 @@ export class NumberedHeadingNode extends HeadingNode{
   }
 
   static clone(node) {
-    return new NumberedHeadingNode(node.__tag,node.numbering,node.__key);
-  }
-
-  getHeadingLevel(){
-    return Number(this.getTag()[1]);
+    return new NumberedHeadingNode(node.level,node.numbering,node.__key);
   }
 
   getHeadingNumberingString(){
-    var s = HEADING_NUMBERING_TEMPLATES[this.getHeadingLevel()];
-    for (let level = 1; level <= this.getHeadingLevel(); level++) {
+    var s = HEADING_NUMBERING_TEMPLATES[this.level];
+    for (let level = 1; level <= this.level; level++) {
       s = s.replace(`{${level}}`,String(this.numbering[level]));
     }
     return s;
@@ -91,7 +86,7 @@ export class NumberedHeadingNode extends HeadingNode{
   }*/
 
   static importJSON(serializedNode) {
-    return $createNumberedHeadingNode(serializedNode.tag).updateFromJSON(serializedNode);
+    return $createNumberedHeadingNode(serializedNode.level).updateFromJSON(serializedNode);
   }
 
   static exportJSON() {
@@ -122,6 +117,6 @@ export class NumberedHeadingNode extends HeadingNode{
   }
 }
 
-export function $createNumberedHeadingNode(headingTag) {
-  return $applyNodeReplacement(new NumberedHeadingNode(headingTag,{}));
+export function $createNumberedHeadingNode(headingLevel) {
+  return $applyNodeReplacement(new NumberedHeadingNode(headingLevel,{}));
 }
