@@ -1,6 +1,7 @@
 import { $applyNodeReplacement,$createParagraphNode } from "lexical";
 import {HeadingNode} from '@lexical/rich-text';
 import { areIdentical } from "../../utils/areObjectsIdentical";
+import { ElementNode } from "lexical";
 
 const HEADING_NUMBERING_STYLES = { // { <headingLevel> : <style> }
   1 : "Roman",
@@ -31,10 +32,10 @@ function getNumberingString(num,style){
   }
 }
 
-export class NumberedHeadingNode extends HeadingNode{
+export class NumberedHeadingNode extends ElementNode{
   constructor(level, numbering, key) {
-    const tag = `h${level}`;
-    super(tag,key);
+    super(key);
+    this.__tag = `h${level}`;
     this.level = level;
     this.numbering = numbering; // Store heading numbering as node property
   }
@@ -59,6 +60,7 @@ export class NumberedHeadingNode extends HeadingNode{
   // View
 
   createDOM(config) {
+    console.log('create dom');
     const dom = document.createElement(this.__tag);
     dom.classList.add(config.theme.heading[this.__tag],config.theme.headingCommon);
 
@@ -67,47 +69,20 @@ export class NumberedHeadingNode extends HeadingNode{
     numberingElement.contentEditable = false;
 
     const contentElement = document.createElement('span');
+    this.__contentDom = contentElement;
 
     dom.appendChild(numberingElement);
     dom.appendChild(contentElement);
     return dom;
   }
+
+  getContentDOM() {
+    return { element: this.__contentDom };
+  }
   
   updateDOM(prevNode, dom) {
     return !areIdentical(this.numbering,prevNode.numbering);
   }
-
-  /*
-  static importDOM(){
-    return {
-      blockquote: (node) => ({
-        conversion: $convertBlockquoteElement,
-        priority: 0,
-      }),
-    };
-  }
-
-  exportDOM(editor) {
-    const {element} = super.exportDOM(editor);
-
-    if (isHTMLElement(element)) {
-      if (this.isEmpty()) {
-        element.append(document.createElement('br'));
-      }
-
-      const formatType = this.getFormatType();
-      element.style.textAlign = formatType;
-
-      const direction = this.getDirection();
-      if (direction) {
-        element.dir = direction;
-      }
-    }
-
-    return {
-      element,
-    };
-  }*/
 
   static importJSON(serializedNode) {
     return $createNumberedHeadingNode(serializedNode.level).updateFromJSON(serializedNode);
@@ -119,7 +94,7 @@ export class NumberedHeadingNode extends HeadingNode{
       numbering:this.numbering
     };
   }
-
+  
   insertNewAfter(_, restoreSelection) {
     const newBlock = $createParagraphNode();
     const direction = this.getDirection();
@@ -136,7 +111,7 @@ export class NumberedHeadingNode extends HeadingNode{
     return true;
   }
 
-  canMergeWhenEmpty() {
+  canBeEmpty() {
     return true;
   }
 }
