@@ -1,5 +1,4 @@
 import { $applyNodeReplacement,$createParagraphNode } from "lexical";
-import {HeadingNode} from '@lexical/rich-text';
 import { areIdentical } from "../../utils/areObjectsIdentical";
 import { ElementNode } from "lexical";
 
@@ -15,7 +14,7 @@ const HEADING_NUMBERING_TEMPLATES = { // Always from the highest level to the lo
   3 : "{}.{}.{}   ",
 }
 
-function getNumberingString(num,style){
+function numberToString(num,style){
   if (style==="a") return String(num); // Arab numerals
   else if (num < 1 || num > 26) return null;
   else if (style.toLowerCase()==="alph"){ // Alphanumeric
@@ -48,11 +47,11 @@ export class NumberedHeadingNode extends ElementNode{
     return new NumberedHeadingNode(node.level,node.numbering,node.__key);
   }
 
-  getHeadingNumberingString(){
+  getNumberingString(){
     var s = HEADING_NUMBERING_TEMPLATES[this.level];
     for (let level = 1; level <= this.level; level++) {
       console.log(this.numbering);
-      s = s.replace("{}",this.numbering[level]?getNumberingString(this.numbering[level],HEADING_NUMBERING_STYLES[level]):"0");
+      s = s.replace("{}",this.numbering[level]?numberToString(this.numbering[level],HEADING_NUMBERING_STYLES[level]):"0");
     }
     return s;
   }
@@ -60,16 +59,16 @@ export class NumberedHeadingNode extends ElementNode{
   // View
 
   createDOM(config) {
-    console.log('create dom');
     const dom = document.createElement(this.__tag);
     dom.classList.add(config.theme.heading[this.__tag],config.theme.headingCommon);
 
     const numberingElement = document.createElement("span");
-    numberingElement.innerText = this.getHeadingNumberingString();
-    numberingElement.contentEditable = false;
+    numberingElement.textContent = this.getNumberingString();
+    numberingElement.setAttribute("contenteditable","false");
 
     const contentElement = document.createElement('span');
-    this.__contentDom = contentElement;
+    //this.__contentDom = contentElement;
+    contentElement.setAttribute("contenteditable","true");
 
     dom.appendChild(numberingElement);
     dom.appendChild(contentElement);
@@ -94,6 +93,12 @@ export class NumberedHeadingNode extends ElementNode{
       numbering:this.numbering
     };
   }
+
+  isEmpty() {
+    return false;
+  }
+
+  // Mutate
   
   insertNewAfter(_, restoreSelection) {
     const newBlock = $createParagraphNode();
@@ -110,12 +115,12 @@ export class NumberedHeadingNode extends ElementNode{
     this.replace(paragraph);
     return true;
   }
-
-  canBeEmpty() {
-    return true;
-  }
 }
 
 export function $createNumberedHeadingNode(headingLevel) {
   return $applyNodeReplacement(new NumberedHeadingNode(headingLevel,{}));
+}
+
+export function $isNumberedHeadingNode(node) {
+  return node instanceof NumberedHeadingNode;
 }
