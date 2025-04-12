@@ -49,6 +49,10 @@
     font-size: var(--fontsize-normal);
 }
 
+.editor-numbered-heading::before{
+    content: attr(numberingstring);
+}
+
 .editor-list-ul, .editor-list-ol{
     padding-inline-start: 2.4em;
     margin-block-start: 1.5ex;

@@ -50,7 +50,6 @@ export class NumberedHeadingNode extends ElementNode{
   getNumberingString(){
     var s = HEADING_NUMBERING_TEMPLATES[this.level];
     for (let level = 1; level <= this.level; level++) {
-      console.log(this.numbering);
       s = s.replace("{}",this.numbering[level]?numberToString(this.numbering[level],HEADING_NUMBERING_STYLES[level]):"0");
     }
     return s;
@@ -60,18 +59,8 @@ export class NumberedHeadingNode extends ElementNode{
 
   createDOM(config) {
     const dom = document.createElement(this.__tag);
-    dom.classList.add(config.theme.heading[this.__tag],config.theme.headingCommon);
-
-    const numberingElement = document.createElement("span");
-    numberingElement.textContent = this.getNumberingString();
-    numberingElement.setAttribute("contenteditable","false");
-
-    const contentElement = document.createElement('span');
-    //this.__contentDom = contentElement;
-    contentElement.setAttribute("contenteditable","true");
-
-    dom.appendChild(numberingElement);
-    dom.appendChild(contentElement);
+    dom.classList.add(config.theme.heading[this.__tag],config.theme.headingCommon,"editor-numbered-heading");
+    dom.setAttribute("numberingstring",this.getNumberingString());
     return dom;
   }
 
