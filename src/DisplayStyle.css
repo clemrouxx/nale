@@ -51,6 +51,7 @@
 
 .editor-numbered-heading::before{
     content: attr(numberingstring);
+    margin-right: 1em;
 }
 
 .editor-list-ul, .editor-list-ol{

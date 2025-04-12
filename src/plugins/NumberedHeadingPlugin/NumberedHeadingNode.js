@@ -3,15 +3,15 @@ import { areIdentical } from "../../utils/areObjectsIdentical";
 import { ElementNode } from "lexical";
 
 const HEADING_NUMBERING_STYLES = { // { <headingLevel> : <style> }
-  1 : "Roman",
+  1 : "a",
   2 : "Alph",
   3 : "alph",
 }
 
 const HEADING_NUMBERING_TEMPLATES = { // Always from the highest level to the lowest. { <headingLevel> : <template> }
-  1 : "{}   ",
-  2 : "{}.{}   ",
-  3 : "{}.{}.{}   ",
+  1 : "{}",
+  2 : "{}.{}",
+  3 : "{}.{}.{}",
 }
 
 function numberToString(num,style){
@@ -35,22 +35,27 @@ export class NumberedHeadingNode extends ElementNode{
   constructor(level, numbering, key) {
     super(key);
     this.__tag = `h${level}`;
-    this.level = level;
-    this.numbering = numbering; // Store heading numbering as node property
+    this.__level = level;
+    this.__numbering = numbering; // Store heading numbering as node property
   }
 
-  static getType() {
-    return 'numbered-heading';
-  }
+  static getType() { return 'numbered-heading'}
+  getLevel() { return this.__level }
+  getNumbering() { return this.__numbering }
+  getKey() { return this.__key }
 
   static clone(node) {
-    return new NumberedHeadingNode(node.level,node.numbering,node.__key);
+    return new NumberedHeadingNode(node.__level,node.__numbering,node.__key);
+  }
+
+  setNumbering(numbering){
+    this.getWritable().__numbering = structuredClone(numbering);
   }
 
   getNumberingString(){
-    var s = HEADING_NUMBERING_TEMPLATES[this.level];
-    for (let level = 1; level <= this.level; level++) {
-      s = s.replace("{}",this.numbering[level]?numberToString(this.numbering[level],HEADING_NUMBERING_STYLES[level]):"0");
+    var s = HEADING_NUMBERING_TEMPLATES[this.__level];
+    for (let level = 1; level <= this.__level; level++) {
+      s = s.replace("{}",this.__numbering[level]?numberToString(this.__numbering[level],HEADING_NUMBERING_STYLES[level]):"0");
     }
     return s;
   }
@@ -63,36 +68,27 @@ export class NumberedHeadingNode extends ElementNode{
     dom.setAttribute("numberingstring",this.getNumberingString());
     return dom;
   }
-
-  getContentDOM() {
-    return { element: this.__contentDom };
-  }
   
   updateDOM(prevNode, dom) {
-    return !areIdentical(this.numbering,prevNode.numbering);
+    return !areIdentical(this.__numbering,prevNode.__numbering);
   }
 
   static importJSON(serializedNode) {
-    return $createNumberedHeadingNode(serializedNode.level).updateFromJSON(serializedNode);
+    return $createNumberedHeadingNode(serializedNode.__level).updateFromJSON(serializedNode);
   }
 
   static exportJSON() {
     return {
       ...super.exportJSON(),
-      numbering:this.numbering
+      __level : this.__level,
     };
-  }
-
-  isEmpty() {
-    return false;
   }
 
   // Mutate
   
   insertNewAfter(_, restoreSelection) {
     const newBlock = $createParagraphNode();
-    const direction = this.getDirection();
-    newBlock.setDirection(direction);
+    newBlock.setDirection(this.getDirection());
     this.insertAfter(newBlock, restoreSelection);
     return newBlock;
   }
