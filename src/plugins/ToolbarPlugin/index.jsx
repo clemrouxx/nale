@@ -93,6 +93,7 @@ import {
     formatQuote,
     formatLatex,
   } from './utils';
+import { useDocumentOptions } from '../Options/DocumentOptionsContext';
 /*
 const rootTypeToRootName = {
   root: 'Root',
@@ -188,6 +189,7 @@ function BlockFormatDropDown({
   rootType,
   disabled = false,
 }){
+  const {documentOptions,_} = useDocumentOptions();
   return (
     <DropDown
       disabled={disabled}
@@ -208,7 +210,7 @@ function BlockFormatDropDown({
       </DropDownItem>
       <DropDownItem
         className={'item wide ' + dropDownActiveClass(blockType === 'h1')}
-        onClick={() => formatHeading(editor, blockType, 'h1')}>
+        onClick={() => formatHeading(editor, blockType, 'h1',documentOptions)}>
         <div className="icon-text-container">
           <i className="icon h1" />
           <span className="text">{blockTypeToBlockName["h1"]}</span>
@@ -217,7 +219,7 @@ function BlockFormatDropDown({
       </DropDownItem>
       <DropDownItem
         className={'item wide ' + dropDownActiveClass(blockType === 'h2')}
-        onClick={() => formatHeading(editor, blockType, 'h2')}>
+        onClick={() => formatHeading(editor, blockType, 'h2',documentOptions)}>
         <div className="icon-text-container">
           <i className="icon h2" />
           <span className="text">{blockTypeToBlockName["h2"]}</span>
@@ -226,7 +228,7 @@ function BlockFormatDropDown({
       </DropDownItem>
       <DropDownItem
         className={'item wide ' + dropDownActiveClass(blockType === 'h3')}
-        onClick={() => formatHeading(editor, blockType, 'h3')}>
+        onClick={() => formatHeading(editor, blockType, 'h3',documentOptions)}>
         <div className="icon-text-container">
           <i className="icon h3" />
           <span className="text">{blockTypeToBlockName["h3"]}</span>

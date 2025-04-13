@@ -1,13 +1,16 @@
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import Editor from "./LexicalEditor";
 import { initialConfig } from "./LexicalConfig";
+import { DocumentOptionsProvider } from "./plugins/Options/DocumentOptionsContext";
 
 function App() {
   return (
     <div className="App">
       <h1>My Lexical Editor</h1>
       <LexicalComposer initialConfig={initialConfig}>
-        <Editor />
+        <DocumentOptionsProvider>
+          <Editor />
+        </DocumentOptionsProvider>
       </LexicalComposer>
     </div>
   );
