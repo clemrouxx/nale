@@ -18,6 +18,7 @@ import { AutoNumberer } from './plugins/NumberedHeadingPlugin/AutoNumberer';
 import { DEFAULT_DOCUMENT_OPTIONS } from './plugins/Options/documentOptions';
 import { $isNumberedHeadingNode } from './plugins/NumberedHeadingPlugin/NumberedHeadingNode';
 import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
+import { setGlobalCSSRule } from './utils/generalUtils';
 
 function Editor() {
   const [editor] = useLexicalComposerContext();
@@ -27,6 +28,7 @@ function Editor() {
 
   const test = () => {
     setDocumentOptions({
+      global : {fontSize:7},
       headings : {
           numberingStyles : {1 : "a", 2 : "Alph", 3 : "alph"}, // { <headingLevel> : <style> }
           numberingTemplates : {1 : "{}", 2 : "{}.{}", 3 : "{}.{}.{}"}, // { <headingLevel> : <template> }
@@ -34,9 +36,13 @@ function Editor() {
     });
   }
 
-  useEffect(() => {
+  useEffect(() => { // Changed documentOptions
     if (!editor || !documentOptions) return;
-  
+
+    // CSS modifications
+    setGlobalCSSRule("#main-textbox",`--fontsize-normal: calc(var(--editor-scale)*${String(documentOptions.global.fontSize)}pt);`)
+    
+    // Direct node modifications
     editor.update(()=>{
       const root = $getRoot();
       const visit = (node) => {
@@ -51,9 +57,8 @@ function Editor() {
       };
       visit(root);
     });
-  }, [documentOptions, editor]);
 
-  
+  }, [documentOptions]);
 
   return (
     <>

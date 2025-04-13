@@ -1,7 +1,7 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { NumberedHeadingNode } from "./NumberedHeadingNode";
 import { $getRoot } from "lexical";
-import { areIdentical } from "../../utils/areObjectsIdentical";
+import { areIdentical } from "../../utils/generalUtils";
 
 export function AutoNumberer(){
     const [editor] = useLexicalComposerContext();

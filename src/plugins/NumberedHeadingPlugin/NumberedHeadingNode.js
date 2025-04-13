@@ -1,5 +1,5 @@
 import { $applyNodeReplacement,$createParagraphNode } from "lexical";
-import { areIdentical } from "../../utils/areObjectsIdentical";
+import { areIdentical } from "../../utils/generalUtils";
 import { ElementNode } from "lexical";
 import { DEFAULT_DOCUMENT_OPTIONS } from "../Options/documentOptions";
 
