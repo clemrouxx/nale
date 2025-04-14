@@ -19,7 +19,7 @@ import { DEFAULT_DOCUMENT_OPTIONS } from './plugins/Options/documentOptions';
 import { $isNumberedHeadingNode } from './plugins/NumberedHeadingPlugin/NumberedHeadingNode';
 import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
 import { setGlobalCSSRule } from './utils/generalUtils';
-import { OptionsPanel } from './plugins/Options/OptionsPanel';
+import { AutoOptionsPanel, OptionsPanel } from './plugins/Options/OptionsPanel';
 
 function Editor() {
   const [editor] = useLexicalComposerContext();
@@ -69,7 +69,7 @@ function Editor() {
 
   return (
     <>
-      <OptionsPanel category={"global"}/>
+      <AutoOptionsPanel/>
       <ToolbarContext>
         <ToolbarPlugin
             editor={editor}

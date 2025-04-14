@@ -1,4 +1,23 @@
+import { act } from "react";
+import { useActiveNode } from "../../utils/lexicalUtils";
 import { useDocumentOptions } from "./DocumentOptionsContext";
+
+const OPTIONS_CATEGORY_PER_NODETYPE = {
+    paragraph : "paragraphs",
+}
+
+export function AutoOptionsPanel() { // Automatically chooses the relevant options category to show
+    const { activeNode, activeNodeParent } = useActiveNode();
+    var category = "global";
+    if (activeNode){
+        var nodeType = activeNode.getType();
+        if (nodeType==="text") nodeType = activeNodeParent.getType(); // Go up one node in this case
+        if (nodeType in OPTIONS_CATEGORY_PER_NODETYPE){
+            category = OPTIONS_CATEGORY_PER_NODETYPE[nodeType];
+        }
+    }
+    return (<OptionsPanel category={category}/>);
+}
 
 export function OptionsPanel({category}) {
     const {documentOptions,setDocumentOptions} = useDocumentOptions();
