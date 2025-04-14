@@ -4,9 +4,11 @@
     background-color: white;
     color: black;
 
+    --fontsize-base : 10pt;
+
     --editor-scale : 1.5;
 
-    --fontsize-normal: calc(var(--editor-scale)*10pt);
+    --fontsize-normal: calc(var(--editor-scale)*var(--fontsize-base));
     --fontsize-large: calc(var(--fontsize-normal)*1.2);
     --fontsize-Large: calc(var(--fontsize-large)*1.2);
     --fontsize-LARGE: calc(var(--fontsize-Large)*1.2);
@@ -19,11 +21,12 @@
 }
 
 .editor-paragraph{
+    --paragraph-indent : 1.5em;
     margin-block: 0;
 }
 
 .editor-paragraph + .editor-paragraph{
-    text-indent: 1.5em;
+    text-indent: var(--paragraph-indent);
 }
 
 .editor-heading{

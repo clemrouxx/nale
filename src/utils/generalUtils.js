@@ -4,7 +4,7 @@ export function areIdentical(obj1,obj2){
 
 const dynamicStylesMap = new Map();
 
-export function setGlobalCSSRule(selector, rule) {
+export function setGlobalCSSRule(selector, key, value) {
   let styleSheet = document.getElementById('dynamic-styles');
 
   if (!styleSheet) {
@@ -21,11 +21,11 @@ export function setGlobalCSSRule(selector, rule) {
   if (index !== undefined) {
     // Update existing rule
     styleSheet.deleteRule(index);
-    styleSheet.insertRule(`${selector} { ${rule} }`, index);
+    styleSheet.insertRule(`${selector} { ${key} : ${value}; }`, index);
   } else {
     // Add new rule
     const newIndex = styleSheet.cssRules.length;
-    styleSheet.insertRule(`${selector} { ${rule} }`, newIndex);
+    styleSheet.insertRule(`${selector} { ${key} : ${value} }`, newIndex);
     dynamicStylesMap.set(selector, newIndex);
   }
 }

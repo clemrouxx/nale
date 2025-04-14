@@ -32,15 +32,21 @@ function Editor() {
       headings : {
           numberingStyles : {1 : "a", 2 : "Alph", 3 : "alph"}, // { <headingLevel> : <style> }
           numberingTemplates : {1 : "{}", 2 : "{}.{}", 3 : "{}.{}.{}"}, // { <headingLevel> : <template> }
-      }
+      },
+      paragraphs : {indentFirst:true},
     });
+  }
+
+  const updateDocumentCSS = () => { // Update CSS when documentOptions is modified
+    setGlobalCSSRule("#main-textbox","--fontsize-base",`${String(documentOptions.global.fontSize)}pt`);
+    setGlobalCSSRule(".editor-paragraph","text-indent",documentOptions.paragraphs.indentFirst?"var(--paragraph-indent)":"");
   }
 
   useEffect(() => { // Changed documentOptions
     if (!editor || !documentOptions) return;
 
     // CSS modifications
-    setGlobalCSSRule("#main-textbox",`--fontsize-normal: calc(var(--editor-scale)*${String(documentOptions.global.fontSize)}pt);`)
+    updateDocumentCSS();
     
     // Direct node modifications
     editor.update(()=>{
