@@ -35,7 +35,7 @@ export function OptionsPanel({category}) {
         setDocumentOptions(newOptions);
     }
 
-    const handleSelectChange = (event,option) => {
+    const handleInputChange = (event,option) => {
         if (!option) option = event.target.name;
         setOption(option,event.target.value);
     }
@@ -57,7 +57,7 @@ export function OptionsPanel({category}) {
                         <select 
                             name="fontSize"
                             value={documentOptions.global.fontSize}
-                            onChange={handleSelectChange}
+                            onChange={handleInputChange}
                         >
                             <option value="10">10pt</option>
                             <option value="11">11pt</option>
@@ -85,7 +85,6 @@ export function OptionsPanel({category}) {
             );
             break;
         case "headings":
-            const HEADING_NAME_FROM_LEVEL = {1:"Section",2:"Subsection",3:"Subsubsection"};
             inner =  (
                 <>
                     <h4>Headings options</h4>
@@ -97,7 +96,7 @@ export function OptionsPanel({category}) {
                                 <select 
                                     name={`numberingStyles-${index+1}`}
                                     value={documentOptions.headings.numberingStyles[index+1]}
-                                    onChange={handleSelectChange}
+                                    onChange={handleInputChange}
                                 >
                                     <option value="a">Numeric</option>
                                     <option value="Alph">Letter</option>
@@ -107,7 +106,20 @@ export function OptionsPanel({category}) {
                                 </select>
                             </span>
                         ))}
-                        
+                    </div>
+                    <div>
+                        <h5>Numbering templates</h5>
+                        {["Section","Subsection","Subsubsection"].map((name, index) => (
+                            <span>
+                                <label htmlFor={`numberingTemplates-${index+1}`}>{name}: </label>
+                                <input
+                                type="text"
+                                name={`numberingTemplates-${index+1}`}
+                                value={documentOptions.headings.numberingTemplates[index+1]}
+                                onChange={handleInputChange}
+                                />
+                          </span>
+                        ))}
                     </div>
                 </>
             );
