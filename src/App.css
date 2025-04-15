@@ -18,3 +18,7 @@
 .options-panel>*{
   padding: 0.5em;
 }
+
+.options-panel>div>span{
+  margin: 0.2em;
+}

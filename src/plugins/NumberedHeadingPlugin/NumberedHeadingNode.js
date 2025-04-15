@@ -50,9 +50,10 @@ export class NumberedHeadingNode extends ElementNode{
 
   getNumberingString(){
     if (!this.__headings_options) return "ERROR";
+    const replacedStrings = {1:"{S}",2:"{sS}",3:"{ssS}"};
     var s = this.__headings_options.numberingTemplates[this.__level];
     for (let level = 1; level <= this.__level; level++) {
-      s = s.replace("{}",this.__numbering[level]?numberToString(this.__numbering[level],this.__headings_options.numberingStyles[level]):"0");
+      s = s.replaceAll(replacedStrings[level],this.__numbering[level]?numberToString(this.__numbering[level],this.__headings_options.numberingStyles[level]):"0");
     }
     return s;
   }

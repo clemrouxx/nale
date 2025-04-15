@@ -3,6 +3,7 @@ import { useDocumentOptions } from "./DocumentOptionsContext";
 
 const OPTIONS_CATEGORY_PER_NODETYPE = {
     paragraph : "paragraphs",
+    "numbered-heading":"headings",
 }
 
 export function AutoOptionsPanel() { // Automatically chooses the relevant options category to show
@@ -23,13 +24,15 @@ export function OptionsPanel({category}) {
     const {documentOptions,setDocumentOptions} = useDocumentOptions();
 
     const setOption = (option,value) => {
-        setDocumentOptions({
-            ...documentOptions,
-            [category]: {
-              ...documentOptions[category],
-              [option]: value,
-            }
-        });
+        var newOptions = structuredClone(documentOptions);
+        if (option.split("-")[1]){ // Suboption
+            const [main_option,key] = option.split("-");
+            newOptions[category][main_option][key] = value;
+        }
+        else{
+            newOptions[category][option] = value;
+        }
+        setDocumentOptions(newOptions);
     }
 
     const handleSelectChange = (event,option) => {
@@ -78,6 +81,34 @@ export function OptionsPanel({category}) {
                     />
                     Indent first paragraph
                 </label>
+                </>
+            );
+            break;
+        case "headings":
+            const HEADING_NAME_FROM_LEVEL = {1:"Section",2:"Subsection",3:"Subsubsection"};
+            inner =  (
+                <>
+                    <h4>Headings options</h4>
+                    <div>
+                        <h5>Numbering styles</h5>
+                        {["Section","Subsection","Subsubsection"].map((name, index) => (
+                            <span key={index}>
+                                <label htmlFor={`numberingStyles-${index+1}`}>{name}: </label>
+                                <select 
+                                    name={`numberingStyles-${index+1}`}
+                                    value={documentOptions.headings.numberingStyles[index+1]}
+                                    onChange={handleSelectChange}
+                                >
+                                    <option value="a">Numeric</option>
+                                    <option value="Alph">Letter</option>
+                                    <option value="alph">Lowercase letter</option>
+                                    <option value="Roman">Roman</option>
+                                    <option value="roman">Lowercase roman</option>
+                                </select>
+                            </span>
+                        ))}
+                        
+                    </div>
                 </>
             );
             break;
