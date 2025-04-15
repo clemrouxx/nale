@@ -6,7 +6,7 @@ import { DocumentOptionsProvider } from "./plugins/Options/DocumentOptionsContex
 function App() {
   return (
     <div className="App">
-      <h1>My Lexical Editor</h1>
+      <h1>Not a LaTeX editor</h1>
       <LexicalComposer initialConfig={initialConfig}>
         <DocumentOptionsProvider>
           <Editor />

@@ -1,4 +1,3 @@
-import { act } from "react";
 import { useActiveNode } from "../../utils/lexicalUtils";
 import { useDocumentOptions } from "./DocumentOptionsContext";
 
@@ -16,7 +15,8 @@ export function AutoOptionsPanel() { // Automatically chooses the relevant optio
             category = OPTIONS_CATEGORY_PER_NODETYPE[nodeType];
         }
     }
-    return (<OptionsPanel category={category}/>);
+    if (category==="global") return (<OptionsPanel category={"global"}/>);
+    else return (<><OptionsPanel category={category}/><OptionsPanel category={"global"}/></>);
 }
 
 export function OptionsPanel({category}) {
@@ -42,24 +42,32 @@ export function OptionsPanel({category}) {
         setOption(option,event.target.checked);
     }
 
+    var inner = (<></>);
+
     switch (category){
         case "global":
-            return (
-                <div>
-                  <label htmlFor="fontSize">Font Size: </label>
-                  <select 
-                    name="fontSize"
-                    value={documentOptions.global.fontSize}
-                    onChange={handleSelectChange}
-                  >
-                    <option value="10">10pt</option>
-                    <option value="11">11pt</option>
-                    <option value="12">12pt</option>
-                  </select>
-                </div>
+            inner =  (
+                <>
+                    <h4>Global options</h4>
+                    <div>
+                        <label htmlFor="fontSize">Font Size: </label>
+                        <select 
+                            name="fontSize"
+                            value={documentOptions.global.fontSize}
+                            onChange={handleSelectChange}
+                        >
+                            <option value="10">10pt</option>
+                            <option value="11">11pt</option>
+                            <option value="12">12pt</option>
+                        </select>
+                    </div>
+                </>
             );
+            break;
         case "paragraphs":
-            return (
+            inner = (
+                <>
+                <h4>Paragraph options</h4>
                 <label htmlFor="indentFirst">
                     <input 
                     type="checkbox"
@@ -70,6 +78,9 @@ export function OptionsPanel({category}) {
                     />
                     Indent first paragraph
                 </label>
+                </>
             );
+            break;
     }
+    return (<div className="options-panel">{inner}</div>);
 }

@@ -1,5 +1,20 @@
 
+
 #main-textbox{
-  border: 2px solid red;
   padding: 0 1rem;
+}
+
+.options-panel{
+  margin: 0.5em 0;
+  background-color: darkgreen;
+}
+
+.options-panel h4{
+  margin-block: 0.2em;
+  background-color: green;
+  padding: 0.1em 0.5em;
+}
+
+.options-panel>*{
+  padding: 0.5em;
 }

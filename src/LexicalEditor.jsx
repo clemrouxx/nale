@@ -9,13 +9,12 @@ import {ContentEditable} from '@lexical/react/LexicalContentEditable';
 import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
 import {LexicalErrorBoundary} from '@lexical/react/LexicalErrorBoundary';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
-import {$convertFromMarkdownString, TRANSFORMERS} from '@lexical/markdown';
+import {TRANSFORMERS} from '@lexical/markdown';
 
 import ExportButton from './ActionBar';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
 import { ToolbarContext } from './context/ToolbarContext';
 import { AutoNumberer } from './plugins/NumberedHeadingPlugin/AutoNumberer';
-import { DEFAULT_DOCUMENT_OPTIONS } from './plugins/Options/documentOptions';
 import { $isNumberedHeadingNode } from './plugins/NumberedHeadingPlugin/NumberedHeadingNode';
 import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
 import { setGlobalCSSRule } from './utils/generalUtils';
@@ -25,18 +24,7 @@ function Editor() {
   const [editor] = useLexicalComposerContext();
   const [activeEditor, setActiveEditor] = useState(editor);
   const [isLinkEditMode, setIsLinkEditMode] = useState(false);
-  const {documentOptions,setDocumentOptions} = useDocumentOptions();
-
-  const test = () => {
-    setDocumentOptions({
-      global : {fontSize:7},
-      headings : {
-          numberingStyles : {1 : "a", 2 : "Alph", 3 : "alph"}, // { <headingLevel> : <style> }
-          numberingTemplates : {1 : "{}", 2 : "{}.{}", 3 : "{}.{}.{}"}, // { <headingLevel> : <template> }
-      },
-      paragraphs : {indentFirst:true},
-    });
-  }
+  const {documentOptions} = useDocumentOptions();
 
   const updateDocumentCSS = () => { // Update CSS when documentOptions is modified
     setGlobalCSSRule("#main-textbox","--fontsize-base",`${String(documentOptions.global.fontSize)}pt`);
@@ -95,7 +83,6 @@ function Editor() {
       <AutoNumberer />
       
       <ExportButton />
-      <button onClick={test}>Test</button>
     </>
   );
 }
