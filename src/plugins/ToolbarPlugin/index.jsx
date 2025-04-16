@@ -36,6 +36,7 @@ import {
   $getNodeByKey,
   $getRoot,
   $getSelection,
+  $insertNodes,
   $isElementNode,
   $isRangeSelection,
   $isRootOrShadowRoot,
@@ -44,6 +45,7 @@ import {
   COMMAND_PRIORITY_CRITICAL,
   REDO_COMMAND,
   SELECTION_CHANGE_COMMAND,
+  TextNode,
   UNDO_COMMAND,
 } from 'lexical';
 import {Dispatch, useCallback, useEffect, useState} from 'react';
@@ -52,7 +54,7 @@ import * as React from 'react';
 import {
   blockTypeToBlockName,
   useToolbarState,
-} from '../../context/ToolbarContext';
+} from './ToolbarContext';
 import DropDown, {DropDownItem} from '../../ui/DropDown';
 //import useModal from '../../hooks/useModal';
 import {getSelectedNode} from '../../utils/getSelectedNode';
@@ -94,6 +96,7 @@ import {
     formatLatex,
   } from './utils';
 import { useDocumentOptions } from '../Options/DocumentOptionsContext';
+import { ReferenceNode,insertReferenceNode } from '../../nodes/ReferenceNode';
 /*
 const rootTypeToRootName = {
   root: 'Root',
@@ -762,7 +765,13 @@ export default function ToolbarPlugin({
           <Divider />
         </>
       )}
-      </div>
+
+    <button onClick={() => {
+        insertReferenceNode(editor);
+      }}>
+      Insert reference example
+    </button>
+    </div>
     /*
     {toolbarState.blockType === 'code' ? (
       <DropDown

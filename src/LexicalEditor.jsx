@@ -13,7 +13,7 @@ import {TRANSFORMERS} from '@lexical/markdown';
 
 import ExportButton from './ActionBar';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
-import { ToolbarContext } from './context/ToolbarContext';
+import { ToolbarContext } from './plugins/ToolbarPlugin/ToolbarContext';
 import { AutoNumberer } from './plugins/NumberedHeadingPlugin/AutoNumberer';
 import { $isNumberedHeadingNode } from './plugins/NumberedHeadingPlugin/NumberedHeadingNode';
 import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
