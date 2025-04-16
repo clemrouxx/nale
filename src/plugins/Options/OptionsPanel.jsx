@@ -8,7 +8,7 @@ const OPTIONS_CATEGORY_PER_NODETYPE = {
 
 export function AutoOptionsPanel() { // Automatically chooses the relevant options category to show
     const { activeNode, activeNodeParent } = useActiveNode();
-    var category = "global";
+    var category = "general";
     if (activeNode){
         var nodeType = activeNode.getType();
         if (nodeType==="text") nodeType = activeNodeParent.getType(); // Go up one node in this case
@@ -16,8 +16,13 @@ export function AutoOptionsPanel() { // Automatically chooses the relevant optio
             category = OPTIONS_CATEGORY_PER_NODETYPE[nodeType];
         }
     }
-    if (category==="global") return (<OptionsPanel category={"global"}/>);
-    else return (<div className="side-panel"><OptionsPanel category={category}/><OptionsPanel category={"global"}/></div>);
+    return (
+        <div className="side-panel">
+            <h3>Global options</h3>
+            {category!=="general"&&<OptionsPanel category={category}/>}
+            <OptionsPanel category={"general"}/>
+        </div>
+    );
 }
 
 export function OptionsPanel({category}) {
@@ -48,15 +53,15 @@ export function OptionsPanel({category}) {
     var inner = (<></>);
 
     switch (category){
-        case "global":
+        case "general":
             inner =  (
                 <>
-                    <h4>Global options</h4>
+                    <h4>General options</h4>
                     <div>
                         <label htmlFor="fontSize">Font Size: </label>
                         <select 
                             name="fontSize"
-                            value={documentOptions.global.fontSize}
+                            value={documentOptions.general.fontSize}
                             onChange={handleInputChange}
                         >
                             <option value="10">10pt</option>

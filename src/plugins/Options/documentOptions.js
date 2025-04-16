@@ -1,6 +1,6 @@
 
 export const DEFAULT_DOCUMENT_OPTIONS = {
-    global : {
+    general : {
         fontSize : 12, // Main font size
     },
     headings : {
