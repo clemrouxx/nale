@@ -56,34 +56,36 @@ function Editor() {
   }, [documentOptions]);
 
   return (
-    <>
+    <div className='horizontal-layout'>
       <AutoOptionsPanel/>
-      <ToolbarContext>
-        <ToolbarPlugin
-            editor={editor}
-            activeEditor={activeEditor}
-            setActiveEditor={setActiveEditor}
-            setIsLinkEditMode={setIsLinkEditMode}
+      <div className='editor-block'>
+        <ToolbarContext>
+          <ToolbarPlugin
+              editor={editor}
+              activeEditor={activeEditor}
+              setActiveEditor={setActiveEditor}
+              setIsLinkEditMode={setIsLinkEditMode}
+            />
+        </ToolbarContext>
+          <RichTextPlugin
+            contentEditable={
+              <ContentEditable
+                aria-placeholder={""}
+                placeholder={<></>}
+                id='main-textbox'
+                spellCheck={false}
+              />
+            }
+            ErrorBoundary={LexicalErrorBoundary}
           />
-      </ToolbarContext>
-      <RichTextPlugin
-        contentEditable={
-          <ContentEditable
-            aria-placeholder={""}
-            placeholder={<></>}
-            id='main-textbox'
-            spellCheck={false}
-          />
-        }
-        ErrorBoundary={LexicalErrorBoundary}
-      />
-      <HistoryPlugin />
-      <AutoFocusPlugin />
-      <MarkdownShortcutPlugin transformers={TRANSFORMERS}/>
-      <AutoNumberer />
-      
-      <ExportButton />
-    </>
+        <HistoryPlugin />
+        <AutoFocusPlugin />
+        <MarkdownShortcutPlugin transformers={TRANSFORMERS}/>
+        <AutoNumberer />
+        
+        <ExportButton />
+      </div>
+    </div>
   );
 }
 

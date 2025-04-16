@@ -17,7 +17,7 @@ export function AutoOptionsPanel() { // Automatically chooses the relevant optio
         }
     }
     if (category==="global") return (<OptionsPanel category={"global"}/>);
-    else return (<><OptionsPanel category={category}/><OptionsPanel category={"global"}/></>);
+    else return (<div className="side-panel"><OptionsPanel category={category}/><OptionsPanel category={"global"}/></div>);
 }
 
 export function OptionsPanel({category}) {
@@ -91,26 +91,26 @@ export function OptionsPanel({category}) {
                     <div>
                         <h5>Numbering styles</h5>
                         {["Section","Subsection","Subsubsection"].map((name, index) => (
-                            <span key={index}>
+                            <div key={index}>
                                 <label htmlFor={`numberingStyles-${index+1}`}>{name}: </label>
                                 <select 
                                     name={`numberingStyles-${index+1}`}
                                     value={documentOptions.headings.numberingStyles[index+1]}
                                     onChange={handleInputChange}
                                 >
-                                    <option value="a">Numeric</option>
-                                    <option value="Alph">Letter</option>
-                                    <option value="alph">Lowercase letter</option>
-                                    <option value="Roman">Roman</option>
-                                    <option value="roman">Lowercase roman</option>
+                                    <option value="a">1, 2, 3</option>
+                                    <option value="Alph">A, B, C</option>
+                                    <option value="alph">a, b, c</option>
+                                    <option value="Roman">I, II, III</option>
+                                    <option value="roman">i, ii, iii</option>
                                 </select>
-                            </span>
+                            </div>
                         ))}
                     </div>
-                    <div>
+                    <div className="options-headings-numbering-templates">
                         <h5>Numbering templates</h5>
                         {["Section","Subsection","Subsubsection"].map((name, index) => (
-                            <span>
+                            <div>
                                 <label htmlFor={`numberingTemplates-${index+1}`}>{name}: </label>
                                 <input
                                 type="text"
@@ -118,7 +118,7 @@ export function OptionsPanel({category}) {
                                 value={documentOptions.headings.numberingTemplates[index+1]}
                                 onChange={handleInputChange}
                                 />
-                          </span>
+                          </div>
                         ))}
                     </div>
                 </>

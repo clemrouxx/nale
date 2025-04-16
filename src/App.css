@@ -1,24 +1,44 @@
-
-
 #main-textbox{
   padding: 0 1rem;
+  display: flow-root;
+}
+
+.horizontal-layout{
+  display: flex;
+  width: 100%;
+}
+
+.horizontal-layout>*{
+  margin: 0 0.3em;
+}
+
+.side-panel{
+  width: 15em;
+}
+
+.editor-block{
+  flex-grow: 1;
 }
 
 .options-panel{
-  margin: 0.5em 0;
   background-color: darkgreen;
+  margin-bottom: 0.5em;
 }
 
 .options-panel h4{
-  margin-block: 0.2em;
+  margin-block: 0 0.2em;
   background-color: green;
   padding: 0.1em 0.5em;
 }
 
 .options-panel>*{
-  padding: 0.5em;
+  padding: 0.1em 0.5em;
 }
 
 .options-panel>div>span{
   margin: 0.2em;
+}
+
+.options-headings-numbering-templates input{
+  width: 7em;
 }
