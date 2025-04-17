@@ -97,6 +97,7 @@ import {
   } from './utils';
 import { useDocumentOptions } from '../Options/DocumentOptionsContext';
 import { ReferenceNode,insertReferenceNode } from '../../nodes/ReferenceNode';
+import { InsertReferenceButton } from '../NumberedHeadingPlugin/InsertReferenceButton.jsx';
 /*
 const rootTypeToRootName = {
   root: 'Root',
@@ -766,11 +767,8 @@ export default function ToolbarPlugin({
         </>
       )}
 
-    <button onClick={() => {
-        insertReferenceNode(editor);
-      }}>
-      Insert reference example
-    </button>
+    <InsertReferenceButton/>
+
     </div>
     /*
     {toolbarState.blockType === 'code' ? (

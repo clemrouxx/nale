@@ -22,8 +22,7 @@ export class ReferenceNode extends DecoratorNode {
   
   createDOM(config) {
     const dom = document.createElement("span");
-    dom.style.backgroundColor = '#e8f0fe';
-    dom.style.color = '#1a73e8';
+    dom.classList.add("editor-reference-heading");
     return dom;
   }
 
@@ -32,16 +31,16 @@ export class ReferenceNode extends DecoratorNode {
   };
 
   decorate(){
-    return `${this.__text}(${this.__reference_key})`;
+    return `${this.__text}`;
   }
 }
 
-export function insertReferenceNode(editor) { // To improve
+export function insertReferenceNode(editor,referenceKey) { // To improve
   editor.update(() => {
     const selection = $getSelection();
     
     if (selection) {
-      const nodeToInsert = new ReferenceNode("3");
+      const nodeToInsert = new ReferenceNode(referenceKey);
       selection.insertNodes([nodeToInsert]);
     }
   });

@@ -67,6 +67,10 @@
     margin-block-start: 1.4ex;
 }
 
+.editor-reference-heading{
+    font-weight: bold;
+}
+
 .editor-latex{
     background-color: lightgreen;
     font-family: Helvetica, sans-serif;
