@@ -1,47 +1,47 @@
-import { $getSelection, TextNode } from 'lexical';
+import { $getSelection, TextNode, DecoratorNode } from 'lexical';
 
-export class ReferenceNode extends TextNode {
-  // Define the type of the node
-  static getType() {
-    return 'simple-non-editable';
+export class ReferenceNode extends DecoratorNode {
+  static getType() {return 'reference-heading'}
+
+  constructor(referenceKey,key) {
+    super(key);
+    this.__reference_key = referenceKey;
+    this.__text = "?";
   }
 
-  // Clone function - required for all nodes
   static clone(node) {
-    return new ReferenceNode(node.__key);
+    return new ReferenceNode(node.__reference_key,node.__key);
   }
 
-  // Constructor
-  constructor(key) {
-    super("Test",key);
+  setText(text){
+    this.getWritable().__text = text;
   }
 
-  // Make it visually distinct
+  getReferenceKey(){return this.__reference_key}
+  getText(){return this.__text}
+  
   createDOM(config) {
-    const dom = super.createDOM(config);
+    const dom = document.createElement("span");
     dom.style.backgroundColor = '#e8f0fe';
     dom.style.color = '#1a73e8';
     return dom;
   }
 
-  canInsertTextAfter() {return false}
-  canInsertTextBefore() {return false}
-  isSegmented() {return false} // ?
-  isSimpleText() {return false}
-  // isTextEntity(){return false}
-  // isToken(){return true} // Deleted as 1
-  isUnmergeable(){return true}
-  // spliceText, splitText
+  updateDOM(prevNode, dom){
+    return prevNode.__text!==this.__text
+  };
 
+  decorate(){
+    return `${this.__text}(${this.__reference_key})`;
+  }
 }
 
-export function insertReferenceNode(editor) {
+export function insertReferenceNode(editor) { // To improve
   editor.update(() => {
     const selection = $getSelection();
     
     if (selection) {
-      // Create the node within this editor update
-      const nodeToInsert = new ReferenceNode();
+      const nodeToInsert = new ReferenceNode("3");
       selection.insertNodes([nodeToInsert]);
     }
   });

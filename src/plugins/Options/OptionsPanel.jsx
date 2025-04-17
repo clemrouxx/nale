@@ -18,6 +18,7 @@ export function AutoOptionsPanel() { // Automatically chooses the relevant optio
     }
     return (
         <div className="side-panel">
+            {nodeType}
             <h3>Global options</h3>
             {category!=="general"&&<OptionsPanel category={category}/>}
             <OptionsPanel category={"general"}/>

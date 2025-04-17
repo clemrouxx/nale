@@ -31,7 +31,8 @@ function Editor() {
     setGlobalCSSRule(".editor-paragraph","text-indent",documentOptions.paragraphs.indentFirst?"var(--paragraph-indent)":"");
   }
 
-  useEffect(() => { // Changed documentOptions
+  // Changed documentOptions
+  useEffect(() => { 
     if (!editor || !documentOptions) return;
 
     // CSS modifications
@@ -40,7 +41,7 @@ function Editor() {
     // Direct node modifications
     editor.update(()=>{
       const root = $getRoot();
-      const visit = (node) => {
+      const visit = (node) => { // Can be simplified : no recursion needed
           if ($isNumberedHeadingNode(node)) {
             node.setDocumentOptions(documentOptions);
           }
