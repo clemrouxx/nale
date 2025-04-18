@@ -7,15 +7,15 @@ import { insertReferenceNode } from '../../nodes/ReferenceNode';
 export function InsertReferenceButton() {
   const [editor] = useLexicalComposerContext();
   const [showHeadingsModal, setShowHeadingsModal] = useState(false);
-  const [headingsInfo,setHeadingsInfo] = useState({});
+  const [headings,setHeadings] = useState([]);
   
   return (
     <>
-      <AutoNumberer headingsInfo={headingsInfo} setHeadingsInfo={setHeadingsInfo}/>
+      <AutoNumberer headings={headings} setHeadings={setHeadings}/>
       
-      <DropDown disabled={Object.keys(headingsInfo).length===0} buttonLabel={"Reference"}>
-        {Object.entries(headingsInfo).map(([key, info]) => (
-            <DropDownItem key={key} onClick={() => insertReferenceNode(editor,key)}>
+      <DropDown disabled={Object.keys(headings).length===0} buttonLabel={"Insert reference"} buttonClassName={"toolbar-item"}>
+        {headings.map((info) => (
+            <DropDownItem key={info.key} onClick={() => insertReferenceNode(editor,info.key)} className={"item"}>
               {info.numberingString} - {info.textContent}
             </DropDownItem>
           ))}
