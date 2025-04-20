@@ -22,7 +22,7 @@ function convertToLatex(node){
             if (node.hasFormat(format)) string = putInCommand(string,TEXT_FORMAT_COMMANDS[format]);
         }
     }
-    else{
+    else if (node.getChildren){
         string += node.getChildren().map(convertToLatex).join('');
     }
     switch (node.getType()){
@@ -34,8 +34,14 @@ function convertToLatex(node){
             string += "\n";
             break;
         case "heading":
-            const index = node.getTag()[1]-1;
+            let index = node.getTag()[1]-1;
             string = putInCommand(string,HEADING_COMMANDS[index])+"\n";
+            break;
+        case "numbered-heading":
+            let tagIndex = node.getLevel()-1;
+            string = putInCommand(string,HEADING_COMMANDS[tagIndex]);
+            string += putInCommand(node.getKey(),"\\label");
+            string += "\n";
             break;
         case "list":
             string = putInEnvironment(string,node.getTag()==="ul"?"itemize":"enumerate");
@@ -43,6 +49,8 @@ function convertToLatex(node){
         case "listitem":
             string = "\t\\item " + string + "\n";
             break;
+        case "reference-heading":
+            string += putInCommand(node.getReferenceKey(),"\\ref");
         default:
             console.log("Node type : ", node.getType());
             break;

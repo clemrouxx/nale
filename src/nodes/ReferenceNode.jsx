@@ -6,7 +6,7 @@ export class ReferenceNode extends DecoratorNode {
   constructor(referenceKey,key) {
     super(key);
     this.__reference_key = referenceKey;
-    this.__text = "?";
+    this.__text = "??";
   }
 
   static clone(node) {

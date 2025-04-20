@@ -33,7 +33,7 @@ export function AutoNumberer(ref){
             const visit = (node) => {
                 if (node.getType()==="reference-heading") {
                     let info = newheadings.find((elmt)=>(elmt.key===node.getReferenceKey()))
-                    var text = info ? info.numberingString : "?";
+                    var text = info ? info.numberingString : "??";
                     if (node.getText() !== text){
                         node.setText(text);
                     }
