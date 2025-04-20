@@ -13,8 +13,16 @@ export class ReferenceNode extends DecoratorNode {
     return new ReferenceNode(node.__reference_key,node.__key);
   }
 
-  setText(text){
+  __setText(text){
     this.getWritable().__text = text;
+  }
+
+  updateText(numberedHeadings){
+    let info = numberedHeadings.find((elmt)=>(elmt.key===this.getReferenceKey()))
+    var text = info ? info.numberingString : "??";
+    if (this.getText() !== text){
+      this.__setText(text);
+    }
   }
 
   getReferenceKey(){return this.__reference_key}
