@@ -2,8 +2,10 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { NumberedHeadingNode } from "./NumberedHeadingNode";
 import { $getRoot } from "lexical";
 import { areIdentical } from "../../utils/generalUtils";
+import { useDocumentStructureContext } from "./DocumentStructureContext";
 
-export function AutoNumberer({headings,setHeadings},ref){
+export function AutoNumberer(ref){
+    const {setNumberedHeadings} = useDocumentStructureContext();
     const [editor] = useLexicalComposerContext();
     
     editor.registerUpdateListener(() => {
@@ -25,7 +27,7 @@ export function AutoNumberer({headings,setHeadings},ref){
                 }
             });
 
-            setHeadings(newheadings);
+            setNumberedHeadings(newheadings);
 
             // Then, we look for all the reference nodes
             const visit = (node) => {

@@ -19,6 +19,7 @@ import { $isNumberedHeadingNode } from './plugins/NumberedHeadingPlugin/Numbered
 import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
 import { setGlobalCSSRule } from './utils/generalUtils';
 import { AutoOptionsPanel, OptionsPanel } from './plugins/Options/OptionsPanel';
+import { DocumentStructureProvider } from './plugins/NumberedHeadingPlugin/DocumentStructureContext';
 
 function Editor() {
   const [editor] = useLexicalComposerContext();
@@ -60,6 +61,7 @@ function Editor() {
     <div className='horizontal-layout'>
       <AutoOptionsPanel/>
       <div className='editor-block'>
+        <DocumentStructureProvider>
         <ToolbarContext>
           <ToolbarPlugin
               editor={editor}
@@ -68,22 +70,24 @@ function Editor() {
               setIsLinkEditMode={setIsLinkEditMode}
             />
         </ToolbarContext>
-          <RichTextPlugin
-            contentEditable={
-              <ContentEditable
-                aria-placeholder={""}
-                placeholder={<></>}
-                id='main-textbox'
-                spellCheck={false}
-              />
-            }
-            ErrorBoundary={LexicalErrorBoundary}
-          />
+        <RichTextPlugin
+          contentEditable={
+            <ContentEditable
+              aria-placeholder={""}
+              placeholder={<></>}
+              id='main-textbox'
+              spellCheck={false}
+            />
+          }
+          ErrorBoundary={LexicalErrorBoundary}
+        />
         <HistoryPlugin />
         <AutoFocusPlugin />
         <MarkdownShortcutPlugin transformers={TRANSFORMERS}/>
+        <AutoNumberer/>
         
         <ExportButton />
+        </DocumentStructureProvider>
       </div>
     </div>
   );
