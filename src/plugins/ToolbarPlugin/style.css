@@ -247,8 +247,11 @@ i.page-break,
   background-color: #fff;
   border-radius: 8px;
   border: 0;
-  max-width: 250px;
   min-width: 100px;
+}
+
+.dropdown .item:not(.can-be-wide){
+  max-width: 250px;
 }
 
 .dropdown .item.wide {

@@ -100,4 +100,21 @@ export async function addBiblioFromClipboard(editor,biblio,setBiblio){
       }
     }
 }
-  
+
+/**
+ * Format bibliography item for UI as authors (last names only) and title
+ * @param {Object} bibItem - Bibliography item from parseBibTeX function
+ * @returns {string} Formatted string with authors and title
+ */
+export function bibItemToUIString(bibItem) {
+    // Handle missing author or title
+    if (!bibItem.author || !bibItem.title) {
+      return bibItem.key;
+    }
+    
+    // Extract last names from author array
+    const lastNames = bibItem.author.map(author => author.lastName).join(', ');
+    
+    // Format the output
+    return `${lastNames}, "${bibItem.title}"`;
+}
