@@ -98,6 +98,8 @@ import {
 import { useDocumentOptions } from '../Options/DocumentOptionsContext';
 import { ReferenceNode,insertReferenceNode } from '../../nodes/ReferenceNode';
 import { InsertReferenceButton } from '../NumberedHeadingPlugin/InsertReferenceButton.jsx';
+import { useDocumentStructureContext } from '../NumberedHeadingPlugin/DocumentStructureContext.jsx';
+import { insertCitationNode } from '../../nodes/CitationNode.jsx';
 /*
 const rootTypeToRootName = {
   root: 'Root',
@@ -193,7 +195,7 @@ function BlockFormatDropDown({
   rootType,
   disabled = false,
 }){
-  const {documentOptions,_} = useDocumentOptions();
+  const {documentOptions} = useDocumentOptions();
   return (
     <DropDown
       disabled={disabled}
@@ -297,7 +299,19 @@ function BlockFormatDropDown({
   );
 }
 
+function CitationDropDown({editor}){
+  const {biblio} = useDocumentStructureContext();
 
+  return (
+    <DropDown buttonClassName="toolbar-item" buttonLabel={"Citation"}>
+      {biblio.map(bibitem => (
+        <DropDownItem key={bibitem.key} className={"item"} onClick={()=>insertCitationNode(editor,bibitem.key)}>
+          {bibitem.key}
+        </DropDownItem>
+      ))}
+    </DropDown>
+  )
+}
 
 function Divider(){
   return <div className="divider" />;
@@ -768,6 +782,8 @@ export default function ToolbarPlugin({
       )}
 
     <InsertReferenceButton/>
+    <Divider/>
+    <CitationDropDown editor={activeEditor}/>
 
     </div>
     /*

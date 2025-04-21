@@ -7,6 +7,7 @@ import {HorizontalRuleNode} from '@lexical/react/LexicalHorizontalRuleNode';
 import { LatexNode } from "./plugins/LatexExportPlugin/LatexNode";
 import { NumberedHeadingNode } from "./plugins/NumberedHeadingPlugin/NumberedHeadingNode";
 import { ReferenceNode } from './nodes/ReferenceNode';
+import { CitationNode } from './nodes/CitationNode';
 
 // Catch any errors that occur during Lexical updates and log them
 // or throw them as needed. If you don't throw them, Lexical will
@@ -29,6 +30,7 @@ export const initialConfig = {
         LinkNode,
         LatexNode,
         NumberedHeadingNode,
-        ReferenceNode
+        ReferenceNode,
+        CitationNode
     ],
 };

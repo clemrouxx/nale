@@ -4,10 +4,13 @@ const Context = createContext();
 
 export function DocumentStructureProvider({ children }) {
   const [numberedHeadings,setNumberedHeadings] = useState([]);
+  const [biblio,setBiblio] = useState([{key:"Example"}]);
   
   const contextValue = {
     numberedHeadings,
-    setNumberedHeadings
+    setNumberedHeadings,
+    biblio,
+    setBiblio
   };
   
   return (

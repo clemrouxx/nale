@@ -18,7 +18,7 @@ export class CitationNode extends DecoratorNode {
   }
 
   updateText(citationsDict){
-    const text = citationsDict[this.__citation_key] ? citationsDict[this.__citation_key].label : `[${this.__citation_key}]`;
+    const text = citationsDict[this.__citation_key] ? citationsDict[this.__citation_key] : `[${this.__citation_key}]`;
     if (this.getText() !== text){
       this.__setText(text);
     }
@@ -38,7 +38,7 @@ export class CitationNode extends DecoratorNode {
   };
 
   decorate(){
-    return `${this.__text}`;
+    return this.__text;
   }
 }
 
