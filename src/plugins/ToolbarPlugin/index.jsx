@@ -100,6 +100,7 @@ import { ReferenceNode,insertReferenceNode } from '../../nodes/ReferenceNode';
 import { InsertReferenceButton } from '../NumberedHeadingPlugin/InsertReferenceButton.jsx';
 import { useDocumentStructureContext } from '../NumberedHeadingPlugin/DocumentStructureContext.jsx';
 import { insertCitationNode } from '../../nodes/CitationNode.jsx';
+import { addBiblioFromClipboard } from '../../utils/bibliographyUtils.js';
 /*
 const rootTypeToRootName = {
   root: 'Root',
@@ -300,7 +301,7 @@ function BlockFormatDropDown({
 }
 
 function CitationDropDown({editor}){
-  const {biblio} = useDocumentStructureContext();
+  const {biblio,setBiblio} = useDocumentStructureContext();
 
   return (
     <DropDown buttonClassName="toolbar-item" buttonLabel={"Citation"}>
@@ -309,6 +310,7 @@ function CitationDropDown({editor}){
           {bibitem.key}
         </DropDownItem>
       ))}
+        <button className='item' onClick={()=>addBiblioFromClipboard(editor,biblio,setBiblio)}>From clipboard...</button>
     </DropDown>
   )
 }

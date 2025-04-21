@@ -26,7 +26,7 @@ export function DropDownItem({
   children,
   className,
   onClick,
-  title,
+  title
 }) {
   const ref = useRef(null);
 
