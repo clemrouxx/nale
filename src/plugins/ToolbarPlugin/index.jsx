@@ -305,12 +305,12 @@ function CitationDropDown({editor}){
 
   return (
     <DropDown buttonClassName="toolbar-item" buttonLabel={"Citation"}>
+      <button className='item' onClick={()=>addBiblioFromClipboard(editor,biblio,setBiblio)}>From clipboard...</button>
       {biblio.map(bibitem => (
         <DropDownItem key={bibitem.key} className={"item can-be-wide"} onClick={()=>insertCitationNode(editor,bibitem.key)}>
           {bibItemToUIString(bibitem)}
         </DropDownItem>
       ))}
-        <button className='item' onClick={()=>addBiblioFromClipboard(editor,biblio,setBiblio)}>From clipboard...</button>
     </DropDown>
   )
 }

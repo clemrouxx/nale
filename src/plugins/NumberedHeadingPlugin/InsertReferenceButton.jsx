@@ -8,7 +8,7 @@ export function InsertReferenceButton() {
   const {numberedHeadings} = useDocumentStructureContext();
   
   return (
-    <DropDown disabled={Object.keys(numberedHeadings).length===0} buttonLabel={"Insert reference"} buttonClassName={"toolbar-item"}>
+    <DropDown disabled={Object.keys(numberedHeadings).length===0} buttonLabel={"Internal reference"} buttonClassName={"toolbar-item"}>
       {numberedHeadings.map((info) => (
           <DropDownItem key={info.key} onClick={() => insertReferenceNode(editor,info.key)} className={"item"}>
             {info.numberingString} - {info.textContent}
