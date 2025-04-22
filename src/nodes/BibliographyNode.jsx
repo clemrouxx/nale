@@ -1,9 +1,10 @@
-import { $getSelection, DecoratorNode } from 'lexical';
+import { $getSelection, $isRangeSelection, DecoratorNode } from 'lexical';
 import { bibItemToUIString } from '../utils/bibliographyUtils';
 import { areIdentical } from '../utils/generalUtils';
 
 export class BibliographyNode extends DecoratorNode {
   static getType() {return 'bibliography'}
+  static isInline() {return false}
 
   constructor(innerArray,key) {
     super(key);
@@ -56,13 +57,21 @@ export class BibliographyNode extends DecoratorNode {
   }
 }
 
+function $createBibliographyNode(){
+  return new BibliographyNode([]);
+}
+
 export function insertBibliographyNode(editor) {
   editor.update(() => {
     const selection = $getSelection();
     
-    if (selection) {
-      const nodeToInsert = new BibliographyNode([]);
-      selection.insertNodes([nodeToInsert]);
+    if ($isRangeSelection(selection)) {
+      const anchorNode = selection.anchor.getNode();
+      const topLevelNode = anchorNode.getTopLevelElement();
+      
+      const node = $createBibliographyNode();
+      
+      topLevelNode.insertAfter(node);
     }
   });
 }
