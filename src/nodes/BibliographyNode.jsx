@@ -1,0 +1,68 @@
+import { $getSelection, DecoratorNode } from 'lexical';
+import { bibItemToUIString } from '../utils/bibliographyUtils';
+import { areIdentical } from '../utils/generalUtils';
+
+export class BibliographyNode extends DecoratorNode {
+  static getType() {return 'bibliography'}
+
+  constructor(innerArray,key) {
+    super(key);
+    this.__inner_array = innerArray;
+  }
+
+  static clone(node) {
+    return new BibliographyNode(node.__inner_array,node.__key);
+  }
+
+  __setInnerArray(innerArray){this.getWritable().__inner_array=innerArray}
+
+  updateInner(citationKeys,citationsDict,biblio){
+    let newInnerArray = citationKeys.map(key=>{return {label:citationsDict[key],bibitemString:bibItemToUIString(biblio.find(item=>item.key===key))};});
+    if (!areIdentical(this.__inner_array,newInnerArray)){
+      this.__setInnerArray(newInnerArray);
+    }
+  }
+  
+  createDOM(config) {
+    const dom = document.createElement("div");
+    dom.classList.add("editor-bibliography");
+    return dom;
+  }
+
+  updateDOM(prevNode, dom){
+    return false;
+  };
+
+  decorate(){
+    return (
+        <>
+        <h1>References</h1>
+        {this.__inner_array.map(elmt=>(
+          <div><span>{elmt.label}</span> : <span>{elmt.bibitemString}</span></div>
+        ))}
+        </>
+    );
+  }
+
+  static importJSON(serializedNode) {
+    return new BibliographyNode(serializedNode.__inner_array);
+  }
+
+  exportJSON() {
+    return {
+      ...super.exportJSON(),
+      __inner_array : this.__inner_array,
+    };
+  }
+}
+
+export function insertBibliographyNode(editor) {
+  editor.update(() => {
+    const selection = $getSelection();
+    
+    if (selection) {
+      const nodeToInsert = new BibliographyNode([]);
+      selection.insertNodes([nodeToInsert]);
+    }
+  });
+}

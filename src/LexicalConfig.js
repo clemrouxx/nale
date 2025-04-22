@@ -8,6 +8,7 @@ import { LatexNode } from "./plugins/LatexExportPlugin/LatexNode";
 import { NumberedHeadingNode } from "./plugins/NumberedHeadingPlugin/NumberedHeadingNode";
 import { ReferenceNode } from './nodes/ReferenceNode';
 import { CitationNode } from './nodes/CitationNode';
+import { BibliographyNode } from './nodes/BibliographyNode';
 
 // Catch any errors that occur during Lexical updates and log them
 // or throw them as needed. If you don't throw them, Lexical will
@@ -31,6 +32,7 @@ export const initialConfig = {
         LatexNode,
         NumberedHeadingNode,
         ReferenceNode,
-        CitationNode
+        CitationNode,
+        BibliographyNode
     ],
 };

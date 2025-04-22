@@ -101,6 +101,7 @@ import { InsertReferenceButton } from '../NumberedHeadingPlugin/InsertReferenceB
 import { useDocumentStructureContext } from '../NumberedHeadingPlugin/DocumentStructureContext.jsx';
 import { insertCitationNode } from '../../nodes/CitationNode.jsx';
 import { addBiblioFromClipboard, bibItemToUIString } from '../../utils/bibliographyUtils.js';
+import { insertBibliographyNode } from '../../nodes/BibliographyNode.jsx';
 /*
 const rootTypeToRootName = {
   root: 'Root',
@@ -306,6 +307,7 @@ function CitationDropDown({editor}){
   return (
     <DropDown buttonClassName="toolbar-item" buttonLabel={"Citation"}>
       <button className='item' onClick={()=>addBiblioFromClipboard(editor,biblio,setBiblio)}>From clipboard...</button>
+      <button className='item' onClick={()=>insertBibliographyNode(editor)}>Insert Bibliography</button>
       {biblio.map(bibitem => (
         <DropDownItem key={bibitem.key} className={"item can-be-wide"} onClick={()=>insertCitationNode(editor,bibitem.key)}>
           {bibItemToUIString(bibitem)}

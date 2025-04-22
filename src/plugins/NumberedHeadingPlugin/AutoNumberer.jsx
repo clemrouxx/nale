@@ -49,6 +49,9 @@ export function AutoNumberer(ref){
                 else if (node.getType()==="citation"){
                     node.updateText(citationsDict);
                 }
+                else if (node.getType() === "bibliography"){
+                    node.updateInner(citationKeys,citationsDict,biblio);
+                }
                 
                 // Recurse through children
                 else if (node.getChildren) {
