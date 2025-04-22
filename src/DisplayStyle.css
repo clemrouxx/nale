@@ -71,6 +71,18 @@
     font-weight: bold;
 }
 
+.editor-bibliography h1{
+    font-size: var(--fontsize-Large);
+    margin-block-start: 2.5ex;
+    margin-block-end: 1ex;
+}
+
+.editor-references-grid{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.8ex 0.8em;
+}
+
 .editor-latex{
     background-color: lightgreen;
     font-family: Helvetica, sans-serif;

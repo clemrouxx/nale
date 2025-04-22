@@ -38,9 +38,13 @@ export class BibliographyNode extends DecoratorNode {
     return (
         <>
         <h1>References</h1>
-        {this.__inner_array.map(elmt=>(
-          <div><span>{elmt.label}</span> : <span>{elmt.bibitemString}</span></div>
-        ))}
+        <div className="editor-references-grid">
+          {this.__inner_array.map(elmt=>(<>
+              <span>{elmt.label}</span>
+              <span>{elmt.bibitemString}</span>
+            </>
+          ))}
+        </div>
         </>
     );
   }
