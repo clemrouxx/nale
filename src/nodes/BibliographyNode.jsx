@@ -1,5 +1,5 @@
 import { $getSelection, $isRangeSelection, DecoratorNode } from 'lexical';
-import { bibItemToUIString } from '../utils/bibliographyUtils';
+import { bibItemToHTML, bibItemToUIString } from '../utils/bibliographyUtils';
 import { areIdentical } from '../utils/generalUtils';
 
 export class BibliographyNode extends DecoratorNode {
@@ -18,7 +18,7 @@ export class BibliographyNode extends DecoratorNode {
   __setInnerArray(innerArray){this.getWritable().__inner_array=innerArray}
 
   updateInner(citationKeys,citationsDict,biblio){
-    let newInnerArray = citationKeys.map(key=>{return {label:citationsDict[key],bibitemString:bibItemToUIString(biblio.find(item=>item.key===key))};});
+    let newInnerArray = citationKeys.map(key=>{return {label:citationsDict[key],bibItem:biblio.find(item=>item.key===key)};});
     if (!areIdentical(this.__inner_array,newInnerArray)){
       this.__setInnerArray(newInnerArray);
     }
@@ -41,7 +41,7 @@ export class BibliographyNode extends DecoratorNode {
         <div className="editor-references-grid">
           {this.__inner_array.map(elmt=>(<>
               <span>{elmt.label}</span>
-              <span>{elmt.bibitemString}</span>
+              {bibItemToHTML(elmt.bibItem)}
             </>
           ))}
         </div>

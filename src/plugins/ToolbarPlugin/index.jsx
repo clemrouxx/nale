@@ -100,7 +100,7 @@ import { ReferenceNode,insertReferenceNode } from '../../nodes/ReferenceNode';
 import { InsertReferenceButton } from '../NumberedHeadingPlugin/InsertReferenceButton.jsx';
 import { useDocumentStructureContext } from '../NumberedHeadingPlugin/DocumentStructureContext.jsx';
 import { insertCitationNode } from '../../nodes/CitationNode.jsx';
-import { addBiblioFromClipboard, bibItemToUIString } from '../../utils/bibliographyUtils.js';
+import { addBiblioFromClipboard, bibItemToUIString } from '../../utils/bibliographyUtils.jsx';
 import { insertBibliographyNode } from '../../nodes/BibliographyNode.jsx';
 /*
 const rootTypeToRootName = {

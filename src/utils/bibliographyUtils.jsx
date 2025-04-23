@@ -118,3 +118,73 @@ export function bibItemToUIString(bibItem) {
     // Format the output
     return `${lastNames}, "${bibItem.title}"`;
 }
+
+export function bibItemToHTML(bibItem) {
+    // Handle invalid/incomplete entries
+    if (!bibItem || !bibItem.author || !bibItem.title) {
+      return <span className="citation-error">Incomplete citation data</span>;
+    }
+    
+    // Format authors: Last, F.M., Last, F.M., & Last, F.M.
+    const formattedAuthors = bibItem.author.map((author, index) => {
+      const lastName = author.lastName || '';
+      // Format first name as initials
+      const firstInitials = author.firstName
+        ? author.firstName
+            .split(' ')
+            .map(name => `${name.charAt(0)}.`)
+            .join('')
+        : '';
+        
+      return `${lastName}${firstInitials ? ', ' + firstInitials : ''}`;
+    }).join(', ');
+    
+    // Add "and" before the last author if there are multiple authors
+    const authorText = bibItem.author.length > 1 
+      ? formattedAuthors.replace(/,([^,]*)$/, ', &$1')
+      : formattedAuthors;
+    
+    // Format year
+    const year = bibItem.year ? `(${bibItem.year})` : '';
+    
+    // Format title
+    const title = bibItem.title ? bibItem.title : '';
+    
+    // Format journal name in italics
+    const journal = bibItem.journal 
+      ? <em>{bibItem.journal}</em>
+      : null;
+    
+    // Format volume/issue
+    const volume = bibItem.volume 
+      ? <strong>{bibItem.volume}</strong>
+      : null;
+    
+    const issue = bibItem.issue || bibItem.number
+      ? `(${bibItem.issue || bibItem.number})`
+      : null;
+    
+    // Format pages
+    const pages = bibItem.pages
+      ? `${bibItem.pages.replace('--', '–')}`
+      : null;
+    
+    // Format DOI
+    const doi = bibItem.doi
+      ? <a href={`https://doi.org/${bibItem.doi}`} className="citation-doi">https://doi.org/{bibItem.doi}</a>
+      : null;
+    
+    // Assemble the citation
+    return (
+      <div className="citation">
+        <span className="citation-authors">{authorText}</span>{' '}
+        <span className="citation-year">{year}</span>.{' '}
+        <span className="citation-title">{title}</span>.{' '}
+        {journal && <span className="citation-journal">{journal}</span>}
+        {(volume || issue) && <span className="citation-volume">{volume}{issue}</span>}
+        {pages && <span className="citation-pages">, {pages}</span>}
+        {(journal || volume || issue || pages) && '.'}
+        {doi && <span className="citation-doi">, {doi}</span>}
+      </div>
+    );
+  }
