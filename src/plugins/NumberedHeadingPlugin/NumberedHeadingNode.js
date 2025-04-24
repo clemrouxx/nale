@@ -2,6 +2,7 @@ import { $applyNodeReplacement,$createParagraphNode } from "lexical";
 import { areIdentical } from "../../utils/generalUtils";
 import { ElementNode } from "lexical";
 import { DEFAULT_DOCUMENT_OPTIONS } from "../Options/documentOptions";
+import { HEADING_COMMANDS } from "../LatexExportPlugin/latexUtils";
 
 function numberToString(num,style){
   if (style==="a") return String(num); // Arab numerals
@@ -33,6 +34,7 @@ export class NumberedHeadingNode extends ElementNode{
   getLevel() { return this.__level } // TO CHANGE AND USE getLatest() !!!
   getNumbering() { return this.__numbering }
   getKey() { return this.__key }
+  toLatex(childrenString) { return `${HEADING_COMMANDS[this.__level]}{${childrenString}}\\label{${this.__key}}\n`}
 
   static clone(node) {
     return new NumberedHeadingNode(node.__level,node.__numbering,node.__headings_options,node.__key);

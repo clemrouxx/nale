@@ -27,6 +27,7 @@ export class ReferenceNode extends DecoratorNode {
 
   getReferenceKey(){return this.__reference_key}
   getText(){return this.__text}
+  toLatex(){return `\\ref{${this.__reference_key}}`}
   
   createDOM(config) {
     const dom = document.createElement("span");

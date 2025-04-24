@@ -5,6 +5,7 @@ import { areIdentical } from '../utils/generalUtils';
 export class BibliographyNode extends DecoratorNode {
   static getType() {return 'bibliography'}
   static isInline() {return false}
+  static toLatex() {return '\\printbibliography\n'}
 
   constructor(innerArray,key) {
     super(key);

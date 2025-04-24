@@ -12,6 +12,8 @@ export class LatexNode extends ElementNode {
     return new LatexNode(node.__key);
   }
 
+  toLatex(){return this.getTextContent()}
+
   // View
 
   createDOM(config) {
@@ -19,41 +21,10 @@ export class LatexNode extends ElementNode {
     addClassNamesToElement(element, config.theme.latex);
     return element;
   }
+
   updateDOM(prevNode, dom) {
     return false;
   }
-
-  /*
-  static importDOM(){
-    return {
-      blockquote: (node) => ({
-        conversion: $convertBlockquoteElement,
-        priority: 0,
-      }),
-    };
-  }
-
-  exportDOM(editor) {
-    const {element} = super.exportDOM(editor);
-
-    if (isHTMLElement(element)) {
-      if (this.isEmpty()) {
-        element.append(document.createElement('br'));
-      }
-
-      const formatType = this.getFormatType();
-      element.style.textAlign = formatType;
-
-      const direction = this.getDirection();
-      if (direction) {
-        element.dir = direction;
-      }
-    }
-
-    return {
-      element,
-    };
-  }*/
 
   static importJSON(serializedNode) {
     return $createLatexNode().updateFromJSON(serializedNode);

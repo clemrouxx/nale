@@ -26,6 +26,7 @@ export class CitationNode extends DecoratorNode {
 
   getCitationKey(){return this.__citation_key}
   getText(){return this.__text}
+  toLatex(){return `\\cite{${this.__citation_key}}`}
   
   createDOM(config) {
     const dom = document.createElement("span");
