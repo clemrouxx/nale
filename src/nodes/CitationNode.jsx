@@ -41,6 +41,17 @@ export class CitationNode extends DecoratorNode {
   decorate(){
     return this.__text;
   }
+
+  static importJSON(serializedNode) {
+    return new ReferenceNode(serializedNode.__citation_key);
+  }
+
+  exportJSON() {
+    return {
+      ...super.exportJSON(),
+      __citation_key : this.__citation_key,
+    };
+  }
 }
 
 export function insertCitationNode(editor,citationKey) { // To improve

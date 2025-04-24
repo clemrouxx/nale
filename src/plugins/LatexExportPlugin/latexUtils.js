@@ -33,30 +33,28 @@ function convertToLatex(node){
     if (node.toLatex){ // Conversion is defined in the node
         string += node.toLatex(string); // We pass as parameter the string from the children
     }
-
-    // Things to do AFTER dealing with the children
-    switch (node.getType()){
-        case "root":
-        case "text":
-        case "latex":
-        case "numbered-heading":
-            break;
-        case "paragraph":
-            string += "\n";
-            break;
-        case "heading":
-            let index = node.getTag()[1]-1;
-            string = putInCommand(string,HEADING_COMMANDS[index])+"\n";
-            break;
-        case "list":
-            string = putInEnvironment(string,node.getTag()==="ul"?"itemize":"enumerate");
-            break;
-        case "listitem":
-            string = "\t\\item " + string + "\n";
-            break;
-        default:
-            console.log("Node type : ", node.getType());
-            break;
+    else{
+        switch (node.getType()){
+            case "root":
+            case "text":
+                break;
+            case "paragraph":
+                string += "\n";
+                break;
+            case "heading":
+                let index = node.getTag()[1]-1;
+                string = putInCommand(string,HEADING_COMMANDS[index])+"\n";
+                break;
+            case "list":
+                string = putInEnvironment(string,node.getTag()==="ul"?"itemize":"enumerate");
+                break;
+            case "listitem":
+                string = "\t\\item " + string + "\n";
+                break;
+            default:
+                console.log("Node type : ", node.getType());
+                break;
+        }
     }
     return string;
 }

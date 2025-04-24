@@ -42,6 +42,17 @@ export class ReferenceNode extends DecoratorNode {
   decorate(){
     return `${this.__text}`;
   }
+
+  static importJSON(serializedNode) {
+    return new ReferenceNode(serializedNode.__reference_key);
+  }
+
+  exportJSON() {
+    return {
+      ...super.exportJSON(),
+      __reference_key : this.__reference_key,
+    };
+  }
 }
 
 export function insertReferenceNode(editor,referenceKey) { // To improve
