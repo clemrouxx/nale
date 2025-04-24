@@ -203,10 +203,6 @@ i.equation {
   background-image: url(images/icons/plus-slash-minus.svg);
 }
 
-i.gif {
-  background-image: url(images/icons/filetype-gif.svg);
-}
-
 i.copy {
   background-image: url(images/icons/copy.svg);
 }
@@ -218,6 +214,62 @@ i.success {
 i.page-break,
 .icon.page-break {
   background-image: url(images/icons/scissors.svg);
+}
+
+i.bold {
+  background-image: url(images/icons/type-bold.svg);
+}
+
+i.italic {
+  background-image: url(images/icons/type-italic.svg);
+}
+
+i.clear {
+  background-image: url(images/icons/trash.svg);
+}
+
+i.code {
+  background-image: url(images/icons/code.svg);
+}
+
+i.underline {
+  background-image: url(images/icons/type-underline.svg);
+}
+
+i.uppercase {
+  background-image: url(images/icons/type-uppercase.svg);
+}
+
+i.lowercase {
+  background-image: url(images/icons/type-lowercase.svg);
+}
+
+i.capitalize {
+  background-image: url(images/icons/type-capitalize.svg);
+}
+
+i.strikethrough {
+  background-image: url(images/icons/type-strikethrough.svg);
+}
+
+i.subscript {
+  background-image: url(images/icons/type-subscript.svg);
+}
+
+i.superscript {
+  background-image: url(images/icons/type-superscript.svg);
+}
+
+i.highlight {
+  background-image: url(images/icons/highlighter.svg);
+}
+
+i.link {
+  background-image: url(images/icons/link.svg);
+}
+
+i.horizontal-rule {
+  background-image: url(images/icons/horizontal-rule.svg);
 }
 
 

@@ -36,16 +36,16 @@ import {
   $getNodeByKey,
   $getRoot,
   $getSelection,
-  $insertNodes,
   $isElementNode,
   $isRangeSelection,
   $isRootOrShadowRoot,
   CAN_REDO_COMMAND,
   CAN_UNDO_COMMAND,
   COMMAND_PRIORITY_CRITICAL,
+  FORMAT_ELEMENT_COMMAND,
+  FORMAT_TEXT_COMMAND,
   REDO_COMMAND,
   SELECTION_CHANGE_COMMAND,
-  TextNode,
   UNDO_COMMAND,
 } from 'lexical';
 import {Dispatch, useCallback, useEffect, useState} from 'react';
@@ -56,7 +56,7 @@ import {
   useToolbarState,
 } from './ToolbarContext';
 import DropDown, {DropDownItem} from '../../ui/DropDown';
-//import useModal from '../../hooks/useModal';
+import useModal from '../../hooks/useModal';
 import {getSelectedNode} from '../../utils/getSelectedNode';
 
 /*
@@ -495,7 +495,7 @@ export default function ToolbarPlugin({
   setIsLinkEditMode,
 }){
   const [selectedElementKey, setSelectedElementKey] = useState(null);
-  //const [modal, showModal] = useModal();
+  const [modal, showModal] = useModal();
   const [isEditable, setIsEditable] = useState(() => editor.isEditable());
   const {toolbarState, updateToolbarState} = useToolbarState();
 
@@ -788,10 +788,10 @@ export default function ToolbarPlugin({
     <InsertReferenceButton/>
     <Divider/>
     <CitationDropDown editor={activeEditor}/>
+    <Divider/>
 
-    </div>
-    /*
-    {toolbarState.blockType === 'code' ? (
+    
+    {toolbarState.blockType === 'code' ? (/*
       <DropDown
         disabled={!isEditable}
         buttonClassName="toolbar-item code-language"
@@ -809,22 +809,10 @@ export default function ToolbarPlugin({
             </DropDownItem>
           );
         })}
-      </DropDown>
+      </DropDown>*/
+      <></>
     ) : (
       <>
-        <FontDropDown
-          disabled={!isEditable}
-          style={'font-family'}
-          value={toolbarState.fontFamily}
-          editor={activeEditor}
-        />
-        <Divider />
-        <FontSize
-          selectionFontSize={toolbarState.fontSize.slice(0, -2)}
-          editor={activeEditor}
-          disabled={!isEditable}
-        />
-        <Divider />
         <button
           disabled={!isEditable}
           onClick={() => {
@@ -854,190 +842,18 @@ export default function ToolbarPlugin({
         <button
           disabled={!isEditable}
           onClick={() => {
-            activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline');
+            activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
           }}
           className={
-            'toolbar-item spaced ' +
-            (toolbarState.isUnderline ? 'active' : '')
+            'toolbar-item spaced ' + (toolbarState.isCode ? 'active' : '')
           }
-          title={`Underline (${SHORTCUTS.UNDERLINE})`}
+          title={`Code style (${SHORTCUTS.INSERT_CODE_BLOCK})`}
           type="button"
-          aria-label={`Format text to underlined. Shortcut: ${SHORTCUTS.UNDERLINE}`}>
-          <i className="format underline" />
+          aria-label="Format text in code style">
+          <i className="format code" />
         </button>
-        {canViewerSeeInsertCodeButton && (
-          <button
-            disabled={!isEditable}
-            onClick={() => {
-              activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
-            }}
-            className={
-              'toolbar-item spaced ' + (toolbarState.isCode ? 'active' : '')
-            }
-            title={`Insert code block (${SHORTCUTS.INSERT_CODE_BLOCK})`}
-            type="button"
-            aria-label="Insert code block">
-            <i className="format code" />
-          </button>
-        )}
-        <button
-          disabled={!isEditable}
-          onClick={insertLink}
-          className={
-            'toolbar-item spaced ' + (toolbarState.isLink ? 'active' : '')
-          }
-          aria-label="Insert link"
-          title={`Insert link (${SHORTCUTS.INSERT_LINK})`}
-          type="button">
-          <i className="format link" />
-        </button>
-        <DropdownColorPicker
-          disabled={!isEditable}
-          buttonClassName="toolbar-item color-picker"
-          buttonAriaLabel="Formatting text color"
-          buttonIconClassName="icon font-color"
-          color={toolbarState.fontColor}
-          onChange={onFontColorSelect}
-          title="text color"
-        />
-        <DropdownColorPicker
-          disabled={!isEditable}
-          buttonClassName="toolbar-item color-picker"
-          buttonAriaLabel="Formatting background color"
-          buttonIconClassName="icon bg-color"
-          color={toolbarState.bgColor}
-          onChange={onBgColorSelect}
-          title="bg color"
-        />
-        <DropDown
-          disabled={!isEditable}
-          buttonClassName="toolbar-item spaced"
-          buttonLabel=""
-          buttonAriaLabel="Formatting options for additional text styles"
-          buttonIconClassName="icon dropdown-more">
-          <DropDownItem
-            onClick={() => {
-              activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'lowercase');
-            }}
-            className={
-              'item wide ' + dropDownActiveClass(toolbarState.isLowercase)
-            }
-            title="Lowercase"
-            aria-label="Format text to lowercase">
-            <div className="icon-text-container">
-              <i className="icon lowercase" />
-              <span className="text">Lowercase</span>
-            </div>
-            <span className="shortcut">{SHORTCUTS.LOWERCASE}</span>
-          </DropDownItem>
-          <DropDownItem
-            onClick={() => {
-              activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'uppercase');
-            }}
-            className={
-              'item wide ' + dropDownActiveClass(toolbarState.isUppercase)
-            }
-            title="Uppercase"
-            aria-label="Format text to uppercase">
-            <div className="icon-text-container">
-              <i className="icon uppercase" />
-              <span className="text">Uppercase</span>
-            </div>
-            <span className="shortcut">{SHORTCUTS.UPPERCASE}</span>
-          </DropDownItem>
-          <DropDownItem
-            onClick={() => {
-              activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'capitalize');
-            }}
-            className={
-              'item wide ' + dropDownActiveClass(toolbarState.isCapitalize)
-            }
-            title="Capitalize"
-            aria-label="Format text to capitalize">
-            <div className="icon-text-container">
-              <i className="icon capitalize" />
-              <span className="text">Capitalize</span>
-            </div>
-            <span className="shortcut">{SHORTCUTS.CAPITALIZE}</span>
-          </DropDownItem>
-          <DropDownItem
-            onClick={() => {
-              activeEditor.dispatchCommand(
-                FORMAT_TEXT_COMMAND,
-                'strikethrough',
-              );
-            }}
-            className={
-              'item wide ' + dropDownActiveClass(toolbarState.isStrikethrough)
-            }
-            title="Strikethrough"
-            aria-label="Format text with a strikethrough">
-            <div className="icon-text-container">
-              <i className="icon strikethrough" />
-              <span className="text">Strikethrough</span>
-            </div>
-            <span className="shortcut">{SHORTCUTS.STRIKETHROUGH}</span>
-          </DropDownItem>
-          <DropDownItem
-            onClick={() => {
-              activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'subscript');
-            }}
-            className={
-              'item wide ' + dropDownActiveClass(toolbarState.isSubscript)
-            }
-            title="Subscript"
-            aria-label="Format text with a subscript">
-            <div className="icon-text-container">
-              <i className="icon subscript" />
-              <span className="text">Subscript</span>
-            </div>
-            <span className="shortcut">{SHORTCUTS.SUBSCRIPT}</span>
-          </DropDownItem>
-          <DropDownItem
-            onClick={() => {
-              activeEditor.dispatchCommand(
-                FORMAT_TEXT_COMMAND,
-                'superscript',
-              );
-            }}
-            className={
-              'item wide ' + dropDownActiveClass(toolbarState.isSuperscript)
-            }
-            title="Superscript"
-            aria-label="Format text with a superscript">
-            <div className="icon-text-container">
-              <i className="icon superscript" />
-              <span className="text">Superscript</span>
-            </div>
-            <span className="shortcut">{SHORTCUTS.SUPERSCRIPT}</span>
-          </DropDownItem>
-          <DropDownItem
-            onClick={() => {
-              activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'highlight');
-            }}
-            className={
-              'item wide ' + dropDownActiveClass(toolbarState.isHighlight)
-            }
-            title="Highlight"
-            aria-label="Format text with a highlight">
-            <div className="icon-text-container">
-              <i className="icon highlight" />
-              <span className="text">Highlight</span>
-            </div>
-          </DropDownItem>
-          <DropDownItem
-            onClick={() => clearFormatting(activeEditor)}
-            className="item wide"
-            title="Clear text formatting"
-            aria-label="Clear all text formatting">
-            <div className="icon-text-container">
-              <i className="icon clear" />
-              <span className="text">Clear Formatting</span>
-            </div>
-            <span className="shortcut">{SHORTCUTS.CLEAR_FORMATTING}</span>
-          </DropDownItem>
-        </DropDown>
-        {canViewerSeeInsertDropdown && (
+        
+        {(//canViewerSeeInsertDropdown && 
           <>
             <Divider />
             <DropDown
@@ -1046,17 +862,7 @@ export default function ToolbarPlugin({
               buttonLabel="Insert"
               buttonAriaLabel="Insert specialized editor node"
               buttonIconClassName="icon plus">
-              <DropDownItem
-                onClick={() => {
-                  activeEditor.dispatchCommand(
-                    INSERT_HORIZONTAL_RULE_COMMAND,
-                    undefined,
-                  );
-                }}
-                className="item">
-                <i className="icon horizontal-rule" />
-                <span className="text">Horizontal Rule</span>
-              </DropDownItem>
+
               <DropDownItem
                 onClick={() => {
                   activeEditor.dispatchCommand(INSERT_PAGE_BREAK, undefined);
@@ -1092,28 +898,6 @@ export default function ToolbarPlugin({
                 <span className="text">Inline Image</span>
               </DropDownItem>
               <DropDownItem
-                onClick={() =>
-                  insertGifOnClick({
-                    altText: 'Cat typing on a laptop',
-                    src: catTypingGif,
-                  })
-                }
-                className="item">
-                <i className="icon gif" />
-                <span className="text">GIF</span>
-              </DropDownItem>
-              <DropDownItem
-                onClick={() => {
-                  activeEditor.dispatchCommand(
-                    INSERT_EXCALIDRAW_COMMAND,
-                    undefined,
-                  );
-                }}
-                className="item">
-                <i className="icon diagram-2" />
-                <span className="text">Excalidraw</span>
-              </DropDownItem>
-              <DropDownItem
                 onClick={() => {
                   showModal('Insert Table', (onClose) => (
                     <InsertTableDialog
@@ -1126,97 +910,14 @@ export default function ToolbarPlugin({
                 <i className="icon table" />
                 <span className="text">Table</span>
               </DropDownItem>
-              <DropDownItem
-                onClick={() => {
-                  showModal('Insert Poll', (onClose) => (
-                    <InsertPollDialog
-                      activeEditor={activeEditor}
-                      onClose={onClose}
-                    />
-                  ));
-                }}
-                className="item">
-                <i className="icon poll" />
-                <span className="text">Poll</span>
-              </DropDownItem>
-              <DropDownItem
-                onClick={() => {
-                  showModal('Insert Columns Layout', (onClose) => (
-                    <InsertLayoutDialog
-                      activeEditor={activeEditor}
-                      onClose={onClose}
-                    />
-                  ));
-                }}
-                className="item">
-                <i className="icon columns" />
-                <span className="text">Columns Layout</span>
-              </DropDownItem>
-
-              <DropDownItem
-                onClick={() => {
-                  showModal('Insert Equation', (onClose) => (
-                    <InsertEquationDialog
-                      activeEditor={activeEditor}
-                      onClose={onClose}
-                    />
-                  ));
-                }}
-                className="item">
-                <i className="icon equation" />
-                <span className="text">Equation</span>
-              </DropDownItem>
-              <DropDownItem
-                onClick={() => {
-                  editor.update(() => {
-                    const root = $getRoot();
-                    const stickyNode = $createStickyNode(0, 0);
-                    root.append(stickyNode);
-                  });
-                }}
-                className="item">
-                <i className="icon sticky" />
-                <span className="text">Sticky Note</span>
-              </DropDownItem>
-              <DropDownItem
-                onClick={() => {
-                  editor.dispatchCommand(
-                    INSERT_COLLAPSIBLE_COMMAND,
-                    undefined,
-                  );
-                }}
-                className="item">
-                <i className="icon caret-right" />
-                <span className="text">Collapsible container</span>
-              </DropDownItem>
-              {EmbedConfigs.map((embedConfig) => (
-                <DropDownItem
-                  key={embedConfig.type}
-                  onClick={() => {
-                    activeEditor.dispatchCommand(
-                      INSERT_EMBED_COMMAND,
-                      embedConfig.type,
-                    );
-                  }}
-                  className="item">
-                  {embedConfig.icon}
-                  <span className="text">{embedConfig.contentName}</span>
-                </DropDownItem>
-              ))}
             </DropDown>
           </>
         )}
       </>
     )}
     <Divider />
-    <ElementFormatDropdown
-      disabled={!isEditable}
-      value={toolbarState.elementFormat}
-      editor={activeEditor}
-      isRTL={toolbarState.isRTL}
-    />
 
     {modal}
-  </div>*/
+  </div>
   );
 }
