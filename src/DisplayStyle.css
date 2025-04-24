@@ -1,4 +1,3 @@
-
 #main-textbox{
     font-family: 'CMU Serif', Arial;
     background-color: white;
@@ -86,6 +85,10 @@
 .editor-latex{
     background-color: lightgreen;
     font-family: Helvetica, sans-serif;
+}
+
+.editor-textCode{
+    font-family: "CMU Typewriter Text", monospace;
 }
 
 .editor-debug{
