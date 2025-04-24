@@ -1,11 +1,11 @@
 import { $getSelection, $isRangeSelection, DecoratorNode } from 'lexical';
-import { bibItemToHTML, bibItemToUIString } from '../utils/bibliographyUtils';
+import { bibItemToHTML } from '../utils/bibliographyUtils';
 import { areIdentical } from '../utils/generalUtils';
+import React from 'react';
 
 export class BibliographyNode extends DecoratorNode {
   static getType() {return 'bibliography'}
   static isInline() {return false}
-  static toLatex() {return '\\printbibliography\n'}
 
   constructor(innerArray,key) {
     super(key);
@@ -40,15 +40,18 @@ export class BibliographyNode extends DecoratorNode {
         <>
         <h1>References</h1>
         <div className="editor-references-grid">
-          {this.__inner_array.map(elmt=>(<>
+          {this.__inner_array.map(elmt=>(
+            <React.Fragment key={elmt.label}>
               <span>{elmt.label}</span>
               {bibItemToHTML(elmt.bibItem)}
-            </>
+            </React.Fragment>
           ))}
         </div>
         </>
     );
   }
+
+  toLatex() {return '\\printbibliography\n'}
 
   static importJSON(serializedNode) {
     return new BibliographyNode(serializedNode.__inner_array);

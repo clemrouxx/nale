@@ -1,7 +1,6 @@
 import { $applyNodeReplacement,$createParagraphNode } from "lexical";
 import { areIdentical } from "../../utils/generalUtils";
 import { ElementNode } from "lexical";
-import { DEFAULT_DOCUMENT_OPTIONS } from "../Options/documentOptions";
 import { HEADING_COMMANDS } from "../LatexExportPlugin/latexUtils";
 
 function numberToString(num,style){
@@ -31,7 +30,7 @@ export class NumberedHeadingNode extends ElementNode{
   }
 
   static getType() { return 'numbered-heading'}
-  getLevel() { return this.__level } // TO CHANGE AND USE getLatest() !!!
+  getLevel() { return this.__level } // TO CHANGE AND USE getLatest() ?
   getNumbering() { return this.__numbering }
   getKey() { return this.__key }
   toLatex(childrenString) { return `${HEADING_COMMANDS[this.__level]}{${childrenString}}\\label{${this.__key}}\n`}

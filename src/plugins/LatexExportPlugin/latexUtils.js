@@ -16,7 +16,7 @@ function putInEnvironment(string,envname){
 const TEXT_FORMAT_COMMANDS = {bold:"\\textbf",italic:"\\textit",capitalize:"\\textsc"}
 export const HEADING_COMMANDS = {1:"\\section",2:"\\subsection",3:"\\subsubsection",4:"\\paragraph",5:"\\subparagraph"};
 
-function convertToLatex(node){
+export function convertToLatex(node){
     var string = "";
     
     if ($isTextNode(node)) {
@@ -29,7 +29,7 @@ function convertToLatex(node){
     else if (node.getChildren){
         string = node.getChildren().map(convertToLatex).join('');
     }
-
+    
     if (node.toLatex){ // Conversion is defined in the node
         string += node.toLatex(string); // We pass as parameter the string from the children
     }
@@ -58,5 +58,3 @@ function convertToLatex(node){
     }
     return string;
 }
-
-export default convertToLatex;
