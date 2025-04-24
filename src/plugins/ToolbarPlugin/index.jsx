@@ -68,18 +68,20 @@ import {EmbedConfigs} from '../AutoEmbedPlugin';
 import {INSERT_COLLAPSIBLE_COMMAND} from '../CollapsiblePlugin';
 import {InsertEquationDialog} from '../EquationsPlugin';
 import {INSERT_EXCALIDRAW_COMMAND} from '../ExcalidrawPlugin';
-import {
-  INSERT_IMAGE_COMMAND,
-  InsertImageDialog,
-  InsertImagePayload,
-} from '../ImagesPlugin';
-import {InsertInlineImageDialog} from '../InlineImagePlugin';
-import InsertLayoutDialog from '../LayoutPlugin/InsertLayoutDialog';
+
 import {INSERT_PAGE_BREAK} from '../PageBreakPlugin';
 import {InsertPollDialog} from '../PollPlugin';
 import {SHORTCUTS} from '../ShortcutsPlugin/shortcuts';
 import {InsertTableDialog} from '../TablePlugin';
 import FontSize from './fontSize';*/
+
+import {
+  InsertImageDialog,
+} from '../ImagesPlugin';
+//import {InsertInlineImageDialog} from '../InlineImagePlugin';
+//import InsertLayoutDialog from '../LayoutPlugin/InsertLayoutDialog';
+
+import yellowFlowerImage from '../../images/sample.jpg';
 
 import {SHORTCUTS} from '../ShortcutsPlugin/shortcuts';
 
@@ -102,6 +104,7 @@ import { useDocumentStructureContext } from '../NumberedHeadingPlugin/DocumentSt
 import { insertCitationNode } from '../../nodes/CitationNode.jsx';
 import { addBiblioFromClipboard, bibItemToUIString } from '../../utils/bibliographyUtils.jsx';
 import { insertBibliographyNode } from '../../nodes/BibliographyNode.jsx';
+import { INSERT_IMAGE_COMMAND } from '../ImagesPlugin/index.jsx';
 /*
 const rootTypeToRootName = {
   root: 'Root',
@@ -873,12 +876,14 @@ export default function ToolbarPlugin({
               </DropDownItem>
               <DropDownItem
                 onClick={() => {
-                  showModal('Insert Image', (onClose) => (
+
+                  //activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, {src:yellowFlowerImage});
+                  /*showModal('Insert Image', (onClose) => (
                     <InsertImageDialog
                       activeEditor={activeEditor}
                       onClose={onClose}
                     />
-                  ));
+                  ));*/
                 }}
                 className="item">
                 <i className="icon image" />

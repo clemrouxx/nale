@@ -20,6 +20,7 @@ import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
 import { setGlobalCSSRule } from './utils/generalUtils';
 import { AutoOptionsPanel, OptionsPanel } from './plugins/Options/OptionsPanel';
 import { DocumentStructureProvider } from './plugins/NumberedHeadingPlugin/DocumentStructureContext';
+import ImagesPlugin from './plugins/ImagesPlugin';
 
 function Editor() {
   const [editor] = useLexicalComposerContext();
@@ -85,6 +86,7 @@ function Editor() {
         <AutoFocusPlugin />
         <MarkdownShortcutPlugin transformers={TRANSFORMERS}/>
         <AutoNumberer/>
+        <ImagesPlugin/>
         
         <ExportButton />
         </DocumentStructureProvider>
