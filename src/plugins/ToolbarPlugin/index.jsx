@@ -877,7 +877,7 @@ export default function ToolbarPlugin({
               <DropDownItem
                 onClick={() => {
 
-                  //activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, {src:yellowFlowerImage});
+                  activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, {src:yellowFlowerImage});
                   /*showModal('Insert Image', (onClose) => (
                     <InsertImageDialog
                       activeEditor={activeEditor}

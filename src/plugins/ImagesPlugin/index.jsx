@@ -148,7 +148,7 @@ export function InsertImageDialog({
   }, [activeEditor]);
 
   const onClick = (payload) => {
-    activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, {src:yellowFlowerImage});
+    activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, {src:yellowFlowerImage, captionsEnabled:false});
     onClose();
   };
 
@@ -202,20 +202,22 @@ export default function ImagesPlugin({
       throw new Error('ImagesPlugin: ImageNode not registered on editor');
     }
 
-    return mergeRegister(
-      editor.registerCommand(
-        INSERT_IMAGE_COMMAND,
-        (payload) => {
-          const imageNode = $createImageNode(payload);
-          $insertNodes([imageNode]);
-          if ($isRootOrShadowRoot(imageNode.getParentOrThrow())) {
-            $wrapNodeInElement(imageNode, $createParagraphNode).selectEnd();
-          }
+    return editor.registerCommand(
+      INSERT_IMAGE_COMMAND,
+      (payload) => {
+        console.log("inserting image");
+        const imageNode = $createImageNode(payload);
+        $insertNodes([imageNode]);
+        if ($isRootOrShadowRoot(imageNode.getParentOrThrow())) {
+          $wrapNodeInElement(imageNode, $createParagraphNode).selectEnd();
+        }
 
-          return true;
-        },
-        COMMAND_PRIORITY_EDITOR,
-      ),
+        return true;
+      },
+      COMMAND_PRIORITY_EDITOR,
+    );
+
+    return mergeRegister(
       /*editor.registerCommand(
         DRAGSTART_COMMAND,
         (event) => {
@@ -238,7 +240,7 @@ export default function ImagesPlugin({
         COMMAND_PRIORITY_HIGH,
       ),*/
     );
-  }, [captionsEnabled, editor]);
+  }, [editor]);// captionsEnabled
 
   return null;
 }
