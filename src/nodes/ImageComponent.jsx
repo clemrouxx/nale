@@ -9,14 +9,8 @@
 
 //import './ImageNode.css';
 
-import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin';
 import {useCollaborationContext} from '@lexical/react/LexicalCollaborationContext';
-import {CollaborationPlugin} from '@lexical/react/LexicalCollaborationPlugin';
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
-import {LexicalErrorBoundary} from '@lexical/react/LexicalErrorBoundary';
-import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
-import {LexicalNestedComposer} from '@lexical/react/LexicalNestedComposer';
-import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin';
 import {useLexicalEditable} from '@lexical/react/useLexicalEditable';
 import {useLexicalNodeSelection} from '@lexical/react/useLexicalNodeSelection';
 import {mergeRegister} from '@lexical/utils';
@@ -46,8 +40,7 @@ import {$isImageNode} from './ImageNode';
 
 const imageCache = new Map();
 
-export const RIGHT_CLICK_IMAGE_COMMAND =
-createCommand('RIGHT_CLICK_IMAGE_COMMAND');
+export const RIGHT_CLICK_IMAGE_COMMAND = createCommand('RIGHT_CLICK_IMAGE_COMMAND');
 
 function useSuspenseImage(src) {
     let cached = imageCache.get(src);
@@ -60,8 +53,8 @@ function useSuspenseImage(src) {
         img.onload = () => resolve(false);
         img.onerror = () => resolve(true);
         }).then((hasError) => {
-        imageCache.set(src, hasError);
-        return hasError;
+            imageCache.set(src, hasError);
+            return hasError;
         });
         imageCache.set(src, cached);
         throw cached;
@@ -111,41 +104,11 @@ function LazyImage({
 
     // Calculate final dimensions with proper scaling
     const calculateDimensions = () => {
-        if (!isSVGImage) {
         return {
-            height,
-            maxWidth,
-            width,
-        };
-        }
-
-        // Use natural dimensions if available, otherwise fallback to defaults
-        const naturalWidth = dimensions?.width || 200;
-        const naturalHeight = dimensions?.height || 200;
-
-        let finalWidth = naturalWidth;
-        let finalHeight = naturalHeight;
-
-        // Scale down if width exceeds maxWidth while maintaining aspect ratio
-        if (finalWidth > maxWidth) {
-        const scale = maxWidth / finalWidth;
-        finalWidth = maxWidth;
-        finalHeight = Math.round(finalHeight * scale);
-        }
-
-        // Scale down if height exceeds maxHeight while maintaining aspect ratio
-        const maxHeight = 500;
-        if (finalHeight > maxHeight) {
-        const scale = maxHeight / finalHeight;
-        finalHeight = maxHeight;
-        finalWidth = Math.round(finalWidth * scale);
-        }
-
-        return {
-        height: finalHeight,
-        maxWidth,
-        width: finalWidth,
-        };
+                height,
+                maxWidth,
+                width,
+            };
     };
 
     const imageStyle = calculateDimensions();
@@ -159,15 +122,7 @@ function LazyImage({
         style={imageStyle}
         onError={onError}
         draggable="false"
-        onLoad={(e) => {
-            if (isSVGImage) {
-            const img = e.currentTarget;
-            setDimensions({
-                height: img.naturalHeight,
-                width: img.naturalWidth,
-            });
-            }
-        }}
+        onLoad={(e) => {}}
         />
     );
 }
@@ -195,9 +150,6 @@ export default function ImageComponent({
     height,
     maxWidth,
     resizable,
-    showCaption,
-    caption,
-    captionsEnabled,
     }) {
     const imageRef = useRef(null);
     const buttonRef = useRef(null);
@@ -213,52 +165,23 @@ export default function ImageComponent({
 
     const $onEnter = useCallback(
         (event) => {
-        const latestSelection = $getSelection();
-        const buttonElem = buttonRef.current;
-        if (
-            isSelected &&
-            $isNodeSelection(latestSelection) &&
-            latestSelection.getNodes().length === 1
-        ) {
-            if (showCaption) {
-            // Move focus into nested editor
-            $setSelection(null);
-            event.preventDefault();
-            caption.focus();
-            return true;
-            } else if (
-            buttonElem !== null &&
-            buttonElem !== document.activeElement
-            ) {
-            event.preventDefault();
-            buttonElem.focus();
-            return true;
-            }
-        }
-        return false;
+            const latestSelection = $getSelection();
+            const buttonElem = buttonRef.current;
+            if (
+                isSelected &&
+                $isNodeSelection(latestSelection) &&
+                latestSelection.getNodes().length === 1
+            ) {}
+            return false;
         },
-        [caption, isSelected, showCaption],
+        [isSelected],
     );
 
     const $onEscape = useCallback(
         (event) => {
-        if (
-            activeEditorRef.current === caption ||
-            buttonRef.current === event.target
-        ) {
-            $setSelection(null);
-            editor.update(() => {
-            setSelected(true);
-            const parentRootElement = editor.getRootElement();
-            if (parentRootElement !== null) {
-                parentRootElement.focus();
-            }
-            });
-            return true;
-        }
-        return false;
+            return false;
         },
-        [caption, editor, setSelected],
+        [editor, setSelected],
     );
 
     const onClick = useCallback(
@@ -315,14 +238,6 @@ export default function ImageComponent({
             }
         }),
         editor.registerCommand(
-            SELECTION_CHANGE_COMMAND,
-            (_, activeEditor) => {
-            activeEditorRef.current = activeEditor;
-            return false;
-            },
-            COMMAND_PRIORITY_LOW,
-        ),
-        editor.registerCommand(
             CLICK_COMMAND,
             onClick,
             COMMAND_PRIORITY_LOW,
@@ -372,15 +287,6 @@ export default function ImageComponent({
         setSelected,
     ]);
 
-    const setShowCaption = () => {
-        editor.update(() => {
-        const node = $getNodeByKey(nodeKey);
-        if ($isImageNode(node)) {
-            node.setShowCaption(true);
-        }
-        });
-    };
-
     const onResizeEnd = (
         nextWidth,
         nextHeight,
@@ -401,8 +307,6 @@ export default function ImageComponent({
     const onResizeStart = () => {
         setIsResizing(true);
     };
-
-    //const {historyState} = useSharedHistoryContext();
 
     const draggable = isSelected && $isNodeSelection(selection) && !isResizing;
     const isFocused = (isSelected || isResizing) && isEditable;
@@ -430,44 +334,14 @@ export default function ImageComponent({
             )}
             </span>
             
-            {/*showCaption && (
-            <div className="image-caption-container">
-                <LexicalNestedComposer initialEditor={caption}>
-                <AutoFocusPlugin />
-                {isCollabActive ? (
-                    <CollaborationPlugin
-                    id={caption.getKey()}
-                    providerFactory={createWebsocketProvider}
-                    shouldBootstrap={true}
-                    />
-                ) : (
-                    <HistoryPlugin externalHistoryState={historyState} />
-                )}
-                <RichTextPlugin
-                    contentEditable={
-                    <ContentEditable
-                        placeholder="Enter a caption..."
-                        placeholderClassName="ImageNode__placeholder"
-                        className="ImageNode__contentEditable"
-                    />
-                    }
-                    ErrorBoundary={LexicalErrorBoundary}
-                />
-                {showNestedEditorTreeView === true ? <TreeViewPlugin /> : null}
-                </LexicalNestedComposer>
-            </div>
-            )*/}
             {resizable && $isNodeSelection(selection) && isFocused && (
             <ImageResizer
-                showCaption={showCaption}
-                setShowCaption={setShowCaption}
                 editor={editor}
                 buttonRef={buttonRef}
                 imageRef={imageRef}
                 maxWidth={maxWidth}
                 onResizeStart={onResizeStart}
                 onResizeEnd={onResizeEnd}
-                captionsEnabled={!isLoadError && captionsEnabled}
             />
             )}
         </>
