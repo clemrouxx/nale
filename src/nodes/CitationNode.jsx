@@ -25,7 +25,7 @@ export class CitationNode extends DecoratorNode {
   }
 
   isInline() { return true }
-  isIsolated() { return true }
+  //isIsolated() { return true }
   getCitationKey(){return this.__citation_key}
   getText(){return this.__text}
   getTextContent(){return this.__text}
@@ -34,6 +34,8 @@ export class CitationNode extends DecoratorNode {
   createDOM(config) {
     const dom = document.createElement("span");
     dom.classList.add("editor-citation");
+    dom.contentEditable = "false";
+    dom.style.userSelect = "all";
     return dom;
   }
 
