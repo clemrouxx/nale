@@ -24,8 +24,11 @@ export class CitationNode extends DecoratorNode {
     }
   }
 
+  isInline() { return true }
+  isIsolated() { return true }
   getCitationKey(){return this.__citation_key}
   getText(){return this.__text}
+  getTextContent(){return this.__text}
   toLatex(){return `\\cite{${this.__citation_key}}`}
   
   createDOM(config) {
@@ -43,7 +46,7 @@ export class CitationNode extends DecoratorNode {
   }
 
   static importJSON(serializedNode) {
-    return new ReferenceNode(serializedNode.__citation_key);
+    return new CitationNode(serializedNode.__citation_key);
   }
 
   exportJSON() {
