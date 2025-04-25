@@ -409,7 +409,7 @@ export default function ImageComponent({
     return (
         <Suspense fallback={null}>
         <>
-            <div draggable={draggable}>
+            <span draggable={draggable}>
             {isLoadError ? (
                 <BrokenImage />
             ) : (
@@ -428,7 +428,7 @@ export default function ImageComponent({
                 onError={() => setIsLoadError(true)}
                 />
             )}
-            </div>
+            </span>
             
             {/*showCaption && (
             <div className="image-caption-container">

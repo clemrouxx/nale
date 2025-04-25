@@ -37,6 +37,7 @@ import {
   $isImageNode,
   ImageNode,
 } from '../../nodes/ImageNode';
+import { $createSimpleImageNode } from '../../nodes/SimpleImageNode';
 //import Button from '../../ui/Button';
 //import {DialogActions, DialogButtonsList} from '../../ui/Dialog';
 //import FileInput from '../../ui/FileInput';
@@ -206,7 +207,7 @@ export default function ImagesPlugin({
       INSERT_IMAGE_COMMAND,
       (payload) => {
         console.log("inserting image");
-        const imageNode = $createImageNode(payload);
+        const imageNode = $createSimpleImageNode(payload);
         $insertNodes([imageNode]);
         if ($isRootOrShadowRoot(imageNode.getParentOrThrow())) {
           $wrapNodeInElement(imageNode, $createParagraphNode).selectEnd();
