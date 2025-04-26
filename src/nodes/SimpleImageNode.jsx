@@ -46,15 +46,16 @@ export class SimpleImageNode extends DecoratorNode {
       element.setAttribute('src', this.__src);
       return {element};
     }
-    /*
+    
     static importDOM() {
+      console.log('imoprt DOM');
       return {
         img: (node) => ({
           conversion: $convertImageElement,
           priority: 0,
         }),
       };
-    }*/
+    }
   
     exportJSON() {
       return {

@@ -9,7 +9,6 @@
 
 //import './ImageNode.css';
 
-import {useCollaborationContext} from '@lexical/react/LexicalCollaborationContext';
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import {useLexicalEditable} from '@lexical/react/useLexicalEditable';
 import {useLexicalNodeSelection} from '@lexical/react/useLexicalNodeSelection';
@@ -19,22 +18,15 @@ $getNodeByKey,
 $getSelection,
 $isNodeSelection,
 $isRangeSelection,
-$setSelection,
 CLICK_COMMAND,
 COMMAND_PRIORITY_LOW,
 createCommand,
-DRAGSTART_COMMAND,
 KEY_ENTER_COMMAND,
 KEY_ESCAPE_COMMAND,
-SELECTION_CHANGE_COMMAND,
 } from 'lexical';
 import * as React from 'react';
 import {Suspense, useCallback, useEffect, useRef, useState} from 'react';
 
-//import {createWebsocketProvider} from '../collaboration';
-//import {useSharedHistoryContext} from '../context/SharedHistoryContext';
-//import brokenImage from '../images/image-broken.svg';
-//import ContentEditable from '../ui/ContentEditable';
 //import ImageResizer from '../ui/ImageResizer';
 import {$isImageNode} from './ImageNode';
 
@@ -48,10 +40,10 @@ function useSuspenseImage(src) {
         return cached;
     } else if (!cached) {
         cached = new Promise((resolve) => {
-        const img = new Image();
-        img.src = src;
-        img.onload = () => resolve(false);
-        img.onerror = () => resolve(true);
+            const img = new Image();
+            img.src = src;
+            img.onload = () => resolve(false);
+            img.onerror = () => resolve(true);
         }).then((hasError) => {
             imageCache.set(src, hasError);
             return hasError;
@@ -62,39 +54,13 @@ function useSuspenseImage(src) {
     throw cached;
 }
 
-function isSVG(src) {
-    return src.toLowerCase().endsWith('.svg'); 
-}
-
-function LazyImage({
-    altText,
-    className,
-    imageRef,
-    src,
-    width,
-    height,
-    maxWidth,
-    onError,
-}) {
-    const [dimensions, setDimensions] = useState(null);
-    const isSVGImage = isSVG(src);
-
-    // Set initial dimensions for SVG images
-    useEffect(() => {
-        if (imageRef.current && isSVGImage) {
-        const {naturalWidth, naturalHeight} = imageRef.current;
-        setDimensions({
-            height: naturalHeight,
-            width: naturalWidth,
-        });
-        }
-    }, [imageRef, isSVGImage]);
+function LazyImage({className,imageRef,src,width,height,maxWidth,onError}) {
 
     const hasError = useSuspenseImage(src);
 
     useEffect(() => {
         if (hasError) {
-        onError();
+            onError();
         }
     }, [hasError, onError]);
 
@@ -102,22 +68,13 @@ function LazyImage({
         return <BrokenImage />;
     }
 
-    // Calculate final dimensions with proper scaling
-    const calculateDimensions = () => {
-        return {
-                height,
-                maxWidth,
-                width,
-            };
-    };
-
-    const imageStyle = calculateDimensions();
+    const imageStyle = {height,maxWidth,width};
 
     return (
         <img
         className={className || undefined}
         src={src}
-        alt={altText}
+        alt={"Test image"}
         ref={imageRef}
         style={imageStyle}
         onError={onError}
@@ -129,79 +86,38 @@ function LazyImage({
 
 function BrokenImage() {
     return (
-        <img
-        src={brokenImage}
-        style={{
-            height: 200,
-            opacity: 0.2,
-            width: 200,
-        }}
-        draggable="false"
-        alt="Broken image"
-        />
+       <span>BROKEN IMAGE</span>
     );
 }
 
-export default function ImageComponent({
-    src,
-    altText,
-    nodeKey,
-    width,
-    height,
-    maxWidth,
-    resizable,
-    }) {
+export default function ImageComponent({src,altText,nodeKey,width,height,maxWidth,resizable}) {
     const imageRef = useRef(null);
-    const buttonRef = useRef(null);
     const [isSelected, setSelected, clearSelection] =
         useLexicalNodeSelection(nodeKey);
     const [isResizing, setIsResizing] = useState(false);
-    const {isCollabActive} = useCollaborationContext();
     const [editor] = useLexicalComposerContext();
     const [selection, setSelection] = useState(null);
-    const activeEditorRef = useRef(null);
     const [isLoadError, setIsLoadError] = useState(false);
     const isEditable = useLexicalEditable();
 
-    const $onEnter = useCallback(
-        (event) => {
-            const latestSelection = $getSelection();
-            const buttonElem = buttonRef.current;
-            if (
-                isSelected &&
-                $isNodeSelection(latestSelection) &&
-                latestSelection.getNodes().length === 1
-            ) {}
-            return false;
-        },
-        [isSelected],
-    );
-
-    const $onEscape = useCallback(
-        (event) => {
-            return false;
-        },
-        [editor, setSelected],
-    );
-
     const onClick = useCallback(
         (payload) => {
-        const event = payload;
+            const event = payload;
 
-        if (isResizing) {
-            return true;
-        }
-        if (event.target === imageRef.current) {
-            if (event.shiftKey) {
-            setSelected(!isSelected);
-            } else {
-            clearSelection();
-            setSelected(true);
+            if (isResizing) {
+                return true;
             }
-            return true;
-        }
+            if (event.target === imageRef.current) {
+                if (event.shiftKey) {
+                    setSelected(!isSelected);
+                } else {
+                    clearSelection();
+                    setSelected(true);
+                }
+                return true;
+            }
 
-        return false;
+            return false;
         },
         [isResizing, isSelected, setSelected, clearSelection],
     );
@@ -229,50 +145,23 @@ export default function ImageComponent({
     useEffect(() => {
         const rootElement = editor.getRootElement();
         const unregister = mergeRegister(
-        editor.registerUpdateListener(({editorState}) => {
-            const updatedSelection = editorState.read(() => $getSelection());
-            if ($isNodeSelection(updatedSelection)) {
-            setSelection(updatedSelection);
-            } else {
-            setSelection(null);
-            }
-        }),
-        editor.registerCommand(
-            CLICK_COMMAND,
-            onClick,
-            COMMAND_PRIORITY_LOW,
-        ),
-        editor.registerCommand(
-            RIGHT_CLICK_IMAGE_COMMAND,
-            onClick,
-            COMMAND_PRIORITY_LOW,
-        ),
-        editor.registerCommand(
-            DRAGSTART_COMMAND,
-            (event) => {
-            if (event.target === imageRef.current) {
-                // TODO This is just a temporary workaround for FF to behave like other browsers.
-                // Ideally, this handles drag & drop too (and all browsers).
-                event.preventDefault();
-                return true;
-            }
-            return false;
-            },
-            COMMAND_PRIORITY_LOW,
-        ),
-        editor.registerCommand(KEY_ENTER_COMMAND, $onEnter, COMMAND_PRIORITY_LOW),
-        editor.registerCommand(
-            KEY_ESCAPE_COMMAND,
-            $onEscape,
-            COMMAND_PRIORITY_LOW,
-        ),
+            editor.registerUpdateListener(({editorState}) => {
+                const updatedSelection = editorState.read(() => $getSelection());
+                if ($isNodeSelection(updatedSelection)) {
+                    setSelection(updatedSelection);
+                } else {
+                    setSelection(null);
+                }
+            }),
+            editor.registerCommand(CLICK_COMMAND,onClick,COMMAND_PRIORITY_LOW),
+            //editor.registerCommand(RIGHT_CLICK_IMAGE_COMMAND,onClick,COMMAND_PRIORITY_LOW),
         );
 
         rootElement?.addEventListener('contextmenu', onRightClick);
 
         return () => {
-        unregister();
-        rootElement?.removeEventListener('contextmenu', onRightClick);
+            unregister();
+            rootElement?.removeEventListener('contextmenu', onRightClick);
         };
     }, [
         clearSelection,
@@ -280,14 +169,12 @@ export default function ImageComponent({
         isResizing,
         isSelected,
         nodeKey,
-        $onEnter,
-        $onEscape,
         onClick,
         onRightClick,
         setSelected,
     ]);
 
-    const onResizeEnd = (
+    /*const onResizeEnd = (
         nextWidth,
         nextHeight,
     ) => {
@@ -306,7 +193,7 @@ export default function ImageComponent({
 
     const onResizeStart = () => {
         setIsResizing(true);
-    };
+    };*/
 
     const draggable = isSelected && $isNodeSelection(selection) && !isResizing;
     const isFocused = (isSelected || isResizing) && isEditable;
@@ -334,7 +221,7 @@ export default function ImageComponent({
             )}
             </span>
             
-            {resizable && $isNodeSelection(selection) && isFocused && (
+            {/*resizable && $isNodeSelection(selection) && isFocused && (
             <ImageResizer
                 editor={editor}
                 buttonRef={buttonRef}
@@ -343,7 +230,7 @@ export default function ImageComponent({
                 onResizeStart={onResizeStart}
                 onResizeEnd={onResizeEnd}
             />
-            )}
+            )*/}
         </>
         </Suspense>
     );
