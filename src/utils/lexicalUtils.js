@@ -14,9 +14,9 @@ export function useActiveNode() {
       editorState.read(() => {
         const selection = $getSelection();
         if (selection) {
-          const anchorNode = selection.anchor.getNode();
-          setActiveNode(anchorNode);
-          setActiveNodeParent(anchorNode.getParent());
+          const firstNode = selection.getNodes()[0];
+          setActiveNode(firstNode);
+          setActiveNodeParent(firstNode.getParent());
         } 
         else {
           setActiveNode(null);
