@@ -103,7 +103,5 @@ export class SimpleImageNode extends DecoratorNode {
   }
   
 export function $createSimpleImageNode({src}) {
-    return $applyNodeReplacement(
-        new SimpleImageNode(src),
-    );
+    return new SimpleImageNode(src);
 }
