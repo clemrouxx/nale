@@ -15,8 +15,13 @@ import ImageComponent from './ImageComponent';
 
 export class SimpleImageNode extends DecoratorNode {
     __src;
-  
-    static getType() {return 'simple-image'}
+
+    static getType() {return 'image'}
+
+    constructor(src,key) {
+      super(key);
+      this.__src = src;
+    }
   
     static clone(node) {
         return new SimpleImageNode(
@@ -24,32 +29,21 @@ export class SimpleImageNode extends DecoratorNode {
             node.__key,
         );
     }
-  
-    constructor(src,key) {
-        super(key);
-        this.__src = src;
-    }
+
+    getSrc() { return this.__src }
+
+    // Serialization
 
     static importJSON(serializedNode) {
-        const {src} = serializedNode;
-        return new SimpleImageNode(src);
-    }
-  
-    updateFromJSON(serializedNode) {
-      const node = super.updateFromJSON(serializedNode);
-      return node;
-    }
-  
-    exportDOM() {
-      const element = document.createElement('img');
-      element.setAttribute('src', this.__src);
-      return {element};
+      const {src} = serializedNode;
+      return new SimpleImageNode(src);
     }
   
     exportJSON() {
       return {
         ...super.exportJSON(),
         src: this.getSrc(),
+        type: "image"
       };
     }
   
@@ -69,14 +63,6 @@ export class SimpleImageNode extends DecoratorNode {
       return false;
     }
   
-    getSrc() {
-      return this.__src;
-    }
-  
-    getAltText() {
-      return this.__altText;
-    }
-  
     decorate(){
       return (
         <ImageComponent
@@ -93,4 +79,42 @@ export class SimpleImageNode extends DecoratorNode {
   
 export function $createSimpleImageNode({src}) {
     return new SimpleImageNode(src);
+}
+
+export class CaptionedImageNode extends SimpleImageNode{
+  static getType(){return 'captioned-image'}
+
+  static clone(node) {
+    return new CaptionedImageNode(
+        node.__src,
+        node.__key,
+    );
+  }
+
+  // Serialization
+
+  static importJSON(serializedNode) {
+    const {src} = serializedNode;
+    return new CaptionedImageNode(src);
+  }
+
+  exportJSON() {
+    return {
+      ...super.exportJSON(),
+      type: "captioned-image"
+    };
+  }
+
+  // View
+  decorate(){ return super.decorate() }
+
+  // Behaviour
+  remove(preserveEmptyParent){ return false }
+  replace(replaceWith,includeChildren){ return false }
+  insertBefore(nodeToInsert,restoreSelection){ return false } // Kind of works, although throws an error... (the text node created is not added and thus has no parent FWIU)
+  insertAfter(nodeToInsert,restoreSelection){ return false }
+}
+
+export function $createCaptionedImageNode({src}) {
+  return new CaptionedImageNode(src);
 }

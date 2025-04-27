@@ -1,16 +1,19 @@
 import {
-    $createParagraphNode,
     ElementNode,
 } from 'lexical';
-import * as React from 'react';
-import ImageComponent from './ImageComponent';
 import { addClassNamesToElement } from '@lexical/utils';
-import { $createSimpleImageNode } from './SimpleImageNode';
+import { $createCaptionedImageNode, $createSimpleImageNode } from './SimpleImageNode';
+import { $createCaptionNode } from './CaptionNode';
 
 export class FigureNode extends ElementNode {
     __src;
   
     static getType() {return 'figure'}
+
+    constructor(src,key) {
+        super(key);
+        this.__src = src;
+    }
   
     static clone(node) {
         return new FigureNode(
@@ -18,11 +21,8 @@ export class FigureNode extends ElementNode {
             node.__key,
         );
     }
-  
-    constructor(src,key) {
-        super(key);
-        this.__src = src;
-    }
+
+    // Serialization
 
     static importJSON(serializedNode) {
         const {src} = serializedNode;
@@ -52,11 +52,21 @@ export class FigureNode extends ElementNode {
     getSrc() {
       return this.__src;
     }
+
+    // Behaviour
+
+    // Behaviour
+
+    isShadowRoot(){return true}
+    /*
+    canInsertTextBefore() { return false }
+    canInsertTextAfter() { return false }
+    canMergeWhenEmpty() { return false }*/
   }
   
 export function $createFigureNode({src}) {
     const figureNode = new FigureNode(src);
-    figureNode.append($createSimpleImageNode({src}));
-    figureNode.append($createParagraphNode());
+    figureNode.append($createCaptionedImageNode({src}));
+    figureNode.append($createCaptionNode());
     return figureNode;
 }
