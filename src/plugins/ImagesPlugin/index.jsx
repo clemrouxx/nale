@@ -8,7 +8,7 @@
 
 
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
-import {$wrapNodeInElement} from '@lexical/utils';
+import {$wrapNodeInElement, mergeRegister} from '@lexical/utils';
 import {
   $createParagraphNode,
   $insertNodes,
@@ -23,8 +23,10 @@ import yellowFlowerImage from '../../images/sample.jpg';
 import { $createSimpleImageNode, SimpleImageNode } from '../../nodes/SimpleImageNode';
 import FileInput from '../../ui/FileInput';
 import TextInput from '../../ui/TextInput';
+import { $createFigureNode } from '../../nodes/FigureNode';
 
 export const INSERT_IMAGE_COMMAND = createCommand('INSERT_IMAGE_COMMAND');
+export const INSERT_FIGURE_COMMAND = createCommand('INSERT_FIGURE_COMMAND');
 
 export function InsertImageUriDialogBody({onClick}) {
   const [src, setSrc] = useState('');
@@ -111,6 +113,7 @@ export function InsertImageUploadedDialogBody({
 export function InsertImageDialog({
   activeEditor,
   onClose,
+  figureMode
 }) {
   const [mode, setMode] = useState(null);
   const hasModifier = useRef(false);
@@ -127,7 +130,8 @@ export function InsertImageDialog({
   }, [activeEditor]);
 
   const onClick = (payload) => {
-    activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, payload);
+    if (figureMode) activeEditor.dispatchCommand(INSERT_FIGURE_COMMAND, payload);
+    else activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, payload);
     onClose();
   };
 
@@ -179,18 +183,31 @@ export default function ImagesPlugin() {
       throw new Error('ImagesPlugin: SimpleImageNode not registered on editor');
     }
 
-    return editor.registerCommand(
-      INSERT_IMAGE_COMMAND,
-      (payload) => {
-        const imageNode = $createSimpleImageNode(payload);
-        $insertNodes([imageNode]);
-        if ($isRootOrShadowRoot(imageNode.getParentOrThrow())) {
-          $wrapNodeInElement(imageNode, $createParagraphNode).selectEnd();
-        }
-        return true;
-      },
-      COMMAND_PRIORITY_EDITOR,
-    );
+    return mergeRegister(
+      editor.registerCommand(
+        INSERT_IMAGE_COMMAND,
+        (payload) => {
+          const imageNode = $createSimpleImageNode(payload);
+          $insertNodes([imageNode]);
+          if ($isRootOrShadowRoot(imageNode.getParentOrThrow())) {
+            $wrapNodeInElement(imageNode, $createParagraphNode).selectEnd();
+          }
+          return true;
+        },
+        COMMAND_PRIORITY_EDITOR,
+      ),
+
+      editor.registerCommand(
+        INSERT_FIGURE_COMMAND,
+        (payload) => {
+          console.log(payload);
+          const figureNode = $createFigureNode(payload);
+          $insertNodes([figureNode]);
+          return true;
+        },
+        COMMAND_PRIORITY_EDITOR,
+      ),
+    )
   }, [editor]);
 
   return null;

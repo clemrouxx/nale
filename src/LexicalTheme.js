@@ -33,6 +33,7 @@ const theme = {
       underline: 'editor-textUnderline',
       underlineStrikethrough: 'editor-textUnderlineStrikethrough',
     },
+    debug: 'editor-debug',
     code: 'editor-code',
     codeHighlight: {
       atrule: 'editor-tokenAttr',

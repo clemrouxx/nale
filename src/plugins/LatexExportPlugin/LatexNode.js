@@ -30,7 +30,7 @@ export class LatexNode extends ElementNode {
     return $createLatexNode().updateFromJSON(serializedNode);
   }
 
-  static exportJSON() {
+  static exportJSON() { // !!! TODO
     return {
       type: 'latex',
       version: 1,

@@ -10,6 +10,7 @@ import { ReferenceNode } from './nodes/ReferenceNode';
 import { CitationNode } from './nodes/CitationNode';
 import { BibliographyNode } from './nodes/BibliographyNode';
 import { SimpleImageNode } from './nodes/SimpleImageNode';
+import { FigureNode } from './nodes/FigureNode';
 
 // Catch any errors that occur during Lexical updates and log them
 // or throw them as needed. If you don't throw them, Lexical will
@@ -36,5 +37,6 @@ export const initialConfig = {
         CitationNode,
         BibliographyNode,
         SimpleImageNode,
+        FigureNode
     ],
 };

@@ -104,7 +104,6 @@ import { useDocumentStructureContext } from '../NumberedHeadingPlugin/DocumentSt
 import { insertCitationNode } from '../../nodes/CitationNode.jsx';
 import { addBiblioFromClipboard, bibItemToUIString } from '../../utils/bibliographyUtils.jsx';
 import { insertBibliographyNode } from '../../nodes/BibliographyNode.jsx';
-import { INSERT_IMAGE_COMMAND } from '../ImagesPlugin/index.jsx';
 /*
 const rootTypeToRootName = {
   root: 'Root',
@@ -880,6 +879,7 @@ export default function ToolbarPlugin({
                     <InsertImageDialog
                       activeEditor={activeEditor}
                       onClose={onClose}
+                      figureMode={false}
                     />
                   ));
                 }}>
@@ -888,16 +888,17 @@ export default function ToolbarPlugin({
               </DropDownItem>
               <DropDownItem
                 onClick={() => {
-                  showModal('Insert Inline Image', (onClose) => (
-                    <InsertInlineImageDialog
+                  showModal('Insert Figure', (onClose) => (
+                    <InsertImageDialog
                       activeEditor={activeEditor}
                       onClose={onClose}
+                      figureMode={true}
                     />
                   ));
                 }}
                 className="item">
                 <i className="icon image" />
-                <span className="text">Inline Image</span>
+                <span className="text">Figure</span>
               </DropDownItem>
             </DropDown>
           </>
