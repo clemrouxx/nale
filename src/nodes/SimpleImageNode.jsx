@@ -13,7 +13,6 @@ import {
 import * as React from 'react';
 import ImageComponent from './ImageComponent';
 
-  
 export class SimpleImageNode extends DecoratorNode {
     __src;
   
@@ -45,16 +44,6 @@ export class SimpleImageNode extends DecoratorNode {
       const element = document.createElement('img');
       element.setAttribute('src', this.__src);
       return {element};
-    }
-    
-    static importDOM() {
-      console.log('imoprt DOM');
-      return {
-        img: (node) => ({
-          conversion: $convertImageElement,
-          priority: 0,
-        }),
-      };
     }
   
     exportJSON() {

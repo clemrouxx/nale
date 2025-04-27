@@ -210,7 +210,7 @@ function BlockFormatDropDown({
       buttonAriaLabel="Formatting options for text style">
       <DropDownItem
         className={
-          'item wide ' + dropDownActiveClass(blockType === 'paragraph')
+          'wide ' + dropDownActiveClass(blockType === 'paragraph')
         }
         onClick={() => formatParagraph(editor)}>
         <div className="icon-text-container">
@@ -220,7 +220,7 @@ function BlockFormatDropDown({
         <span className="shortcut">{SHORTCUTS.NORMAL}</span>
       </DropDownItem>
       <DropDownItem
-        className={'item wide ' + dropDownActiveClass(blockType === 'h1')}
+        className={'wide ' + dropDownActiveClass(blockType === 'h1')}
         onClick={() => formatHeading(editor, blockType, 'h1',documentOptions)}>
         <div className="icon-text-container">
           <i className="icon h1" />
@@ -229,7 +229,7 @@ function BlockFormatDropDown({
         <span className="shortcut">{SHORTCUTS.HEADING1}</span>
       </DropDownItem>
       <DropDownItem
-        className={'item wide ' + dropDownActiveClass(blockType === 'h2')}
+        className={'wide ' + dropDownActiveClass(blockType === 'h2')}
         onClick={() => formatHeading(editor, blockType, 'h2',documentOptions)}>
         <div className="icon-text-container">
           <i className="icon h2" />
@@ -238,7 +238,7 @@ function BlockFormatDropDown({
         <span className="shortcut">{SHORTCUTS.HEADING2}</span>
       </DropDownItem>
       <DropDownItem
-        className={'item wide ' + dropDownActiveClass(blockType === 'h3')}
+        className={'wide ' + dropDownActiveClass(blockType === 'h3')}
         onClick={() => formatHeading(editor, blockType, 'h3',documentOptions)}>
         <div className="icon-text-container">
           <i className="icon h3" />
@@ -247,7 +247,7 @@ function BlockFormatDropDown({
         <span className="shortcut">{SHORTCUTS.HEADING3}</span>
       </DropDownItem>
       <DropDownItem
-        className={'item wide ' + dropDownActiveClass(blockType === 'bullet')}
+        className={'wide ' + dropDownActiveClass(blockType === 'bullet')}
         onClick={() => formatBulletList(editor, blockType)}>
         <div className="icon-text-container">
           <i className="icon bullet-list" />
@@ -256,7 +256,7 @@ function BlockFormatDropDown({
         <span className="shortcut">{SHORTCUTS.BULLET_LIST}</span>
       </DropDownItem>
       <DropDownItem
-        className={'item wide ' + dropDownActiveClass(blockType === 'number')}
+        className={'wide ' + dropDownActiveClass(blockType === 'number')}
         onClick={() => formatNumberedList(editor, blockType)}>
         <div className="icon-text-container">
           <i className="icon numbered-list" />
@@ -265,7 +265,7 @@ function BlockFormatDropDown({
         <span className="shortcut">{SHORTCUTS.NUMBERED_LIST}</span>
       </DropDownItem>
       <DropDownItem
-        className={'item wide ' + dropDownActiveClass(blockType === 'check')}
+        className={'wide ' + dropDownActiveClass(blockType === 'check')}
         onClick={() => formatCheckList(editor, blockType)}>
         <div className="icon-text-container">
           <i className="icon check-list" />
@@ -274,7 +274,7 @@ function BlockFormatDropDown({
         <span className="shortcut">{SHORTCUTS.CHECK_LIST}</span>
       </DropDownItem>
       <DropDownItem
-        className={'item wide ' + dropDownActiveClass(blockType === 'quote')}
+        className={'wide ' + dropDownActiveClass(blockType === 'quote')}
         onClick={() => formatQuote(editor, blockType)}>
         <div className="icon-text-container">
           <i className="icon quote" />
@@ -283,7 +283,7 @@ function BlockFormatDropDown({
         <span className="shortcut">{SHORTCUTS.QUOTE}</span>
       </DropDownItem>
       <DropDownItem
-        className={'item wide ' + dropDownActiveClass(blockType === 'code')}
+        className={'wide ' + dropDownActiveClass(blockType === 'code')}
         onClick={() => formatCode(editor, blockType)}>
         <div className="icon-text-container">
           <i className="icon code" />
@@ -292,7 +292,7 @@ function BlockFormatDropDown({
         <span className="shortcut">{SHORTCUTS.CODE_BLOCK}</span>
       </DropDownItem>
       <DropDownItem
-        className={'item wide ' + dropDownActiveClass(blockType === 'latex')}
+        className={'wide ' + dropDownActiveClass(blockType === 'latex')}
         onClick={() => formatLatex(editor, blockType)}>
         <div className="icon-text-container">
           <i className="icon latex" />
@@ -312,7 +312,7 @@ function CitationDropDown({editor}){
       <button className='item' onClick={()=>addBiblioFromClipboard(editor,biblio,setBiblio)}>From clipboard...</button>
       <button className='item' onClick={()=>insertBibliographyNode(editor)}>Insert Bibliography</button>
       {biblio.map(bibitem => (
-        <DropDownItem key={bibitem.key} className={"item can-be-wide"} onClick={()=>insertCitationNode(editor,bibitem.key)}>
+        <DropDownItem key={bibitem.key} className={"can-be-wide"} onClick={()=>insertCitationNode(editor,bibitem.key)}>
           {bibItemToUIString(bibitem)}
         </DropDownItem>
       ))}
@@ -876,16 +876,13 @@ export default function ToolbarPlugin({
               </DropDownItem>
               <DropDownItem
                 onClick={() => {
-
-                  //activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, {src:yellowFlowerImage});
                   showModal('Insert Image', (onClose) => (
                     <InsertImageDialog
                       activeEditor={activeEditor}
                       onClose={onClose}
                     />
                   ));
-                }}
-                className="item">
+                }}>
                 <i className="icon image" />
                 <span className="text">Image</span>
               </DropDownItem>
@@ -901,19 +898,6 @@ export default function ToolbarPlugin({
                 className="item">
                 <i className="icon image" />
                 <span className="text">Inline Image</span>
-              </DropDownItem>
-              <DropDownItem
-                onClick={() => {
-                  showModal('Insert Table', (onClose) => (
-                    <InsertTableDialog
-                      activeEditor={activeEditor}
-                      onClose={onClose}
-                    />
-                  ));
-                }}
-                className="item">
-                <i className="icon table" />
-                <span className="text">Table</span>
               </DropDownItem>
             </DropDown>
           </>

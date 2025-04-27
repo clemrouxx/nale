@@ -8,41 +8,21 @@
 
 
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
-import {$wrapNodeInElement, mergeRegister} from '@lexical/utils';
+import {$wrapNodeInElement} from '@lexical/utils';
 import {
   $createParagraphNode,
-  $createRangeSelection,
-  $getSelection,
   $insertNodes,
-  $isNodeSelection,
   $isRootOrShadowRoot,
-  $setSelection,
   COMMAND_PRIORITY_EDITOR,
-  COMMAND_PRIORITY_HIGH,
-  COMMAND_PRIORITY_LOW,
   createCommand,
-  DRAGOVER_COMMAND,
-  DRAGSTART_COMMAND,
-  DROP_COMMAND,
-  getDOMSelectionFromTarget,
-  isHTMLElement,
 } from 'lexical';
 import {useEffect, useRef, useState} from 'react';
 import * as React from 'react';
 
-//import landscapeImage from '../../images/landscape.jpg';
 import yellowFlowerImage from '../../images/sample.jpg';
-import {
-  $createImageNode,
-  $isImageNode,
-  ImageNode,
-} from '../../nodes/ImageNode';
-import { $createSimpleImageNode } from '../../nodes/SimpleImageNode';
-//import Button from '../../ui/Button';
-//import {DialogActions, DialogButtonsList} from '../../ui/Dialog';
+import { $createSimpleImageNode, SimpleImageNode } from '../../nodes/SimpleImageNode';
 import FileInput from '../../ui/FileInput';
 import TextInput from '../../ui/TextInput';
-
 
 export const INSERT_IMAGE_COMMAND = createCommand('INSERT_IMAGE_COMMAND');
 
@@ -195,8 +175,8 @@ export default function ImagesPlugin() {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
-    if (!editor.hasNodes([ImageNode])) {
-      throw new Error('ImagesPlugin: ImageNode not registered on editor');
+    if (!editor.hasNodes([SimpleImageNode])) {
+      throw new Error('ImagesPlugin: SimpleImageNode not registered on editor');
     }
 
     return editor.registerCommand(

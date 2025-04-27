@@ -9,7 +9,6 @@ import { NumberedHeadingNode } from "./plugins/NumberedHeadingPlugin/NumberedHea
 import { ReferenceNode } from './nodes/ReferenceNode';
 import { CitationNode } from './nodes/CitationNode';
 import { BibliographyNode } from './nodes/BibliographyNode';
-import { ImageNode } from './nodes/ImageNode';
 import { SimpleImageNode } from './nodes/SimpleImageNode';
 
 // Catch any errors that occur during Lexical updates and log them
@@ -36,7 +35,6 @@ export const initialConfig = {
         ReferenceNode,
         CitationNode,
         BibliographyNode,
-        ImageNode,
         SimpleImageNode,
     ],
 };

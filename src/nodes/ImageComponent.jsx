@@ -6,9 +6,6 @@
  *
  */
 
-
-//import './ImageNode.css';
-
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import {useLexicalEditable} from '@lexical/react/useLexicalEditable';
 import {useLexicalNodeSelection} from '@lexical/react/useLexicalNodeSelection';
@@ -26,9 +23,6 @@ KEY_ESCAPE_COMMAND,
 } from 'lexical';
 import * as React from 'react';
 import {Suspense, useCallback, useEffect, useRef, useState} from 'react';
-
-//import ImageResizer from '../ui/ImageResizer';
-import {$isImageNode} from './ImageNode';
 
 const imageCache = new Map();
 

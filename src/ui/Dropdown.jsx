@@ -46,7 +46,7 @@ export function DropDownItem({
 
   return (
     <button
-      className={className}
+      className={className+" item"}
       onClick={onClick}
       ref={ref}
       title={title}
