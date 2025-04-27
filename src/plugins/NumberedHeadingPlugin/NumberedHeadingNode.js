@@ -21,27 +21,28 @@ function numberToString(num,style){
 }
 
 export class NumberedHeadingNode extends ElementNode{
-  constructor(level, numbering, headings_options, key) {
+  constructor(level, numbering, headings_options, is_numbered, key) {
     super(key);
     this.__tag = `h${level}`;
     this.__level = level;
     this.__numbering = numbering;
     this.__headings_options = headings_options;
+    this.__is_numbered = is_numbered;
   }
 
   static getType() { return 'numbered-heading'}
   getLevel() { return this.__level } // TO CHANGE AND USE getLatest() ?
   getNumbering() { return this.__numbering }
   getKey() { return this.__key }
-  toLatex(childrenString) { return `${HEADING_COMMANDS[this.__level]}{${childrenString}}\\label{${this.__key}}\n`}
+  isNumbered() { return this.__is_numbered }
+  toLatex(childrenString) { return `${HEADING_COMMANDS[this.__level]}${this.__is_numbered?'':'*'}{${childrenString}}\\label{${this.__key}}\n`}
 
   static clone(node) {
-    return new NumberedHeadingNode(node.__level,node.__numbering,node.__headings_options,node.__key);
+    return new NumberedHeadingNode(node.__level,node.__numbering,node.__headings_options,node.__is_numbered,node.__key);
   }
 
-  setNumbering(numbering){
-    this.getWritable().__numbering = structuredClone(numbering);
-  }
+  setNumbering(numbering){ this.getWritable().__numbering = structuredClone(numbering) }
+  setIsNumbered(is_numbered) { const writable = this.getWritable().__is_numbered = is_numbered }
 
   setDocumentOptions(documentOptions){
     const writable = this.getWritable();
@@ -50,6 +51,7 @@ export class NumberedHeadingNode extends ElementNode{
   }
 
   getNumberingString(){
+    if (!this.__is_numbered) return "";
     if (!this.__headings_options) return "ERROR";
     const replacedStrings = {1:"{S}",2:"{sS}",3:"{ssS}"};
     var s = this.__headings_options.numberingTemplates[this.__level];
@@ -69,11 +71,11 @@ export class NumberedHeadingNode extends ElementNode{
   }
   
   updateDOM(prevNode, dom) {
-    return !(areIdentical(this.__numbering,prevNode.__numbering) && areIdentical(this.__headings_options,prevNode.__headings_options));
+    return !(this.getNumberingString()===prevNode.getNumberingString());
   }
 
   static importJSON(serializedNode) {
-    return new NumberedHeadingNode(serializedNode.__level,{},serializedNode.__headings_options);
+    return new NumberedHeadingNode(serializedNode.__level,{},serializedNode.__headings_options,serializedNode.__is_numbered);
   }
 
   exportJSON() {
@@ -81,6 +83,7 @@ export class NumberedHeadingNode extends ElementNode{
       ...super.exportJSON(),
       __level : this.__level,
       __headings_options : this.__headings_options,
+      __is_numbered : this.__is_numbered
     };
   }
 
@@ -103,7 +106,7 @@ export class NumberedHeadingNode extends ElementNode{
 }
 
 export function $createNumberedHeadingNode(headingLevel,documentOptions) {
-  return $applyNodeReplacement(new NumberedHeadingNode(headingLevel,{},documentOptions.headings));
+  return $applyNodeReplacement(new NumberedHeadingNode(headingLevel,{},documentOptions.headings,true));
 }
 
 export function $isNumberedHeadingNode(node) {

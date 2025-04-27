@@ -1,3 +1,4 @@
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useActiveNode } from "../../utils/lexicalUtils";
 import { useDocumentOptions } from "./DocumentOptionsContext";
 
@@ -9,24 +10,32 @@ const OPTIONS_CATEGORY_PER_NODETYPE = {
 export function AutoOptionsPanel() { // Automatically chooses the relevant options category to show
     const { activeNode, activeNodeParent } = useActiveNode();
     var category = "general";
+    let useParentNode = false;
     if (activeNode){
         var nodeType = activeNode.getType();
-        if (nodeType==="text") nodeType = activeNodeParent.getType(); // Go up one node in this case
+        if (nodeType==="text"){
+            useParentNode = true;
+            nodeType = activeNodeParent.getType(); // Go up one node in this case
+        }
         if (nodeType in OPTIONS_CATEGORY_PER_NODETYPE){
             category = OPTIONS_CATEGORY_PER_NODETYPE[nodeType];
         }
     }
     return (
         <div className="side-panel">
-            {nodeType}
+            {activeNode && 
+            <>
+                <h3>Node options ({nodeType})</h3>
+                <NodeOptionsPanel node={useParentNode?activeNodeParent:activeNode}/>
+            </>}
             <h3>Global options</h3>
-            {category!=="general"&&<OptionsPanel category={category}/>}
-            <OptionsPanel category={"general"}/>
+            {category!=="general"&&<GlobalOptionsPanel category={category}/>}
+            <GlobalOptionsPanel category={"general"}/>
         </div>
     );
 }
 
-export function OptionsPanel({category}) {
+export function GlobalOptionsPanel({category}) {
     const {documentOptions,setDocumentOptions} = useDocumentOptions();
 
     const setOption = (option,value) => {
@@ -127,6 +136,39 @@ export function OptionsPanel({category}) {
                           </div>
                         ))}
                     </div>
+                </>
+            );
+            break;
+    }
+    return (<div className="options-panel">{inner}</div>);
+}
+
+
+
+function NodeOptionsPanel({node}) {
+    const [editor] = useLexicalComposerContext();
+
+    var inner = (<></>);
+
+    switch (node.getType()){
+        case "numbered-heading":
+            inner = (
+                <>
+                <h4>Heading options</h4>
+                <label htmlFor="isNumbered">
+                    <input 
+                    type="checkbox"
+                    name="isNumbered"
+                    id="isNumbered"
+                    onChange={(event) => {
+                        editor.update(()=>{
+                            node.setIsNumbered(event.target.checked);
+                        })
+                    }}
+                    checked={editor.read(()=>node.isNumbered())}
+                    />
+                    Include in numbering
+                </label>
                 </>
             );
             break;

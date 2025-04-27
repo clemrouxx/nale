@@ -18,7 +18,7 @@ import { AutoNumberer } from './plugins/NumberedHeadingPlugin/AutoNumberer';
 import { $isNumberedHeadingNode } from './plugins/NumberedHeadingPlugin/NumberedHeadingNode';
 import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
 import { setGlobalCSSRule } from './utils/generalUtils';
-import { AutoOptionsPanel, OptionsPanel } from './plugins/Options/OptionsPanel';
+import { AutoOptionsPanel } from './plugins/Options/OptionsPanel';
 import { DocumentStructureProvider } from './plugins/NumberedHeadingPlugin/DocumentStructureContext';
 import ImagesPlugin from './plugins/ImagesPlugin';
 

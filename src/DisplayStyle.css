@@ -51,7 +51,7 @@
     font-size: var(--fontsize-normal);
 }
 
-.editor-numbered-heading::before{
+.editor-numbered-heading:not([numberingstring=""])::before{
     content: attr(numberingstring);
     margin-right: 1em;
 }

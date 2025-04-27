@@ -31,7 +31,7 @@ export function convertToLatex(node){
     }
     
     if (node.toLatex){ // Conversion is defined in the node
-        string += node.toLatex(string); // We pass as parameter the string from the children
+        string = node.toLatex(string); // We pass as parameter the string from the children
     }
     else{
         switch (node.getType()){

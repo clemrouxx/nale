@@ -6,7 +6,7 @@ import { useDocumentStructureContext } from "./DocumentStructureContext";
 import { CitationNode } from "../../nodes/CitationNode";
 
 export function AutoNumberer(ref){
-    const {setNumberedHeadings,biblio,setBiblio} = useDocumentStructureContext();
+    const {setNumberedHeadings,biblio} = useDocumentStructureContext();
     const [editor] = useLexicalComposerContext();
     
     editor.registerUpdateListener(() => {
@@ -18,7 +18,7 @@ export function AutoNumberer(ref){
             const root = $getRoot();
 
             const visit = (node) => {
-                if (node instanceof NumberedHeadingNode && node.getLevel() in numbering) {
+                if (node instanceof NumberedHeadingNode && node.isNumbered() && node.getLevel() in numbering) {
                     numbering[node.getLevel()]++;
                     if (!areIdentical(numbering,node.getNumbering())){
                         node.setNumbering(numbering);
