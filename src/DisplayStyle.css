@@ -98,3 +98,14 @@
 .editor-debug{
     background-color: magenta;
 }
+
+.editor-figure{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: yellow;
+}
+
+.editor-figure > *{
+    text-align: center;
+}

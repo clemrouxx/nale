@@ -6,7 +6,7 @@ export class CaptionNode extends ParagraphNode{
 
     constructor(number,key){
         super(key);
-        this.__prefix_template = "Figure {}. ";
+        this.__prefix_template = "Figure {}: ";
         this.__number = number ?? 0;
     }
 

@@ -18,14 +18,16 @@ export class SimpleImageNode extends DecoratorNode {
 
     static getType() {return 'image'}
 
-    constructor(src,key) {
+    constructor(src,width_string,key) {
       super(key);
       this.__src = src;
+      this.__width_string = width_string;
     }
   
     static clone(node) {
         return new SimpleImageNode(
             node.__src,
+            node.__width_string,
             node.__key,
         );
     }
@@ -35,14 +37,15 @@ export class SimpleImageNode extends DecoratorNode {
     // Serialization
 
     static importJSON(serializedNode) {
-      const {src} = serializedNode;
-      return new SimpleImageNode(src);
+      const {src,width_string} = serializedNode;
+      return new SimpleImageNode(src,width_string);
     }
   
     exportJSON() {
       return {
         ...super.exportJSON(),
-        src: this.getSrc(),
+        src: this.__src,
+        width_string: this.__width_string,
         type: "image"
       };
     }
@@ -67,7 +70,7 @@ export class SimpleImageNode extends DecoratorNode {
       return (
         <ImageComponent
           src={this.__src}
-          width={100}
+          width={this.__width_string}
           nodeKey={this.getKey()}
           showCaption={false}
           captionsEnabled={false}
@@ -87,6 +90,7 @@ export class CaptionedImageNode extends SimpleImageNode{
   static clone(node) {
     return new CaptionedImageNode(
         node.__src,
+        node.__width_string,
         node.__key,
     );
   }
@@ -94,14 +98,14 @@ export class CaptionedImageNode extends SimpleImageNode{
   // Serialization
 
   static importJSON(serializedNode) {
-    const {src} = serializedNode;
-    return new CaptionedImageNode(src);
+    const {src,__width_string} = serializedNode;
+    return new CaptionedImageNode(src,__width_string);
   }
 
   exportJSON() {
     return {
       ...super.exportJSON(),
-      type: "captioned-image"
+      type: "captioned-image",
     };
   }
 
@@ -116,5 +120,5 @@ export class CaptionedImageNode extends SimpleImageNode{
 }
 
 export function $createCaptionedImageNode({src}) {
-  return new CaptionedImageNode(src);
+  return new CaptionedImageNode(src,"50%");
 }

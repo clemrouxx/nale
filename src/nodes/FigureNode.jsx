@@ -55,7 +55,7 @@ export class FigureNode extends ElementNode {
   
     createDOM(config) {
         const element = document.createElement('div');
-        addClassNamesToElement(element, config.theme.debug);
+        addClassNamesToElement(element, config.theme.figure);
         return element;
     }
   
