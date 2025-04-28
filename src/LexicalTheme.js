@@ -35,6 +35,7 @@ const theme = {
     },
     debug: 'editor-debug',
     code: 'editor-code',
+    caption: 'editor-caption',
     codeHighlight: {
       atrule: 'editor-tokenAttr',
       attr: 'editor-tokenAttr',

@@ -56,6 +56,10 @@
     margin-right: 1em;
 }
 
+.editor-caption::before{
+    content: attr(prefix);
+}
+
 .editor-list-ul, .editor-list-ol{
     padding-inline-start: 2.4em;
     margin-block-start: 1.5ex;

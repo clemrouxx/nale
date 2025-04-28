@@ -4,6 +4,7 @@ import { $getRoot } from "lexical";
 import { areIdentical } from "../../utils/generalUtils";
 import { useDocumentStructureContext } from "./DocumentStructureContext";
 import { CitationNode } from "../../nodes/CitationNode";
+import { FigureNode } from "../../nodes/FigureNode";
 
 export function AutoNumberer(ref){
     const {setNumberedHeadings,biblio} = useDocumentStructureContext();
@@ -12,21 +13,26 @@ export function AutoNumberer(ref){
     editor.registerUpdateListener(() => {
         editor.update(() => {
             // We start by refreshing the numbering of all the headings, and fill a dictionnary with the strings
-            var numbering = {1:0,2:0,3:0};
+            let headingsNumbering = {1:0,2:0,3:0};
+            let figuresNumber = 0; // Last figure number
             const newheadings = [];
             const citationKeys = []; // In the order they appear
             const root = $getRoot();
 
             const visit = (node) => {
-                if (node instanceof NumberedHeadingNode && node.isNumbered() && node.getLevel() in numbering) {
-                    numbering[node.getLevel()]++;
-                    if (!areIdentical(numbering,node.getNumbering())){
-                        node.setNumbering(numbering);
+                if (node instanceof NumberedHeadingNode && node.isNumbered() && node.getLevel() in headingsNumbering) {
+                    headingsNumbering[node.getLevel()]++;
+                    if (!areIdentical(headingsNumbering,node.getNumbering())){
+                        node.setNumbering(headingsNumbering);
                     }
-                    newheadings.push({key:node.getKey(),numberingString:node.getNumberingString(),textContent:node.getTextContent()});
-                    Object.keys(numbering).forEach((level)=>{
-                        if (level > node.getLevel()) numbering[level] = 0; // Reset numbering for lower levels
+                    newheadings.push({key:node.getKey(),headingsNumberingString:node.getNumberingString(),textContent:node.getTextContent()});
+                    Object.keys(headingsNumbering).forEach((level)=>{
+                        if (level > node.getLevel()) headingsNumbering[level] = 0; // Reset headingsNumbering for lower levels
                     });
+                }
+                else if (node instanceof FigureNode){
+                    figuresNumber++;
+                    node.updateNumber(figuresNumber);
                 }
                 else if (node instanceof CitationNode && !citationKeys.includes(node.getCitationKey())){
                     citationKeys.push(node.getCitationKey());

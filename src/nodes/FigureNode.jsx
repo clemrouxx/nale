@@ -3,23 +3,37 @@ import {
 } from 'lexical';
 import { addClassNamesToElement } from '@lexical/utils';
 import { $createCaptionedImageNode, $createSimpleImageNode } from './SimpleImageNode';
-import { $createCaptionNode } from './CaptionNode';
+import { $createCaptionNode, CaptionNode } from './CaptionNode';
 
 export class FigureNode extends ElementNode {
     __src;
   
     static getType() {return 'figure'}
 
-    constructor(src,key) {
+    constructor(src,number,key) {
         super(key);
         this.__src = src;
+        this.__number = 0;
     }
   
     static clone(node) {
         return new FigureNode(
             node.__src,
+            node.__number,
             node.__key,
         );
+    }
+
+    getSrc() { return this.__src }
+    getNumber(){ return this.__number }
+    setNumber(number){ 
+        this.getWritable().__number = number;
+        this.getChildren().forEach(childNode=>{
+            if (childNode instanceof CaptionNode) childNode.setNumber(number);
+        });
+    }
+    updateNumber(number){
+        if (number !== this.__number) this.setNumber(number);
     }
 
     // Serialization
@@ -48,12 +62,6 @@ export class FigureNode extends ElementNode {
     updateDOM() {
       return false;
     }
-  
-    getSrc() {
-      return this.__src;
-    }
-
-    // Behaviour
 
     // Behaviour
 
@@ -65,7 +73,7 @@ export class FigureNode extends ElementNode {
   }
   
 export function $createFigureNode({src}) {
-    const figureNode = new FigureNode(src);
+    const figureNode = new FigureNode(src,0);
     figureNode.append($createCaptionedImageNode({src}));
     figureNode.append($createCaptionNode());
     return figureNode;
