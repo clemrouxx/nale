@@ -14,7 +14,9 @@ import {
   $insertNodes,
   $isRootOrShadowRoot,
   COMMAND_PRIORITY_EDITOR,
+  COMMAND_PRIORITY_LOW,
   createCommand,
+  DELETE_CHARACTER_COMMAND,
 } from 'lexical';
 import {useEffect, useRef, useState} from 'react';
 import * as React from 'react';
@@ -24,6 +26,7 @@ import { $createSimpleImageNode, SimpleImageNode } from '../../nodes/SimpleImage
 import FileInput from '../../ui/FileInput';
 import TextInput from '../../ui/TextInput';
 import { $createFigureNode } from '../../nodes/FigureNode';
+import { $onDeleteCharacterInCaption } from '../../nodes/CaptionNode';
 
 export const INSERT_IMAGE_COMMAND = createCommand('INSERT_IMAGE_COMMAND');
 export const INSERT_FIGURE_COMMAND = createCommand('INSERT_FIGURE_COMMAND');
@@ -207,6 +210,12 @@ export default function ImagesPlugin() {
         },
         COMMAND_PRIORITY_EDITOR,
       ),
+
+      editor.registerCommand(
+        DELETE_CHARACTER_COMMAND,
+        $onDeleteCharacterInCaption,
+        COMMAND_PRIORITY_LOW,
+      )
     )
   }, [editor]);
 

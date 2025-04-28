@@ -1,4 +1,7 @@
 import { $getSelection, $isRangeSelection, ParagraphNode } from "lexical";
+import {
+    $findMatchingParent,
+  } from '@lexical/utils';
 
 export class CaptionNode extends ParagraphNode{
     __prefix_template;
@@ -50,9 +53,27 @@ export class CaptionNode extends ParagraphNode{
         this.getParent().insertAfter(nodeToInsert,restoreSelection);
     }
 
-    isShadowRoot(){ return true }// Essentially prevents deletion
 }
 
 export function $createCaptionNode(){
     return new CaptionNode();
 }
+
+function $isCaptionNode(node){ return node instanceof CaptionNode }
+
+// Registered in the ImagePlugin. Avoid full deletion of the caption.
+export const $onDeleteCharacterInCaption = () => {
+    const selection = $getSelection();
+    if ($isRangeSelection(selection) && selection.isCollapsed()) {
+      const caption = $findMatchingParent(
+        selection.anchor.getNode(),
+        $isCaptionNode,
+      );
+
+      if (caption && caption.getTextContent()==="") {
+        return true; // prevent default
+      }
+    }
+
+    return false;
+  };
