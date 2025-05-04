@@ -7,6 +7,7 @@ const Context = createContext();
 export function DocumentStructureProvider({ children }) {
   const [numberedHeadings,setNumberedHeadings] = useState([]);
   const [biblio,setBiblio] = useState(EXAMPLE_BIBLIO);
+  const [figures,setFigures] = useState([]);
   
   const contextValue = {
     numberedHeadings,
