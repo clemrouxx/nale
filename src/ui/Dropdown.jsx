@@ -138,13 +138,19 @@ export default function DropDown({
   children,
   stopCloseOnClickSelf,
   position="bottom",
+  onClose,
 }) {
   const dropDownRef = useRef(null);
   const buttonRef = useRef(null);
   const [showDropDown, setShowDropDown] = useState(false);
 
-  const handleClose = () => {
+  const closeSelf = () => {
     setShowDropDown(false);
+    onClose();
+  };
+
+  const handleClose = () => {
+    closeSelf();
     if (buttonRef && buttonRef.current) {
       buttonRef.current.focus();
     }
@@ -179,7 +185,7 @@ export default function DropDown({
           }
         }
         if (!button.contains(target)) {
-          setShowDropDown(false);
+          closeSelf();
         }
       };
       document.addEventListener('click', handle);

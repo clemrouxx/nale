@@ -1,7 +1,7 @@
 import { $getSelection, TextNode, DecoratorNode } from 'lexical';
 
 export class ReferenceNode extends DecoratorNode {
-  static getType() {return 'reference-heading'}
+  static getType() {return 'reference'}
 
   constructor(referenceKey,key) {
     super(key);
@@ -17,8 +17,8 @@ export class ReferenceNode extends DecoratorNode {
     this.getWritable().__text = text;
   }
 
-  updateText(numberedHeadings){
-    let info = numberedHeadings.find((elmt)=>(elmt.key===this.getReferenceKey()))
+  updateText(labels){
+    let info = labels.find((elmt)=>(elmt.key===this.getReferenceKey()))
     var text = info ? info.numberingString : "??";
     if (this.getText() !== text){
       this.__setText(text);
@@ -31,7 +31,7 @@ export class ReferenceNode extends DecoratorNode {
   
   createDOM(config) {
     const dom = document.createElement("span");
-    dom.classList.add("editor-reference-heading");
+    dom.classList.add("editor-reference");
     return dom;
   }
 

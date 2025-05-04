@@ -29,3 +29,9 @@ export function setGlobalCSSRule(selector, key, value) {
     dynamicStylesMap.set(selector, newIndex);
   }
 }
+
+export function truncate(s,maxlength){
+  const ellipsis = "...";
+  if (s.length < maxlength) return s;
+  return s.slice(0,maxlength-ellipsis.length)+ellipsis;
+}

@@ -13,7 +13,9 @@ export function DocumentStructureProvider({ children }) {
     numberedHeadings,
     setNumberedHeadings,
     biblio,
-    setBiblio
+    setBiblio,
+    figures,
+    setFigures
   };
   
   return (
