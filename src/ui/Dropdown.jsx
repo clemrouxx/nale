@@ -146,7 +146,7 @@ export default function DropDown({
 
   const closeSelf = () => {
     setShowDropDown(false);
-    onClose();
+    if (onClose) onClose();
   };
 
   const handleClose = () => {

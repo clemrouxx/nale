@@ -6,7 +6,6 @@
  *
  */
 
-
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import {$wrapNodeInElement, mergeRegister} from '@lexical/utils';
 import {
@@ -33,7 +32,6 @@ export const INSERT_FIGURE_COMMAND = createCommand('INSERT_FIGURE_COMMAND');
 
 export function InsertImageUriDialogBody({onClick}) {
   const [src, setSrc] = useState('');
-  const [altText, setAltText] = useState('');
 
   const isDisabled = src === '';
 
@@ -46,18 +44,11 @@ export function InsertImageUriDialogBody({onClick}) {
         value={src}
         data-test-id="image-modal-url-input"
       />
-      <TextInput
-        label="Alt Text"
-        placeholder="Random unsplash image"
-        onChange={setAltText}
-        value={altText}
-        data-test-id="image-modal-alt-text-input"
-      />
       <div>
         <button
           data-test-id="image-modal-confirm-btn"
           disabled={isDisabled}
-          onClick={() => onClick({altText, src})}>
+          onClick={() => onClick({src, filename:src.split("/").at(-1)})}>
           Confirm
         </button>
       </div>
@@ -70,7 +61,6 @@ export function InsertImageUploadedDialogBody({
 }) {
   const [src, setSrc] = useState('');
   const [filename,setFilename] = useState('');
-  const [altText, setAltText] = useState('');
 
   const isDisabled = src === '';
 
@@ -94,15 +84,9 @@ export function InsertImageUploadedDialogBody({
         label="Image Upload"
         onChange={loadImage}
         accept="image/*"
-        data-test-id="image-modal-file-upload"
+        data-test-id="age-modal-file-upload"
       />
-      <TextInput
-        label="Alt Text"
-        placeholder="Descriptive alternative text"
-        onChange={setAltText}
-        value={altText}
-        data-test-id="image-modal-alt-text-input"
-      />
+
       <div>
         <button
           data-test-id="image-modal-file-upload-btn"
@@ -135,6 +119,7 @@ export function InsertImageDialog({
   }, [activeEditor]);
 
   const onClick = (payload) => {
+    console.log(payload);
     if (figureMode) activeEditor.dispatchCommand(INSERT_FIGURE_COMMAND, payload);
     else activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, payload);
     onClose();
@@ -147,18 +132,7 @@ export function InsertImageDialog({
           <button
             data-test-id="image-modal-option-sample"
             onClick={() =>
-              onClick(
-                hasModifier.current
-                  ? {
-                      altText:
-                        'Daylight fir trees forest glacier green high ice landscape',
-                      src: landscapeImage,
-                    }
-                  : {
-                      altText: 'Yellow flower in tilt shift lens',
-                      src: yellowFlowerImage,
-                    },
-              )
+              onClick({src: yellowFlowerImage,filename:"sample.jpg"})
             }>
             Sample
           </button>

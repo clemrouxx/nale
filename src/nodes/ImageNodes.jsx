@@ -84,11 +84,14 @@ export class SimpleImageNode extends DecoratorNode {
     // Export
 
     getLatexParameters(){
-      if (this.__width_string.endsWith("%")) return `width=${Number(this.__width_string)/100}\\linewidth`;
+      if (this.__width_string.endsWith("%")) return `width=${Number(this.__width_string.slice(0,-1))/100}\\linewidth`;
       else return "";
     }
 
-    toLatex(){return `\\includegraphics[${this.getLatexParameters()}]{${this.__filename}}`}
+    toLatex(){
+      console.log(this.exportJSON());
+      return `\\includegraphics[${this.getLatexParameters()}]{${this.__filename}}`;
+    }
   }
   
 export function $createSimpleImageNode({src,filename}) {
@@ -101,6 +104,7 @@ export class CaptionedImageNode extends SimpleImageNode{
   static clone(node) {
     return new CaptionedImageNode(
         node.__src,
+        node.__filename,
         node.__width_string,
         node.__key,
     );
@@ -128,6 +132,12 @@ export class CaptionedImageNode extends SimpleImageNode{
   replace(replaceWith,includeChildren){ return false }
   insertBefore(nodeToInsert,restoreSelection){ return false } // Kind of works, although throws an error... (the text node created is not added and thus has no parent FWIU)
   insertAfter(nodeToInsert,restoreSelection){ return false }
+
+  // Latex
+  toLatex(){
+    let string = super.toLatex();
+    return "\t"+string+"\n";
+  }
 }
 
 export function $createCaptionedImageNode({src,filename}) {

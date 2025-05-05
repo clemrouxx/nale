@@ -13,7 +13,7 @@ export class FigureNode extends ElementNode {
     constructor(src,number,key) {
         super(key);
         this.__src = src;
-        this.__number = 0;
+        this.__number = number ?? 0;
     }
   
     static clone(node) {
@@ -73,21 +73,17 @@ export class FigureNode extends ElementNode {
 
     // Export
     toLatex(childrenString){
-        return 
-        `
-        \begin{figure}
-            \centering
-            
-            ${childrenString}
-            
-        \end{figure}
-        `
+        return (
+`\\begin{figure}
+    \\centering
+${childrenString}
+\\end{figure}`);
     }
   }
   
-export function $createFigureNode({src}) {
-    const figureNode = new FigureNode(src,0);
-    figureNode.append($createCaptionedImageNode({src}));
+export function $createFigureNode(imagePayload) {
+    const figureNode = new FigureNode(imagePayload.src,0);
+    figureNode.append($createCaptionedImageNode(imagePayload));
     figureNode.append($createCaptionNode());
     return figureNode;
 }

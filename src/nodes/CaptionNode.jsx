@@ -53,6 +53,13 @@ export class CaptionNode extends ParagraphNode{
         this.getParent().insertAfter(nodeToInsert,restoreSelection);
     }
 
+    // LaTeX
+
+    toLatex(childrenString){
+        const label = this.getParent().getKey().toString();
+        return `    \\caption{\\label{${label}}${childrenString}}`;
+    }
+
 }
 
 export function $createCaptionNode(){
