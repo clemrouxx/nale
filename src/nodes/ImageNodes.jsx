@@ -1,15 +1,4 @@
-/**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-import {
-    $applyNodeReplacement,
-    DecoratorNode,
-} from 'lexical';
+import { DecoratorNode } from 'lexical';
 import * as React from 'react';
 import ImageComponent from './ImageComponent';
 
@@ -58,15 +47,11 @@ export class SimpleImageNode extends DecoratorNode {
       const span = document.createElement('span');
       const theme = config.theme;
       const className = theme.image;
-      if (className !== undefined) {
-        span.className = className;
-      }
+      if (className) span.className = className;
       return span;
     }
   
-    updateDOM() {
-      return false;
-    }
+    updateDOM() { return false }
   
     decorate(){
       return (
@@ -81,17 +66,14 @@ export class SimpleImageNode extends DecoratorNode {
       );
     }
 
-    // Export
+    // Latex
 
     getLatexParameters(){
       if (this.__width_string.endsWith("%")) return `width=${Number(this.__width_string.slice(0,-1))/100}\\linewidth`;
       else return "";
     }
 
-    toLatex(){
-      console.log(this.exportJSON());
-      return `\\includegraphics[${this.getLatexParameters()}]{${this.__filename}}`;
-    }
+    toLatex(){ return `\\includegraphics[${this.getLatexParameters()}]{${this.__filename}}` }
   }
   
 export function $createSimpleImageNode({src,filename}) {
@@ -125,15 +107,21 @@ export class CaptionedImageNode extends SimpleImageNode{
   }
 
   // View
+
   decorate(){ return super.decorate() }
 
   // Behaviour
-  remove(preserveEmptyParent){ return false }
+
+  remove(preserveEmptyParent){ 
+    this.getParent().remove(preserveEmptyParent); // Remove the entire figure instead of just the image
+    return true;
+  }
   replace(replaceWith,includeChildren){ return false }
   insertBefore(nodeToInsert,restoreSelection){ return false } // Kind of works, although throws an error... (the text node created is not added and thus has no parent FWIU)
   insertAfter(nodeToInsert,restoreSelection){ return false }
 
   // Latex
+
   toLatex(){
     let string = super.toLatex();
     return "\t"+string+"\n";

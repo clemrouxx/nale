@@ -29,7 +29,7 @@ function Editor() {
   const {documentOptions} = useDocumentOptions();
 
   const updateDocumentCSS = () => { // Update CSS when documentOptions is modified
-    setGlobalCSSRule("#main-textbox","--fontsize-base",`${String(documentOptions.general.fontSize)}pt`);
+    setGlobalCSSRule(".editor-base","--fontsize-base",`${String(documentOptions.general.fontSize)}pt`);
     setGlobalCSSRule(".editor-paragraph","text-indent",documentOptions.paragraphs.indentFirst?"var(--paragraph-indent)":"");
   }
 
@@ -76,7 +76,7 @@ function Editor() {
             <ContentEditable
               aria-placeholder={""}
               placeholder={<></>}
-              id='main-textbox'
+              className='editor-base'
               spellCheck={false}
             />
           }
