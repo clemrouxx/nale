@@ -7,7 +7,7 @@ import { CitationNode } from "../../nodes/CitationNode";
 import { FigureNode } from "../../nodes/FigureNode";
 
 export function AutoNumberer(ref){
-    const {setNumberedHeadings,biblio} = useDocumentStructureContext();
+    const {setNumberedHeadings,biblio,setFigures} = useDocumentStructureContext();
     const [editor] = useLexicalComposerContext();
     
     editor.registerUpdateListener(() => {
@@ -16,6 +16,7 @@ export function AutoNumberer(ref){
             let headingsNumbering = {1:0,2:0,3:0};
             let figuresNumber = 0; // Last figure number
             const newheadings = [];
+            const newfigures = [];
             const citationKeys = []; // In the order they appear
             const root = $getRoot();
 
@@ -25,7 +26,7 @@ export function AutoNumberer(ref){
                     if (!areIdentical(headingsNumbering,node.getNumbering())){
                         node.setNumbering(headingsNumbering);
                     }
-                    newheadings.push({key:node.getKey(),headingsNumberingString:node.getNumberingString(),textContent:node.getTextContent()});
+                    newheadings.push({key:node.getKey(),numberingString:node.getNumberingString(),textContent:node.getTextContent()});
                     Object.keys(headingsNumbering).forEach((level)=>{
                         if (level > node.getLevel()) headingsNumbering[level] = 0; // Reset headingsNumbering for lower levels
                     });
@@ -33,6 +34,7 @@ export function AutoNumberer(ref){
                 else if (node instanceof FigureNode){
                     figuresNumber++;
                     node.updateNumber(figuresNumber);
+                    newfigures.push({key:node.getKey(),numberingString:figuresNumber.toString(),textContent:node.getTextContent()});
                 }
                 else if (node instanceof CitationNode && !citationKeys.includes(node.getCitationKey())){
                     citationKeys.push(node.getCitationKey());
@@ -49,8 +51,8 @@ export function AutoNumberer(ref){
 
             // Then, we update all reference & citation nodes
             const update = (node) => {
-                if (node.getType()==="reference-heading") {
-                    node.updateText(newheadings);
+                if (node.getType()==="reference") {
+                    node.updateText([].concat(newheadings,newfigures));
                 }
                 else if (node.getType()==="citation"){
                     node.updateText(citationsDict);
@@ -68,6 +70,7 @@ export function AutoNumberer(ref){
 
             // Used for the toolbar for example
             setNumberedHeadings(newheadings);
+            setFigures(newfigures);
         });
     });      
 }

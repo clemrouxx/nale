@@ -9,7 +9,7 @@ import { NumberedHeadingNode } from "./plugins/NumberedHeadingPlugin/NumberedHea
 import { ReferenceNode } from './nodes/ReferenceNode';
 import { CitationNode } from './nodes/CitationNode';
 import { BibliographyNode } from './nodes/BibliographyNode';
-import { CaptionedImageNode, SimpleImageNode } from './nodes/SimpleImageNode';
+import { CaptionedImageNode, SimpleImageNode } from './nodes/ImageNodes';
 import { FigureNode } from './nodes/FigureNode';
 import { CaptionNode } from './nodes/CaptionNode';
 

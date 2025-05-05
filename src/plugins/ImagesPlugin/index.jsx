@@ -6,7 +6,6 @@
  *
  */
 
-
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import {$wrapNodeInElement, mergeRegister} from '@lexical/utils';
 import {
@@ -14,23 +13,25 @@ import {
   $insertNodes,
   $isRootOrShadowRoot,
   COMMAND_PRIORITY_EDITOR,
+  COMMAND_PRIORITY_LOW,
   createCommand,
+  DELETE_CHARACTER_COMMAND,
 } from 'lexical';
 import {useEffect, useRef, useState} from 'react';
 import * as React from 'react';
 
 import yellowFlowerImage from '../../images/sample.jpg';
-import { $createSimpleImageNode, SimpleImageNode } from '../../nodes/SimpleImageNode';
+import { $createSimpleImageNode, SimpleImageNode } from '../../nodes/ImageNodes';
 import FileInput from '../../ui/FileInput';
 import TextInput from '../../ui/TextInput';
 import { $createFigureNode } from '../../nodes/FigureNode';
+import { $onDeleteCharacterInCaption } from '../../nodes/CaptionNode';
 
 export const INSERT_IMAGE_COMMAND = createCommand('INSERT_IMAGE_COMMAND');
 export const INSERT_FIGURE_COMMAND = createCommand('INSERT_FIGURE_COMMAND');
 
 export function InsertImageUriDialogBody({onClick}) {
   const [src, setSrc] = useState('');
-  const [altText, setAltText] = useState('');
 
   const isDisabled = src === '';
 
@@ -43,18 +44,11 @@ export function InsertImageUriDialogBody({onClick}) {
         value={src}
         data-test-id="image-modal-url-input"
       />
-      <TextInput
-        label="Alt Text"
-        placeholder="Random unsplash image"
-        onChange={setAltText}
-        value={altText}
-        data-test-id="image-modal-alt-text-input"
-      />
       <div>
         <button
           data-test-id="image-modal-confirm-btn"
           disabled={isDisabled}
-          onClick={() => onClick({altText, src})}>
+          onClick={() => onClick({src, filename:src.split("/").at(-1)})}>
           Confirm
         </button>
       </div>
@@ -66,7 +60,7 @@ export function InsertImageUploadedDialogBody({
   onClick,
 }) {
   const [src, setSrc] = useState('');
-  const [altText, setAltText] = useState('');
+  const [filename,setFilename] = useState('');
 
   const isDisabled = src === '';
 
@@ -75,6 +69,7 @@ export function InsertImageUploadedDialogBody({
     reader.onload = function () {
       if (typeof reader.result === 'string') {
         setSrc(reader.result);
+        setFilename(files[0].name);
       }
       return '';
     };
@@ -89,20 +84,14 @@ export function InsertImageUploadedDialogBody({
         label="Image Upload"
         onChange={loadImage}
         accept="image/*"
-        data-test-id="image-modal-file-upload"
+        data-test-id="age-modal-file-upload"
       />
-      <TextInput
-        label="Alt Text"
-        placeholder="Descriptive alternative text"
-        onChange={setAltText}
-        value={altText}
-        data-test-id="image-modal-alt-text-input"
-      />
+
       <div>
         <button
           data-test-id="image-modal-file-upload-btn"
           disabled={isDisabled}
-          onClick={() => onClick({altText, src})}>
+          onClick={() => onClick({src, filename})}>
           Confirm
         </button>
       </div>
@@ -130,6 +119,7 @@ export function InsertImageDialog({
   }, [activeEditor]);
 
   const onClick = (payload) => {
+    console.log(payload);
     if (figureMode) activeEditor.dispatchCommand(INSERT_FIGURE_COMMAND, payload);
     else activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, payload);
     onClose();
@@ -142,18 +132,7 @@ export function InsertImageDialog({
           <button
             data-test-id="image-modal-option-sample"
             onClick={() =>
-              onClick(
-                hasModifier.current
-                  ? {
-                      altText:
-                        'Daylight fir trees forest glacier green high ice landscape',
-                      src: landscapeImage,
-                    }
-                  : {
-                      altText: 'Yellow flower in tilt shift lens',
-                      src: yellowFlowerImage,
-                    },
-              )
+              onClick({src: yellowFlowerImage,filename:"sample.jpg"})
             }>
             Sample
           </button>
@@ -207,6 +186,12 @@ export default function ImagesPlugin() {
         },
         COMMAND_PRIORITY_EDITOR,
       ),
+
+      editor.registerCommand(
+        DELETE_CHARACTER_COMMAND,
+        $onDeleteCharacterInCaption,
+        COMMAND_PRIORITY_LOW,
+      )
     )
   }, [editor]);
 

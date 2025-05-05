@@ -1,4 +1,4 @@
-#main-textbox{
+.editor-base{
     font-family: 'CMU Serif', Arial;
     background-color: white;
     color: black;
@@ -103,9 +103,12 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    background-color: yellow;
 }
 
 .editor-figure > *{
     text-align: center;
+}
+
+.editor-base img.focused{
+    outline: solid orangered 3px;
 }

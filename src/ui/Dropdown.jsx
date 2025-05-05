@@ -137,13 +137,20 @@ export default function DropDown({
   buttonIconClassName,
   children,
   stopCloseOnClickSelf,
+  position="bottom",
+  onClose,
 }) {
   const dropDownRef = useRef(null);
   const buttonRef = useRef(null);
   const [showDropDown, setShowDropDown] = useState(false);
 
-  const handleClose = () => {
+  const closeSelf = () => {
     setShowDropDown(false);
+    if (onClose) onClose();
+  };
+
+  const handleClose = () => {
+    closeSelf();
     if (buttonRef && buttonRef.current) {
       buttonRef.current.focus();
     }
@@ -154,10 +161,10 @@ export default function DropDown({
     const dropDown = dropDownRef.current;
 
     if (showDropDown && button !== null && dropDown !== null) {
-      const {top, left} = button.getBoundingClientRect();
-      dropDown.style.top = `${top + button.offsetHeight + dropDownPadding}px`;
+      const {top, left, right} = button.getBoundingClientRect();
+      dropDown.style.top = `${top + (position==="bottom"?button.offsetHeight + dropDownPadding:0)}px`;
       dropDown.style.left = `${Math.min(
-        left,
+        position==="bottom"? left : right,
         window.innerWidth - dropDown.offsetWidth - 20,
       )}px`;
     }
@@ -178,7 +185,7 @@ export default function DropDown({
           }
         }
         if (!button.contains(target)) {
-          setShowDropDown(false);
+          closeSelf();
         }
       };
       document.addEventListener('click', handle);
