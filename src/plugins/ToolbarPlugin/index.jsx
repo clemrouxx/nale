@@ -889,7 +889,7 @@ export default function ToolbarPlugin({
                   ));
                 }}
                 className="item">
-                <i className="icon image" />
+                <i className="icon figure" />
                 <span className="text">Figure</span>
               </DropDownItem>
             </DropDown>

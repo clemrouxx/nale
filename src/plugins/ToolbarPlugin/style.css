@@ -127,6 +127,10 @@ i.image {
   background-image: url(images/icons/file-image.svg);
 }
 
+i.figure {
+  background-image: url(images/icons/file-figure.svg);
+}
+
 i.table {
   background-image: url(images/icons/table.svg);
 }

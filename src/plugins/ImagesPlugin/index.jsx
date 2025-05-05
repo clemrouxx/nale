@@ -119,7 +119,6 @@ export function InsertImageDialog({
   }, [activeEditor]);
 
   const onClick = (payload) => {
-    console.log(payload);
     if (figureMode) activeEditor.dispatchCommand(INSERT_FIGURE_COMMAND, payload);
     else activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, payload);
     onClose();
