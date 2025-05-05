@@ -42,3 +42,14 @@
 .options-headings-numbering-templates input{
   width: 7em;
 }
+
+.dialog-buttons-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  margin-top: 20px;
+}
+
+.dialog-buttons-list button {
+  margin-bottom: 20px;
+}
