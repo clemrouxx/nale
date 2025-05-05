@@ -1,3 +1,13 @@
+.App{
+  display: grid;
+  grid-template-columns: min-content auto;
+  column-gap: 1em;
+}
+
+.App > .header{
+  grid-column: 1 / span 2;
+}
+
 .editor-base{
   padding: 0 1rem;
   display: flow-root;

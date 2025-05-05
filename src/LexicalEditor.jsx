@@ -59,7 +59,7 @@ function Editor() {
   }, [documentOptions]);
 
   return (
-    <div className='horizontal-layout'>
+    <>
       <AutoOptionsPanel/>
       <div className='editor-block'>
         <DocumentStructureProvider>
@@ -91,7 +91,7 @@ function Editor() {
         <ExportButton />
         </DocumentStructureProvider>
       </div>
-    </div>
+    </>
   );
 }
 
