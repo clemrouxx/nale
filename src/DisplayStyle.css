@@ -70,10 +70,6 @@
     margin-block-start: 1.4ex;
 }
 
-.editor-reference-heading{
-    font-weight: bold;
-}
-
 .editor-bibliography h1{
     font-size: var(--fontsize-Large);
     margin-block-start: 2.5ex;
@@ -111,4 +107,8 @@
 
 .editor-base img.focused{
     outline: solid orangered 3px;
+}
+
+.editor-reference .selected, .editor-citation .selected{
+    color : orangered;
 }
