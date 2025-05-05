@@ -22,7 +22,7 @@ import {useEffect, useRef, useState} from 'react';
 import * as React from 'react';
 
 import yellowFlowerImage from '../../images/sample.jpg';
-import { $createSimpleImageNode, SimpleImageNode } from '../../nodes/SimpleImageNode';
+import { $createSimpleImageNode, SimpleImageNode } from '../../nodes/ImageNodes';
 import FileInput from '../../ui/FileInput';
 import TextInput from '../../ui/TextInput';
 import { $createFigureNode } from '../../nodes/FigureNode';
@@ -69,6 +69,7 @@ export function InsertImageUploadedDialogBody({
   onClick,
 }) {
   const [src, setSrc] = useState('');
+  const [filename,setFilename] = useState('');
   const [altText, setAltText] = useState('');
 
   const isDisabled = src === '';
@@ -78,6 +79,7 @@ export function InsertImageUploadedDialogBody({
     reader.onload = function () {
       if (typeof reader.result === 'string') {
         setSrc(reader.result);
+        setFilename(files[0].name);
       }
       return '';
     };
@@ -105,7 +107,7 @@ export function InsertImageUploadedDialogBody({
         <button
           data-test-id="image-modal-file-upload-btn"
           disabled={isDisabled}
-          onClick={() => onClick({altText, src})}>
+          onClick={() => onClick({src, filename})}>
           Confirm
         </button>
       </div>

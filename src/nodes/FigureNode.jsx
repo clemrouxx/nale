@@ -2,7 +2,7 @@ import {
     ElementNode,
 } from 'lexical';
 import { addClassNamesToElement } from '@lexical/utils';
-import { $createCaptionedImageNode, $createSimpleImageNode } from './SimpleImageNode';
+import { $createCaptionedImageNode, $createSimpleImageNode } from './ImageNodes';
 import { $createCaptionNode, CaptionNode } from './CaptionNode';
 
 export class FigureNode extends ElementNode {
@@ -70,6 +70,19 @@ export class FigureNode extends ElementNode {
     canInsertTextBefore() { return false }
     canInsertTextAfter() { return false }
     canMergeWhenEmpty() { return false }*/
+
+    // Export
+    toLatex(childrenString){
+        return 
+        `
+        \begin{figure}
+            \centering
+            
+            ${childrenString}
+            
+        \end{figure}
+        `
+    }
   }
   
 export function $createFigureNode({src}) {
