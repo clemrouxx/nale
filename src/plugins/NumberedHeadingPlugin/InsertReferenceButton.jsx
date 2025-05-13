@@ -14,7 +14,7 @@ export function InsertReferenceButton() {
   
   return (
     <div>
-    <button onClick={()=>setIsDropdownOpen(!isDropdownOpen)} className="toolbar-item"><span className="text">Internal reference</span></button>
+    <button onClick={()=>setIsDropdownOpen(!isDropdownOpen)} className="toolbar-item"><i className="icon insert-reference"/><span className="text">Internal reference</span></button>
     {isDropdownOpen && 
     (
       <div className='dropdown'>

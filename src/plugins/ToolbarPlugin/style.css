@@ -35,6 +35,10 @@ button.toolbar-item.spaced {
   margin-right: 2px;
 }
 
+button.toolbar-item .icon, button.toolbar-item i, .dropdown i{
+  opacity: 0.6;
+}
+
 button.toolbar-item i.format {
   background-size: contain;
   display: inline-block;
@@ -42,7 +46,6 @@ button.toolbar-item i.format {
   width: 18px;
   vertical-align: -0.25em;
   display: flex;
-  opacity: 0.6;
 }
 
 button.toolbar-item:disabled .icon,
@@ -279,6 +282,13 @@ i.horizontal-rule {
   background-image: url(images/icons/horizontal-rule.svg);
 }
 
+i.chevron-down{
+  background-image: url(images/icons/chevron-down.svg);
+}
+
+i.insert-reference{
+  background-image: url(images/icons/code.svg);
+}
 
 .dropdown {
   z-index: 100;
