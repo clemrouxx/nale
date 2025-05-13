@@ -5,7 +5,7 @@ import {CodeNode} from '@lexical/code';
 import {LinkNode} from '@lexical/link';
 import {HorizontalRuleNode} from '@lexical/react/LexicalHorizontalRuleNode';
 import { LatexNode } from "./plugins/LatexExportPlugin/LatexNode";
-import { NumberedHeadingNode } from "./plugins/NumberedHeadingPlugin/NumberedHeadingNode";
+import { NumberedHeadingNode } from "./plugins/NumberingPlugin/NumberedHeadingNode";
 import { ReferenceNode } from './nodes/ReferenceNode';
 import { CitationNode } from './nodes/CitationNode';
 import { BibliographyNode } from './nodes/BibliographyNode';

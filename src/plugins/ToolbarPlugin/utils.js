@@ -34,7 +34,7 @@ import {
   MIN_ALLOWED_FONT_SIZE,
 } from './ToolbarContext';
 import { $createLatexNode } from '../LatexExportPlugin/LatexNode';
-import { $createNumberedHeadingNode } from '../NumberedHeadingPlugin/NumberedHeadingNode';
+import { $createNumberedHeadingNode } from '../NumberingPlugin/NumberedHeadingNode';
 
 
 /**

@@ -14,12 +14,12 @@ import {TRANSFORMERS} from '@lexical/markdown';
 import ExportButton from './ActionBar';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
 import { ToolbarContext } from './plugins/ToolbarPlugin/ToolbarContext';
-import { AutoNumberer } from './plugins/NumberedHeadingPlugin/AutoNumberer';
-import { $isNumberedHeadingNode } from './plugins/NumberedHeadingPlugin/NumberedHeadingNode';
+import { AutoNumberer } from './plugins/NumberingPlugin/AutoNumberer';
+import { $isNumberedHeadingNode } from './plugins/NumberingPlugin/NumberedHeadingNode';
 import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
 import { setGlobalCSSRule } from './utils/generalUtils';
 import { AutoOptionsPanel } from './plugins/Options/OptionsPanel';
-import { DocumentStructureProvider } from './plugins/NumberedHeadingPlugin/DocumentStructureContext';
+import { DocumentStructureProvider } from './plugins/NumberingPlugin/DocumentStructureContext';
 import ImagesPlugin from './plugins/ImagesPlugin';
 
 function Editor() {

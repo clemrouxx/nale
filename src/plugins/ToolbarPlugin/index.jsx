@@ -99,8 +99,8 @@ import {
   } from './utils';
 import { useDocumentOptions } from '../Options/DocumentOptionsContext';
 import { ReferenceNode,insertReferenceNode } from '../../nodes/ReferenceNode';
-import { InsertReferenceButton } from '../NumberedHeadingPlugin/InsertReferenceButton.jsx';
-import { useDocumentStructureContext } from '../NumberedHeadingPlugin/DocumentStructureContext.jsx';
+import { InsertReferenceButton } from '../NumberingPlugin/InsertReferenceButton.jsx';
+import { useDocumentStructureContext } from '../NumberingPlugin/DocumentStructureContext.jsx';
 import { insertCitationNode } from '../../nodes/CitationNode.jsx';
 import { addBiblioFromClipboard, bibItemToUIString } from '../../utils/bibliographyUtils.jsx';
 import { insertBibliographyNode } from '../../nodes/BibliographyNode.jsx';
