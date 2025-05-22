@@ -4,8 +4,10 @@ import {convertToLatex} from './plugins/LatexExportPlugin/latexUtils';
 
 export const ActionBar = () => {
     return (
-        <div className="span2cols">
+        <div className="span2cols actionbar">
+            <h1 className='inline'>NaLE</h1>
             <ExportButton/>
+            <button>Test</button>
         </div>
     )
 }

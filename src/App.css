@@ -64,3 +64,18 @@
 .dialog-buttons-list button {
   margin-bottom: 20px;
 }
+
+.actionbar{
+  display: flex;
+  align-items: flex-start;
+  gap: 3px;
+}
+
+.actionbar h1{
+  margin: 0;
+  margin-right: 0.3rem;
+}
+
+.actionbar > button{
+  border-radius: 0;
+}

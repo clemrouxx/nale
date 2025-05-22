@@ -12,7 +12,7 @@
 
 #root {
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0 0.5rem;
 }
 
 body {
@@ -62,4 +62,8 @@ h3, h4, h5{
 
 .span2cols{
   grid-column: span 2;
+}
+
+.inline{
+  display: inline;
 }
