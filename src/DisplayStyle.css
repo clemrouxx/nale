@@ -5,8 +5,6 @@
 
     --fontsize-base : 10pt;
 
-    --editor-scale : 1.5;
-
     --fontsize-normal: calc(var(--editor-scale)*var(--fontsize-base));
     --fontsize-large: calc(var(--fontsize-normal)*1.2);
     --fontsize-Large: calc(var(--fontsize-large)*1.2);
