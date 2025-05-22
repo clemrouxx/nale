@@ -2,6 +2,14 @@ import {$getRoot} from 'lexical';
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import {convertToLatex} from './plugins/LatexExportPlugin/latexUtils';
 
+export const ActionBar = () => {
+    return (
+        <div className="span2cols">
+            <ExportButton/>
+        </div>
+    )
+}
+
 const ExportButton = () => {
     const [editor] = useLexicalComposerContext();
 
@@ -14,10 +22,7 @@ const ExportButton = () => {
     };
 
     return (<>
-        <button onClick={readEditorState}>Export</button>
+            <button onClick={readEditorState}>Export</button>
         </>
     );
-
 }
-
-export default ExportButton;

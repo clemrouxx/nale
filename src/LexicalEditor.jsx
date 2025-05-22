@@ -11,7 +11,6 @@ import {LexicalErrorBoundary} from '@lexical/react/LexicalErrorBoundary';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import {TRANSFORMERS} from '@lexical/markdown';
 
-import ExportButton from './ActionBar';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
 import { ToolbarContext } from './plugins/ToolbarPlugin/ToolbarContext';
 import { AutoNumberer } from './plugins/NumberingPlugin/AutoNumberer';
@@ -63,32 +62,31 @@ function Editor() {
       <AutoOptionsPanel/>
       <div className='editor-block'>
         <DocumentStructureProvider>
-        <ToolbarContext>
-          <ToolbarPlugin
-              editor={editor}
-              activeEditor={activeEditor}
-              setActiveEditor={setActiveEditor}
-              setIsLinkEditMode={setIsLinkEditMode}
-            />
-        </ToolbarContext>
-        <RichTextPlugin
-          contentEditable={
-            <ContentEditable
-              aria-placeholder={""}
-              placeholder={<></>}
-              className='editor-base'
-              spellCheck={false}
-            />
-          }
-          ErrorBoundary={LexicalErrorBoundary}
-        />
-        <HistoryPlugin />
-        <AutoFocusPlugin />
-        <MarkdownShortcutPlugin transformers={TRANSFORMERS}/>
-        <AutoNumberer/>
-        <ImagesPlugin/>
+          <ToolbarContext>
+            <ToolbarPlugin
+                editor={editor}
+                activeEditor={activeEditor}
+                setActiveEditor={setActiveEditor}
+                setIsLinkEditMode={setIsLinkEditMode}
+              />
+          </ToolbarContext>
+          <RichTextPlugin
+            contentEditable={
+              <ContentEditable
+                aria-placeholder={""}
+                placeholder={<></>}
+                className='editor-base'
+                spellCheck={false}
+              />
+            }
+            ErrorBoundary={LexicalErrorBoundary}
+          />
+          <HistoryPlugin />
+          <AutoFocusPlugin />
+          <MarkdownShortcutPlugin transformers={TRANSFORMERS}/>
+          <AutoNumberer/>
+          <ImagesPlugin/>
         
-        <ExportButton />
         </DocumentStructureProvider>
       </div>
     </>
