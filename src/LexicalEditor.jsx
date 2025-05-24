@@ -70,7 +70,8 @@ function Editor() {
                 setIsLinkEditMode={setIsLinkEditMode}
               />
           </ToolbarContext>
-          <RichTextPlugin
+          <div id="main-editor-container" className="editor-container">
+            <RichTextPlugin
             contentEditable={
               <ContentEditable
                 aria-placeholder={""}
@@ -81,12 +82,12 @@ function Editor() {
             }
             ErrorBoundary={LexicalErrorBoundary}
           />
+          </div>
           <HistoryPlugin />
           <AutoFocusPlugin />
           <MarkdownShortcutPlugin transformers={TRANSFORMERS}/>
           <AutoNumberer/>
           <ImagesPlugin/>
-        
         </DocumentStructureProvider>
       </div>
     </>

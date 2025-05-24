@@ -17,6 +17,10 @@
     font-size: var(--fontsize-normal);
 }
 
+.editor-container.real-page-width .editor-base{
+    width: calc(210mm*var(--editor-scale));
+}
+
 .editor-paragraph{
     --paragraph-indent : 1.5em;
     margin-block: 0;

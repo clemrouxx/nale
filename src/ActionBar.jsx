@@ -37,15 +37,12 @@ const ExportButton = () => {
 
 const DisplayMenu = () => {
     const {displayOptions,setDisplayOption} = useDisplayOptions();
-    
     const zoomIn = () => {
         if (displayOptions.zoomLevel<zoomFactors.length-1) setDisplayOption("zoomLevel",displayOptions.zoomLevel+1);
     }
-
     const zoomOut = () => {
         if (displayOptions.zoomLevel>=1) setDisplayOption("zoomLevel",displayOptions.zoomLevel-1);
     }
-
     return (
         <DropDown buttonLabel={"Display"} stopCloseOnClickSelf={true}>
             <div>
@@ -53,6 +50,16 @@ const DisplayMenu = () => {
                 <button onClick={zoomOut}>-</button>
                 <span>{`${Math.round(100*zoomFactors[displayOptions.zoomLevel])} %`}</span>
                 <button onClick={zoomIn}>+</button>
+            </div>
+            <div>
+                <label>
+                    <input
+                    type="checkbox"
+                    checked={displayOptions.realPageWidth}
+                    onChange={(e)=>{setDisplayOption("realPageWidth",e.target.checked)}}
+                    />
+                    Real page width
+                </label>
             </div>
         </DropDown>
     )
