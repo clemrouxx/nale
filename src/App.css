@@ -29,6 +29,7 @@
 
 .editor-block{
   flex-grow: 1;
+  min-width: 0;
 }
 
 .options-panel{

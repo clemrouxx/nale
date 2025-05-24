@@ -17,6 +17,11 @@
     font-size: var(--fontsize-normal);
 }
 
+.editor-container{
+    overflow-x: auto;
+    width: 100%;
+}
+
 .editor-container.real-page-width .editor-base{
     width: calc(210mm*var(--editor-scale));
 }
