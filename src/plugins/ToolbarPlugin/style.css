@@ -301,22 +301,30 @@ i.insert-reference{
   background-color: #fff;
 }
 
-.dropdown .item {
+.dropdown > *{
   margin: 0 8px 0 8px;
   padding: 8px;
-  color: #050505;
-  cursor: pointer;
   line-height: 16px;
   font-size: 15px;
+  background-color: #fff;
+  color: #050505;
+  border-radius: 8px;
+  border: 0;
+  min-width: 100px;
   display: flex;
   align-content: center;
   flex-direction: row;
   flex-shrink: 0;
   justify-content: space-between;
-  background-color: #fff;
-  border-radius: 8px;
-  border: 0;
-  min-width: 100px;
+  align-items: center;
+}
+
+.dropdown > * > *{
+  margin: 0 0.2rem;
+}
+
+.dropdown button {
+  cursor: pointer;
 }
 
 .dropdown .item:not(.can-be-wide){
@@ -356,7 +364,7 @@ i.insert-reference{
   margin-bottom: 8px;
 }
 
-.dropdown .item:hover {
+.dropdown .item:hover{
   background-color: #eee;
 }
 

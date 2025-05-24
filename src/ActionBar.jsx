@@ -3,8 +3,9 @@ import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import {convertToLatex} from './plugins/LatexExportPlugin/latexUtils';
 import { useEffect, useState } from 'react';
 import { setGlobalCSSRule } from './utils/generalUtils';
-import { useDisplayOptions } from './plugins/DisplayOptionsContext';
-import { useDocumentOptions, zoomFactors } from './plugins/Options/DocumentOptionsContext';
+import { useDisplayOptions, zoomFactors } from './plugins/DisplayOptionsContext';
+import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
+import DropDown, { DropDownItem } from './ui/DropDown';
 
 export const ActionBar = () => {
     return (
@@ -27,9 +28,10 @@ const ExportButton = () => {
         });
     };
 
-    return (<>
-            <button onClick={readEditorState}>Export</button>
-        </>
+    return (
+        <DropDown buttonLabel={"Export"}>
+            <DropDownItem onClick={readEditorState}>LaTeX</DropDownItem>
+        </DropDown>
     );
 }
 
@@ -44,9 +46,14 @@ const DisplayMenu = () => {
         if (displayOptions.zoomLevel>=1) setDisplayOption("zoomLevel",displayOptions.zoomLevel-1);
     }
 
-    return (<>
-        <button onClick={zoomIn}>Zoom +</button>
-        <button onClick={zoomOut}>Zoom -</button>
-        {`${Math.round(100*zoomFactors[displayOptions.zoomLevel])} %`}
-    </>)
+    return (
+        <DropDown buttonLabel={"Display"} stopCloseOnClickSelf={true}>
+            <div>
+                <span>Zoom</span>
+                <button onClick={zoomOut}>-</button>
+                <span>{`${Math.round(100*zoomFactors[displayOptions.zoomLevel])} %`}</span>
+                <button onClick={zoomIn}>+</button>
+            </div>
+        </DropDown>
+    )
 }
