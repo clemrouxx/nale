@@ -23,6 +23,9 @@ export class SimpleImageNode extends DecoratorNode {
 
     getSrc() { return this.__src }
     getFilename() { return this.__filename }
+    getWidthString() { return this.__width_string }
+
+    setWidthString(str){ const writable = this.getWritable().__width_string = str }
 
     // Serialization
 

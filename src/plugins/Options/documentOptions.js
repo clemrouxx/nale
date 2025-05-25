@@ -2,7 +2,7 @@
 export const DEFAULT_DOCUMENT_OPTIONS = {
     general : {
         fontSize : 12, // Main font size
-        marginLeft : 0, // (mm)
+        marginLeft : 32, // (mm)
         marginRight : 32,
     },
     headings : {

@@ -16,15 +16,15 @@
 
     font-size: var(--fontsize-normal);
 
-    padding-left: 0.5rem;
+    padding: 0.3rem;
 
     --paperwidth-base: 210mm;
     --paperheight-base: 297mm;
 
-    --marginleft-base: 31.6mm;
-    --marginright-base: 31.6mm;
+    --marginleft-base: 32mm;
+    --marginright-base: 32mm;
 
-    --topmargin-base: 36.2mm;
+    --topmargin-base: 36mm;
 
     --inch: 25.4mm;
 }
@@ -42,7 +42,7 @@
 }
 
 .real-page-width .editor-base > *{
-    background-color: red;
+    /*background-color: red;*/
 }
 
 .editor-paragraph{
@@ -132,7 +132,7 @@
 }
 
 .editor-base img.focused{
-    outline: solid orangered 3px;
+    outline: dotted orangered 3px;
 }
 
 .editor-reference .selected, .editor-citation .selected{

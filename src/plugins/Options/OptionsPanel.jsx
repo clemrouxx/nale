@@ -193,6 +193,24 @@ function NodeOptionsPanel({node}) {
                 </>
             );
             break;
+        case "captioned-image":
+            inner = (
+                <>
+                <h4>Figure options</h4>
+                <div className="form-line">
+                    <label>Relative width: </label>
+                    <input type="range" min="1" max="100" step="1" value={parseInt(editor.read(() => node.getWidthString()))}
+                        onChange={(e) => {
+                        editor.update(()=>{
+                            node.setWidthString(e.target.value+"%");
+                        })
+                    }}
+                    />
+                    <span>{editor.read(()=>node.getWidthString())}</span>
+                </div>
+                </>
+            );
+            break;
     }
     return (<div className="options-panel">{inner}</div>);
 }
