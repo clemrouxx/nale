@@ -16,7 +16,7 @@ export function setGlobalCSSRule(selector, key, value) {
     styleSheet = document.getElementById('dynamic-styles').sheet;
   }
 
-  const index = dynamicStylesMap.get(selector);
+  const index = dynamicStylesMap.get((selector,key));
 
   if (index !== undefined) {
     // Update existing rule
@@ -26,7 +26,7 @@ export function setGlobalCSSRule(selector, key, value) {
     // Add new rule
     const newIndex = styleSheet.cssRules.length;
     styleSheet.insertRule(`${selector} { ${key} : ${value} }`, newIndex);
-    dynamicStylesMap.set(selector, newIndex);
+    dynamicStylesMap.set((selector,key), newIndex);
   }
 }
 
