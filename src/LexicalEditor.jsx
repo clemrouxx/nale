@@ -1,5 +1,5 @@
 import {$getRoot, $getSelection} from 'lexical';
-import {useContext, useEffect, useState} from 'react';
+import {useRef, useEffect, useState} from 'react';
 
 import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -20,12 +20,15 @@ import { setGlobalCSSRule } from './utils/generalUtils';
 import { AutoOptionsPanel } from './plugins/Options/OptionsPanel';
 import { DocumentStructureProvider } from './plugins/NumberingPlugin/DocumentStructureContext';
 import ImagesPlugin from './plugins/ImagesPlugin';
+import { useDisplayOptions, zoomFactors } from './plugins/DisplayOptionsContext';
 
 function Editor() {
   const [editor] = useLexicalComposerContext();
   const [activeEditor, setActiveEditor] = useState(editor);
   const [isLinkEditMode, setIsLinkEditMode] = useState(false);
   const {documentOptions} = useDocumentOptions();
+  const {displayOptions,setDisplayOption} = useDisplayOptions();
+  const editorRef = useRef(null);
 
   const updateDocumentCSS = () => { // Update CSS when documentOptions is modified
     setGlobalCSSRule(".editor-base","--fontsize-base",`${String(documentOptions.general.fontSize)}pt`);
@@ -57,6 +60,30 @@ function Editor() {
 
   }, [documentOptions]);
 
+  
+    
+  useEffect(() => {
+      const zoomIn = () => {
+        if (displayOptions.zoomLevel<zoomFactors.length-1) setDisplayOption("zoomLevel",displayOptions.zoomLevel+1);
+      }
+      const zoomOut = () => {
+          if (displayOptions.zoomLevel>=1) setDisplayOption("zoomLevel",displayOptions.zoomLevel-1);
+      }
+      const element = editorRef.current;
+      const handleWheel = (e) => {
+          if (e.ctrlKey) {
+              e.preventDefault();
+              if (e.deltaY>0) zoomOut(); else zoomIn();
+          }
+      };
+      
+      element?.addEventListener('wheel', handleWheel, { passive: false });
+      
+      return () => {
+          element?.removeEventListener('wheel', handleWheel);
+      };
+  }, [displayOptions]);
+
   return (
     <>
       <AutoOptionsPanel/>
@@ -78,6 +105,7 @@ function Editor() {
                 placeholder={<></>}
                 className='editor-base'
                 spellCheck={false}
+                ref={editorRef}
               />
             }
             ErrorBoundary={LexicalErrorBoundary}
