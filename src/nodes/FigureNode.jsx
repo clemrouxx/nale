@@ -77,7 +77,8 @@ export class FigureNode extends ElementNode {
 `\\begin{figure}
     \\centering
 ${childrenString}
-\\end{figure}`);
+\\end{figure}
+`);
     }
   }
   

@@ -19,11 +19,12 @@ export const ActionBar = () => {
 
 const ExportButton = () => {
     const [editor] = useLexicalComposerContext();
+    const {documentOptions} = useDocumentOptions();
 
     const readEditorState = () => {
         editor.getEditorState().read(() => {
             const root = $getRoot();
-            const latex = convertToLatex(root);
+            const latex = convertToLatex(root,documentOptions);
             console.log(latex);
         });
     };

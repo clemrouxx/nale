@@ -45,9 +45,16 @@
     /*background-color: red;*/
 }
 
-.editor-paragraph{
+.editor-paragraph:not(.editor-caption){
     --paragraph-indent : 1.5em;
     margin-block: 0;
+
+    text-align: justify;
+    text-justify: inter-word;
+    text-align-last: left;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
 }
 
 .editor-paragraph + .editor-paragraph{
