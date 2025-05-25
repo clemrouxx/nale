@@ -15,6 +15,14 @@
     --fontsize-scriptsize: calc(var(--fontsize-tiny)/1.2);
 
     font-size: var(--fontsize-normal);
+
+    padding-left: 0.5rem;
+
+    --oddsidemargin-base:62pt;
+    --textheight-base: 550pt;
+    --textwidth-base:345pt;
+
+    --inch:72pt;
 }
 
 .editor-container{
@@ -22,8 +30,10 @@
     width: 100%;
 }
 
-.editor-container.real-page-width .editor-base{
+.real-page-width .editor-base{
     width: calc(210mm*var(--editor-scale));
+    padding-left: calc((var(--inch)+var(--oddsidemargin-base))*var(--editor-scale));
+    padding-right: calc(var(--inch)*var(--editor-scale));
 }
 
 .editor-paragraph{
