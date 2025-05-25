@@ -32,6 +32,8 @@ function Editor() {
 
   const updateDocumentCSS = () => { // Update CSS when documentOptions is modified
     setGlobalCSSRule(".editor-base","--fontsize-base",`${String(documentOptions.general.fontSize)}pt`);
+    setGlobalCSSRule(".editor-base","--marginleft-base",`${String(documentOptions.general.marginLeft)}mm`);
+    setGlobalCSSRule(".editor-base","--marginright-base",`${String(documentOptions.general.marginRight)}mm`);
     setGlobalCSSRule(".editor-paragraph","text-indent",documentOptions.paragraphs.indentFirst?"var(--paragraph-indent)":"");
   }
 

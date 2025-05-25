@@ -50,6 +50,15 @@
   margin: 0.2em;
 }
 
+.options-panel .form-line{
+  display: flex;
+  align-items: center;
+}
+
+.options-panel input[type=range]{
+  width: 80px;
+}
+
 .options-headings-numbering-templates input{
   width: 7em;
 }

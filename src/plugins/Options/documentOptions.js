@@ -2,6 +2,8 @@
 export const DEFAULT_DOCUMENT_OPTIONS = {
     general : {
         fontSize : 12, // Main font size
+        marginLeft : 0, // (mm)
+        marginRight : 32,
     },
     headings : {
         numberingStyles : {1 : "a", 2 : "a", 3 : "a"}, // { <headingLevel> : <style> }

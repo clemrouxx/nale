@@ -21,8 +21,8 @@
     --paperwidth-base: 210mm;
     --paperheight-base: 297mm;
 
-    --leftmargin-base: 31.6mm;
-    --rightmargin-base: 31.6mm;
+    --marginleft-base: 31.6mm;
+    --marginright-base: 31.6mm;
 
     --topmargin-base: 36.2mm;
 
@@ -35,9 +35,10 @@
 }
 
 .real-page-width .editor-base{
+    box-sizing: border-box;
     width: calc(var(--paperwidth-base) * var(--editor-scale));
-    padding-left: calc(var(--leftmargin-base) * var(--editor-scale));
-    padding-right: calc(var(--rightmargin-base) * var(--editor-scale));;
+    padding-left: calc(var(--marginleft-base) * var(--editor-scale));
+    padding-right: calc(var(--marginright-base) * var(--editor-scale));;
 }
 
 .real-page-width .editor-base > *{

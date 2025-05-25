@@ -60,6 +60,11 @@ export function GlobalOptionsPanel({category}) {
         setOption(option,event.target.checked);
     }
 
+    const handleRangeChange = (event,option) => {
+        if (!option) option = event.target.name;
+        setOption(option,Number(event.target.value));
+    }
+
     var inner = (<></>);
 
     switch (category){
@@ -67,7 +72,7 @@ export function GlobalOptionsPanel({category}) {
             inner =  (
                 <>
                     <h4>General options</h4>
-                    <div>
+                    <div className="form-line">
                         <label htmlFor="fontSize">Font Size: </label>
                         <select 
                             name="fontSize"
@@ -78,6 +83,22 @@ export function GlobalOptionsPanel({category}) {
                             <option value="11">11pt</option>
                             <option value="12">12pt</option>
                         </select>
+                    </div>
+
+                    <div className="form-line">
+                        <label htmlFor="marginLeft">Left margin: </label>
+                        <input type="range" name="marginLeft" min="0" max="80" step="1" value={documentOptions.general.marginLeft}
+                            onChange={handleRangeChange}
+                        />
+                        <span>{documentOptions.general.marginLeft} mm</span>
+                    </div>
+
+                    <div className="form-line">
+                        <label htmlFor="marginRight">Right margin: </label>
+                        <input type="range" name="marginRight" min="0" max="80" step="1" value={documentOptions.general.marginRight}
+                            onChange={handleRangeChange}
+                        />
+                        <span>{documentOptions.general.marginRight} mm</span>
                     </div>
                 </>
             );
