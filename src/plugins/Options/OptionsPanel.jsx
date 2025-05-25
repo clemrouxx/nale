@@ -2,6 +2,7 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { useActiveNode } from "../../utils/lexicalUtils";
 import { useDocumentOptions } from "./DocumentOptionsContext";
 import { useDisplayOptions } from "../DisplayOptionsContext";
+import { useState } from "react";
 
 const OPTIONS_CATEGORY_PER_NODETYPE = {
     paragraph : "paragraphs",
@@ -10,6 +11,8 @@ const OPTIONS_CATEGORY_PER_NODETYPE = {
 
 export function AutoOptionsPanel() { // Automatically chooses the relevant options category to show
     const { activeNode, activeNodeParent } = useActiveNode();
+    const [isOpen,setOpen] = useState(true);
+
     var category = "general";
     let useParentNode = false;
     if (activeNode){
@@ -23,7 +26,8 @@ export function AutoOptionsPanel() { // Automatically chooses the relevant optio
         }
     }
     return (
-        <div className="side-panel">
+        <div className="flex">
+        {isOpen && (<div className="side-panel">
             {activeNode && 
             <>
                 <h3>Node options ({nodeType})</h3>
@@ -32,7 +36,11 @@ export function AutoOptionsPanel() { // Automatically chooses the relevant optio
             <h3>Global options</h3>
             {category!=="general"&&<GlobalOptionsPanel category={category}/>}
             <GlobalOptionsPanel category={"general"}/>
+        </div>)}
+        <div className="vertical-handle" onClick={()=>{setOpen(!isOpen)}}></div>
         </div>
+        
+        
     );
 }
 

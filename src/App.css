@@ -1,7 +1,7 @@
 .App{
   display: grid;
   grid-template-rows: auto 1fr;
-  column-gap: 1em;
+  grid-template-columns: min-content 1fr;
   height: 100vh;
 }
 
@@ -33,6 +33,7 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
+  padding: 0 0.7rem;
 }
 
 .options-panel{
@@ -61,6 +62,12 @@
 
 .options-panel input[type=range]{
   width: 80px;
+}
+
+.vertical-handle{
+  background-color: darkgreen;
+  cursor: pointer;
+  width: 12px;
 }
 
 .options-headings-numbering-templates input{

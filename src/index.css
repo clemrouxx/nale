@@ -12,7 +12,6 @@
 
 #root {
   margin: 0 auto;
-  padding: 0 0.5rem;
 }
 
 body {
@@ -66,4 +65,8 @@ h3, h4, h5{
 
 .inline{
   display: inline;
+}
+
+.flex{
+  display: flex;
 }
