@@ -1,6 +1,7 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useActiveNode } from "../../utils/lexicalUtils";
 import { useDocumentOptions } from "./DocumentOptionsContext";
+import { useDisplayOptions } from "../DisplayOptionsContext";
 
 const OPTIONS_CATEGORY_PER_NODETYPE = {
     paragraph : "paragraphs",
@@ -37,6 +38,7 @@ export function AutoOptionsPanel() { // Automatically chooses the relevant optio
 
 export function GlobalOptionsPanel({category}) {
     const {documentOptions,setDocumentOptions} = useDocumentOptions();
+    const {displayOptions} = useDisplayOptions();
 
     const setOption = (option,value) => {
         var newOptions = structuredClone(documentOptions);
@@ -84,22 +86,27 @@ export function GlobalOptionsPanel({category}) {
                             <option value="12">12pt</option>
                         </select>
                     </div>
+                    
+                    {displayOptions.realPageWidth && (
+                    <>
+                        <div className="form-line">
+                            <label htmlFor="margins-left">Left margin: </label>
+                            <input type="range" name="margins-left" min="0" max="80" step="1" value={documentOptions.general.margins.left}
+                                onChange={handleRangeChange}
+                            />
+                            <span>{documentOptions.general.margins.left} mm</span>
+                        </div>
 
-                    <div className="form-line">
-                        <label htmlFor="marginLeft">Left margin: </label>
-                        <input type="range" name="marginLeft" min="0" max="80" step="1" value={documentOptions.general.marginLeft}
-                            onChange={handleRangeChange}
-                        />
-                        <span>{documentOptions.general.marginLeft} mm</span>
-                    </div>
-
-                    <div className="form-line">
-                        <label htmlFor="marginRight">Right margin: </label>
-                        <input type="range" name="marginRight" min="0" max="80" step="1" value={documentOptions.general.marginRight}
-                            onChange={handleRangeChange}
-                        />
-                        <span>{documentOptions.general.marginRight} mm</span>
-                    </div>
+                        <div className="form-line">
+                            <label htmlFor="margins-right">Right margin: </label>
+                            <input type="range" name="margins-right" min="0" max="80" step="1" value={documentOptions.general.margins.right}
+                                onChange={handleRangeChange}
+                            />
+                            <span>{documentOptions.general.margins.right} mm</span>
+                        </div>
+                    </>
+                    )}
+                    
                 </>
             );
             break;
