@@ -774,8 +774,6 @@ export default function ToolbarPlugin({
         </>
       )}
 
-    
-    
     {toolbarState.blockType === 'code' && (/*
       <DropDown
         disabled={!isEditable}

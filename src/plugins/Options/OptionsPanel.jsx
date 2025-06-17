@@ -214,10 +214,28 @@ function NodeOptionsPanel({node}) {
                 <h4>Figure options</h4>
                 <div className="form-line">
                     <label>Relative width: </label>
-                    <input type="range" min="1" max="100" step="1" value={parseInt(editor.read(() => node.getWidthString()))}
+                    <input type="range" min="1" max="100" step="1" value={editor.read(() => node.getWidthValue())}
                         onChange={(e) => {
                         editor.update(()=>{
-                            node.setWidthString(e.target.value+"%");
+                            node.setWidthValue(e.target.value);
+                        })
+                    }}
+                    />
+                    <span>{editor.read(()=>node.getWidthString())}</span>
+                </div>
+                </>
+            );
+            break;
+        case "simple-image":
+            inner = (
+                <>
+                <h4>Figure options</h4>
+                <div className="form-line">
+                    <label>Width: </label>
+                    <input type="range" min="1" max="200" step="1" value={editor.read(() => node.getWidthValue())}
+                        onChange={(e) => {
+                        editor.update(()=>{
+                            node.setWidthValue(parseInt(e.target.value));
                         })
                     }}
                     />
