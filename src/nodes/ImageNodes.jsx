@@ -61,10 +61,12 @@ export class SimpleImageNode extends DecoratorNode {
     updateDOM() { return false }
   
     decorate(){
+      let widthString = this.getWidthString();
+      if (this.width_unit!=="%") widthString = `calc(var(--editor-scale) * ${widthString})`;
       return (
         <ImageComponent
           src={this.__src}
-          width={this.getWidthString()}// To change !!! (take scale into account)
+          width={widthString}// To change !!! (take scale into account)
           nodeKey={this.getKey()}
           showCaption={false}
           captionsEnabled={false}
