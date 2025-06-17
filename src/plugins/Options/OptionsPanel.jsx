@@ -30,7 +30,7 @@ export function AutoOptionsPanel() { // Automatically chooses the relevant optio
         {isOpen && (<div className="side-panel">
             {activeNode && 
             <>
-                <h3>Node options ({nodeType})</h3>
+                <h3>Local options ({nodeType})</h3>
                 <NodeOptionsPanel node={useParentNode?activeNodeParent:activeNode}/>
             </>}
             <h3>Global options</h3>
