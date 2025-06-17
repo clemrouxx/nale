@@ -49,7 +49,6 @@ import {
   UNDO_COMMAND,
 } from 'lexical';
 import {Dispatch, useCallback, useEffect, useState} from 'react';
-import * as React from 'react';
 
 import {
   blockTypeToBlockName,
@@ -81,10 +80,7 @@ import {
 //import {InsertInlineImageDialog} from '../InlineImagePlugin';
 //import InsertLayoutDialog from '../LayoutPlugin/InsertLayoutDialog';
 
-import yellowFlowerImage from '../../images/sample.jpg';
-
 import {SHORTCUTS} from '../ShortcutsPlugin/shortcuts';
-
 
 import {
     clearFormatting,
@@ -503,19 +499,8 @@ export default function ToolbarPlugin({
 
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection();
-    if ($isRangeSelection(selection)) {
-      if (activeEditor !== editor && $isEditorIsNestedEditor(activeEditor)) {
-        const rootElement = activeEditor.getRootElement();
-        updateToolbarState(
-          'isImageCaption',
-          !!rootElement?.parentElement?.classList.contains(
-            'image-caption-container',
-          ),
-        );
-      } else {
-        updateToolbarState('isImageCaption', false);
-      }
 
+    if ($isRangeSelection(selection)) {
       const anchorNode = selection.anchor.getNode();
       let element =
         anchorNode.getKey() === 'root'
@@ -528,24 +513,27 @@ export default function ToolbarPlugin({
       if (element === null) {
         element = anchorNode.getTopLevelElementOrThrow();
       }
+      // This seems complicated... what for exactly ?
 
       const elementKey = element.getKey();
       const elementDOM = activeEditor.getElementByKey(elementKey);
 
-      updateToolbarState('isRTL', $isParentElementRTL(selection));
-
-      // Update links
       const node = getSelectedNode(selection);
       const parent = node.getParent();
-      const isLink = $isLinkNode(parent) || $isLinkNode(node);
-      updateToolbarState('isLink', isLink);
 
+      //updateToolbarState('isRTL', $isParentElementRTL(selection));
+      
+      /*const isLink = $isLinkNode(parent) || $isLinkNode(node);
+      updateToolbarState('isLink', isLink);*/
+
+      // Checking if we are in a table
+      /*
       const tableNode = $findMatchingParent(node, $isTableNode);
       if ($isTableNode(tableNode)) {
         updateToolbarState('rootType', 'table');
       } else {
         updateToolbarState('rootType', 'root');
-      }
+      }*/
 
       if (elementDOM !== null) {
         setSelectedElementKey(elementKey);
@@ -580,7 +568,9 @@ export default function ToolbarPlugin({
           }
         }
       }
+
       // Handle buttons
+      /*
       updateToolbarState(
         'fontColor',
         $getSelectionStyleValueForProperty(selection, 'color', '#000'),
@@ -596,7 +586,7 @@ export default function ToolbarPlugin({
       updateToolbarState(
         'fontFamily',
         $getSelectionStyleValueForProperty(selection, 'font-family', 'Arial'),
-      );
+      );*/
       let matchingParent;
       if ($isLinkNode(parent)) {
         // If node is a link, we need to fetch the parent paragraph node to set format
@@ -606,7 +596,7 @@ export default function ToolbarPlugin({
         );
       }
 
-      // If matchingParent is a valid node, pass it's format type
+      // If matchingParent is a valid node, pass its format type
       updateToolbarState(
         'elementFormat',
         $isElementNode(matchingParent)
@@ -620,24 +610,20 @@ export default function ToolbarPlugin({
       // Update text format
       updateToolbarState('isBold', selection.hasFormat('bold'));
       updateToolbarState('isItalic', selection.hasFormat('italic'));
-      updateToolbarState('isUnderline', selection.hasFormat('underline'));
-      updateToolbarState(
-        'isStrikethrough',
-        selection.hasFormat('strikethrough'),
-      );
+      //updateToolbarState('isUnderline', selection.hasFormat('underline'));
+      //updateToolbarState('isStrikethrough',selection.hasFormat('strikethrough'));
       updateToolbarState('isSubscript', selection.hasFormat('subscript'));
       updateToolbarState('isSuperscript', selection.hasFormat('superscript'));
-      updateToolbarState('isHighlight', selection.hasFormat('highlight'));
+      //updateToolbarState('isHighlight', selection.hasFormat('highlight'));
       updateToolbarState('isCode', selection.hasFormat('code'));
-      updateToolbarState(
-        'fontSize',
-        $getSelectionStyleValueForProperty(selection, 'font-size', '15px'),
-      );
-      updateToolbarState('isLowercase', selection.hasFormat('lowercase'));
-      updateToolbarState('isUppercase', selection.hasFormat('uppercase'));
-      updateToolbarState('isCapitalize', selection.hasFormat('capitalize'));
+      //updateToolbarState('fontSize',$getSelectionStyleValueForProperty(selection, 'font-size', '15px'));
+      //updateToolbarState('isLowercase', selection.hasFormat('lowercase'));
+      //updateToolbarState('isUppercase', selection.hasFormat('uppercase'));
+      //updateToolbarState('isCapitalize', selection.hasFormat('capitalize'));
     }
   }, [activeEditor, editor, updateToolbarState]);
+
+  // Calls to $updateToolbar...
 
   useEffect(() => {
     return editor.registerCommand(
@@ -685,6 +671,7 @@ export default function ToolbarPlugin({
       ),
     );
   }, [$updateToolbar, activeEditor, editor, updateToolbarState]);
+
 /*
   const applyStyleText = useCallback(
     (styles, skipHistoryStack) => {
@@ -787,13 +774,9 @@ export default function ToolbarPlugin({
         </>
       )}
 
-    <InsertReferenceButton/>
-    <Divider/>
-    <CitationDropDown editor={activeEditor}/>
-    <Divider/>
-
     
-    {toolbarState.blockType === 'code' ? (/*
+    
+    {toolbarState.blockType === 'code' && (/*
       <DropDown
         disabled={!isEditable}
         buttonClassName="toolbar-item code-language"
@@ -813,7 +796,8 @@ export default function ToolbarPlugin({
         })}
       </DropDown>*/
       <></>
-    ) : (
+    )}
+    {!(["code","latex"].includes(toolbarState.blockType)) && ( // Not a code block or raw latex
       <>
         <button
           disabled={!isEditable}
@@ -854,47 +838,48 @@ export default function ToolbarPlugin({
           aria-label="Format text in code style">
           <i className="format code" />
         </button>
-        
-        {(//canViewerSeeInsertDropdown && 
-          <>
-            <Divider />
-            <DropDown
-              disabled={!isEditable}
-              buttonClassName="toolbar-item spaced"
-              buttonLabel="Insert"
-              buttonAriaLabel="Insert specialized editor node"
-              buttonIconClassName="icon plus">
 
-              <DropDownItem
-                onClick={() => {
-                  showModal('Insert Image', (onClose) => (
-                    <InsertImageDialog
-                      activeEditor={activeEditor}
-                      onClose={onClose}
-                      figureMode={false}
-                    />
-                  ));
-                }}>
-                <i className="icon image" />
-                <span className="text">Image</span>
-              </DropDownItem>
-              <DropDownItem
-                onClick={() => {
-                  showModal('Insert Figure', (onClose) => (
-                    <InsertImageDialog
-                      activeEditor={activeEditor}
-                      onClose={onClose}
-                      figureMode={true}
-                    />
-                  ));
-                }}
-                className="item">
-                <i className="icon figure" />
-                <span className="text">Figure</span>
-              </DropDownItem>
-            </DropDown>
-          </>
-        )}
+        <Divider/>
+        <InsertReferenceButton/>
+        <Divider/>
+        <CitationDropDown editor={activeEditor}/>
+
+        <Divider />
+        <DropDown
+          disabled={!isEditable}
+          buttonClassName="toolbar-item spaced"
+          buttonLabel="Insert"
+          buttonAriaLabel="Insert specialized editor node"
+          buttonIconClassName="icon plus">
+
+          <DropDownItem
+            onClick={() => {
+              showModal('Insert Image', (onClose) => (
+                <InsertImageDialog
+                  activeEditor={activeEditor}
+                  onClose={onClose}
+                  figureMode={false}
+                />
+              ));
+            }}>
+            <i className="icon image" />
+            <span className="text">Image</span>
+          </DropDownItem>
+          <DropDownItem
+            onClick={() => {
+              showModal('Insert Figure', (onClose) => (
+                <InsertImageDialog
+                  activeEditor={activeEditor}
+                  onClose={onClose}
+                  figureMode={true}
+                />
+              ));
+            }}
+            className="item">
+            <i className="icon figure" />
+            <span className="text">Figure</span>
+          </DropDownItem>
+        </DropDown>
       </>
     )}
     <Divider />

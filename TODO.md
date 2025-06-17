@@ -5,10 +5,12 @@
 ### Priority features
 - Save/Open (custom JSON file); for the whole project, but also just for documentOptions (global styling)
 - Math formulas
+- Subscript and superscript in text (rendered using MathJax)
 
 ### Useful features
 - Export to PDF through LaTeX compilation
 - Cooperation
+- Support for different languages in code blocks (for syntax highlighting)
 
 ### Minor features
 - Image : add customizable size
