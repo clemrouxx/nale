@@ -84,7 +84,7 @@ export class SimpleImageNode extends DecoratorNode {
   }
   
 export function $createSimpleImageNode({src,filename}) {
-    return new SimpleImageNode(src,filename);
+    return new SimpleImageNode(src,filename,40,"mm");
 }
 
 export class CaptionedImageNode extends SimpleImageNode{

@@ -217,7 +217,7 @@ function NodeOptionsPanel({node}) {
                     <input type="range" min="1" max="100" step="1" value={editor.read(() => node.getWidthValue())}
                         onChange={(e) => {
                         editor.update(()=>{
-                            node.setWidthValue(e.target.value);
+                            node.setWidthValue(parseInt(e.target.value));
                         })
                     }}
                     />
@@ -226,7 +226,7 @@ function NodeOptionsPanel({node}) {
                 </>
             );
             break;
-        case "simple-image":
+        case "image":
             inner = (
                 <>
                 <h4>Figure options</h4>
