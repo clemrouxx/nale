@@ -229,7 +229,7 @@ function NodeOptionsPanel({node}) {
         case "image":
             inner = (
                 <>
-                <h4>Figure options</h4>
+                <h4>Image options</h4>
                 <div className="form-line">
                     <label>Width: </label>
                     <input type="range" min="1" max="200" step="1" value={editor.read(() => node.getWidthValue())}
