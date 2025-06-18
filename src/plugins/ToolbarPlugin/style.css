@@ -290,6 +290,15 @@ i.insert-reference{
   background-image: url(images/icons/code.svg);
 }
 
+i.paragraph { background-image: url(images/icons/paragraph.svg) }
+i.h1 { background-image: url(images/icons/h1.svg) }
+i.h2 { background-image: url(images/icons/h2.svg) }
+i.h3 { background-image: url(images/icons/h3.svg) }
+i.list-bullets { background-image: url(images/icons/list-bullets.svg) }
+i.list-numbers { background-image: url(images/icons/list-numbers.svg) }
+i.list-check { background-image: url(images/icons/list-check.svg) }
+i.latex { background-image: url(images/icons/latex.svg) }
+
 .dropdown {
   z-index: 100;
   display: block;

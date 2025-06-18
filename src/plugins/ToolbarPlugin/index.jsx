@@ -245,7 +245,7 @@ function BlockFormatDropDown({
         className={'wide ' + dropDownActiveClass(blockType === 'bullet')}
         onClick={() => formatBulletList(editor, blockType)}>
         <div className="icon-text-container">
-          <i className="icon bullet-list" />
+          <i className="icon list-bullets" />
           <span className="text">{blockTypeToBlockName["bullet"]}</span>
         </div>
         <span className="shortcut">{SHORTCUTS.BULLET_LIST}</span>
@@ -254,7 +254,7 @@ function BlockFormatDropDown({
         className={'wide ' + dropDownActiveClass(blockType === 'number')}
         onClick={() => formatNumberedList(editor, blockType)}>
         <div className="icon-text-container">
-          <i className="icon numbered-list" />
+          <i className="icon list-numbers" />
           <span className="text">{blockTypeToBlockName["number"]}</span>
         </div>
         <span className="shortcut">{SHORTCUTS.NUMBERED_LIST}</span>
@@ -263,19 +263,10 @@ function BlockFormatDropDown({
         className={'wide ' + dropDownActiveClass(blockType === 'check')}
         onClick={() => formatCheckList(editor, blockType)}>
         <div className="icon-text-container">
-          <i className="icon check-list" />
+          <i className="icon list-check" />
           <span className="text">{blockTypeToBlockName["check"]}</span>
         </div>
         <span className="shortcut">{SHORTCUTS.CHECK_LIST}</span>
-      </DropDownItem>
-      <DropDownItem
-        className={'wide ' + dropDownActiveClass(blockType === 'quote')}
-        onClick={() => formatQuote(editor, blockType)}>
-        <div className="icon-text-container">
-          <i className="icon quote" />
-          <span className="text">{blockTypeToBlockName["quote"]}</span>
-        </div>
-        <span className="shortcut">{SHORTCUTS.QUOTE}</span>
       </DropDownItem>
       <DropDownItem
         className={'wide ' + dropDownActiveClass(blockType === 'code')}
@@ -293,7 +284,6 @@ function BlockFormatDropDown({
           <i className="icon latex" />
           <span className="text">{blockTypeToBlockName["latex"]}</span>
         </div>
-        <span className="shortcut">{SHORTCUTS.CODE_BLOCK}</span>
       </DropDownItem>
     </DropDown>
   );
