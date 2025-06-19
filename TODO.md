@@ -1,5 +1,6 @@
 # TODO list
 ## Bugs
+- Custom citations (from clipboard) freeze the editor (when the Bibliography is printed)
 - Creating lists (all sorts) from the toolbar menu does not work
 ## Features
 ### Priority features
