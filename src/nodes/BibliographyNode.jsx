@@ -16,11 +16,11 @@ export class BibliographyNode extends DecoratorNode {
     return new BibliographyNode(node.__inner_array,node.__key);
   }
 
-  __setInnerArray(innerArray){this.getWritable().__inner_array=innerArray}
+  __setInnerArray(innerArray){this.getWritable().__inner_array=innerArray} // Triggers a re-render
 
   updateInner(citationKeys,citationsDict,biblio){
     let newInnerArray = citationKeys.map(key=>{return {label:citationsDict[key],bibItem:biblio.find(item=>item.key===key)};});
-    if (!areIdentical(this.__inner_array,newInnerArray)){
+    if (!(this.__inner_array.length===newInnerArray.length)){ // Could be better, but for now it works for all cases allowed in the editor; and avoids weird infinite rendering loops
       this.__setInnerArray(newInnerArray);
     }
   }

@@ -120,6 +120,8 @@ export function bibItemToUIString(bibItem) {
 }
 
 export function bibItemToHTML(bibItem) {
+    //console.log(bibItem);
+
     // Handle invalid/incomplete entries
     if (!bibItem || !bibItem.author || !bibItem.title) {
       return <span className="citation-error">Incomplete citation data</span>;
