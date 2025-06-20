@@ -287,7 +287,7 @@ i.chevron-down{
 }
 
 i.insert-reference{
-  background-image: url(images/icons/code.svg);
+  background-image: url(images/icons/internal-reference.svg);
 }
 
 .icon.paragraph { background-image: url(images/icons/paragraph.svg) }
@@ -298,6 +298,10 @@ i.insert-reference{
 .icon.list-numbers, .icon.number { background-image: url(images/icons/list-numbers.svg) }
 .icon.list-check { background-image: url(images/icons/list-check.svg) }
 .icon.latex { background-image: url(images/icons/latex.svg) }
+
+i.chevron-right{
+  background-image: url(images/icons/chevron-right.svg);
+}
 
 .dropdown {
   z-index: 100;
