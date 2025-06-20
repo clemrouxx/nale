@@ -238,7 +238,7 @@ i.clear {
   background-image: url(images/icons/trash.svg);
 }
 
-.icon.code {
+.icon.code, i.code {
   background-image: url(images/icons/code.svg);
 }
 

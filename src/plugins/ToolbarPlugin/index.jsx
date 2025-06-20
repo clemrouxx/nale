@@ -814,6 +814,30 @@ export default function ToolbarPlugin({
           <i className="format italic" />
         </button>
         <button
+          onClick={() => {
+            activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'subscript');
+          }}
+          className={
+            'toolbar-item spaced ' + (toolbarState.isSubscript ? 'active' : '')
+          }
+          title="Subscript"
+          aria-label="Format text with a subscript">
+          <i className="format subscript" />
+          <span className="shortcut"></span>
+        </button>
+        <button
+          onClick={() => {
+            activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'superscript');
+          }}
+          className={
+            'toolbar-item spaced ' + (toolbarState.isSuperscript ? 'active' : '')
+          }
+          title="Superscript"
+          aria-label="Format text with a superscript">
+          <i className="format superscript" />
+          <span className="shortcut"></span>
+        </button>
+        <button
           disabled={!isEditable}
           onClick={() => {
             activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
@@ -826,7 +850,6 @@ export default function ToolbarPlugin({
           aria-label="Format text in code style">
           <i className="format code" />
         </button>
-
         <Divider/>
         <InsertReferenceButton/>
         <Divider/>
