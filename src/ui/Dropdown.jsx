@@ -139,6 +139,7 @@ export default function DropDown({
   stopCloseOnClickSelf,
   position="bottom",
   onClose,
+  chevron=true,
 }) {
   const dropDownRef = useRef(null);
   const buttonRef = useRef(null);
@@ -227,11 +228,11 @@ export default function DropDown({
         className={buttonClassName}
         onClick={() => setShowDropDown(!showDropDown)}
         ref={buttonRef}>
-        {buttonIconClassName && <span className={buttonIconClassName} />}
+        {buttonIconClassName && <span className={"icon "+buttonIconClassName} />}
         {buttonLabel && (
           <span className="text dropdown-button-text">{buttonLabel}</span>
         )}
-        <i className={`icon chevron-${position==="right"?"right":"down"}`} />
+        {chevron && <i className={`icon chevron-${position==="right"?"right":"down"}`} />}
       </button>
 
       {showDropDown &&

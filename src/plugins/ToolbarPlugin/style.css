@@ -5,6 +5,7 @@
   padding: 4px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  border-bottom: solid #eee 1px;
   vertical-align: middle;
   overflow: auto;
   height: 36px;
@@ -288,6 +289,10 @@ i.chevron-down{
 
 i.insert-reference{
   background-image: url(images/icons/internal-reference.svg);
+}
+
+.icon.citation{
+  background-image: url(images/icons/internal-reference.svg);/* placeholder */
 }
 
 .icon.paragraph { background-image: url(images/icons/paragraph.svg) }

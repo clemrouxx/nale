@@ -200,7 +200,7 @@ function BlockFormatDropDown({
     <DropDown
       disabled={disabled}
       buttonClassName="toolbar-item block-controls"
-      buttonIconClassName={'icon block-type ' + blockType}
+      buttonIconClassName={'block-type ' + blockType}
       buttonLabel={blockTypeToBlockName[blockType]}
       buttonAriaLabel="Formatting options for text style">
       <DropDownItem
@@ -293,7 +293,7 @@ function CitationDropDown({editor}){
   const {biblio,setBiblio} = useDocumentStructureContext();
 
   return (
-    <DropDown buttonClassName="toolbar-item" buttonLabel={"Citation"}>
+    <DropDown buttonClassName="toolbar-item" buttonLabel={"Cite..."} chevron={false} buttonIconClassName={"citation"}>
       <button className='item bold' onClick={()=>addBiblioFromClipboard(editor,biblio,setBiblio)}>From clipboard...</button>
       <button className='item bold' onClick={()=>insertBibliographyNode(editor)}>Insert Bibliography</button>
       {biblio.map(bibitem => (
@@ -861,7 +861,8 @@ export default function ToolbarPlugin({
           buttonClassName="toolbar-item spaced"
           buttonLabel="Insert"
           buttonAriaLabel="Insert specialized editor node"
-          buttonIconClassName="icon plus">
+          buttonIconClassName="plus"
+          chevron={false}>
 
           <DropDownItem
             onClick={() => {
