@@ -3,6 +3,14 @@ import { bibItemToHTML } from '../utils/bibliographyUtils';
 import { areIdentical } from '../utils/generalUtils';
 import React from 'react';
 
+function compareInnerArrays(a,b){
+  if (a.length!==b.length) return false;
+  for (let i=0;i<a.length;i++){
+    if (a[i].bibItem && b[i].bibItem && (a[i].bibItem.key!==b[i].bibItem.key)) return false;
+  }
+  return true;
+}
+
 export class BibliographyNode extends DecoratorNode {
   static getType() {return 'bibliography'}
   static isInline() {return false}
@@ -16,12 +24,10 @@ export class BibliographyNode extends DecoratorNode {
     return new BibliographyNode(node.__inner_array,node.__key);
   }
 
-  __setInnerArray(innerArray){this.getWritable().__inner_array=innerArray} // Triggers a re-render
-
   updateInner(citationKeys,citationsDict,biblio){
-    let newInnerArray = citationKeys.map(key=>{return {label:citationsDict[key],bibItem:biblio.find(item=>item.key===key)};});
-    if (!(this.__inner_array.length===newInnerArray.length)){ // Could be better, but for now it works for all cases allowed in the editor; and avoids weird infinite rendering loops
-      this.__setInnerArray(newInnerArray);
+    const newInnerArray = citationKeys.map(key=>{return {label:citationsDict[key],bibItem:biblio.find(item=>item.key===key)};});
+    if (!compareInnerArrays(this.__inner_array,newInnerArray)){
+      const writableNode = this.getWritable().__inner_array = structuredClone(newInnerArray);
     }
   }
   

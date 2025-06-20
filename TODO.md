@@ -1,7 +1,7 @@
 # TODO list
 ## Bugs
-- Custom citations (from clipboard) freeze the editor (when the Bibliography is printed)
 - Creating lists (all sorts) from the toolbar menu does not work
+
 ## Features
 ### Priority features
 - Save/Open (custom JSON file); for the whole project, but also just for documentOptions (global styling)

@@ -5,12 +5,14 @@ import { areIdentical } from "../../utils/generalUtils";
 import { useDocumentStructureContext } from "./DocumentStructureContext";
 import { CitationNode } from "../../nodes/CitationNode";
 import { FigureNode } from "../../nodes/FigureNode";
+import { useEffect } from "react";
 
 export function AutoNumberer(ref){
     const {setNumberedHeadings,biblio,setFigures} = useDocumentStructureContext();
     const [editor] = useLexicalComposerContext();
     
-    editor.registerUpdateListener(() => {
+    useEffect(() => 
+    {return editor.registerUpdateListener(() => {
         editor.update(() => {
             // We start by refreshing the numbering of all the headings, and fill a dictionnary with the strings
             let headingsNumbering = {1:0,2:0,3:0};
@@ -72,5 +74,6 @@ export function AutoNumberer(ref){
             setNumberedHeadings(newheadings);
             setFigures(newfigures);
         });
-    });      
+    });
+    }, [biblio]); 
 }

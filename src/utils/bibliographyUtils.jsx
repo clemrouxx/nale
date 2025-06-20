@@ -93,7 +93,7 @@ export async function addBiblioFromClipboard(editor,biblio,setBiblio){
     const clipboardText = await navigator.clipboard.readText();
     if (clipboardText) {
       const parsedEntries = parseBibTeX(clipboardText);
-      console.log(parsedEntries);
+      //console.log(parsedEntries);
       setBiblio(biblio.concat(parsedEntries));
       if (parsedEntries.length===1){
         insertCitationNode(editor,parsedEntries[0].key);
