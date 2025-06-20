@@ -18,7 +18,6 @@ import {$isLinkNode, TOGGLE_LINK_COMMAND} from '@lexical/link';
 import {$isListNode, ListNode} from '@lexical/list';
 import {INSERT_EMBED_COMMAND} from '@lexical/react/LexicalAutoEmbedPlugin';
 import {INSERT_HORIZONTAL_RULE_COMMAND} from '@lexical/react/LexicalHorizontalRuleNode';
-import {$isHeadingNode} from '@lexical/rich-text';
 import {
   $getSelectionStyleValueForProperty,
   $isParentElementRTL,
@@ -100,6 +99,7 @@ import { useDocumentStructureContext } from '../NumberingPlugin/DocumentStructur
 import { insertCitationNode } from '../../nodes/CitationNode.jsx';
 import { addBiblioFromClipboard, bibItemToUIString } from '../../utils/bibliographyUtils.jsx';
 import { insertBibliographyNode } from '../../nodes/BibliographyNode.jsx';
+import { $isNumberedHeadingNode } from '../NumberingPlugin/NumberedHeadingNode.js';
 /*
 const rootTypeToRootName = {
   root: 'Root',
@@ -538,7 +538,7 @@ export default function ToolbarPlugin({
 
           updateToolbarState('blockType', type);
         } else {
-          const type = $isHeadingNode(element)
+          const type = $isNumberedHeadingNode(element)
             ? element.getTag()
             : element.getType();
           if (type in blockTypeToBlockName) {

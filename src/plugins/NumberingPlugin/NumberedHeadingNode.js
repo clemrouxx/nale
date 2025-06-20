@@ -32,6 +32,7 @@ export class NumberedHeadingNode extends ElementNode{
 
   static getType() { return 'numbered-heading'}
   getLevel() { return this.__level } // TO CHANGE AND USE getLatest() ?
+  getTag() { return this.__tag }
   getNumbering() { return this.__numbering }
   getKey() { return this.__key }
   isNumbered() { return this.__is_numbered }

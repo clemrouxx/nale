@@ -238,7 +238,7 @@ i.clear {
   background-image: url(images/icons/trash.svg);
 }
 
-i.code {
+.icon.code {
   background-image: url(images/icons/code.svg);
 }
 
@@ -290,14 +290,14 @@ i.insert-reference{
   background-image: url(images/icons/code.svg);
 }
 
-i.paragraph { background-image: url(images/icons/paragraph.svg) }
-i.h1 { background-image: url(images/icons/h1.svg) }
-i.h2 { background-image: url(images/icons/h2.svg) }
-i.h3 { background-image: url(images/icons/h3.svg) }
-i.list-bullets { background-image: url(images/icons/list-bullets.svg) }
-i.list-numbers { background-image: url(images/icons/list-numbers.svg) }
-i.list-check { background-image: url(images/icons/list-check.svg) }
-i.latex { background-image: url(images/icons/latex.svg) }
+.icon.paragraph { background-image: url(images/icons/paragraph.svg) }
+.icon.h1 { background-image: url(images/icons/h1.svg) }
+.icon.h2 { background-image: url(images/icons/h2.svg) }
+.icon.h3 { background-image: url(images/icons/h3.svg) }
+.icon.list-bullets, .icon.bullet { background-image: url(images/icons/list-bullets.svg) }
+.icon.list-numbers, .icon.number { background-image: url(images/icons/list-numbers.svg) }
+.icon.list-check { background-image: url(images/icons/list-check.svg) }
+.icon.latex { background-image: url(images/icons/latex.svg) }
 
 .dropdown {
   z-index: 100;
