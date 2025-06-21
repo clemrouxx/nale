@@ -34,8 +34,7 @@ import {
   MIN_ALLOWED_FONT_SIZE,
 } from './ToolbarContext';
 import { $createLatexNode } from '../LatexExportPlugin/LatexNode';
-import { $createNumberedHeadingNode } from '../NumberingPlugin/NumberedHeadingNode';
-
+import { $createNumberedHeadingNode } from '../../nodes/NumberedHeadingNode';
 
 /**
  * Calculates the new font size based on the update type.

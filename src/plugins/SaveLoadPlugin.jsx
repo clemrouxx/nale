@@ -1,6 +1,5 @@
 
 
-
 // Export/Save editor state to file
 export function saveInFile(editor, fileName = 'article.nale') {
   const editorState = editor.getEditorState();

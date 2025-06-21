@@ -1,7 +1,7 @@
 import { $applyNodeReplacement,$createParagraphNode } from "lexical";
-import { areIdentical } from "../../utils/generalUtils";
+import { areIdentical } from "../utils/generalUtils";
 import { ElementNode } from "lexical";
-import { HEADING_COMMANDS } from "../LatexExportPlugin/latexUtils";
+import { HEADING_COMMANDS } from "../plugins/LatexExportPlugin/latexUtils";
 
 function numberToString(num,style){
   if (style==="a") return String(num); // Arab numerals

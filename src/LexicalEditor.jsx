@@ -14,13 +14,13 @@ import {TRANSFORMERS} from '@lexical/markdown';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
 import { ToolbarContext } from './plugins/ToolbarPlugin/ToolbarContext';
 import { AutoNumberer } from './plugins/NumberingPlugin/AutoNumberer';
-import { $isNumberedHeadingNode } from './plugins/NumberingPlugin/NumberedHeadingNode';
 import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
 import { setGlobalCSSRule } from './utils/generalUtils';
 import { AutoOptionsPanel } from './plugins/Options/OptionsPanel';
 import { DocumentStructureProvider } from './plugins/NumberingPlugin/DocumentStructureContext';
 import ImagesPlugin from './plugins/ImagesPlugin';
 import { useDisplayOptions, zoomFactors } from './plugins/DisplayOptionsContext';
+import { $isNumberedHeadingNode } from './nodes/NumberedHeadingNode';
 
 function Editor() {
   const [editor] = useLexicalComposerContext();

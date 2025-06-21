@@ -1,11 +1,11 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { NumberedHeadingNode } from "./NumberedHeadingNode";
 import { $getRoot } from "lexical";
 import { areIdentical } from "../../utils/generalUtils";
 import { useDocumentStructureContext } from "./DocumentStructureContext";
 import { CitationNode } from "../../nodes/CitationNode";
 import { FigureNode } from "../../nodes/FigureNode";
 import { useEffect } from "react";
+import { NumberedHeadingNode } from "../../nodes/NumberedHeadingNode";
 
 export function AutoNumberer(ref){
     const {setNumberedHeadings,biblio,setFigures} = useDocumentStructureContext();

@@ -99,7 +99,8 @@ import { useDocumentStructureContext } from '../NumberingPlugin/DocumentStructur
 import { insertCitationNode } from '../../nodes/CitationNode.jsx';
 import { addBiblioFromClipboard, bibItemToUIString } from '../../utils/bibliographyUtils.jsx';
 import { insertBibliographyNode } from '../../nodes/BibliographyNode.jsx';
-import { $isNumberedHeadingNode } from '../NumberingPlugin/NumberedHeadingNode.js';
+import { $isNumberedHeadingNode } from '../../nodes/NumberedHeadingNode.js';
+
 /*
 const rootTypeToRootName = {
   root: 'Root',

@@ -5,13 +5,13 @@ import {CodeNode} from '@lexical/code';
 import {LinkNode} from '@lexical/link';
 import {HorizontalRuleNode} from '@lexical/react/LexicalHorizontalRuleNode';
 import { LatexNode } from "./plugins/LatexExportPlugin/LatexNode";
-import { NumberedHeadingNode } from "./plugins/NumberingPlugin/NumberedHeadingNode";
 import { ReferenceNode } from './nodes/ReferenceNode';
 import { CitationNode } from './nodes/CitationNode';
 import { BibliographyNode } from './nodes/BibliographyNode';
 import { CaptionedImageNode, SimpleImageNode } from './nodes/ImageNodes';
 import { FigureNode } from './nodes/FigureNode';
 import { CaptionNode } from './nodes/CaptionNode';
+import { NumberedHeadingNode } from './nodes/NumberedHeadingNode';
 
 // Catch any errors that occur during Lexical updates and log them
 // or throw them as needed. If you don't throw them, Lexical will
