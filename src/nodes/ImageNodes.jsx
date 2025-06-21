@@ -28,7 +28,7 @@ export class SimpleImageNode extends DecoratorNode {
     getWidthString() { return this.__width_value.toString() + this.__width_unit}
     getWidthValue() { return this.__width_value }
 
-    setWidthValue(val){ this.getWritable().__width_value = val; console.log(val); }
+    setWidthValue(val){ this.getWritable().__width_value = val }
 
     // Serialization
 
