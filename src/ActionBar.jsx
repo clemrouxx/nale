@@ -6,18 +6,19 @@ import { setGlobalCSSRule } from './utils/generalUtils';
 import { useDisplayOptions, zoomFactors } from './plugins/DisplayOptionsContext';
 import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
 import DropDown, { DropDownItem } from './ui/DropDown';
+import { saveInFile } from './plugins/SaveLoadPlugin';
 
 export const ActionBar = () => {
     return (
         <div className="span2cols actionbar">
             <h1 className='inline'>NaLE</h1>
-            <ExportButton/>
+            <FileButton/>
             <DisplayMenu/>
         </div>
     )
 }
 
-const ExportButton = () => {
+const FileButton = () => {
     const [editor] = useLexicalComposerContext();
     const {documentOptions} = useDocumentOptions();
 
@@ -30,8 +31,9 @@ const ExportButton = () => {
     };
 
     return (
-        <DropDown buttonLabel={"Export"}>
-            <DropDownItem onClick={readEditorState}>LaTeX</DropDownItem>
+        <DropDown buttonLabel={"File"}>
+            <DropDownItem onClick={()=>{saveInFile(editor)}}>Save</DropDownItem>
+            <DropDownItem onClick={readEditorState}>Export to LaTeX</DropDownItem>
         </DropDown>
     );
 }
