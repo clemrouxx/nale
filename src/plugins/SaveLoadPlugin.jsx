@@ -3,7 +3,7 @@
 // Export/Save editor state to file
 export function saveInFile(editor, documentOptions, biblio, fileName = 'article.nale') {
   const editorState = editor.getEditorState().toJSON();
-  const toSave = {editorState:editorState,documentOptions:documentOptions,bibliography:biblio};
+  const toSave = {editorState:editorState,documentOptions:documentOptions,biblio:biblio};
   const serializedState = JSON.stringify(toSave, null, 2);
 
   console.log(toSave);
@@ -26,3 +26,44 @@ export function saveInFile(editor, documentOptions, biblio, fileName = 'article.
   // Clean up object URL
   URL.revokeObjectURL(url);
 }
+
+function importFile(editor, setDocumentOptions, setBiblio, file) {
+  const reader = new FileReader();
+  
+  reader.onload = (event) => {
+    try {
+      const content = event.target.result;
+      const parsedContent = JSON.parse(content);
+      console.log(parsedContent);
+      // Parse and set the editor state
+      const editorState = editor.parseEditorState(parsedContent.editorState);
+      editor.setEditorState(editorState);
+      setDocumentOptions(parsedContent.documentOptions);
+      setBiblio(parsedContent.biblio);
+    } catch (error) {
+      console.error('Invalid file format:', error.message);
+      alert('Error: Invalid file format');
+    }
+  };
+  
+  reader.onerror = () => {
+    console.error('Failed to read file');
+    alert('Error: Failed to read file');
+  };
+  
+  reader.readAsText(file);
+}
+
+// File input handler for loading files
+export function handleFileChange(editor, setDocumentOptions, setBiblio, event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  
+  if (file.type !== 'application/json' && !file.name.endsWith('.nale')) {
+    alert('Please select a valid .nale file');
+    return;
+  }
+  
+  importFile(editor, setDocumentOptions, setBiblio, file);
+}
+

@@ -6,7 +6,7 @@ import { setGlobalCSSRule } from './utils/generalUtils';
 import { useDisplayOptions, zoomFactors } from './plugins/DisplayOptionsContext';
 import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
 import DropDown, { DropDownItem } from './ui/DropDown';
-import { saveInFile } from './plugins/SaveLoadPlugin';
+import { handleFileChange, saveInFile } from './plugins/SaveLoadPlugin';
 import { useDocumentStructureContext } from "./plugins/NumberingPlugin/DocumentStructureContext";
 
 export const ActionBar = () => {
@@ -21,8 +21,8 @@ export const ActionBar = () => {
 
 const FileButton = () => {
     const [editor] = useLexicalComposerContext();
-    const {documentOptions} = useDocumentOptions();
-    const {biblio} = useDocumentStructureContext();
+    const {documentOptions,setDocumentOptions} = useDocumentOptions();
+    const {biblio,setBiblio} = useDocumentStructureContext();
 
     const readEditorState = () => {
         editor.getEditorState().read(() => {
@@ -33,10 +33,20 @@ const FileButton = () => {
     };
 
     return (
-        <DropDown buttonLabel={"File"}>
-            <DropDownItem onClick={()=>{saveInFile(editor,documentOptions,biblio)}}>Save</DropDownItem>
-            <DropDownItem onClick={readEditorState}>Export to LaTeX</DropDownItem>
-        </DropDown>
+        <>
+            <input
+                type="file"
+                onChange={(e)=>handleFileChange(editor,setDocumentOptions,setBiblio,e)}
+                style={{ display: 'none' }}
+                id="fileInput"
+            />
+            <DropDown buttonLabel={"File"}>
+                <DropDownItem onClick={()=>{saveInFile(editor,documentOptions,biblio)}}>Save</DropDownItem>
+                <DropDownItem onClick={() => document.getElementById('fileInput').click()}>Load</DropDownItem>
+                <DropDownItem onClick={readEditorState}>Export to LaTeX</DropDownItem>
+            </DropDown>
+        </>
+        
     );
 }
 
