@@ -1,11 +1,12 @@
 
 
 // Export/Save editor state to file
-export function saveInFile(editor, fileName = 'article.nale') {
-  const editorState = editor.getEditorState();
-  const serializedState = JSON.stringify(editorState.toJSON(), null, 2);
+export function saveInFile(editor, documentOptions, biblio, fileName = 'article.nale') {
+  const editorState = editor.getEditorState().toJSON();
+  const toSave = {editorState:editorState,documentOptions:documentOptions,bibliography:biblio};
+  const serializedState = JSON.stringify(toSave, null, 2);
 
-  console.log(serializedState);
+  console.log(toSave);
   
   // Create blob and download link
   const blob = new Blob([serializedState], { type: 'application/json' });
@@ -19,7 +20,7 @@ export function saveInFile(editor, fileName = 'article.nale') {
   
   // Trigger download
   document.body.appendChild(link);
-  //link.click(); !!!
+  link.click();
   document.body.removeChild(link);
   
   // Clean up object URL

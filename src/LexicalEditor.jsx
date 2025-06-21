@@ -61,8 +61,6 @@ function Editor() {
     });
 
   }, [documentOptions]);
-
-  
     
   useEffect(() => {
       const zoomIn = () => {
@@ -88,9 +86,9 @@ function Editor() {
 
   return (
     <>
-      <AutoOptionsPanel/>
-      <div className='editor-block'>
-        <DocumentStructureProvider>
+        <AutoOptionsPanel/>
+        <div className='editor-block'>
+        
           <ToolbarContext>
             <ToolbarPlugin
                 editor={editor}
@@ -118,8 +116,7 @@ function Editor() {
           <MarkdownShortcutPlugin transformers={TRANSFORMERS}/>
           <AutoNumberer/>
           <ImagesPlugin/>
-        </DocumentStructureProvider>
-      </div>
+        </div>
     </>
   );
 }
