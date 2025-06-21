@@ -88,7 +88,6 @@ function Editor() {
     <>
         <AutoOptionsPanel/>
         <div className='editor-block'>
-        
           <ToolbarContext>
             <ToolbarPlugin
                 editor={editor}

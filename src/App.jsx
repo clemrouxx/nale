@@ -5,6 +5,7 @@ import { DocumentOptionsProvider } from "./plugins/Options/DocumentOptionsContex
 import { ActionBar } from "./ActionBar";
 import { DisplayOptionsProvider } from "./plugins/DisplayOptionsContext";
 import { DocumentStructureProvider } from "./plugins/NumberingPlugin/DocumentStructureContext";
+import { MathJaxContext } from "better-react-mathjax";
 
 function App() {
   return (
@@ -13,8 +14,10 @@ function App() {
         <DocumentOptionsProvider>
         <DocumentStructureProvider>
         <DisplayOptionsProvider>
+        <MathJaxContext>
           <ActionBar/>
           <Editor />
+        </MathJaxContext>
         </DisplayOptionsProvider>
         </DocumentStructureProvider>
         </DocumentOptionsProvider>
