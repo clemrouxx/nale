@@ -19,6 +19,7 @@ import { setGlobalCSSRule } from './utils/generalUtils';
 import { AutoOptionsPanel } from './plugins/Options/OptionsPanel';
 import { DocumentStructureProvider } from './plugins/NumberingPlugin/DocumentStructureContext';
 import ImagesPlugin from './plugins/ImagesPlugin';
+import MathPlugin from './plugins/MathPlugin';
 import { useDisplayOptions, zoomFactors } from './plugins/DisplayOptionsContext';
 import { $isNumberedHeadingNode } from './nodes/NumberedHeadingNode';
 
@@ -115,6 +116,7 @@ function Editor() {
           <MarkdownShortcutPlugin transformers={TRANSFORMERS}/>
           <AutoNumberer/>
           <ImagesPlugin/>
+          <MathPlugin/>
         </div>
     </>
   );

@@ -124,8 +124,6 @@ button.toolbar-item.active i {
   background-color: #eee;
   margin: 0 4px;
 }
-
-
   
 i.image {
   background-image: url(images/icons/file-image.svg);
@@ -133,6 +131,10 @@ i.image {
 
 i.figure {
   background-image: url(images/icons/file-figure.svg);
+}
+
+i.equation {
+  background-image: url(images/icons/plus-slash-minus.svg);
 }
 
 i.table {

@@ -12,6 +12,7 @@ import { CaptionedImageNode, SimpleImageNode } from './nodes/ImageNodes';
 import { FigureNode } from './nodes/FigureNode';
 import { CaptionNode } from './nodes/CaptionNode';
 import { NumberedHeadingNode } from './nodes/NumberedHeadingNode';
+import { MathNode } from './nodes/MathNode';
 
 // Catch any errors that occur during Lexical updates and log them
 // or throw them as needed. If you don't throw them, Lexical will
@@ -41,5 +42,6 @@ export const initialConfig = {
         FigureNode,
         CaptionNode,
         CaptionedImageNode,
+        MathNode,
     ],
 };

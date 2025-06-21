@@ -100,6 +100,7 @@ import { insertCitationNode } from '../../nodes/CitationNode.jsx';
 import { addBiblioFromClipboard, bibItemToUIString } from '../../utils/bibliographyUtils.jsx';
 import { insertBibliographyNode } from '../../nodes/BibliographyNode.jsx';
 import { $isNumberedHeadingNode } from '../../nodes/NumberedHeadingNode.js';
+import { INSERT_MATH_COMMAND } from '../MathPlugin/index.jsx';
 
 /*
 const rootTypeToRootName = {
@@ -864,7 +865,11 @@ export default function ToolbarPlugin({
           buttonAriaLabel="Insert specialized editor node"
           buttonIconClassName="plus"
           chevron={false}>
-
+            
+          <DropDownItem onClick={() => activeEditor.dispatchCommand(INSERT_MATH_COMMAND)}>
+            <i className="icon equation" />
+            <span className="text">Math</span>
+          </DropDownItem>
           <DropDownItem
             onClick={() => {
               showModal('Insert Image', (onClose) => (
