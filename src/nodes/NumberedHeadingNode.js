@@ -2,6 +2,7 @@ import { $applyNodeReplacement,$createParagraphNode } from "lexical";
 import { areIdentical } from "../utils/generalUtils";
 import { ElementNode } from "lexical";
 import { HEADING_COMMANDS } from "../plugins/LatexExportPlugin/latexUtils";
+import { DEFAULT_DOCUMENT_OPTIONS } from "../plugins/Options/documentOptions";
 
 function numberToString(num,style){
   if (style==="a") return String(num); // Arab numerals
@@ -76,14 +77,13 @@ export class NumberedHeadingNode extends ElementNode{
   }
 
   static importJSON(serializedNode) {
-    return new NumberedHeadingNode(serializedNode.__level,{},serializedNode.__headings_options,serializedNode.__is_numbered);
+    return new NumberedHeadingNode(serializedNode.__level,{},DEFAULT_DOCUMENT_OPTIONS.headings,serializedNode.__is_numbered);
   }
 
   exportJSON() {
     return {
       ...super.exportJSON(),
       __level : this.__level,
-      __headings_options : this.__headings_options,
       __is_numbered : this.__is_numbered
     };
   }
