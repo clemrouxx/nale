@@ -1,6 +1,7 @@
 import { MathJax } from 'better-react-mathjax';
 import { DecoratorNode } from 'lexical';
 import { SelectableComponent } from './SelectableComponent';
+import MathEditor from '../plugins/MathPlugin/MathEditor';
 
 export class MathNode extends DecoratorNode {
   static getType() {return 'math'}
@@ -31,7 +32,7 @@ export class MathNode extends DecoratorNode {
   decorate(){
     return (
     <SelectableComponent nodeKey={this.__key}>
-      <MathJax inline={this.__inline}>{"\\(E=mc^2\\)"}</MathJax>
+      <MathEditor/>
     </SelectableComponent>
     );
   }
