@@ -10,6 +10,7 @@ import {
 import { $createMathNode, MathNode } from '../../nodes/MathNode';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { useEffect } from 'react';
+import {$wrapNodeInElement} from '@lexical/utils';
 
 export const INSERT_MATH_COMMAND = createCommand('INSERT_MATH_COMMAND');
 
@@ -23,11 +24,11 @@ export default function MathPlugin() {
 
     return editor.registerCommand(
         INSERT_MATH_COMMAND,
-        () => {
-          const imageNode = $createMathNode();
-          $insertNodes([imageNode]);
-          if ($isRootOrShadowRoot(imageNode.getParentOrThrow())) {
-            $wrapNodeInElement(imageNode, $createParagraphNode).selectEnd();
+        (inline) => {
+          const mathNode = $createMathNode(inline);
+          $insertNodes([mathNode]);
+          if (inline && $isRootOrShadowRoot(mathNode.getParentOrThrow())) {
+            $wrapNodeInElement(mathNode, $createParagraphNode).selectEnd();
           }
           return true;
         },

@@ -1,21 +1,26 @@
 import { MathJax } from 'better-react-mathjax';
-import { $getSelection, DecoratorNode } from 'lexical';
+import { DecoratorNode } from 'lexical';
+import { SelectableComponent } from './SelectableComponent';
 
 export class MathNode extends DecoratorNode {
   static getType() {return 'math'}
 
-  constructor(key) {
+  constructor(inline,key) {
     super(key);
+    this.__inline = inline;
   }
 
   static clone(node) {
-    return new MathNode(node.__key);
+    return new MathNode(node.__inline,node.__key);
   }
+
+  isInline(){return this.__inline}
 
   toLatex(){return ``}
   
   createDOM(config) {
     const dom = document.createElement("span");
+    dom.classList.add("editor-math");
     return dom;
   }
 
@@ -24,7 +29,11 @@ export class MathNode extends DecoratorNode {
   };
 
   decorate(){
-    return <MathJax>{"\\(E=mc^2\\)"}</MathJax>
+    return (
+    <SelectableComponent nodeKey={this.__key}>
+      <MathJax inline={this.__inline}>{"\\(E=mc^2\\)"}</MathJax>
+    </SelectableComponent>
+    );
   }
 
   static importJSON(serializedNode) {
@@ -34,10 +43,11 @@ export class MathNode extends DecoratorNode {
   exportJSON() {
     return {
       ...super.exportJSON(),
+      __inline:this.__inline,
     };
   }
 }
 
-export function $createMathNode(){
-  return new MathNode();
+export function $createMathNode(inline){
+  return new MathNode(inline);
 }

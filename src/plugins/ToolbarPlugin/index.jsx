@@ -866,9 +866,13 @@ export default function ToolbarPlugin({
           buttonIconClassName="plus"
           chevron={false}>
             
-          <DropDownItem onClick={() => activeEditor.dispatchCommand(INSERT_MATH_COMMAND)}>
+          <DropDownItem onClick={() => activeEditor.dispatchCommand(INSERT_MATH_COMMAND,true)}>
             <i className="icon equation" />
-            <span className="text">Math</span>
+            <span className="text">Inline Math</span>
+          </DropDownItem>
+          <DropDownItem onClick={() => activeEditor.dispatchCommand(INSERT_MATH_COMMAND,false)}>
+            <i className="icon equation" />
+            <span className="text">Math Block</span>
           </DropDownItem>
           <DropDownItem
             onClick={() => {
