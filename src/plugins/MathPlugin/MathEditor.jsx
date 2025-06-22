@@ -18,15 +18,16 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
         addSymbol,//customAction
     }));
 
-    useEffect(()=>{
+    const setLocalMathTree = (newtree) => {// The tree is getting changed from inside this component
+        setMathTree(newtree);
         editor.update(()=>{
             const node = $getNodeByKey(nodeKey);
             node.setMathTree(mathTree); // Modifying 'upwards'
         });
-    },[mathTree]);
+    }
 
     const changeMathTree = (newtree) => { // 'Real' changes (ie not just cursor movement or selection) to the math tree. Relevant for the undo-redo functionnality
-        setMathTree(newtree);
+        setLocalMathTree(newtree);
     }
 
     const isCursorInModifier = () => {
@@ -99,7 +100,7 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
         var id = parseInt(element.id.split("-").pop());
         var newtree = MathTree.removeCursor(mathTree);
         newtree = MathTree.setSelectedNode(newtree,id);
-        setMathTree(newtree);
+        setLocalMathTree(newtree);
     };
 
     const handleCtrlShortcut = (event) => {
@@ -176,12 +177,12 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
             case "Tab":
                 if (parent.ismultiline) addSymbol("&");
                 else if (parent.isroot) addSymbol("\\quad");
-                else setMathTree(MathTree.shiftCursor(mathTree,"right"));
+                else setLocalMathTree(MathTree.shiftCursor(mathTree,"right"));
                 break;
             case "Enter":
                 if (parent.ismultiline) addSymbol("\\\\");
                 else if (parent.isroot){//AutoAlign
-                    setMathTree(MathTree.alignAll(mathTree));
+                    setLocalMathTree(MathTree.alignAll(mathTree));
                     addSymbol("\\\\");
                 }
                 // Add \substack if needed
@@ -189,15 +190,15 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
                     const substack = MathNodes.getNode("\\substack");
                     substack.children = structuredClone(parent.children);
                     parent.children = [substack];
-                    setMathTree(MathTree.insertAtPath(mathTree,cursorPath,parent,true));
+                    setLocalMathTree(MathTree.insertAtPath(mathTree,cursorPath,parent,true));
                     addSymbol("\\\\");
                 }
                 break;
             case "ArrowRight":
-                setMathTree(MathTree.shiftCursor(mathTree,"right"));
+                setLocalMathTree(MathTree.shiftCursor(mathTree,"right"));
                 break;
             case "ArrowLeft":
-                setMathTree(MathTree.shiftCursor(mathTree,"left"));
+                setLocalMathTree(MathTree.shiftCursor(mathTree,"left"));
                 break;
             case "ArrowDown":
                 if (cursorPath.length>=1){ // In a frac-like sub-element. We need to go up two levels
@@ -207,7 +208,7 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
                         path.push(1-cursorPath.at(-1));// Switch to the "down" part
                         var newtree = MathTree.removeCursor(mathTree);
                         newtree = MathTree.pushCursorAtPath(newtree,path);
-                        setMathTree(newtree);
+                        setLocalMathTree(newtree);
                     }
                 }
                 break;
@@ -219,7 +220,7 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
                         path.push(1-cursorPath.at(-1));// Switch to the "up" part
                         var newtree = MathTree.removeCursor(mathTree);
                         newtree = MathTree.pushCursorAtPath(newtree,path);
-                        setMathTree(newtree);
+                        setLocalMathTree(newtree);
                     }
                 }
                 break;
@@ -234,7 +235,7 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
             case " ": // Space
                 let replacementResult = MathTree.applyReplacementShortcut(mathTree);
                 if (replacementResult.symbol){
-                    setMathTree(replacementResult.tree);// This removes the previously added characters
+                    setLocalMathTree(replacementResult.tree);// This removes the previously added characters
                     addSymbol(replacementResult.symbol);// This adds the new symbol (and updates the tree for Undo/Redo)
                 }
                 break;
@@ -242,7 +243,7 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
                 if (Object.values(MathNodes.DELIMITERS).includes(event.key)){
                     if (parent.rightsymbol===event.key && parent.children[parent.children.length-1].iscursor){
                         // Close the delimiter
-                        setMathTree(MathTree.shiftCursor(mathTree,"right"));
+                        setLocalMathTree(MathTree.shiftCursor(mathTree,"right"));
                     }
                 }
                 break;
@@ -257,10 +258,10 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
                 changeMathTree(MathTree.deleteSelectedNode(mathTree,true));
                 break;
             case "ArrowRight":
-                setMathTree(MathTree.selectedToCursor(mathTree,"right"));
+                setLocalMathTree(MathTree.selectedToCursor(mathTree,"right"));
                 break;
             case "ArrowLeft":
-                setMathTree(MathTree.selectedToCursor(mathTree,"left"));
+                setLocalMathTree(MathTree.selectedToCursor(mathTree,"left"));
                 break;
         }
     }
@@ -346,7 +347,10 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
 
     useEffect(() => { // Updates the formula and thus the displayed equation
         setFormula(MathNodes.getFormula(mathTree,true));
+        console.log("update formula")
     }, [mathTree]);
+
+    useEffect(()=>console.log("mounting"),[]);
 
     useEffect(() => {
         const handleFocusClick = (event) => {

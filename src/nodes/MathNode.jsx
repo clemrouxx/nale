@@ -7,18 +7,23 @@ import MathNodes from '../plugins/MathPlugin/MathNodes';
 export class MathNode extends DecoratorNode {
   static getType() {return 'math'}
 
-  constructor(inline,key) {
+  constructor(inline,mathTree,versionCounter,key) {
     super(key);
     this.__inline = inline;
-    this.__mathTree = MathNodes.DEFAULT_TREE;
+    this.__mathTree = mathTree;
+    this.__versionCounter = versionCounter;
   }
 
   static clone(node) {
-    return new MathNode(node.__inline,node.__key);
+    return new MathNode(node.__inline,structuredClone(node.__mathTree),this.__versionCounter,node.__key);
   }
 
   getMathTree(){return this.__mathTree}
-  setMathTree(mathTree){this.getWritable().__mathTree = mathTree;}
+  setMathTree(mathTree){
+    const writable = this.getWritable();
+    writable.__mathTree = mathTree;
+    writable.__versionCounter++;
+  }
 
   isInline(){return this.__inline}
 
@@ -30,11 +35,12 @@ export class MathNode extends DecoratorNode {
     return dom;
   }
 
-  updateDOM(prevNode, dom){
-    return false;
-  };
+  updateDOM(prevNode, dom) {
+    return this.__versionCounter !== prevNode.__versionCounter;
+  }
 
   decorate(){
+    console.log("decorate",this.__mathTree);
     return (
     <SelectableComponent nodeKey={this.__key}>
       <MathEditor nodeKey={this.getKey()} initMathTree={this.__mathTree}/>
@@ -55,5 +61,5 @@ export class MathNode extends DecoratorNode {
 }
 
 export function $createMathNode(inline){
-  return new MathNode(inline);
+  return new MathNode(inline,MathNodes.DEFAULT_TREE,0);
 }
