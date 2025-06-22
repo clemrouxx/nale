@@ -3,26 +3,36 @@ import {MathJax} from "better-react-mathjax";
 import MathTree from "./MathTree";
 import MathKeyboard from "./MathKeyboard";
 import MathNodes from "./MathNodes";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { $getNodeByKey } from "lexical";
 
-const MathEditor = forwardRef((props,ref) => {
-    const [editMode,setEditMode] = useState("cursor"); // "none"|"selection"|"cursor"
-    const [mathTree,setMathTree] = useState(structuredClone(MathNodes.DEFAULT_TREE));
+const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
+    const [mathTree,setMathTree] = useState(structuredClone(initMathTree));
     const [formula,setFormula] = useState("");
     const [command,setCommand] = useState("");
     const [focused,setFocused] = useState(true);
     const domRef = useRef(null);
+    const [editor] = useLexicalComposerContext();
 
     useImperativeHandle(ref, () => ({ // Functions that can be called by an 'outside' element, VirtualKeyboard for example
         addSymbol,//customAction
     }));
+
+    useEffect(()=>{
+        editor.update(()=>{
+            const node = $getNodeByKey(nodeKey);
+            node.setMathTree(mathTree); // Modifying 'upwards'
+        });
+    },[mathTree]);
 
     const changeMathTree = (newtree) => { // 'Real' changes (ie not just cursor movement or selection) to the math tree. Relevant for the undo-redo functionnality
         setMathTree(newtree);
     }
 
     const isCursorInModifier = () => {
-        if (editMode!=="cursor") return false;
-        return MathTree.findCursorParent(mathTree).node.ismodifier;
+        const cursorParent = MathTree.findCursorParent(mathTree);
+        if (!cursorParent) return false;
+        return cursorParent.node.ismodifier;
     }
 
     const addSymbol = (symbol,rawtext=false) => { // Called after a key press/command entered/on-screen key press
@@ -34,6 +44,7 @@ const MathEditor = forwardRef((props,ref) => {
         var newnode = {};
         if (copyBefore) newnode = structuredClone(node);
         else newnode = node;
+        const editMode = MathTree.getEditMode(mathTree);
         if (editMode==="cursor"){
             if (isCursorInModifier() && !MathNodes.isValidRawText(newnode)) return; // Block adding this node
             if (MathNodes.ACCENTS.includes(newnode.symbol) || MathNodes.STYLES.includes(newnode.symbol)){
@@ -49,7 +60,6 @@ const MathEditor = forwardRef((props,ref) => {
                 const selection = MathTree.findSelectedNode(mathTree);
                 if (MathTree.canReplace(selection.node,newnode)){
                     changeMathTree(MathTree.replaceAndAdopt(mathTree,selection.path,newnode,true));
-                    setEditMode("cursor");
                 }
             }
         }
@@ -89,11 +99,11 @@ const MathEditor = forwardRef((props,ref) => {
         var id = parseInt(element.id.split("-").pop());
         var newtree = MathTree.removeCursor(mathTree);
         newtree = MathTree.setSelectedNode(newtree,id);
-        setEditMode("selection");
         setMathTree(newtree);
     };
 
     const handleCtrlShortcut = (event) => {
+        const editMode = MathTree.getEditMode(mathTree);
         switch (event.key){
             case "i":
                 setCommand("\\");
@@ -245,21 +255,19 @@ const MathEditor = forwardRef((props,ref) => {
             case "Delete":
             case "Backspace":
                 changeMathTree(MathTree.deleteSelectedNode(mathTree,true));
-                setEditMode("cursor");
                 break;
             case "ArrowRight":
                 setMathTree(MathTree.selectedToCursor(mathTree,"right"));
-                setEditMode("cursor");
                 break;
             case "ArrowLeft":
                 setMathTree(MathTree.selectedToCursor(mathTree,"left"));
-                setEditMode("cursor");
                 break;
         }
     }
 
     const handleKeyDown = (event) => {
-        if (editMode!=="cursor" && editMode!=="selection") return;
+        const editMode = MathTree.getEditMode(mathTree);
+        if (editMode==="none") return;
 
         //console.log(event);
 
@@ -347,7 +355,7 @@ const MathEditor = forwardRef((props,ref) => {
         };
         document.addEventListener("click", handleFocusClick);
         return () => document.removeEventListener("click", handleFocusClick);
-    }, [focused,mathTree,editMode]);
+    }, [focused,mathTree]);
 
   return (
       <div className={`formula-editor ${focused ? "focused" : "unfocused"}`} ref={domRef}>

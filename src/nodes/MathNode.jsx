@@ -2,6 +2,7 @@ import { MathJax } from 'better-react-mathjax';
 import { DecoratorNode } from 'lexical';
 import { SelectableComponent } from './SelectableComponent';
 import MathEditor from '../plugins/MathPlugin/MathEditor';
+import MathNodes from '../plugins/MathPlugin/MathNodes';
 
 export class MathNode extends DecoratorNode {
   static getType() {return 'math'}
@@ -9,11 +10,15 @@ export class MathNode extends DecoratorNode {
   constructor(inline,key) {
     super(key);
     this.__inline = inline;
+    this.__mathTree = MathNodes.DEFAULT_TREE;
   }
 
   static clone(node) {
     return new MathNode(node.__inline,node.__key);
   }
+
+  getMathTree(){return this.__mathTree}
+  setMathTree(mathTree){this.getWritable().__mathTree = mathTree;}
 
   isInline(){return this.__inline}
 
@@ -32,7 +37,7 @@ export class MathNode extends DecoratorNode {
   decorate(){
     return (
     <SelectableComponent nodeKey={this.__key}>
-      <MathEditor/>
+      <MathEditor nodeKey={this.getKey()} initMathTree={this.__mathTree}/>
     </SelectableComponent>
     );
   }
