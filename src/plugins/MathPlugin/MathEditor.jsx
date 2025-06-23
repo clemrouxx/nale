@@ -406,9 +406,7 @@ $            }
     }, [mathTree]);
 
   return (
-      <div className={`formula-editor`} ref={domRef}>
-        <MathJax key={formula}>{`\\[ ${formula} \\]`}</MathJax>
-      </div>
+    <MathJax key={formula} inline={true}>{`\\( ${formula} \\)`}</MathJax>
   );
 });
 
