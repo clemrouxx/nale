@@ -396,15 +396,6 @@ $            }
         setFormula(MathNodes.getFormula(mathTree,true));
     }, [mathTree]);
 
-    useEffect(() => {
-        const handleFocusClick = (event) => {
-            // if (domRef.current && domRef.current.contains(event.target)) focus()
-            //else unfocus(); Removed for now, until proven useful
-        };
-        document.addEventListener("click", handleFocusClick);
-        return () => document.removeEventListener("click", handleFocusClick);
-    }, [mathTree]);
-
   return (
     <MathJax key={formula} inline={true}>{`\\( ${formula} \\)`}</MathJax>
   );

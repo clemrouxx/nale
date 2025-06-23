@@ -1,10 +1,12 @@
 import {
+  $createNodeSelection,
   $createParagraphNode,
   $getNodeByKey,
   $getSelection,
   $insertNodes,
   $isNodeSelection,
   $isRootOrShadowRoot,
+  $setSelection,
   COMMAND_PRIORITY_EDITOR,
   COMMAND_PRIORITY_HIGH,
   createCommand,
@@ -36,6 +38,18 @@ export default function MathPlugin() {
           if (inline && $isRootOrShadowRoot(mathNode.getParentOrThrow())) {
             $wrapNodeInElement(mathNode, $createParagraphNode).selectEnd();
           }
+
+          // Also, select the node
+          $setSelection(null);
+          const nodeSelection = $createNodeSelection();
+          nodeSelection.add(mathNode.getKey());
+          $setSelection(nodeSelection);
+          
+          const rootElement = editor.getRootElement();
+          if (rootElement && document.activeElement !== rootElement) {
+            rootElement.focus({ preventScroll: true }); // Seems like I lose focus otherwise for some reason
+          }
+
           return true;
         },
         COMMAND_PRIORITY_EDITOR,
@@ -49,6 +63,7 @@ export default function MathPlugin() {
         KEY_ARROW_LEFT_COMMAND,
         (event) => {
           const selection = $getSelection();
+          console.log(selection);
           if ($isNodeSelection(selection)) {
             const selectedNode = $getNodeByKey(selection.getNodes()[0].getKey());
             if (selectedNode.getType()==="math"){
