@@ -10,15 +10,31 @@ import {
   COMMAND_PRIORITY_EDITOR,
   COMMAND_PRIORITY_HIGH,
   createCommand,
-  DELETE_CHARACTER_COMMAND,
+  KEY_ARROW_DOWN_COMMAND,
   KEY_ARROW_LEFT_COMMAND,
-  KEY_ARROW_RIGHT_COMMAND
+  KEY_ARROW_RIGHT_COMMAND,
+  KEY_ARROW_UP_COMMAND,
+  KEY_TAB_COMMAND,
+  KEY_ESCAPE_COMMAND,
+  KEY_BACKSPACE_COMMAND,
+  KEY_DELETE_COMMAND,
+  KEY_ENTER_COMMAND,
 } from 'lexical';
 import { $createMathNode, MathNode } from '../../nodes/MathNode';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { useEffect } from 'react';
 import {$wrapNodeInElement, mergeRegister} from '@lexical/utils';
 import MathTree from './MathTree';
+
+const KEYBOARD_COMMANDS_TO_IGNORE = [
+  KEY_ARROW_DOWN_COMMAND,
+  KEY_ARROW_UP_COMMAND,
+  KEY_TAB_COMMAND,
+  KEY_ESCAPE_COMMAND,
+  KEY_BACKSPACE_COMMAND,
+  KEY_DELETE_COMMAND,
+  KEY_ENTER_COMMAND,
+];
 
 export const INSERT_MATH_COMMAND = createCommand('INSERT_MATH_COMMAND');
 
@@ -30,7 +46,23 @@ export default function MathPlugin() {
       throw new Error('MathPlugin: MathNode not registered on editor');
     }
 
-    return editor.registerCommand(
+    // Override the effect of some commands when we are in a math node (here we just ignore those commands, for now the specific behaviour is handled using vanilla event listeners in MathEditor)
+    const unregisterIgnoredCommands = KEYBOARD_COMMANDS_TO_IGNORE.map(command =>
+      editor.registerCommand(
+        command,
+        () => {
+          const selection = $getSelection();
+          const isSomeMathNodeSelected = $isNodeSelection(selection) && $getNodeByKey(selection.getNodes()[0].getKey()).getType()==="math";
+          if (isSomeMathNodeSelected) {
+            return true; // Prevents the command from executing
+          }
+          return false; // Allows the command to continue
+        },
+        COMMAND_PRIORITY_HIGH
+      )
+    );
+
+    const unregisterInsertCommand = editor.registerCommand(
         INSERT_MATH_COMMAND,
         (inline) => {
           const mathNode = $createMathNode(inline);
@@ -54,6 +86,11 @@ export default function MathPlugin() {
         },
         COMMAND_PRIORITY_EDITOR,
       );
+    
+      return (()=>{
+        unregisterIgnoredCommands.forEach(unregister => unregister());
+        unregisterInsertCommand();
+      })
 
   }, [editor]);
 
