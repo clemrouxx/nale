@@ -15,7 +15,7 @@ import {
 import { $createMathNode, MathNode } from '../../nodes/MathNode';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { useEffect } from 'react';
-import {$wrapNodeInElement} from '@lexical/utils';
+import {$wrapNodeInElement, mergeRegister} from '@lexical/utils';
 import MathTree from './MathTree';
 
 export const INSERT_MATH_COMMAND = createCommand('INSERT_MATH_COMMAND');
@@ -44,26 +44,49 @@ export default function MathPlugin() {
   }, [editor]);
 
   useEffect(() => {
-    return editor.registerCommand(
-      KEY_ARROW_LEFT_COMMAND,
-      (event) => {
-        const selection = $getSelection();
-        if ($isNodeSelection(selection)) {
-          const selectedNode = $getNodeByKey(selection.getNodes()[0].getKey());
-          if (selectedNode.getType()==="math"){
-            const mathTree = selectedNode.getMathTree();
-            if (MathTree.isCursorAtStart(mathTree)){
-              // First, remove the cursor from the math node
-              selectedNode.setMathTree(MathTree.removeCursor(mathTree));
-              console.log("removing cursor");
-              return false; // Continue moving left of the math node
+    return mergeRegister(
+      editor.registerCommand(
+        KEY_ARROW_LEFT_COMMAND,
+        (event) => {
+          const selection = $getSelection();
+          if ($isNodeSelection(selection)) {
+            const selectedNode = $getNodeByKey(selection.getNodes()[0].getKey());
+            if (selectedNode.getType()==="math"){
+              const mathTree = selectedNode.getMathTree();
+              if (MathTree.isCursorAtStart(mathTree)){
+                // First, remove the cursor from the math node
+                selectedNode.setMathTree(MathTree.removeCursor(mathTree));
+                console.log("removing cursor");
+                return false;
+              }
+              return true; // Else, this is already taken care of
             }
-            return true; // Else, this is already taken care of
           }
-        }
-        return false; // Let default behavior proceed
-      },
-      COMMAND_PRIORITY_HIGH
+          return false; // Let default behavior proceed
+        },
+        COMMAND_PRIORITY_HIGH
+      ),
+      editor.registerCommand(
+        KEY_ARROW_RIGHT_COMMAND,
+        (event) => {
+          const selection = $getSelection();
+          if ($isNodeSelection(selection)) {
+            const selectedNode = $getNodeByKey(selection.getNodes()[0].getKey());
+            if (selectedNode.getType()==="math"){
+              const mathTree = selectedNode.getMathTree();
+              if (MathTree.isCursorAtEnd(mathTree)){
+                // First, remove the cursor from the math node
+                selectedNode.setMathTree(MathTree.removeCursor(mathTree));
+                //console.log("removing cursor");
+                return false;
+              }
+              return true; // Else, this is already taken care of
+            }
+          }
+          return false; // Let default behavior proceed
+        },
+        COMMAND_PRIORITY_HIGH
+      ),
     );
   }, [editor]);
 

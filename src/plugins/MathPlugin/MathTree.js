@@ -168,8 +168,9 @@ function removeCursor(tree){
   return tree;
 }
 
-function appendCursor(tree){
-  tree.children.push(MathNodes.CURSOR);
+function appendCursor(tree,prepend=false){
+  if (prepend) tree.children.unshift(MathNodes.CURSOR);
+  else tree.children.push(MathNodes.CURSOR);
   return tree;
 }
 

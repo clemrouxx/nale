@@ -4,7 +4,7 @@ import MathTree from "./MathTree";
 import MathKeyboard from "./MathKeyboard";
 import MathNodes from "./MathNodes";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $getNodeByKey, $getSelection, SELECTION_CHANGE_COMMAND, COMMAND_PRIORITY_LOW, $isNodeSelection } from "lexical";
+import { $getNodeByKey, $getSelection, SELECTION_CHANGE_COMMAND, COMMAND_PRIORITY_LOW, $isNodeSelection, $isRangeSelection } from "lexical";
 
 const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
     const [mathTree,setMathTree] = useState(structuredClone(initMathTree));
@@ -13,6 +13,7 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
     const [focused,setFocused] = useState(false);
     const domRef = useRef(null);
     const [editor] = useLexicalComposerContext();
+    const [lastSelectionKey,setLastSelectionKey] = useState(null);
 
     useImperativeHandle(ref, () => ({ // Functions that can be called by an 'outside' element, VirtualKeyboard for example
         addSymbol,//customAction
@@ -35,30 +36,41 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
         SELECTION_CHANGE_COMMAND,
         () => {
             const selection = $getSelection();
-            
-            
+
             // Check if this specific node is selected
             if ($isNodeSelection(selection)) {
                 const selectedNodes = selection.getNodes();
                 const isThisNodeSelected = selectedNodes.some(node => node.getKey() === nodeKey);
                 
-                if (isThisNodeSelected && !focused) {
-                    setFocused(true);
-                    console.log('Cursor entered decorator node');
+                if (isThisNodeSelected && (lastSelectionKey !== nodeKey)) {
+                    console.log('Cursor entered decorator node',lastSelectionKey,nodeKey);
                     // Your cursor enter logic here
                     onCursorEnter();
                 }
-            } 
+                setLastSelectionKey(selectedNodes[0].getKey());
+                console.log(selectedNodes[0].getKey());
+            }
+            else if ($isRangeSelection(selection)){
+                setLastSelectionKey(selection.anchor.getNode().getKey());
+            }
           
             return false;
         },
         COMMAND_PRIORITY_LOW
         );
-    }, [editor, nodeKey]);
+    }, [editor, nodeKey, lastSelectionKey]);
 
     const onCursorEnter = () => {
-        const newmathtree = MathTree.appendCursor(mathTree);
-        setLocalMathTree(newmathtree);
+        console.log("cursor enter");
+        const previousSibling = $getNodeByKey(nodeKey).getPreviousSibling();
+        const previousSiblingKey = previousSibling ? previousSibling.getKey() : null;
+        //setLocalMathTree(MathTree.appendCursor(mathTree,true));
+        if (previousSiblingKey === lastSelectionKey){
+            setLocalMathTree(MathTree.appendCursor(mathTree,true));
+        }
+        else{
+            setLocalMathTree(MathTree.appendCursor(mathTree));
+        }
     }
 
     const isCursorInModifier = () => {
