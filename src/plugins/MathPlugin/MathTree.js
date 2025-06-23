@@ -152,13 +152,18 @@ function findCurrentPath(tree,editMode){
 
 // Cursor position
 
-export function isCursorAtStart(tree){
+function isCursorAtStart(tree){
   return (tree.children && tree.children[0].iscursor);
 }
 
-export function isCursorAtEnd(tree){
+function isCursorAtEnd(tree){
   return (tree.children && tree.children.at(-1).iscursor);
 }
+
+function isOnlyCursor(tree){
+  return (tree.children && tree.children.length === 1 && tree.children[0].iscursor);
+}
+
 
 // Cursor manipulations
 
@@ -388,4 +393,4 @@ function selectedToCursor(tree,side){ // Add cursor next to selected, and unsele
   return unselect(insertAtPath(tree,path,MathNodes.CURSOR,false));
 }
 
-export default {pathToNode,getPositionInArray,findCurrentPath,alignCol,pushCursorAtPath,deleteSelectedNode,deleteNextToCursor,insertAtCursor,adoptNodeBeforeCursor,adoptSelectedNode,removeCursor,appendCursor,shiftCursor,setSelectedNode,selectedToCursor,unselect,findCursorParent,applyReplacementShortcut,alignAll,findSelectedNode,canReplace,replaceAndAdopt,applyAtPath,insertAtPath,isCursorAtStart,isCursorAtEnd,getEditMode}
+export default {pathToNode,getPositionInArray,findCurrentPath,alignCol,pushCursorAtPath,deleteSelectedNode,deleteNextToCursor,insertAtCursor,adoptNodeBeforeCursor,adoptSelectedNode,removeCursor,appendCursor,shiftCursor,setSelectedNode,selectedToCursor,unselect,findCursorParent,applyReplacementShortcut,alignAll,findSelectedNode,canReplace,replaceAndAdopt,applyAtPath,insertAtPath,isCursorAtStart,isCursorAtEnd,getEditMode,isOnlyCursor}
