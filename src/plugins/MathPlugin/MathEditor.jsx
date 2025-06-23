@@ -10,7 +10,6 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
     const [mathTree,setMathTree] = useState(structuredClone(initMathTree));
     const [formula,setFormula] = useState("");
     const [command,setCommand] = useState("");
-    const [focused,setFocused] = useState(false);
     const domRef = useRef(null);
     const [editor] = useLexicalComposerContext();
     const [lastSelectionKey,setLastSelectionKey] = useState(null);
@@ -36,21 +35,22 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
         SELECTION_CHANGE_COMMAND,
         () => {
             const selection = $getSelection();
+            const editMode = MathTree.getEditMode(mathTree);
 
-            // Check if this specific node is selected
             if ($isNodeSelection(selection)) {
                 const selectedNodes = selection.getNodes();
                 const isThisNodeSelected = selectedNodes.some(node => node.getKey() === nodeKey);
                 
+                if (!isThisNodeSelected && editMode!=="none"){
+                    unfocus();
+                }
                 if (isThisNodeSelected && (lastSelectionKey !== nodeKey)) {
-                    console.log('Cursor entered decorator node',lastSelectionKey,nodeKey);
-                    // Your cursor enter logic here
                     onCursorEnter();
                 }
                 setLastSelectionKey(selectedNodes[0].getKey());
-                console.log(selectedNodes[0].getKey());
-            }
-            else if ($isRangeSelection(selection)){
+$            }
+            else if ($isRangeSelection(selection)){ // Seems to be called in a loop for some reason
+                if (editMode !== "none") unfocus();
                 setLastSelectionKey(selection.anchor.getNode().getKey());
             }
           
@@ -58,10 +58,9 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
         },
         COMMAND_PRIORITY_LOW
         );
-    }, [editor, nodeKey, lastSelectionKey]);
+    }, [editor, nodeKey, lastSelectionKey, mathTree]);
 
     const onCursorEnter = () => {
-        console.log("cursor enter");
         const previousSibling = $getNodeByKey(nodeKey).getPreviousSibling();
         const previousSiblingKey = previousSibling ? previousSibling.getKey() : null;
         //setLocalMathTree(MathTree.appendCursor(mathTree,true));
@@ -71,6 +70,12 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
         else{
             setLocalMathTree(MathTree.appendCursor(mathTree));
         }
+    }
+
+    const unfocus = () => {
+        const newmathtree = MathTree.unselect(MathTree.removeCursor(mathTree));
+
+        setLocalMathTree(newmathtree);
     }
 
     const isCursorInModifier = () => {
@@ -137,7 +142,6 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
         event.preventDefault();
         event.stopPropagation();// Avoids problems with focusing
         
-        setFocused(true);
         var element = event.target; // We need to go up the tree until we find an element with id 'math-...'
         while (!element.id || element.id.split("-")[0]!=="math") element = element.parentElement;
         var id = parseInt(element.id.split("-").pop());
@@ -386,7 +390,7 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
     useEffect(() => { // Times where I need to change the listeners...
         addListeners();
         return () => removeListeners();
-    }, [mathTree,command,focused]);
+    }, [mathTree,command]);
 
     useEffect(() => { // Updates the formula and thus the displayed equation
         setFormula(MathNodes.getFormula(mathTree,true));
@@ -399,10 +403,10 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
         };
         document.addEventListener("click", handleFocusClick);
         return () => document.removeEventListener("click", handleFocusClick);
-    }, [focused,mathTree]);
+    }, [mathTree]);
 
   return (
-      <div className={`formula-editor ${focused ? "focused" : "unfocused"}`} ref={domRef}>
+      <div className={`formula-editor`} ref={domRef}>
         <MathJax key={formula}>{`\\[ ${formula} \\]`}</MathJax>
       </div>
   );
