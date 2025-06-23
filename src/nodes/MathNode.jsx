@@ -40,10 +40,10 @@ export class MathNode extends DecoratorNode {
   }
 
   decorate(){
-    console.log("decorate",this.__mathTree);
+    console.log("decorate",this.__inline);
     return (
     <SelectableComponent nodeKey={this.__key}>
-      <MathEditor nodeKey={this.getKey()} initMathTree={this.__mathTree}/>
+      <MathEditor nodeKey={this.getKey()} initMathTree={this.__mathTree} inline={this.__inline}/>
     </SelectableComponent>
     );
   }

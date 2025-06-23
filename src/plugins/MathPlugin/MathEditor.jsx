@@ -6,7 +6,7 @@ import MathNodes from "./MathNodes";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $getNodeByKey, $getSelection, SELECTION_CHANGE_COMMAND, COMMAND_PRIORITY_LOW, $isNodeSelection, $isRangeSelection } from "lexical";
 
-const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
+const MathEditor = forwardRef(({nodeKey,initMathTree,inline},ref) => {
     const [mathTree,setMathTree] = useState(structuredClone(initMathTree));
     const [formula,setFormula] = useState("");
     const [command,setCommand] = useState("");
@@ -397,8 +397,10 @@ $            }
         setFormula(MathNodes.getFormula(mathTree,true));
     }, [mathTree]);
 
+    const delimiter = inline ? "$" : "$$";
+
   return (
-    <MathJax key={formula} inline={true}>{`\\( ${formula} \\)`}</MathJax>
+    <MathJax key={formula} inline={inline}>{`${delimiter} ${formula} ${delimiter}`}</MathJax>
   );
 });
 
