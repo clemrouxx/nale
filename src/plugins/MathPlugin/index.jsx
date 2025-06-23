@@ -47,7 +47,7 @@ export default function MathPlugin() {
     }
 
     // Override the effect of some commands when we are in a math node (here we just ignore those commands, for now the specific behaviour is handled using vanilla event listeners in MathEditor)
-    const unregisterIgnoredCommands = KEYBOARD_COMMANDS_TO_IGNORE.map(command =>
+    const unregisterCommands = KEYBOARD_COMMANDS_TO_IGNORE.map(command =>
       editor.registerCommand(
         command,
         () => {
@@ -62,7 +62,8 @@ export default function MathPlugin() {
       )
     );
 
-    const unregisterInsertCommand = editor.registerCommand(
+    unregisterCommands.push(
+      editor.registerCommand(
         INSERT_MATH_COMMAND,
         (inline) => {
           const mathNode = $createMathNode(inline);
@@ -85,28 +86,16 @@ export default function MathPlugin() {
           return true;
         },
         COMMAND_PRIORITY_EDITOR,
-      );
-    
-      return (()=>{
-        unregisterIgnoredCommands.forEach(unregister => unregister());
-        unregisterInsertCommand();
-      })
-
-  }, [editor]);
-
-  useEffect(() => {
-    return mergeRegister(
+      ),
       editor.registerCommand(
         KEY_ARROW_LEFT_COMMAND,
         (event) => {
           const selection = $getSelection();
-          console.log(selection);
           if ($isNodeSelection(selection)) {
             const selectedNode = $getNodeByKey(selection.getNodes()[0].getKey());
             if (selectedNode.getType()==="math"){
               const mathTree = selectedNode.getMathTree();
               if (MathTree.isCursorAtStart(mathTree)){
-                // First, remove the cursor from the math node
                 selectedNode.setMathTree(MathTree.removeCursor(mathTree));
                 console.log("removing cursor");
                 return false;
@@ -120,16 +109,14 @@ export default function MathPlugin() {
       ),
       editor.registerCommand(
         KEY_ARROW_RIGHT_COMMAND,
-        (event) => {
+        (e) => {
           const selection = $getSelection();
           if ($isNodeSelection(selection)) {
             const selectedNode = $getNodeByKey(selection.getNodes()[0].getKey());
             if (selectedNode.getType()==="math"){
               const mathTree = selectedNode.getMathTree();
               if (MathTree.isCursorAtEnd(mathTree)){
-                // First, remove the cursor from the math node
                 selectedNode.setMathTree(MathTree.removeCursor(mathTree));
-                //console.log("removing cursor");
                 return false;
               }
               return true; // Else, this is already taken care of
@@ -138,8 +125,13 @@ export default function MathPlugin() {
           return false; // Let default behavior proceed
         },
         COMMAND_PRIORITY_HIGH
-      ),
+      )
     );
+    
+    return (()=>{
+      unregisterCommands.forEach(unregister => unregister());
+    })
+
   }, [editor]);
 
   return null;
