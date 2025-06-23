@@ -247,9 +247,7 @@ function deleteNextToCursor(tree,direction){
 
 function recursiveShiftCursor(node,shift) {
   // node is NOT cursor
-  const newnode = { // Make copy
-    ...node,
-  };
+  const newnode = {...node}; // Make copy
   if (node.children){
     const index = node.children.findIndex(child => child.iscursor);// Looking for the cursor
     if (index===-1){// Not found among direct children. recursion.

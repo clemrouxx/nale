@@ -22,7 +22,7 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
         setMathTree(newtree);
         editor.update(()=>{
             const node = $getNodeByKey(nodeKey);
-            node.setMathTree(mathTree); // Modifying 'upwards'
+            node.setMathTree(newtree); // Modifying 'upwards'
         });
     }
 
@@ -179,7 +179,6 @@ $            }
                     const selection = MathTree.findSelectedNode(mathTree);
                     const string = JSON.stringify(MathTree.unselect(selection.node));
                     navigator.clipboard.writeText(string);
-                    setEditMode("cursor");
                     changeMathTree(MathTree.deleteSelectedNode(mathTree,true));
                 }
                 break;
@@ -245,7 +244,9 @@ $            }
                 setLocalMathTree(MathTree.shiftCursor(mathTree,"right"));
                 break;
             case "ArrowLeft":
-                setLocalMathTree(MathTree.shiftCursor(mathTree,"left"));
+                let tr = MathTree.shiftCursor(mathTree,"left");
+                console.log(tr);
+                setLocalMathTree(structuredClone(tr));
                 break;
             case "ArrowDown":
                 if (cursorPath.length>=1){ // In a frac-like sub-element. We need to go up two levels
