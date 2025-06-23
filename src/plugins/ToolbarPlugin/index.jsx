@@ -869,10 +869,12 @@ export default function ToolbarPlugin({
           <DropDownItem onClick={() => activeEditor.dispatchCommand(INSERT_MATH_COMMAND,true)}>
             <i className="icon equation" />
             <span className="text">Inline Math</span>
+            <span className="shortcut">{SHORTCUTS.MATH_INLINE}</span>
           </DropDownItem>
           <DropDownItem onClick={() => activeEditor.dispatchCommand(INSERT_MATH_COMMAND,false)}>
             <i className="icon equation" />
-            <span className="text">Math Block</span>
+            <span className="text">Display Math</span>
+            <span className="shortcut">{SHORTCUTS.MATH_DISPLAY}</span>
           </DropDownItem>
           <DropDownItem
             onClick={() => {

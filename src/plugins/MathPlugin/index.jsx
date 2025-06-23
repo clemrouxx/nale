@@ -19,6 +19,7 @@ import {
   KEY_BACKSPACE_COMMAND,
   KEY_DELETE_COMMAND,
   KEY_ENTER_COMMAND,
+  KEY_DOWN_COMMAND,
 } from 'lexical';
 import { $createMathNode, MathNode } from '../../nodes/MathNode';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -125,6 +126,18 @@ export default function MathPlugin() {
           return false; // Let default behavior proceed
         },
         COMMAND_PRIORITY_HIGH
+      ),
+      editor.registerCommand(
+        KEY_DOWN_COMMAND,
+        (event) => {
+          if ((event.ctrlKey || event.metaKey) && (event.key === 'm'||event.key==="M")) {
+            event.preventDefault();
+            editor.dispatchCommand(INSERT_MATH_COMMAND,!(event.shiftKey));
+            return true;
+          }
+          return false;
+        },
+        COMMAND_PRIORITY_EDITOR
       )
     );
     

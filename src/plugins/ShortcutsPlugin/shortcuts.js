@@ -34,6 +34,7 @@ export const SHORTCUTS = Object.freeze({
   JUSTIFY_ALIGN: IS_APPLE ? '⌘+Shift+J' : 'Ctrl+Shift+J',
   LEFT_ALIGN: IS_APPLE ? '⌘+Shift+L' : 'Ctrl+Shift+L',
   RIGHT_ALIGN: IS_APPLE ? '⌘+Shift+R' : 'Ctrl+Shift+R',
+  MATH_DISPLAY: IS_APPLE ? '⌘+Shift+M' : 'Ctrl+Shift+M',
 
   // (Ctrl|⌘) + <key> shortcuts
   SUBSCRIPT: IS_APPLE ? '⌘+,' : 'Ctrl+,',
@@ -47,6 +48,7 @@ export const SHORTCUTS = Object.freeze({
   ITALIC: IS_APPLE ? '⌘+I' : 'Ctrl+I',
   UNDERLINE: IS_APPLE ? '⌘+U' : 'Ctrl+U',
   INSERT_LINK: IS_APPLE ? '⌘+K' : 'Ctrl+K',
+  MATH_INLINE: IS_APPLE ? '⌘+M' : 'Ctrl+M',
 });
 
 export function controlOrMeta(metaKey, ctrlKey) {
