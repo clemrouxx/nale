@@ -25,7 +25,7 @@ const DELIMITER_SIZES = {auto:["\\left","\\right"],default:["",""],big:["\\bigl"
 
 const CURSOR = {iscursor:true,symbol:"|"};
 
-const DEFAULT_TREE = {isroot:true,nodeletion:true,children:[{symbol:"T"},{symbol:"T"},{symbol:"T"},CURSOR]};
+const DEFAULT_TREE = {isroot:true,nodeletion:true,children:[{symbol:"T"},{symbol:"T"}]};
 
 // Functions that act like node constructors
 const Symbol = (symbol) => {return {symbol}};

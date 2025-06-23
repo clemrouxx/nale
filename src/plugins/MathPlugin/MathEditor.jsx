@@ -4,13 +4,13 @@ import MathTree from "./MathTree";
 import MathKeyboard from "./MathKeyboard";
 import MathNodes from "./MathNodes";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $getNodeByKey } from "lexical";
+import { $getNodeByKey, $getSelection, SELECTION_CHANGE_COMMAND, COMMAND_PRIORITY_LOW, $isNodeSelection } from "lexical";
 
 const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
     const [mathTree,setMathTree] = useState(structuredClone(initMathTree));
     const [formula,setFormula] = useState("");
     const [command,setCommand] = useState("");
-    const [focused,setFocused] = useState(true);
+    const [focused,setFocused] = useState(false);
     const domRef = useRef(null);
     const [editor] = useLexicalComposerContext();
 
@@ -28,6 +28,37 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
 
     const changeMathTree = (newtree) => { // 'Real' changes (ie not just cursor movement or selection) to the math tree. Relevant for the undo-redo functionnality
         setLocalMathTree(newtree);
+    }
+
+    useEffect(() => {
+    return editor.registerCommand(
+        SELECTION_CHANGE_COMMAND,
+        () => {
+            const selection = $getSelection();
+            
+            
+            // Check if this specific node is selected
+            if ($isNodeSelection(selection)) {
+                const selectedNodes = selection.getNodes();
+                const isThisNodeSelected = selectedNodes.some(node => node.getKey() === nodeKey);
+                
+                if (isThisNodeSelected && !focused) {
+                    setFocused(true);
+                    console.log('Cursor entered decorator node');
+                    // Your cursor enter logic here
+                    onCursorEnter();
+                }
+            } 
+          
+            return false;
+        },
+        COMMAND_PRIORITY_LOW
+        );
+    }, [editor, nodeKey]);
+
+    const onCursorEnter = () => {
+        const newmathtree = MathTree.appendCursor(mathTree);
+        setLocalMathTree(newmathtree);
     }
 
     const isCursorInModifier = () => {
@@ -347,10 +378,7 @@ const MathEditor = forwardRef(({nodeKey,initMathTree},ref) => {
 
     useEffect(() => { // Updates the formula and thus the displayed equation
         setFormula(MathNodes.getFormula(mathTree,true));
-        console.log("update formula")
     }, [mathTree]);
-
-    useEffect(()=>console.log("mounting"),[]);
 
     useEffect(() => {
         const handleFocusClick = (event) => {
