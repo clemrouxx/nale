@@ -69,6 +69,10 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
         case "figure":
             bubbledInfo.packages.add("graphicx");
             break;
+        case "math":
+            bubbledInfo.packages.add("physics");
+            bubbledInfo.packages.add("amsmath,amssymb");
+            break;
         case "citation":
         case "reference":
             bubbledInfo.packages.add("hyperref");

@@ -27,7 +27,10 @@ export class MathNode extends DecoratorNode {
 
   isInline(){return this.__inline}
 
-  toLatex(){return ``}
+  toLatex(){
+    const delimiter = this.__inline ? "$" : "$$";
+    return `${delimiter} ${MathNodes.getFormula(this.__mathTree,false)} ${delimiter} ${this.__inline ? '' : '\n'}`
+  }
   
   createDOM(config) {
     const dom = document.createElement("span");
