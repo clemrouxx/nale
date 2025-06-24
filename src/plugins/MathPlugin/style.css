@@ -1,3 +1,8 @@
+.editor-math{
+  --selection-color: red;
+  --secondary-selection-color: orange;
+}
+
 .math-cursor {
   animation: blink 1s infinite;
 }
