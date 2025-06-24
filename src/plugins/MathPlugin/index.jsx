@@ -27,7 +27,7 @@ import { useEffect } from 'react';
 import {$wrapNodeInElement, mergeRegister} from '@lexical/utils';
 import MathTree from './MathTree';
 
-const KEYBOARD_COMMANDS_TO_IGNORE = [
+const KEYBOARD_COMMANDS_TO_IGNORE = [ // These commands are just completely ignored when in the math node, but some have their events handled with classical event handlers in MathEditor.
   KEY_ARROW_DOWN_COMMAND,
   KEY_ARROW_UP_COMMAND,
   KEY_TAB_COMMAND,
@@ -36,6 +36,15 @@ const KEYBOARD_COMMANDS_TO_IGNORE = [
 ];
 
 export const INSERT_MATH_COMMAND = createCommand('INSERT_MATH_COMMAND');
+
+const $getCurrentMathNode = () => {
+  const selection = $getSelection();
+  if ($isNodeSelection(selection)){
+    const selectedNode = $getNodeByKey(selection.getNodes()[0].getKey());
+    if (selectedNode.getType()==="math") return selectedNode; 
+  }
+  return null;
+}
 
 export default function MathPlugin() {
   const [editor] = useLexicalComposerContext();
@@ -50,9 +59,7 @@ export default function MathPlugin() {
       editor.registerCommand(
         command,
         () => {
-          const selection = $getSelection();
-          const isSomeMathNodeSelected = $isNodeSelection(selection) && $getNodeByKey(selection.getNodes()[0].getKey()).getType()==="math";
-          if (isSomeMathNodeSelected) {
+          if ($getCurrentMathNode()) {
             return true; // Prevents the command from executing
           }
           return false; // Allows the command to continue
@@ -89,18 +96,14 @@ export default function MathPlugin() {
       editor.registerCommand(
         KEY_ARROW_LEFT_COMMAND,
         (event) => {
-          const selection = $getSelection();
-          if ($isNodeSelection(selection)) {
-            const selectedNode = $getNodeByKey(selection.getNodes()[0].getKey());
-            if (selectedNode.getType()==="math"){
-              const mathTree = selectedNode.getMathTree();
-              if (MathTree.isCursorAtStart(mathTree)){
-                selectedNode.setMathTree(MathTree.removeCursor(mathTree));
-                console.log("removing cursor");
-                return false;
-              }
-              return true; // Else, this is already taken care of
+          const selectedNode = $getCurrentMathNode();
+          if (selectedNode){
+            const mathTree = selectedNode.getMathTree();
+            if (MathTree.isCursorAtStart(mathTree)){
+              selectedNode.setMathTree(MathTree.removeCursor(mathTree));
+              return false;
             }
+            return true; // Else, this is already taken care of
           }
           return false; // Let default behavior proceed
         },
@@ -109,17 +112,14 @@ export default function MathPlugin() {
       editor.registerCommand(
         KEY_ARROW_RIGHT_COMMAND,
         (e) => {
-          const selection = $getSelection();
-          if ($isNodeSelection(selection)) {
-            const selectedNode = $getNodeByKey(selection.getNodes()[0].getKey());
-            if (selectedNode.getType()==="math"){
-              const mathTree = selectedNode.getMathTree();
-              if (MathTree.isCursorAtEnd(mathTree)){
-                selectedNode.setMathTree(MathTree.removeCursor(mathTree));
-                return false;
-              }
-              return true; // Else, this is already taken care of
+          const selectedNode = $getCurrentMathNode();
+          if (selectedNode){
+            const mathTree = selectedNode.getMathTree();
+            if (MathTree.isCursorAtEnd(mathTree)){
+              selectedNode.setMathTree(MathTree.removeCursor(mathTree));
+              return false;
             }
+            return true; // Else, this is already taken care of
           }
           return false; // Let default behavior proceed
         },
@@ -140,16 +140,13 @@ export default function MathPlugin() {
       editor.registerCommand(
         KEY_BACKSPACE_COMMAND,
         (event) => {
-          const selection = $getSelection();
-          if ($isNodeSelection(selection)) {
-            const selectedNode = $getNodeByKey(selection.getNodes()[0].getKey());
-            if (selectedNode.getType()==="math"){
-              const mathTree = selectedNode.getMathTree();
-              if (MathTree.isOnlyCursor(mathTree)){
-                return false; // Let default behavior proceed (remove math node)
-              }
-              return true; // Handled in the math node
+          const selectedNode = $getCurrentMathNode();
+          if (selectedNode){
+            const mathTree = selectedNode.getMathTree();
+            if (MathTree.isOnlyCursor(mathTree)){
+              return false; // Let default behavior proceed (remove math node)
             }
+            return true; // Handled in the math node
           }
           return false; 
         },
@@ -158,16 +155,13 @@ export default function MathPlugin() {
       editor.registerCommand(
         KEY_DELETE_COMMAND,
         (event) => {
-          const selection = $getSelection();
-          if ($isNodeSelection(selection)) {
-            const selectedNode = $getNodeByKey(selection.getNodes()[0].getKey());
-            if (selectedNode.getType()==="math"){
-              const mathTree = selectedNode.getMathTree();
-              if (MathTree.isOnlyCursor(mathTree)){
-                return false; // Let default behavior proceed (remove math node)
-              }
-              return true; // Handled in the math node
+          const selectedNode = $getCurrentMathNode();
+          if (selectedNode){
+            const mathTree = selectedNode.getMathTree();
+            if (MathTree.isOnlyCursor(mathTree)){
+              return false; // Let default behavior proceed (remove math node)
             }
+            return true; // Handled in the math node
           }
           return false; 
         },
