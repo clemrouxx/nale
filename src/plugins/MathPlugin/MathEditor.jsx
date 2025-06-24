@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useImperativeHandle, forwardRef } from "react";
+import React, { useEffect, useState, useRef, useImperativeHandle, forwardRef, useLayoutEffect } from "react";
 import {MathJax} from "better-react-mathjax";
 import MathTree from "./MathTree";
 import MathKeyboard from "./MathKeyboard";
@@ -369,14 +369,17 @@ const MathEditor = ({nodeKey,initMathTree,inline},ref) => {
         return () => removeListeners();
     }, [mathTree,command]);
 
-    useEffect(() => { // Updates the formula and thus the displayed equation
-        setFormula(MathNodes.getFormula(mathTree,true));
+    useLayoutEffect(() => { // Updates the formula and thus the displayed equation
+        const newformula = MathNodes.getFormula(mathTree,true);
+        setFormula(newformula);
     }, [mathTree]);
 
     const delimiter = inline ? "$" : "$$";
 
   return (
-    <MathJax key={formula} inline={inline}>{`${delimiter} ${formula} ${delimiter}`}</MathJax>
+    <>
+    {true && <MathJax key={formula} inline={inline}>{`${delimiter} ${formula} ${delimiter}`}</MathJax>}
+    </>
   );
 };
 

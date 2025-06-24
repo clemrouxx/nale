@@ -49,9 +49,30 @@ const $getCurrentMathNode = () => {
   return null;
 }
 
+function useSuppressMathJaxErrors() { // Suppress an error that seems to be due to timings, without obvious real impacts on user experience.
+ useEffect(() => {
+   const originalError = console.error;
+   console.error = (...args) => {
+     if (!args[0]?.includes?.('Typesetting failed: Cannot read properties of null')) originalError(...args);
+   };
+   
+   const handleRejection = (e) => {
+     if (e.reason?.message?.includes('Typesetting failed: Cannot read properties of null')) e.preventDefault();
+   };
+   window.addEventListener('unhandledrejection', handleRejection);
+
+   return () => {
+     console.error = originalError;
+     window.removeEventListener('unhandledrejection', handleRejection);
+   };
+ }, []);
+}
+
 export default function MathPlugin() {
   const [editor] = useLexicalComposerContext();
   const [lastSelectionKey,setLastSelectionKey] = useState(null);
+
+  useSuppressMathJaxErrors();
 
   useEffect(() => {
     if (!editor.hasNodes([MathNode])) {
