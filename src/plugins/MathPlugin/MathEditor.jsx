@@ -35,13 +35,11 @@ const MathEditor = ({nodeKey,initMathTree,inline},ref) => {
             if (editMode !== "none"){
                 if ($isNodeSelection(selection)) {
                     const isThisNodeSelected = selection.getNodes().some(node => node.getKey() === nodeKey);
-                    if (!isThisNodeSelected){
-                        unfocus();
+                    if (isThisNodeSelected){
+                        return false;
                     }
                 }
-                else if ($isRangeSelection(selection)){
-                    unfocus();
-                }
+                unfocus();
             }
             return false;
         },
