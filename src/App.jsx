@@ -8,28 +8,21 @@ import { DocumentStructureProvider } from "./plugins/NumberingPlugin/DocumentStr
 import { MathJaxContext } from "better-react-mathjax";
 
 const mathJaxConfig = {
-  loader: { 
-    load: ["[tex]/html"] 
-  },
+  loader: { load: ["[tex]/html","[tex]/physics"] },
   tex: {
     packages: { 
-      "[+]": ["html"] 
+      "[+]": ["html","ams","physics"] 
     },
     inlineMath: [
       ["$", "$"],
-      ["\\(", "\\)"]
     ],
     displayMath: [
       ["$$", "$$"],
-      ["\\[", "\\]"]
     ],
-    processEscapes: true,
-    processEnvironments: true
   },
   options: {
-    ignoreHtmlClass: "tex2jax_ignore",
-    processHtmlClass: "tex2jax_process"
-  }
+    enableMenu : false,
+  },
 };
 
 function App() {
