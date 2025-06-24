@@ -22,7 +22,9 @@ import {
   KEY_DOWN_COMMAND,
   $isRangeSelection,
   COMMAND_PRIORITY_LOW,
-  SELECTION_CHANGE_COMMAND
+  SELECTION_CHANGE_COMMAND,
+  DELETE_CHARACTER_COMMAND,
+  $createRangeSelection
 } from 'lexical';
 import { $createMathNode, MathNode } from '../../nodes/MathNode';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -97,6 +99,17 @@ export default function MathPlugin() {
       editor.registerCommand(
         INSERT_MATH_COMMAND,
         (inline) => {
+
+          const currentMathNode = $getCurrentMathNode()
+          // Check if we are already in a math node. In which case, we exit it.
+          if (currentMathNode){
+            const newSelection = $createRangeSelection();
+            newSelection.anchor.set(currentMathNode.getParent().getKey(), currentMathNode.getIndexWithinParent() + 1, 'element');
+            newSelection.focus.set(currentMathNode.getParent().getKey(), currentMathNode.getIndexWithinParent() + 1, 'element');
+            $setSelection(newSelection);
+            return true;
+          }
+
           const mathNode = $createMathNode(inline);
           $insertNodes([mathNode]);
           if (inline && $isRootOrShadowRoot(mathNode.getParentOrThrow())) {
@@ -216,6 +229,40 @@ export default function MathPlugin() {
                 setLastSelectionKey(selection.anchor.getNode().getKey());
             }
             return false;
+        },
+        COMMAND_PRIORITY_LOW
+      ),
+      editor.registerCommand(
+        DELETE_CHARACTER_COMMAND,
+        (isBackward) => {
+          const selection = $getSelection();
+          
+          if ((!$isRangeSelection(selection)) || (!selection.isCollapsed())) {
+            return false;
+          }
+          
+          const anchorNode = selection.anchor.getNode();
+          const anchorOffset = selection.anchor.offset;
+          const anchorType = selection.anchor.type;
+
+          let nodeGettingDeleted = null;
+          if (anchorType==="text" && anchorOffset===(isBackward?0:anchorNode.getTextContentSize())){// anchorOffset === 0 means there is no more character to delete on the left
+            nodeGettingDeleted = isBackward ? anchorNode.getPreviousSibling() : anchorNode.getNextSibling();
+          }
+          else if (anchorType==="element"){
+            nodeGettingDeleted = anchorNode.getChildAtIndex(anchorOffset + (isBackward?-1:0));
+          }
+
+          if (nodeGettingDeleted && nodeGettingDeleted.getType() === 'math') {
+            // Enter the math node (select it)
+            $setSelection(null);
+            const nodeSelection = $createNodeSelection();
+            nodeSelection.add(nodeGettingDeleted.getKey());
+            $setSelection(nodeSelection);
+            return true; // Prevent deletion
+          }
+          
+          return false; // Let other handlers process
         },
         COMMAND_PRIORITY_LOW
       ),
