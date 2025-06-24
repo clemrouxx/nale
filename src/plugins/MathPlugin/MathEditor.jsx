@@ -220,9 +220,7 @@ const MathEditor = ({nodeKey,initMathTree,inline},ref) => {
                 setLocalMathTree(MathTree.shiftCursor(mathTree,"right"));
                 break;
             case "ArrowLeft":
-                let tr = MathTree.shiftCursor(mathTree,"left");
-                console.log(tr);
-                setLocalMathTree(structuredClone(tr));
+                setLocalMathTree(structuredClone(MathTree.shiftCursor(mathTree,"left")));
                 break;
             case "ArrowDown":
                 if (cursorPath.length>=1){ // In a frac-like sub-element. We need to go up two levels

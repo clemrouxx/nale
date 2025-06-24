@@ -196,8 +196,6 @@ export default function MathPlugin() {
         SELECTION_CHANGE_COMMAND,
         () => {
             const selection = $getSelection();
-            console.log('selection change',lastSelectionKey);
-
             if ($isNodeSelection(selection)) {
                 const selectedMathNode = $getCurrentMathNode();
                 if (selectedMathNode && (lastSelectionKey !== selectedMathNode.getKey())) { // Entering the math node
@@ -205,7 +203,6 @@ export default function MathPlugin() {
                   const previousSibling = $getNodeByKey(selectedMathNode.getKey()).getPreviousSibling();
                   const previousSiblingKey = previousSibling ? previousSibling.getKey() : null;
                   const mathTree = selectedMathNode.getMathTree();
-                  console.log(lastSelectionKey,selectedMathNode.getKey(),MathTree.getEditMode(mathTree));
                   if (previousSiblingKey === lastSelectionKey){
                       selectedMathNode.setMathTree(MathTree.appendCursor(mathTree,true));
                   }
