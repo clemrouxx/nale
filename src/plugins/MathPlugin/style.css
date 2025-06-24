@@ -1,0 +1,104 @@
+.math-cursor {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.math-node{
+  cursor: pointer;
+}
+
+.math-selected{
+  color: var(--selection-color);
+}
+
+.math-selected .math-node{
+  color: var(--secondary-selection-color);
+}
+
+.math-placeholder{
+  opacity: 0.5;
+}
+
+/* VIRTUAL KEYBOARD */
+
+.virtual-keyboard{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.virtual-keyboard h3{
+  margin: 0.5rem;
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.virtual-keyboard > div{
+  max-width: 22rem;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  margin: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.virtual-keyboard > div.wide-category{
+  max-width: 30rem;
+}
+
+.virtual-keyboard > div:nth-child(1) { background-color: rgba(255, 99, 71, 0.2); }    /* Tomato */
+.virtual-keyboard > div:nth-child(2) { background-color: rgba(30, 144, 255, 0.2); }   /* Dodger Blue */
+.virtual-keyboard > div:nth-child(3) { background-color: rgba(50, 205, 50, 0.2); }    /* Lime Green */
+.virtual-keyboard > div:nth-child(4) { background-color: rgba(255, 165, 0, 0.2); }    /* Orange */
+.virtual-keyboard > div:nth-child(5) { background-color: rgba(138, 43, 226, 0.2); }   /* Blue Violet */
+.virtual-keyboard > div:nth-child(6) { background-color: rgba(255, 20, 147, 0.2); }   /* Deep Pink */
+.virtual-keyboard > div:nth-child(7) { background-color: rgba(70, 130, 180, 0.2); }   /* Steel Blue */
+.virtual-keyboard > div:nth-child(8) { background-color: rgba(46, 139, 87, 0.2); }    /* Sea Green */
+.virtual-keyboard > div:nth-child(9) { background-color: rgba(220, 20, 60, 0.2); }    /* Crimson */
+.virtual-keyboard > div:nth-child(10) { background-color: rgba(255, 215, 0, 0.2); }  
+.virtual-keyboard > div:nth-child(11) { background-color: rgba(255, 99, 71, 0.2); }    /* Tomato */
+
+.virtual-keyboard .key-row{
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.virtual-keyboard button.key{
+  font-size: large;
+  min-width: 2.2rem;
+  height: 2.2rem;
+  margin: 0;
+  padding: 0.2rem 0.5rem;
+}
+
+.virtual-keyboard button.larger-button{
+  height: 2.7rem;
+}
+
+.virtual-keyboard button.small-text{
+  font-size:small;
+}
+
+.virtual-keyboard button.x-small-text{
+  font-size:x-small;
+}
+
+button.drawer-handle{
+  opacity: 0.6;
+  margin-top: 0.2rem;
+  font-size: larger;
+  padding: 0;
+  height: 1.8rem;
+  width: 1.8rem;
+}
+
+.react-tooltip{
+  font-size: 12px !important;
+}

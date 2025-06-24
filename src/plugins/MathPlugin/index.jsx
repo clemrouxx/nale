@@ -20,14 +20,17 @@ import {
   KEY_DELETE_COMMAND,
   KEY_ENTER_COMMAND,
   KEY_DOWN_COMMAND,
+  $isRangeSelection,
+  COMMAND_PRIORITY_LOW,
+  SELECTION_CHANGE_COMMAND
 } from 'lexical';
 import { $createMathNode, MathNode } from '../../nodes/MathNode';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {$wrapNodeInElement, mergeRegister} from '@lexical/utils';
 import MathTree from './MathTree';
 
-const KEYBOARD_COMMANDS_TO_IGNORE = [ // These commands are just completely ignored when in the math node, but some have their events handled with classical event handlers in MathEditor.
+const COMMANDS_TO_IGNORE = [ // These commands are just completely ignored when in the math node, but some have their events handled with classical event handlers in MathEditor.
   KEY_ARROW_DOWN_COMMAND,
   KEY_ARROW_UP_COMMAND,
   KEY_TAB_COMMAND,
@@ -48,6 +51,7 @@ const $getCurrentMathNode = () => {
 
 export default function MathPlugin() {
   const [editor] = useLexicalComposerContext();
+  const [lastSelectionKey,setLastSelectionKey] = useState(null);
 
   useEffect(() => {
     if (!editor.hasNodes([MathNode])) {
@@ -55,7 +59,7 @@ export default function MathPlugin() {
     }
 
     // Override the effect of some commands when we are in a math node (here we just ignore those commands, for now the specific behaviour is handled using vanilla event listeners in MathEditor)
-    const unregisterCommands = KEYBOARD_COMMANDS_TO_IGNORE.map(command =>
+    const unregisterCommands = COMMANDS_TO_IGNORE.map(command =>
       editor.registerCommand(
         command,
         () => {
@@ -167,13 +171,43 @@ export default function MathPlugin() {
         },
         COMMAND_PRIORITY_HIGH
       ),
+      editor.registerCommand(
+        SELECTION_CHANGE_COMMAND,
+        () => {
+            const selection = $getSelection();
+            console.log('selection change',lastSelectionKey);
+
+            if ($isNodeSelection(selection)) {
+                const selectedMathNode = $getCurrentMathNode();
+                if (selectedMathNode && (lastSelectionKey !== selectedMathNode.getKey())) { // Entering the math node
+                  //console.log("cursor enter");
+                  const previousSibling = $getNodeByKey(selectedMathNode.getKey()).getPreviousSibling();
+                  const previousSiblingKey = previousSibling ? previousSibling.getKey() : null;
+                  const mathTree = selectedMathNode.getMathTree();
+                  console.log(lastSelectionKey,selectedMathNode.getKey(),MathTree.getEditMode(mathTree));
+                  if (previousSiblingKey === lastSelectionKey){
+                      selectedMathNode.setMathTree(MathTree.appendCursor(mathTree,true));
+                  }
+                  else{
+                      selectedMathNode.setMathTree(MathTree.appendCursor(mathTree,false));
+                  }
+                }
+                setLastSelectionKey(selection.getNodes()[0].getKey());
+            }
+            else if ($isRangeSelection(selection)){
+                setLastSelectionKey(selection.anchor.getNode().getKey());
+            }
+            return false;
+        },
+        COMMAND_PRIORITY_LOW
+      ),
     );
     
     return (()=>{
       unregisterCommands.forEach(unregister => unregister());
     })
 
-  }, [editor]);
+  }, [editor,lastSelectionKey]);
 
   return null;
 }

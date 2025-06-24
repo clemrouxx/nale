@@ -40,7 +40,6 @@ export class MathNode extends DecoratorNode {
   }
 
   decorate(){
-    console.log("decorate",this.__inline);
     return (
     <SelectableComponent nodeKey={this.__key}>
       <MathEditor nodeKey={this.getKey()} initMathTree={this.__mathTree} inline={this.__inline}/>
@@ -61,5 +60,5 @@ export class MathNode extends DecoratorNode {
 }
 
 export function $createMathNode(inline){
-  return new MathNode(inline,MathNodes.DEFAULT_TREE,0);
+  return new MathNode(inline,structuredClone(MathNodes.DEFAULT_TREE),0);
 }

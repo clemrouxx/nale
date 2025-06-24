@@ -12,11 +12,6 @@ const MathEditor = ({nodeKey,initMathTree,inline},ref) => {
     const [command,setCommand] = useState("");
     const domRef = useRef(null);
     const [editor] = useLexicalComposerContext();
-    const [lastSelectionKey,setLastSelectionKey] = useState(null);
-
-    useImperativeHandle(ref, () => ({ // Functions that can be called by an 'outside' element, VirtualKeyboard for example
-        addSymbol,//customAction
-    }));
 
     const setLocalMathTree = (newtree) => {// The tree is getting changed from inside this component
         setMathTree(newtree);
@@ -37,44 +32,25 @@ const MathEditor = ({nodeKey,initMathTree,inline},ref) => {
             const selection = $getSelection();
             const editMode = MathTree.getEditMode(mathTree);
 
-            if ($isNodeSelection(selection)) {
-                const selectedNodes = selection.getNodes();
-                const isThisNodeSelected = selectedNodes.some(node => node.getKey() === nodeKey);
-                
-                if (!isThisNodeSelected && editMode!=="none"){
+            if (editMode !== "none"){
+                if ($isNodeSelection(selection)) {
+                    const isThisNodeSelected = selection.getNodes().some(node => node.getKey() === nodeKey);
+                    if (!isThisNodeSelected){
+                        unfocus();
+                    }
+                }
+                else if ($isRangeSelection(selection)){
                     unfocus();
                 }
-                if (isThisNodeSelected && (lastSelectionKey !== nodeKey)) {
-                    onCursorEnter();
-                }
-                setLastSelectionKey(selectedNodes[0].getKey());
-$            }
-            else if ($isRangeSelection(selection)){ // Seems to be called in a loop for some reason
-                if (editMode !== "none") unfocus();
-                setLastSelectionKey(selection.anchor.getNode().getKey());
             }
-          
             return false;
         },
         COMMAND_PRIORITY_LOW
         );
-    }, [editor, nodeKey, lastSelectionKey, mathTree]);
-
-    const onCursorEnter = () => {
-        const previousSibling = $getNodeByKey(nodeKey).getPreviousSibling();
-        const previousSiblingKey = previousSibling ? previousSibling.getKey() : null;
-        //setLocalMathTree(MathTree.appendCursor(mathTree,true));
-        if (previousSiblingKey === lastSelectionKey){
-            setLocalMathTree(MathTree.appendCursor(mathTree,true));
-        }
-        else{
-            setLocalMathTree(MathTree.appendCursor(mathTree));
-        }
-    }
+    }, [editor, nodeKey, mathTree]);
 
     const unfocus = () => {
         const newmathtree = MathTree.unselect(MathTree.removeCursor(mathTree));
-
         setLocalMathTree(newmathtree);
     }
 
