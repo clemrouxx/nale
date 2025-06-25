@@ -5,33 +5,37 @@ import MathEditor from '../plugins/MathPlugin/MathEditor';
 import MathNodes from '../plugins/MathPlugin/MathNodes';
 
 export class MathNode extends DecoratorNode {
-  static getType() {return 'math'}
-
-  constructor(inline,mathTree,versionCounter,key) {
+  constructor(inline,mathTree,versionCounter,is_numbered,key) {
     super(key);
     this.__inline = inline;
     this.__mathTree = mathTree;
     this.__versionCounter = versionCounter;
+    this.__is_numbered = is_numbered;
   }
 
   static clone(node) {
     return new MathNode(node.__inline,structuredClone(node.__mathTree),this.__versionCounter,node.__key);
   }
 
+  // Getters
+  static getType() {return 'math'}
   getMathTree(){return this.__mathTree}
+  getNumbering() { return this.__numbering }
+  isNumbered() { return this.__is_numbered }
+  isInline(){return this.__inline}
+
+  // Setters
   setMathTree(mathTree){
     const writable = this.getWritable();
     writable.__mathTree = mathTree;
     writable.__versionCounter++;
   }
+  setNumbering(numbering){ this.getWritable().__numbering = structuredClone(numbering) }
+  setIsNumbered(is_numbered) { const writable = this.getWritable().__is_numbered = is_numbered }
 
-  isInline(){return this.__inline}
-
-  toLatex(){
-    const delimiter = this.__inline ? "$" : "$$";
-    return `${delimiter} ${MathNodes.getFormula(this.__mathTree,false)} ${delimiter} ${this.__inline ? '' : '\n'}`
-  }
   
+  // DOM
+
   createDOM(config) {
     const dom = document.createElement("span");
     dom.classList.add("editor-math");
@@ -39,7 +43,7 @@ export class MathNode extends DecoratorNode {
   }
 
   updateDOM(prevNode, dom) {
-    return this.__versionCounter !== prevNode.__versionCounter;
+    return this.__versionCounter !== prevNode.__versionCounter; // Necessary to force some of the updates done to mathTree.
   }
 
   decorate(){
@@ -50,8 +54,10 @@ export class MathNode extends DecoratorNode {
     );
   }
 
+  // Import-export
+
   static importJSON(serializedNode) {
-    return new MathNode(serializedNode.__inline,serializedNode.__mahtTree,0);
+    return new MathNode(serializedNode.__inline,serializedNode.__mahtTree,serializedNode.__is_numbered,0);
   }
 
   exportJSON() {
@@ -59,7 +65,13 @@ export class MathNode extends DecoratorNode {
       ...super.exportJSON(),
       __inline:this.__inline,
       __mahtTree:this.__mathTree,
+      __is_numbered:this.__is_numbered,
     };
+  }
+
+  toLatex(){
+    const delimiter = this.__inline ? "$" : "$$";
+    return `${delimiter} ${MathNodes.getFormula(this.__mathTree,false)} ${delimiter} ${this.__inline ? '' : '\n'}`
   }
 }
 

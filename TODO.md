@@ -4,6 +4,7 @@
 
 ## Features
 ### Priority features
+- Title "page" : main title, authors, abstract...
 - Subscript and superscript in text (rendered using MathJax)
 - Math : add virtual keyboard
 - Math : numbered equations
