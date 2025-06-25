@@ -26,6 +26,7 @@ import FileInput from '../../ui/FileInput';
 import TextInput from '../../ui/TextInput';
 import { $createFigureNode } from '../../nodes/FigureNode';
 import { $onDeleteCharacterInCaption } from '../../nodes/CaptionNode';
+import { useDocumentStructureContext } from '../NumberingPlugin/DocumentStructureContext';
 
 export const INSERT_IMAGE_COMMAND = createCommand('INSERT_IMAGE_COMMAND');
 export const INSERT_FIGURE_COMMAND = createCommand('INSERT_FIGURE_COMMAND');
@@ -155,6 +156,7 @@ export function InsertImageDialog({
 
 export default function ImagesPlugin() {
   const [editor] = useLexicalComposerContext();
+  const {nextLabelNumber,setNextLabelNumber} = useDocumentStructureContext();
 
   useEffect(() => {
     if (!editor.hasNodes([SimpleImageNode])) {
@@ -178,8 +180,9 @@ export default function ImagesPlugin() {
       editor.registerCommand(
         INSERT_FIGURE_COMMAND,
         (payload) => {
-          console.log(payload);
-          const figureNode = $createFigureNode(payload);
+          //console.log(payload);
+          const figureNode = $createFigureNode(payload,nextLabelNumber);
+          setNextLabelNumber(nextLabelNumber+1);
           $insertNodes([figureNode]);
           return true;
         },

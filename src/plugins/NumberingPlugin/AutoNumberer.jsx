@@ -43,7 +43,7 @@ export function AutoNumberer(ref){
                     else if (node instanceof FigureNode){
                         figuresNumber++;
                         node.updateNumber(figuresNumber);
-                        newfigures.push({key:node.getKey(),numberingString:figuresNumber.toString(),textContent:node.getTextContent()});
+                        newfigures.push({label:node.getLabel(),numberingString:figuresNumber.toString(),textContent:node.getTextContent()});
                     }
                     else if (node instanceof MathNode && node.isNumbered()){
                         equationsNumber++;

@@ -6,26 +6,27 @@ import { $createCaptionedImageNode, $createSimpleImageNode } from './ImageNodes'
 import { $createCaptionNode, CaptionNode } from './CaptionNode';
 
 export class FigureNode extends ElementNode {
-    __src;
-  
     static getType() {return 'figure'}
 
-    constructor(src,number,key) {
+    constructor(src,number,label_number,key) {
         super(key);
         this.__src = src;
         this.__number = number ?? 0;
+        this.__label_number = label_number;
     }
   
     static clone(node) {
         return new FigureNode(
             node.__src,
             node.__number,
+            node.__label_number,
             node.__key,
         );
     }
 
     getSrc() { return this.__src }
     getNumber(){ return this.__number }
+    getLabel(){ return `fig:${this.__label_number}` }
     setNumber(number){ 
         this.getWritable().__number = number;
         this.getChildren().forEach(childNode=>{
@@ -39,7 +40,7 @@ export class FigureNode extends ElementNode {
     // Serialization
 
     static importJSON(serializedNode) {
-        const {src} = serializedNode;
+        const {src,__label_number} = serializedNode;
         return new FigureNode(src);
     }
 
@@ -47,6 +48,7 @@ export class FigureNode extends ElementNode {
         return {
             ...super.exportJSON(),
             src: this.__src,
+            __label_number:this.__label_number,
             type:"figure",
         };
     }
@@ -82,8 +84,8 @@ ${childrenString}
     }
   }
   
-export function $createFigureNode(imagePayload) {
-    const figureNode = new FigureNode(imagePayload.src,0);
+export function $createFigureNode(imagePayload,labelNumber) {
+    const figureNode = new FigureNode(imagePayload.src,0,labelNumber);
     figureNode.append($createCaptionedImageNode(imagePayload));
     figureNode.append($createCaptionNode());
     return figureNode;
