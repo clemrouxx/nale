@@ -51,13 +51,14 @@ export class MathNode extends DecoratorNode {
   }
 
   static importJSON(serializedNode) {
-    return new MathNode();
+    return new MathNode(serializedNode.__inline,serializedNode.__mahtTree,0);
   }
 
   exportJSON() {
     return {
       ...super.exportJSON(),
       __inline:this.__inline,
+      __mahtTree:this.__mathTree,
     };
   }
 }

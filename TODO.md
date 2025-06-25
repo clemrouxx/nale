@@ -4,17 +4,17 @@
 
 ## Features
 ### Priority features
-- Save/Open (custom JSON file); for the whole project, but also just for documentOptions (global styling)
-- Math formulas
 - Subscript and superscript in text (rendered using MathJax)
+- Math : add virtual keyboard
+- Math : numbered equations
 
 ### Useful features
 - Export to PDF through LaTeX compilation
 - Cooperation
 - Support for different languages in code blocks (for syntax highlighting)
+- Save/Open (custom JSON file); just for documentOptions (global styling)
 
 ### Minor features
-- Image : add customizable size
 - Possibility to show margins
 
 ### Possible later features
