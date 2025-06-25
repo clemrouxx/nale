@@ -22,6 +22,7 @@ export const ActionBar = () => {
 const FileButton = () => {
     const [editor] = useLexicalComposerContext();
     const {documentOptions,setDocumentOptions} = useDocumentOptions();
+    const {nextLabelNumber,setNextLabelNumber} = useDocumentStructureContext();
     const {biblio,setBiblio} = useDocumentStructureContext();
 
     const readEditorState = () => {
@@ -36,12 +37,12 @@ const FileButton = () => {
         <>
             <input
                 type="file"
-                onChange={(e)=>handleFileChange(editor,setDocumentOptions,setBiblio,e)}
+                onChange={(e)=>handleFileChange(editor,setDocumentOptions,setBiblio,setNextLabelNumber,e)}
                 style={{ display: 'none' }}
                 id="fileInput"
             />
             <DropDown buttonLabel={"File"}>
-                <DropDownItem onClick={()=>{saveInFile(editor,documentOptions,biblio)}}>Save</DropDownItem>
+                <DropDownItem onClick={()=>{saveInFile(editor,documentOptions,biblio,nextLabelNumber)}}>Save</DropDownItem>
                 <DropDownItem onClick={() => document.getElementById('fileInput').click()}>Load</DropDownItem>
                 <DropDownItem onClick={readEditorState}>Export to LaTeX</DropDownItem>
             </DropDown>

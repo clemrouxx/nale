@@ -42,7 +42,7 @@ export function InsertReferenceButton() {
         <div className="item">
           <DropDown disabled={Object.keys(numberedEquations).length===0} onClose={close} buttonLabel={"Equation..."} position='right' buttonClassName={"toolbar-item nopadding"}>
           {numberedEquations.map((info) => (
-              <DropDownItem key={info.key} onClick={() => insertReferenceNode(editor,info.key)} className={"item"}>
+              <DropDownItem key={info.label} onClick={() => insertReferenceNode(editor,info.label)} className={"item"}>
                 {`(${info.numberingString}) `} <MathJax inline={true}>{`$ ${info.formula} $`}</MathJax>
               </DropDownItem>
             ))}

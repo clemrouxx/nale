@@ -9,6 +9,7 @@ export function DocumentStructureProvider({ children }) {
   const [biblio,setBiblio] = useState(EXAMPLE_BIBLIO);
   const [figures,setFigures] = useState([]);
   const [numberedEquations,setNumberedEquations] = useState([]);
+  const [nextLabelNumber,setNextLabelNumber] = useState(0);
   
   const contextValue = {
     numberedHeadings,
@@ -19,6 +20,8 @@ export function DocumentStructureProvider({ children }) {
     setFigures,
     numberedEquations,
     setNumberedEquations,
+    nextLabelNumber,
+    setNextLabelNumber,
   };
   
   return (

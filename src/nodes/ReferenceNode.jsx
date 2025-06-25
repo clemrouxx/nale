@@ -4,14 +4,14 @@ import { SelectableComponent } from './SelectableComponent';
 export class ReferenceNode extends DecoratorNode {
   static getType() {return 'reference'}
 
-  constructor(referenceKey,key) {
+  constructor(referenceLabel,key) {
     super(key);
-    this.__reference_key = referenceKey;
+    this.__reference_label = referenceLabel;
     this.__text = "??";
   }
 
   static clone(node) {
-    return new ReferenceNode(node.__reference_key,node.__key);
+    return new ReferenceNode(node.__reference_label,node.__key);
   }
 
   __setText(text){
@@ -19,16 +19,16 @@ export class ReferenceNode extends DecoratorNode {
   }
 
   updateText(labels){
-    let info = labels.find((elmt)=>(elmt.key===this.getReferenceKey()))
+    let info = labels.find((elmt)=>(elmt.label===this.getReferenceLabel()))
     var text = info ? info.numberingString : "??";
     if (this.getText() !== text){
       this.__setText(text);
     }
   }
 
-  getReferenceKey(){return this.__reference_key}
+  getReferenceLabel(){return this.__reference_label}
   getText(){return this.__text}
-  toLatex(){return `\\ref{${this.__reference_key}}`}
+  toLatex(){return `\\ref{${this.__reference_label}}`}
   
   createDOM(config) {
     const dom = document.createElement("span");
@@ -47,23 +47,23 @@ export class ReferenceNode extends DecoratorNode {
   }
 
   static importJSON(serializedNode) {
-    return new ReferenceNode(serializedNode.__reference_key);
+    return new ReferenceNode(serializedNode.__reference_label);
   }
 
   exportJSON() {
     return {
       ...super.exportJSON(),
-      __reference_key : this.__reference_key,
+      __reference_label : this.__reference_label,
     };
   }
 }
 
-export function insertReferenceNode(editor,referenceKey) { // To improve
+export function insertReferenceNode(editor,referenceLabel) { // To improve
   editor.update(() => {
     const selection = $getSelection();
     
     if (selection) {
-      const nodeToInsert = new ReferenceNode(referenceKey);
+      const nodeToInsert = new ReferenceNode(referenceLabel);
       selection.insertNodes([nodeToInsert]);
     }
   });

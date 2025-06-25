@@ -5,17 +5,18 @@ import MathEditor from '../plugins/MathPlugin/MathEditor';
 import MathNodes from '../plugins/MathPlugin/MathNodes';
 
 export class MathNode extends DecoratorNode {
-  constructor(inline,mathTree,versionCounter,is_numbered,key) {
+  constructor(inline,mathTree,versionCounter,is_numbered,labelNumber,key) {
     super(key);
     this.__inline = inline;
     this.__mathTree = mathTree;
     this.__versionCounter = versionCounter;
     this.__is_numbered = is_numbered;
     this.__numbering = "?";
+    this.__label_number = labelNumber ?? -1;
   }
 
   static clone(node) {
-    return new MathNode(node.__inline,structuredClone(node.__mathTree),this.__versionCounter,node.__is_numbered,node.__key);
+    return new MathNode(node.__inline,structuredClone(node.__mathTree),this.__versionCounter,node.__is_numbered,node.__label_number,node.__key);
   }
 
   // Getters
@@ -24,6 +25,7 @@ export class MathNode extends DecoratorNode {
   getNumbering() { return this.__numbering }
   isNumbered() { return this.__is_numbered }
   isInline(){return this.__inline}
+  getLabel(){return `eq:${this.__label_number}`}
 
   // Setters
   setMathTree(mathTree){
@@ -61,15 +63,16 @@ export class MathNode extends DecoratorNode {
   // Import-export
 
   static importJSON(serializedNode) {
-    return new MathNode(serializedNode.__inline,serializedNode.__mahtTree,serializedNode.__is_numbered,0);
+    return new MathNode(serializedNode.__inline,serializedNode.__mathTree,0,serializedNode.__is_numbered,serializedNode.__label_number);
   }
 
   exportJSON() {
     return {
       ...super.exportJSON(),
       __inline:this.__inline,
-      __mahtTree:this.__mathTree,
+      __mathTree:this.__mathTree,
       __is_numbered:this.__is_numbered,
+      __label_number:this.__label_number
     };
   }
 
@@ -79,6 +82,6 @@ export class MathNode extends DecoratorNode {
   }
 }
 
-export function $createMathNode(inline){
-  return new MathNode(inline,structuredClone(MathNodes.DEFAULT_TREE),0,false);
+export function $createMathNode(inline,label){
+  return new MathNode(inline,structuredClone(MathNodes.DEFAULT_TREE),0,false,label);
 }

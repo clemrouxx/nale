@@ -2,6 +2,7 @@
 ## Bugs
 - Creating lists (all sorts) from the toolbar menu does not work
 - Different bugs (and maybe lag) when trying to select a math node.
+- References are lost between saves. Need to keep some identifier on all nodes.
 
 ## Features
 ### Priority features
@@ -9,6 +10,7 @@
 - Subscript and superscript in text (rendered using MathJax)
 - Math : add virtual keyboard
 - Math : numbered equations
+- LaTeX export : include all documentOptions (margins, styles...)
 
 ### Useful features
 - Export to PDF through LaTeX compilation

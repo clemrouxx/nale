@@ -31,6 +31,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { useEffect, useState } from 'react';
 import {$wrapNodeInElement, mergeRegister} from '@lexical/utils';
 import MathTree from './MathTree';
+import { useDocumentStructureContext } from '../NumberingPlugin/DocumentStructureContext';
 
 const COMMANDS_TO_IGNORE = [ // These commands are just completely ignored when in the math node, but some have their events handled with classical event handlers in MathEditor.
   KEY_ARROW_DOWN_COMMAND,
@@ -73,6 +74,7 @@ function useSuppressMathJaxErrors() { // Suppress an error that seems to be due 
 export default function MathPlugin() {
   const [editor] = useLexicalComposerContext();
   const [lastSelectionKey,setLastSelectionKey] = useState(null);
+  const {nextLabelNumber,setNextLabelNumber} = useDocumentStructureContext();
 
   useSuppressMathJaxErrors();
 
@@ -110,7 +112,9 @@ export default function MathPlugin() {
             return true;
           }
 
-          const mathNode = $createMathNode(inline);
+          const mathNode = $createMathNode(inline,nextLabelNumber);
+          setNextLabelNumber(nextLabelNumber+1);
+
           $insertNodes([mathNode]);
           if (inline && $isRootOrShadowRoot(mathNode.getParentOrThrow())) {
             $wrapNodeInElement(mathNode, $createParagraphNode).selectEnd();
@@ -272,7 +276,7 @@ export default function MathPlugin() {
       unregisterCommands.forEach(unregister => unregister());
     })
 
-  }, [editor,lastSelectionKey]);
+  }, [editor,lastSelectionKey,nextLabelNumber]);
 
   return null;
 }

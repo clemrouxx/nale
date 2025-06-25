@@ -1,12 +1,12 @@
 
 
 // Export/Save editor state to file
-export function saveInFile(editor, documentOptions, biblio, fileName = 'article.nale') {
+export function saveInFile(editor, documentOptions, biblio, nextLabelNumber, fileName = 'article.nale') {
   const editorState = editor.getEditorState().toJSON();
-  const toSave = {editorState:editorState,documentOptions:documentOptions,biblio:biblio};
+  const toSave = {editorState,documentOptions,biblio,documentStructure:{nextLabelNumber}};
   const serializedState = JSON.stringify(toSave, null, 2);
 
-  console.log(toSave);
+  //console.log(toSave);
   
   // Create blob and download link
   const blob = new Blob([serializedState], { type: 'application/json' });
@@ -27,7 +27,7 @@ export function saveInFile(editor, documentOptions, biblio, fileName = 'article.
   URL.revokeObjectURL(url);
 }
 
-function importFile(editor, setDocumentOptions, setBiblio, file) {
+function importFile(editor, setDocumentOptions, setBiblio, setNextLabelNumber, file) {
   const reader = new FileReader();
   
   reader.onload = (event) => {
@@ -40,6 +40,7 @@ function importFile(editor, setDocumentOptions, setBiblio, file) {
       editor.setEditorState(editorState);
       setDocumentOptions(parsedContent.documentOptions);
       setBiblio(parsedContent.biblio);
+      setNextLabelNumber(parsedContent.documentStructure.nextLabelNumber);
     } catch (error) {
       console.error('Invalid file format:', error.message);
       alert('Error: Invalid file format');
@@ -55,7 +56,7 @@ function importFile(editor, setDocumentOptions, setBiblio, file) {
 }
 
 // File input handler for loading files
-export function handleFileChange(editor, setDocumentOptions, setBiblio, event) {
+export function handleFileChange(editor, setDocumentOptions, setBiblio, setNextLabelNumber, event) {
   const file = event.target.files[0];
   if (!file) return;
   
@@ -64,6 +65,6 @@ export function handleFileChange(editor, setDocumentOptions, setBiblio, event) {
     return;
   }
   
-  importFile(editor, setDocumentOptions, setBiblio, file);
+  importFile(editor, setDocumentOptions, setBiblio, setNextLabelNumber, file);
 }
 

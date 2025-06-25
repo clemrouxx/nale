@@ -15,7 +15,9 @@ export function AutoNumberer(ref){
     
     useEffect(() => 
     {
-        return editor.registerUpdateListener(() => { // !!! Works but raises an error ("flushSync was called from inside a lifecycle method. React cannot flush when React is already rendering. Consider moving this call to a scheduler task or micro task.")
+        return editor.registerUpdateListener(({}) => { // !!! Works but raises an error ("flushSync was called from inside a lifecycle method. React cannot flush when React is already rendering. Consider moving this call to a scheduler task or micro task.")
+            // TODO : add some checks to skip this entirely, since we only care about structural changes and not any change in text for example.
+
             editor.update(() => {
                 // We start by refreshing the numbering of all the headings, and fill a dictionnary with the strings
                 let headingsNumbering = {1:0,2:0,3:0};
@@ -46,7 +48,7 @@ export function AutoNumberer(ref){
                     else if (node instanceof MathNode && node.isNumbered()){
                         equationsNumber++;
                         node.updateNumbering(equationsNumber);
-                        newequations.push({key:node.getKey(),numberingString:equationsNumber.toString(),formula:MathNodes.getFormula(node.getMathTree(),false)});
+                        newequations.push({label:node.getLabel(),numberingString:equationsNumber.toString(),formula:MathNodes.getFormula(node.getMathTree(),false)});
                     }
                     else if (node instanceof CitationNode && !citationKeys.includes(node.getCitationKey())){
                         citationKeys.push(node.getCitationKey());
@@ -57,6 +59,7 @@ export function AutoNumberer(ref){
                     }
                 };
                 visit(root);
+                console.log(newequations);
 
                 // Possibly, reorder citationKeys, and choose other labels
                 const citationsDict = Object.fromEntries(citationKeys.map((str, i) => [str, `[${i+1}]`])); // <citationKey> : <label>

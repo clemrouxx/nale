@@ -225,7 +225,7 @@ function NodeOptionsPanel({node}) {
         case "math":
             inner = (
                 <>
-                <h4>Heading options</h4>
+                <h4>Math options</h4>
                 <label htmlFor="isNumbered">
                     <input 
                     type="checkbox"
