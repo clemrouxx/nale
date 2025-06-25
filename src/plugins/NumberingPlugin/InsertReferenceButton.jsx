@@ -4,10 +4,11 @@ import { insertReferenceNode } from '../../nodes/ReferenceNode';
 import { useDocumentStructureContext } from './DocumentStructureContext';
 import { useState } from 'react';
 import { truncate } from '../../utils/generalUtils';
+import { MathJax } from 'better-react-mathjax';
 
 export function InsertReferenceButton() {
   const [editor] = useLexicalComposerContext();
-  const {numberedHeadings,figures} = useDocumentStructureContext();
+  const {numberedHeadings,figures,numberedEquations} = useDocumentStructureContext();
   const [isDropdownOpen,setIsDropdownOpen] = useState();
 
   const close = () => setIsDropdownOpen(false);
@@ -29,13 +30,23 @@ export function InsertReferenceButton() {
         </div>
 
         <div className="item">
-        <DropDown disabled={Object.keys(figures).length===0} onClose={close} buttonLabel={"Figure..."} position='right' buttonClassName={"toolbar-item nopadding"}>
-        {figures.map((info) => (
-            <DropDownItem key={info.key} onClick={() => insertReferenceNode(editor,info.key)} className={"item"}>
-              Fig. {info.numberingString} : {truncate(info.textContent,30)}
-            </DropDownItem>
-          ))}
-        </DropDown>
+          <DropDown disabled={Object.keys(figures).length===0} onClose={close} buttonLabel={"Figure..."} position='right' buttonClassName={"toolbar-item nopadding"}>
+          {figures.map((info) => (
+              <DropDownItem key={info.key} onClick={() => insertReferenceNode(editor,info.key)} className={"item"}>
+                Fig. {info.numberingString} : {truncate(info.textContent,30)}
+              </DropDownItem>
+            ))}
+          </DropDown>
+        </div>
+
+        <div className="item">
+          <DropDown disabled={Object.keys(numberedEquations).length===0} onClose={close} buttonLabel={"Equation..."} position='right' buttonClassName={"toolbar-item nopadding"}>
+          {numberedEquations.map((info) => (
+              <DropDownItem key={info.key} onClick={() => insertReferenceNode(editor,info.key)} className={"item"}>
+                {`(${info.numberingString}) `} <MathJax inline={true}>{`$ ${info.formula} $`}</MathJax>
+              </DropDownItem>
+            ))}
+          </DropDown>
         </div>
       </div>
     )}

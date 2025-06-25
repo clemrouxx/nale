@@ -1,6 +1,7 @@
 # TODO list
 ## Bugs
 - Creating lists (all sorts) from the toolbar menu does not work
+- Different bugs (and maybe lag) when trying to select a math node.
 
 ## Features
 ### Priority features

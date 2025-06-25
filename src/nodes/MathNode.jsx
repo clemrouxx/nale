@@ -11,10 +11,11 @@ export class MathNode extends DecoratorNode {
     this.__mathTree = mathTree;
     this.__versionCounter = versionCounter;
     this.__is_numbered = is_numbered;
+    this.__numbering = "?";
   }
 
   static clone(node) {
-    return new MathNode(node.__inline,structuredClone(node.__mathTree),this.__versionCounter,node.__key);
+    return new MathNode(node.__inline,structuredClone(node.__mathTree),this.__versionCounter,node.__is_numbered,node.__key);
   }
 
   // Getters
@@ -33,6 +34,9 @@ export class MathNode extends DecoratorNode {
   setNumbering(numbering){ this.getWritable().__numbering = structuredClone(numbering) }
   setIsNumbered(is_numbered) { const writable = this.getWritable().__is_numbered = is_numbered }
 
+  updateNumbering(numbering){
+    if (numbering !== this.__numbering) this.setNumbering(numbering);
+  }
   
   // DOM
 
@@ -49,7 +53,7 @@ export class MathNode extends DecoratorNode {
   decorate(){
     return (
     <SelectableComponent nodeKey={this.__key}>
-      <MathEditor nodeKey={this.getKey()} initMathTree={this.__mathTree} inline={this.__inline}/>
+      <MathEditor nodeKey={this.getKey()} initMathTree={this.__mathTree} inline={this.__inline} numbering={this.__is_numbered?this.__numbering:null}/>
     </SelectableComponent>
     );
   }
@@ -76,5 +80,5 @@ export class MathNode extends DecoratorNode {
 }
 
 export function $createMathNode(inline){
-  return new MathNode(inline,structuredClone(MathNodes.DEFAULT_TREE),0);
+  return new MathNode(inline,structuredClone(MathNodes.DEFAULT_TREE),0,false);
 }

@@ -208,6 +208,27 @@ function NodeOptionsPanel({node}) {
                 </>
             );
             break;
+        case "math":
+            inner = (
+                <>
+                <h4>Heading options</h4>
+                <label htmlFor="isNumbered">
+                    <input 
+                    type="checkbox"
+                    name="isNumbered"
+                    id="isNumbered"
+                    onChange={(event) => {
+                        editor.update(()=>{
+                            node.setIsNumbered(event.target.checked);
+                        })
+                    }}
+                    checked={editor.read(()=>node.isNumbered())}
+                    />
+                    Numbered equation
+                </label>
+                </>
+            );
+            break;
         case "captioned-image":
             inner = (
                 <>
