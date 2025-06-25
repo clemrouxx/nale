@@ -22,13 +22,14 @@ function numberToString(num,style){
 }
 
 export class NumberedHeadingNode extends ElementNode{
-  constructor(level, numbering, headings_options, is_numbered, key) {
+  constructor(level, numbering, headings_options, is_numbered, label_number, key) {
     super(key);
     this.__tag = `h${level}`;
     this.__level = level;
     this.__numbering = numbering;
     this.__headings_options = headings_options;
     this.__is_numbered = is_numbered;
+    this.__label_number = label_number;
   }
 
   static getType() { return 'numbered-heading'}
@@ -37,10 +38,11 @@ export class NumberedHeadingNode extends ElementNode{
   getNumbering() { return this.__numbering }
   getKey() { return this.__key }
   isNumbered() { return this.__is_numbered }
+  getLabel() { return `sec:${this.__label_number}`}
   toLatex(childrenString) { return `${HEADING_COMMANDS[this.__level]}${this.__is_numbered?'':'*'}{${childrenString}}\\label{${this.__key}}\n`}
 
   static clone(node) {
-    return new NumberedHeadingNode(node.__level,node.__numbering,node.__headings_options,node.__is_numbered,node.__key);
+    return new NumberedHeadingNode(node.__level,node.__numbering,node.__headings_options,node.__is_numbered,node.__label_number,node.__key);
   }
 
   setNumbering(numbering){ this.getWritable().__numbering = structuredClone(numbering) }
@@ -77,14 +79,15 @@ export class NumberedHeadingNode extends ElementNode{
   }
 
   static importJSON(serializedNode) {
-    return new NumberedHeadingNode(serializedNode.__level,{},DEFAULT_DOCUMENT_OPTIONS.headings,serializedNode.__is_numbered);
+    return new NumberedHeadingNode(serializedNode.__level,{},DEFAULT_DOCUMENT_OPTIONS.headings,serializedNode.__is_numbered,serializedNode.__label_number);
   }
 
   exportJSON() {
     return {
       ...super.exportJSON(),
       __level : this.__level,
-      __is_numbered : this.__is_numbered
+      __is_numbered : this.__is_numbered,
+      __label_number : this.__label_number
     };
   }
 
@@ -106,8 +109,8 @@ export class NumberedHeadingNode extends ElementNode{
   }
 }
 
-export function $createNumberedHeadingNode(headingLevel,documentOptions) {
-  return $applyNodeReplacement(new NumberedHeadingNode(headingLevel,{},documentOptions.headings,true));
+export function $createNumberedHeadingNode(headingLevel,documentOptions,labelNumber) {
+  return $applyNodeReplacement(new NumberedHeadingNode(headingLevel,{},documentOptions.headings,true,labelNumber));
 }
 
 export function $isNumberedHeadingNode(node) {

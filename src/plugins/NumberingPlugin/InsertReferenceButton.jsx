@@ -22,7 +22,7 @@ export function InsertReferenceButton() {
         <div className="item">
           <DropDown disabled={Object.keys(numberedHeadings).length===0} onClose={close} buttonLabel={"Section..."} position='right' buttonClassName={"toolbar-item nopadding"}>
           {numberedHeadings.map((info) => (
-              <DropDownItem key={info.key} onClick={() => insertReferenceNode(editor,info.key)} className={"item"}>
+              <DropDownItem key={info.label} onClick={() => insertReferenceNode(editor,info.label)} className={"item"}>
                 {info.numberingString} - {info.textContent}
               </DropDownItem>
             ))}
@@ -32,7 +32,7 @@ export function InsertReferenceButton() {
         <div className="item">
           <DropDown disabled={Object.keys(figures).length===0} onClose={close} buttonLabel={"Figure..."} position='right' buttonClassName={"toolbar-item nopadding"}>
           {figures.map((info) => (
-              <DropDownItem key={info.key} onClick={() => insertReferenceNode(editor,info.key)} className={"item"}>
+              <DropDownItem key={info.label} onClick={() => insertReferenceNode(editor,info.label)} className={"item"}>
                 Fig. {info.numberingString} : {truncate(info.textContent,30)}
               </DropDownItem>
             ))}

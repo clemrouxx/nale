@@ -198,6 +198,7 @@ function BlockFormatDropDown({
   disabled = false,
 }){
   const {documentOptions} = useDocumentOptions();
+  const {nextLabelNumber,setNextLabelNumber} = useDocumentStructureContext();
   return (
     <DropDown
       disabled={disabled}
@@ -218,7 +219,7 @@ function BlockFormatDropDown({
       </DropDownItem>
       <DropDownItem
         className={'wide ' + dropDownActiveClass(blockType === 'h1')}
-        onClick={() => formatHeading(editor, blockType, 'h1',documentOptions)}>
+        onClick={() => formatHeading(editor, blockType, 'h1',documentOptions,nextLabelNumber,setNextLabelNumber)}>
         <div className="icon-text-container">
           <i className="icon h1" />
           <span className="text">{blockTypeToBlockName["h1"]}</span>
@@ -227,7 +228,7 @@ function BlockFormatDropDown({
       </DropDownItem>
       <DropDownItem
         className={'wide ' + dropDownActiveClass(blockType === 'h2')}
-        onClick={() => formatHeading(editor, blockType, 'h2',documentOptions)}>
+        onClick={() => formatHeading(editor, blockType, 'h2',documentOptions,nextLabelNumber,setNextLabelNumber)}>
         <div className="icon-text-container">
           <i className="icon h2" />
           <span className="text">{blockTypeToBlockName["h2"]}</span>
@@ -236,7 +237,7 @@ function BlockFormatDropDown({
       </DropDownItem>
       <DropDownItem
         className={'wide ' + dropDownActiveClass(blockType === 'h3')}
-        onClick={() => formatHeading(editor, blockType, 'h3',documentOptions)}>
+        onClick={() => formatHeading(editor, blockType, 'h3',documentOptions,nextLabelNumber,setNextLabelNumber)}>
         <div className="icon-text-container">
           <i className="icon h3" />
           <span className="text">{blockTypeToBlockName["h3"]}</span>

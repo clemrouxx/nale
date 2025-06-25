@@ -163,12 +163,18 @@ export const formatHeading = (
   editor,
   blockType,
   headingSize,
-  documentOptions
+  documentOptions,
+  nextLabelNumber,
+  setNextLabelNumber
 ) => {
   if (blockType !== headingSize) {
     editor.update(() => {
       const selection = $getSelection();
-      $setBlocksType(selection, () => $createNumberedHeadingNode(Number(headingSize[1]),documentOptions));
+      $setBlocksType(selection, () => {
+        const labelNumber = nextLabelNumber;
+        setNextLabelNumber(nextLabelNumber+1);
+        return $createNumberedHeadingNode(Number(headingSize[1]),documentOptions,labelNumber);
+      });
     });
   }
 };

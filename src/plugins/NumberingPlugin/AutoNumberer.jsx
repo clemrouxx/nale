@@ -35,7 +35,7 @@ export function AutoNumberer(ref){
                         if (!areIdentical(headingsNumbering,node.getNumbering())){
                             node.setNumbering(headingsNumbering);
                         }
-                        newheadings.push({key:node.getKey(),numberingString:node.getNumberingString(),textContent:node.getTextContent()});
+                        newheadings.push({label:node.getLabel(),numberingString:node.getNumberingString(),textContent:node.getTextContent()});
                         Object.keys(headingsNumbering).forEach((level)=>{
                             if (level > node.getLevel()) headingsNumbering[level] = 0; // Reset headingsNumbering for lower levels
                         });
@@ -59,7 +59,7 @@ export function AutoNumberer(ref){
                     }
                 };
                 visit(root);
-                console.log(newequations);
+                console.log(newheadings);
 
                 // Possibly, reorder citationKeys, and choose other labels
                 const citationsDict = Object.fromEntries(citationKeys.map((str, i) => [str, `[${i+1}]`])); // <citationKey> : <label>
