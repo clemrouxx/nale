@@ -35,6 +35,8 @@ function Editor() {
     setGlobalCSSRule(".editor-base","--fontsize-base",`${String(documentOptions.general.fontSize)}pt`);
     setGlobalCSSRule(".editor-base","--marginleft-base",`${String(documentOptions.general.margins.left)}mm`);
     setGlobalCSSRule(".editor-base","--marginright-base",`${String(documentOptions.general.margins.right)}mm`);
+    setGlobalCSSRule(".editor-base","--margintop-base",`${String(documentOptions.general.margins.top)}mm`);
+    setGlobalCSSRule(".editor-base","--marginbottom-base",`${String(documentOptions.general.margins.bottom)}mm`);
     setGlobalCSSRule(".editor-paragraph","text-indent",documentOptions.paragraphs.indentFirst?"var(--paragraph-indent)":"");
   }
 

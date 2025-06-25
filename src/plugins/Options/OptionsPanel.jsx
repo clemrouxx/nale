@@ -39,8 +39,6 @@ export function AutoOptionsPanel() { // Automatically chooses the relevant optio
         </div>)}
         <div className="vertical-handle" onClick={()=>{setOpen(!isOpen)}}></div>
         </div>
-        
-        
     );
 }
 
@@ -111,6 +109,22 @@ export function GlobalOptionsPanel({category}) {
                                 onChange={handleRangeChange}
                             />
                             <span>{documentOptions.general.margins.right} mm</span>
+                        </div>
+
+                        <div className="form-line">
+                            <label htmlFor="margins-top">Top margin: </label>
+                            <input type="range" name="margins-top" min="0" max="80" step="1" value={documentOptions.general.margins.top}
+                                onChange={handleRangeChange}
+                            />
+                            <span>{documentOptions.general.margins.top} mm</span>
+                        </div>
+
+                        <div className="form-line">
+                            <label htmlFor="margins-bottom">Bottom margin: </label>
+                            <input type="range" name="margins-bottom" min="0" max="80" step="1" value={documentOptions.general.margins.bottom}
+                                onChange={handleRangeChange}
+                            />
+                            <span>{documentOptions.general.margins.bottom} mm</span>
                         </div>
                     </>
                     )}

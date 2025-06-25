@@ -39,7 +39,9 @@
     box-sizing: border-box;
     width: calc(var(--paperwidth-base) * var(--editor-scale));
     padding-left: calc(var(--marginleft-base) * var(--editor-scale));
-    padding-right: calc(var(--marginright-base) * var(--editor-scale));;
+    padding-right: calc(var(--marginright-base) * var(--editor-scale));
+    padding-bottom: calc(var(--marginbottom-base) * var(--editor-scale));
+    padding-top: calc(var(--margintop-base) * var(--editor-scale));
 }
 
 .real-page-width .editor-base > *{
