@@ -41,7 +41,7 @@ export class FigureNode extends ElementNode {
 
     static importJSON(serializedNode) {
         const {src,__label_number} = serializedNode;
-        return new FigureNode(src);
+        return new FigureNode(src,0,__label_number);
     }
 
     exportJSON() {
