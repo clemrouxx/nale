@@ -37,13 +37,13 @@ export class CaptionNode extends ParagraphNode{
     // Serializaton
 
     static importJSON(serializedNode) {
-        return new CaptionNode(serializedNode.__number);
+        return new CaptionNode(serializedNode.number);
     }
 
     exportJSON() {
         return {
             ...super.exportJSON(),
-            __number : this.__number,
+            number : this.__number,
         };
     }
 

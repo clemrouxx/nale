@@ -79,15 +79,15 @@ export class NumberedHeadingNode extends ElementNode{
   }
 
   static importJSON(serializedNode) {
-    return new NumberedHeadingNode(serializedNode.__level,{},DEFAULT_DOCUMENT_OPTIONS.headings,serializedNode.__is_numbered,serializedNode.__label_number);
+    return new NumberedHeadingNode(serializedNode.level,{},DEFAULT_DOCUMENT_OPTIONS.headings,serializedNode.is_numbered,serializedNode.label_number);
   }
 
   exportJSON() {
     return {
       ...super.exportJSON(),
-      __level : this.__level,
-      __is_numbered : this.__is_numbered,
-      __label_number : this.__label_number
+      level : this.__level,
+      is_numbered : this.__is_numbered,
+      label_number : this.__label_number
     };
   }
 

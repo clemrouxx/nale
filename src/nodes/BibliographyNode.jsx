@@ -60,13 +60,13 @@ export class BibliographyNode extends DecoratorNode {
   toLatex() {return '\\printbibliography\n'}
 
   static importJSON(serializedNode) {
-    return new BibliographyNode(serializedNode.__inner_array);
+    return new BibliographyNode(serializedNode.inner_array);
   }
 
   exportJSON() {
     return {
       ...super.exportJSON(),
-      __inner_array : this.__inner_array,
+      inner_array : this.__inner_array,
     };
   }
 }

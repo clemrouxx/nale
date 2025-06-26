@@ -1,6 +1,6 @@
 import { DecoratorNode } from 'lexical';
 import * as React from 'react';
-import ImageComponent from './ImageComponent';
+import ImageComponent from '../plugins/ImagesPlugin/ImageComponent';
 
 export class SimpleImageNode extends DecoratorNode {
     static getType() {return 'image'}

@@ -1,5 +1,5 @@
 import { $getSelection, TextNode, DecoratorNode } from 'lexical';
-import { SelectableComponent } from './SelectableComponent';
+import { SelectableComponent } from '../plugins/SelectableComponent';
 
 export class ReferenceNode extends DecoratorNode {
   static getType() {return 'reference'}
@@ -48,13 +48,13 @@ export class ReferenceNode extends DecoratorNode {
   }
 
   static importJSON(serializedNode) {
-    return new ReferenceNode(serializedNode.__reference_label);
+    return new ReferenceNode(serializedNode.reference_label);
   }
 
   exportJSON() {
     return {
       ...super.exportJSON(),
-      __reference_label : this.__reference_label,
+      reference_label : this.__reference_label,
     };
   }
 }

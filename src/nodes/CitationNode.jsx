@@ -1,5 +1,5 @@
 import { $getSelection, DecoratorNode } from 'lexical';
-import { SelectableComponent } from './SelectableComponent';
+import { SelectableComponent } from '../plugins/SelectableComponent';
 
 export class CitationNode extends DecoratorNode {
   static getType() {return 'citation'}
@@ -51,13 +51,13 @@ export class CitationNode extends DecoratorNode {
   }
 
   static importJSON(serializedNode) {
-    return new CitationNode(serializedNode.__citation_key);
+    return new CitationNode(serializedNode.citation_key);
   }
 
   exportJSON() {
     return {
       ...super.exportJSON(),
-      __citation_key : this.__citation_key,
+      citation_key : this.__citation_key,
     };
   }
 }
