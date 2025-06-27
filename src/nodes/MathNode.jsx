@@ -45,6 +45,7 @@ export class MathNode extends DecoratorNode {
   createDOM(config) {
     const dom = document.createElement("span");
     dom.classList.add("editor-math");
+    if (this.__is_numbered) dom.setAttribute("id",this.getLabel());
     return dom;
   }
 

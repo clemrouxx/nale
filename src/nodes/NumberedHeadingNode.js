@@ -71,6 +71,7 @@ export class NumberedHeadingNode extends ElementNode{
     const dom = document.createElement(this.__tag);
     dom.classList.add(config.theme.heading[this.__tag],config.theme.headingCommon,"editor-numbered-heading");
     dom.setAttribute("numberingstring",this.getNumberingString());
+    dom.setAttribute("id",this.getLabel());
     return dom;
   }
   

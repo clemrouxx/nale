@@ -148,3 +148,12 @@
 .editor-reference .selected, .editor-citation .selected{
     color : orangered;
 }
+
+.editor-base a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.editor-base .editor-reference a {
+    border: solid blue 1px;
+}
