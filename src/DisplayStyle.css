@@ -157,3 +157,12 @@
 .editor-base .editor-reference a {
     border: solid blue 1px;
 }
+
+.editor-title{
+    font-size: var(--fontsize-LARGE);
+    font-weight: normal;
+    text-align: center;
+    margin-top: 2em;
+    margin-bottom: 1.5em;
+    line-height: 1.2;
+}

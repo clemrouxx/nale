@@ -47,7 +47,7 @@ import {
   SELECTION_CHANGE_COMMAND,
   UNDO_COMMAND,
 } from 'lexical';
-import {Dispatch, useCallback, useEffect, useState} from 'react';
+import {act, Dispatch, useCallback, useEffect, useState} from 'react';
 
 import {
   blockTypeToBlockName,
@@ -101,6 +101,7 @@ import { addBiblioFromClipboard, bibItemToUIString } from '../../utils/bibliogra
 import { insertBibliographyNode } from '../../nodes/BibliographyNode.jsx';
 import { $isNumberedHeadingNode } from '../../nodes/NumberedHeadingNode.js';
 import { INSERT_MATH_COMMAND } from '../MathPlugin/index.jsx';
+import { insertTitle } from '../../nodes/TitleNode.jsx';
 
 /*
 const rootTypeToRootName = {
@@ -867,14 +868,18 @@ export default function ToolbarPlugin({
           buttonIconClassName="plus"
           chevron={false}>
             
+          <DropDownItem onClick={() => insertTitle(activeEditor)}>
+            <i className="icon code" />
+            <span className="text">Main title</span>
+          </DropDownItem>
           <DropDownItem onClick={() => activeEditor.dispatchCommand(INSERT_MATH_COMMAND,true)}>
             <i className="icon equation" />
-            <span className="text">Inline Math</span>
+            <span className="text">Inline math</span>
             <span className="shortcut">{SHORTCUTS.MATH_INLINE}</span>
           </DropDownItem>
           <DropDownItem onClick={() => activeEditor.dispatchCommand(INSERT_MATH_COMMAND,false)}>
             <i className="icon equation" />
-            <span className="text">Display Math</span>
+            <span className="text">Display math</span>
             <span className="shortcut">{SHORTCUTS.MATH_DISPLAY}</span>
           </DropDownItem>
           <DropDownItem
