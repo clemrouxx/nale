@@ -2,7 +2,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import DropDown, { DropDownItem } from '../../ui/DropDown';
 import { insertReferenceNode } from '../../nodes/ReferenceNode';
 import { useDocumentStructureContext } from './DocumentStructureContext';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { truncate } from '../../utils/generalUtils';
 import { MathJax } from 'better-react-mathjax';
 
@@ -10,11 +10,28 @@ export function InsertReferenceButton() {
   const [editor] = useLexicalComposerContext();
   const {numberedHeadings,figures,numberedEquations} = useDocumentStructureContext();
   const [isDropdownOpen,setIsDropdownOpen] = useState();
+  const dropdownRef = useRef(null);
 
   const close = () => setIsDropdownOpen(false);
-  
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    }
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isDropdownOpen]);
+
   return (
-    <div>
+    <div ref={dropdownRef}>
     <button onClick={()=>setIsDropdownOpen(!isDropdownOpen)} className="toolbar-item"><i className="icon insert-reference"/><span className="text">Internal reference</span></button>
     {isDropdownOpen && 
     (

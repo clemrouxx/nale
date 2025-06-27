@@ -14,6 +14,11 @@ export class CitationNode extends DecoratorNode {
     return new CitationNode(node.__citation_key,node.__key);
   }
 
+  isInline() { return true }
+  getCitationKey(){return this.__citation_key}
+  getText(){return this.__text}
+  getTextContent(){return this.__text}
+
   __setText(text){
     this.getWritable().__text = text;
   }
@@ -24,13 +29,6 @@ export class CitationNode extends DecoratorNode {
       this.__setText(text);
     }
   }
-
-  isInline() { return true }
-  //isIsolated() { return true }
-  getCitationKey(){return this.__citation_key}
-  getText(){return this.__text}
-  getTextContent(){return this.__text}
-  toLatex(){return `\\cite{${this.__citation_key}}`}
   
   createDOM(config) {
     const dom = document.createElement("span");
@@ -45,9 +43,11 @@ export class CitationNode extends DecoratorNode {
   };
 
   decorate(){
-    return <SelectableComponent nodeKey={this.__key}>
+    return (
+    <SelectableComponent nodeKey={this.__key}>
       {this.__text}
     </SelectableComponent>
+    );
   }
 
   static importJSON(serializedNode) {
@@ -60,6 +60,8 @@ export class CitationNode extends DecoratorNode {
       citation_key : this.__citation_key,
     };
   }
+
+  toLatex(){return `\\cite{${this.__citation_key}}`}
 }
 
 export function insertCitationNode(editor,citationKey) { // To improve

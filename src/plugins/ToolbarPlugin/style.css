@@ -28,6 +28,10 @@ button.toolbar-item {
   justify-content: space-between;
 }
 
+button.toolbar-item:focus {
+  outline: none;
+}
+
 button.toolbar-item:disabled {
   cursor: not-allowed;
 }
@@ -57,7 +61,7 @@ button.toolbar-item:disabled .chevron-down {
 }
 
 button.toolbar-item.active {
-  background-color: rgba(223, 232, 250, 0.3);
+  background-color: rgba(223, 232, 250, 0.7);
 }
 
 button.toolbar-item.active i {
@@ -317,7 +321,6 @@ i.chevron-right{
   box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1),
     inset 0 0 0 1px rgba(255, 255, 255, 0.5);
   border-radius: 8px;
-  min-height: 40px;
   background-color: #fff;
 }
 
@@ -339,21 +342,27 @@ i.chevron-right{
   align-items: center;
 }
 
-.dropdown > * > *{
-  margin: 0 0.2rem;
-}
-
 .dropdown button {
   cursor: pointer;
 }
 
+.dropdown button:focus {
+  outline: none;
+}
+
+.dropdown .item{
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  box-sizing: border-box;
+}
+
 .dropdown .item:not(.can-be-wide){
-  max-width: 250px;
+  /*max-width: 250px;*/
 }
 
 .dropdown .item.wide {
   align-items: center;
-  width: 248px;
 }
 
 .dropdown .item.wide .icon-text-container {
@@ -374,14 +383,6 @@ i.chevron-right{
   width: 20px;
   height: 20px;
   background-size: contain;
-}
-
-.dropdown .item:first-child {
-  margin-top: 8px;
-}
-
-.dropdown .item:last-child {
-  margin-bottom: 8px;
 }
 
 .dropdown .item:hover{
