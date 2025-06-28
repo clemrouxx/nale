@@ -65,7 +65,7 @@ export function AutoNumberer(ref){
                 console.log(newheadings);
 
                 // Possibly, reorder citationKeys, and choose other labels
-                const citationsDict = Object.fromEntries(citationKeys.map((str, i) => [str, `[${i+1}]`])); // <citationKey> : <label>
+                const citationsDict = Object.fromEntries(citationKeys.map((str, i) => [str, `${i+1}`])); // <citationKey> : <label>
 
                 // Then, we update all reference & citation nodes
                 const update = (node) => {

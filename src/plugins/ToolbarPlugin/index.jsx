@@ -96,7 +96,7 @@ import { useDocumentOptions } from '../Options/DocumentOptionsContext';
 import { ReferenceNode,insertReferenceNode } from '../../nodes/ReferenceNode';
 import { InsertReferenceButton } from '../NumberingPlugin/InsertReferenceButton.jsx';
 import { useDocumentStructureContext } from '../NumberingPlugin/DocumentStructureContext.jsx';
-import { insertCitationNode } from '../../nodes/CitationNode.jsx';
+import { insertCitation } from '../../nodes/CitationNode.jsx';
 import { addBiblioFromClipboard, bibItemToUIString } from '../../utils/bibliographyUtils.jsx';
 import { insertBibliographyNode } from '../../nodes/BibliographyNode.jsx';
 import { $isNumberedHeadingNode } from '../../nodes/NumberedHeadingNode.js';
@@ -301,7 +301,7 @@ function CitationDropDown({editor}){
       <button className='item bold' onClick={()=>addBiblioFromClipboard(editor,biblio,setBiblio)}>From clipboard...</button>
       <button className='item bold' onClick={()=>insertBibliographyNode(editor)}>Insert Bibliography</button>
       {biblio.map(bibitem => (
-        <DropDownItem key={bibitem.key} className={"can-be-wide"} onClick={()=>insertCitationNode(editor,bibitem.key)}>
+        <DropDownItem key={bibitem.key} className={"can-be-wide"} onClick={()=>insertCitation(editor,bibitem.key)}>
           {bibItemToUIString(bibitem)}
         </DropDownItem>
       ))}

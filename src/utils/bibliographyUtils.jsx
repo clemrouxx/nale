@@ -1,4 +1,4 @@
-import { insertCitationNode } from "../nodes/CitationNode";
+import { insertCitation } from "../nodes/CitationNode";
 
 /**
  * Parse BibTeX string into an array of structured objects
@@ -96,7 +96,7 @@ export async function addBiblioFromClipboard(editor,biblio,setBiblio){
       //console.log(parsedEntries);
       setBiblio(biblio.concat(parsedEntries));
       if (parsedEntries.length===1){
-        insertCitationNode(editor,parsedEntries[0].key);
+        insertCitation(editor,parsedEntries[0].key);
       }
     }
 }

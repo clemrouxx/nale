@@ -1,5 +1,6 @@
-import { $getSelection, DecoratorNode } from 'lexical';
+import { $getSelection, $isRangeSelection, DecoratorNode } from 'lexical';
 import { SelectableComponent } from '../plugins/SelectableComponent';
+import { $findSelectedOrBeforeCursor } from '../utils/lexicalUtils';
 
 export class CitationNode extends DecoratorNode {
   static getType() {return 'citation'}
@@ -7,7 +8,6 @@ export class CitationNode extends DecoratorNode {
   constructor(citationKeys,key) {
     super(key);
     this.__citation_keys = citationKeys;
-    console.log(citationKeys);
     this.__text = `[${citationKeys.join(",")}]`;
   }
 
@@ -20,13 +20,15 @@ export class CitationNode extends DecoratorNode {
   getText(){return this.__text}
   getTextContent(){return this.__text}
 
+  addCitationKey(citationKey){ this.getWritable().__citation_keys = [...this.__citation_keys,citationKey];  }
+
   __setText(text){
     this.getWritable().__text = text;
   }
 
   updateText(citationsDict){
     const keyToText = (referenceKey) => citationsDict[referenceKey] ?? referenceKey;
-    const text = this.__citation_keys.map(keyToText).join(',');
+    const text = `[${this.__citation_keys.map(keyToText).join(',')}]`;
     if (this.getText() !== text){
       this.__setText(text);
     }
@@ -45,7 +47,6 @@ export class CitationNode extends DecoratorNode {
   };
 
   decorate(){
-    console.log('Text content:', this.__text, 'Keys:', this.__citation_keys);
     return (
     <SelectableComponent nodeKey={this.__key}>
       {this.__text}
@@ -67,13 +68,17 @@ export class CitationNode extends DecoratorNode {
   toLatex(){return `\\cite{${this.citation_keys.join(",")}}`}
 }
 
-export function insertCitationNode(editor,citationKey) { // To improve
+export function insertCitation(editor,citationKey) {
   editor.update(() => {
     const selection = $getSelection();
     
-    if (selection) {
-      const nodeToInsert = new CitationNode([citationKey]);
-      selection.insertNodes([nodeToInsert]);
+    // We need to find when we are right after a citation node
+    const citationNode = $findSelectedOrBeforeCursor("citation");
+    if (citationNode){
+      citationNode.addCitationKey(citationKey);
+    }
+    else{
+      selection.insertNodes([new CitationNode([citationKey])]);
     }
   });
 }

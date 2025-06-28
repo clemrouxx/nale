@@ -18,7 +18,6 @@
 - Support for different languages in code blocks (for syntax highlighting)
 - Save/Open (custom JSON file); just for documentOptions (global styling)
 - Support for graphics in PDF
-- Multiple cited resources in one node ("[1,2]")
 
 ### Minor features
 - Possibility to show margins

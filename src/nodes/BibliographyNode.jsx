@@ -48,7 +48,7 @@ export class BibliographyNode extends DecoratorNode {
         <div className="editor-references-grid">
           {this.__inner_array.map(elmt=>(
             <React.Fragment key={elmt.label}>
-              <span>{elmt.label}</span>
+              <span>{`[${elmt.label}]`}</span>
               {bibItemToHTML(elmt.bibItem)}
             </React.Fragment>
           ))}
