@@ -1,7 +1,7 @@
 
 .toolbar {
   display: flex;
-  background: #fff;
+  background: var(--bg-contrasted);
   padding: 4px;
   border-bottom: solid #eee 1px;
   vertical-align: middle;
@@ -59,7 +59,7 @@ button.toolbar-item:disabled .chevron-down {
 }
 
 button.toolbar-item.active {
-  background-color: rgba(223, 232, 250, 0.7);
+  background-color: var(--bg-intermediate);
 }
 
 button.toolbar-item.active i {
@@ -67,7 +67,7 @@ button.toolbar-item.active i {
 }
 
 .toolbar-item:hover:not([disabled]) {
-  background-color: #eee;
+  background-color: var(--bg-intermediate);
 }
 
 .toolbar-item.font-family .text {
@@ -84,7 +84,7 @@ button.toolbar-item.active i {
   line-height: 20px;
   vertical-align: middle;
   font-size: 14px;
-  color: #777;
+  color: var(--text-secondary);
   text-overflow: ellipsis;
   overflow: hidden;
   height: 20px;
@@ -92,7 +92,7 @@ button.toolbar-item.active i {
   padding-right: 10px;
 }
 
-.toolbar .toolbar-item .icon {
+.toolbar .toolbar-item .icon, .toolbar .toolbar-item i {
   display: flex;
   width: 15px;
   height: 15px;
@@ -100,6 +100,9 @@ button.toolbar-item.active i {
   margin-right: 8px;
   line-height: 16px;
   background-size: contain;
+  @media not (prefers-color-scheme: light) {
+    filter:invert(1); /* Changes the icon from black (default) to white. */
+  }
 }
 
 .toolbar i.chevron-down,
@@ -123,7 +126,7 @@ button.toolbar-item.active i {
 
 .toolbar .divider {
   width: 1px;
-  background-color: #eee;
+  background-color: var(--bg-softest);
   margin: 0 4px;
 }
   
@@ -316,10 +319,10 @@ i.chevron-right{
   z-index: 100;
   display: block;
   position: fixed;
-  box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  /*box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);*/
   border-radius: 8px;
-  background-color: #fff;
+  background-color: var(--bg-intermediate);
 }
 
 .dropdown > *{
@@ -327,8 +330,8 @@ i.chevron-right{
   padding: 8px;
   line-height: 16px;
   font-size: 15px;
-  background-color: #fff;
-  color: #050505;
+  background-color: var(--bg-intermediate);
+  color: var(--text-secondary);
   border-radius: 8px;
   border: 0;
   min-width: 100px;
@@ -372,7 +375,7 @@ i.chevron-right{
 }
 
 .dropdown .item .shortcut {
-  color: #939393;
+  color: var(--text-muted);
   align-self: flex-end;
 }
 
@@ -384,7 +387,7 @@ i.chevron-right{
 }
 
 .dropdown .item:hover{
-  background-color: #eee;
+  background-color: var(--bg-softer);
 }
 
 .dropdown .item .text {
@@ -404,11 +407,14 @@ i.chevron-right{
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  @media not (prefers-color-scheme: light) {
+    filter:invert(1);
+  }
 }
 
 .dropdown .divider {
   width: auto;
-  background-color: #eee;
+  background-color: var(--bg-softest);
   margin: 4px 8px;
   height: 1px;
 }

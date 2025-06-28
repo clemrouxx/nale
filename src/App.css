@@ -1,14 +1,74 @@
+/* Dark theme (default) */
+:root {
+  /* Background colors */
+  --bg-maximal: rgb(5, 10, 7);
+  --bg-contrasted: #0e1b13;
+  --bg-intermediate: #22382a;
+  --bg-softer: #44584c;
+  --bg-softest: #34684d;
+  
+  /* Accent colors */
+  --accent-primary: #1e40af;
+  --accent-success: #047857;
+  --accent-warning: #d97706;
+  --accent-danger: #dc2626;
+  
+  /* Text colors */
+  --text-primary: white;
+  --text-secondary: #cbe1d1;
+  --text-muted: #94a3b8;
+  
+  /* Border colors */
+  --border-primary: #475569;
+  --border-secondary: #334155;
+}
+
+/* Light theme */
+@media (prefers-color-scheme: light) {
+  :root {
+    /* Background colors */
+    --bg-maximal: #f8fdf9;
+    --bg-contrasted: #cdecd6;
+    --bg-intermediate: #b0e6b8;
+    --bg-softer: #85d494;
+    --bg-softest: #57ce6d;
+    
+    /* Accent colors */
+    --accent-primary: #2563eb;
+    --accent-success: #059669;
+    --accent-warning: #ea580c;
+    --accent-danger: #e11d48;
+    
+    /* Text colors */
+    --text-primary: #0f172a;
+    --text-secondary: #1e293b;
+    --text-muted: #64748b;
+    
+    /* Border colors */
+    --border-primary: #d1d5db;
+    --border-secondary: #e5e7eb;
+  }
+}
+
 .App{
   display: grid;
   grid-template-rows: auto 1fr;
   grid-template-columns: min-content 1fr;
   height: 100vh;
-  background-color: black;
-  color: white;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .App > .header{
   grid-column: 1 / span 2;
+}
+
+button{
+  background-color: var(--bg-intermediate);
+}
+
+button:hover{
+  background-color: var(--bg-softer);
 }
 
 .editor-base{
@@ -27,6 +87,7 @@
 
 .side-panel{
   width: 30vw;
+  background-color: var(--bg-contrasted);
 }
 
 .editor-block{
@@ -35,16 +96,17 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
+  background-color: var(--bg-contrasted);
 }
 
 .options-panel{
-  background-color: darkgreen;
+  background-color: var(--bg-intermediate);
   margin-bottom: 0.5em;
 }
 
 .options-panel h4{
   margin-block: 0 0.2em;
-  background-color: green;
+  background-color: var(--bg-softer);
   padding: 0.1em 0.5em;
 }
 
@@ -66,7 +128,7 @@
 }
 
 .vertical-handle{
-  background-color: rgb(0, 66, 0);
+  background-color: var(--bg-softest);
   cursor: pointer;
   width: 12px;
   background-size: 100% auto;
@@ -102,7 +164,7 @@
   display: flex;
   align-items: stretch;
   gap: 3px;
-  background-color: #333;
+  background-color: var(--bg-maximal);
 }
 
 .actionbar h1{
