@@ -29,7 +29,7 @@
     --inch: 25.4mm;
 }
 
-.editor-base.theme-dark{
+.editor-base.editor-dark{
     background-color: black;
     color: white;
 }

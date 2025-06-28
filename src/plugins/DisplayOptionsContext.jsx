@@ -3,7 +3,7 @@ import { setGlobalCSSRule } from "../utils/generalUtils";
 
 export const zoomFactors = [0.25,0.33,0.5,0.67,0.75,0.8,0.9,1,1.1,1.25,1.5,1.75,2,2.5,3,4,5];
 
-const DEFAULT_DISPLAY_OPTIONS = {zoomLevel:9,realPageWidth:false}
+const DEFAULT_DISPLAY_OPTIONS = {zoomLevel:9,realPageWidth:false,darkEditor:false}
 
 const DisplayOptionsContext = createContext();
 
@@ -19,11 +19,18 @@ export function DisplayOptionsProvider({ children }) {
     useEffect(()=>{
         setGlobalCSSRule(".editor-base","--editor-scale",zoomFactors[displayOptions.zoomLevel]);
         
-        const editorBlock = document.getElementById('main-editor-container');
+        const editorContainer = document.getElementById('main-editor-container');
         if (displayOptions.realPageWidth) {
-            editorBlock.classList.add('real-page-width');
+            editorContainer.classList.add('real-page-width');
         } else {
-            editorBlock.classList.remove('real-page-width');
+            editorContainer.classList.remove('real-page-width');
+        }
+
+        const editorDomElement = document.getElementById("main-editor");
+        if (displayOptions.darkEditor) {
+            editorDomElement.classList.add('editor-dark');
+        } else {
+            editorDomElement.classList.remove('editor-dark');
         }
 
     },[displayOptions]);

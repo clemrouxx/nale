@@ -103,6 +103,7 @@ function Editor() {
             <RichTextPlugin
             contentEditable={
               <ContentEditable
+                id='main-editor'
                 aria-placeholder={""}
                 placeholder={<></>}
                 className='editor-base'

@@ -77,6 +77,16 @@ const DisplayMenu = () => {
                     Real page width
                 </label>
             </div>
+            <div>
+                <label>
+                    <input
+                    type="checkbox"
+                    checked={displayOptions.darkEditor}
+                    onChange={(e)=>{setDisplayOption("darkEditor",e.target.checked)}}
+                    />
+                    Editor dark mode
+                </label>
+            </div>
         </DropDown>
     )
 }
