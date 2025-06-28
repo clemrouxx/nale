@@ -6,11 +6,11 @@
 
 ## Features
 ### Priority features
-- Title "page" : main title, authors, abstract...
+- Title "page" : authors, abstract...
 - Subscript and superscript in text (rendered using MathJax)
 - Math : add virtual keyboard
-- Math : numbered equations
 - LaTeX export : include all documentOptions (margins, styles...)
+- Tables
 
 ### Useful features
 - Export to PDF through LaTeX compilation
@@ -18,9 +18,16 @@
 - Support for different languages in code blocks (for syntax highlighting)
 - Save/Open (custom JSON file); just for documentOptions (global styling)
 - Support for graphics in PDF
+- Multiple cited resources in one node ("[1,2]")
 
 ### Minor features
 - Possibility to show margins
+- Two columns layout
+- Custom Figure prefix (FIG instead of Figure for example)
+- Other bibliographic styles
+- Custom style for the bibliography title (replace title with a horizontal separator for example)
+- Choice for another font
+- Other citation styles (ex : superscript)
 
 ### Possible later features
 - Working with bibliography software

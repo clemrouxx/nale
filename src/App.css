@@ -27,7 +27,7 @@
 @media (prefers-color-scheme: light) {
   :root {
     /* Background colors */
-    --bg-maximal: #f8fdf9;
+    --bg-maximal: #f4fff6;
     --bg-contrasted: #cdecd6;
     --bg-intermediate: #b0e6b8;
     --bg-softer: #85d494;

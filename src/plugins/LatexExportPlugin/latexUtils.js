@@ -5,11 +5,11 @@ const LATEX_HEADING =
 
 `;
 
-const LATEX_BEGIN = 
+const LATEX_BEGIN_DOCUMENT = 
 `\\begin{document}
 `;
 
-const LATEX_END = 
+const LATEX_END_DOCUMENT = 
 `\\end{document}
 `;
 
@@ -28,7 +28,7 @@ function usePackage(name){ return `\\usepackage{${name}}\n`}
 const TEXT_FORMAT_COMMANDS = {bold:"\\textbf",italic:"\\textit",capitalize:"\\textsc"}
 export const HEADING_COMMANDS = {1:"\\section",2:"\\subsection",3:"\\subsubsection",4:"\\paragraph",5:"\\subparagraph"};
 
-export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Set()}){
+export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Set(),title:null}){
     var string = "";
     
     if ($isTextNode(node)) {
@@ -49,7 +49,12 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
         case "root":
             let heading = LATEX_HEADING;
             bubbledInfo.packages.forEach(name => {heading += usePackage(name)}); // Add LaTeX packages, but only those needed
-            string = heading + LATEX_BEGIN + string + LATEX_END;
+            if (bubbledInfo.title) heading += `\\title{${bubbledInfo.title}}\n`;
+            string = heading + LATEX_BEGIN_DOCUMENT + string + LATEX_END_DOCUMENT;
+            break;
+        case "title":
+            bubbledInfo.title = string; // We pass the text content of the title to the root node
+            string = "\\maketitle\n"; // This is what should be where the title is.
             break;
         case "text":
             break;

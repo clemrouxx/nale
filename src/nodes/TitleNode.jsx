@@ -11,8 +11,6 @@ export class TitleNode extends ElementNode{
     return new TitleNode(node.__key);
   }
 
-  toLatex(childrenString) { return ``}
-
   // View
 
   createDOM(config) {
