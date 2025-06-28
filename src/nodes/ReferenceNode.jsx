@@ -20,7 +20,6 @@ export class ReferenceNode extends DecoratorNode {
 
   updateText(labels){
     let info = labels.find((elmt)=>(elmt.label===this.getReferenceLabel()))
-    console.log(labels);
     var text = info ? info.numberingString : "??";
     if (this.getText() !== text){
       this.__setText(text);

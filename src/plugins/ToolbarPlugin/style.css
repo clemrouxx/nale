@@ -3,7 +3,7 @@
   display: flex;
   background: var(--bg-contrasted);
   padding: 4px;
-  border-bottom: solid #eee 1px;
+  border-bottom: solid var(--border-primary) 1px;
   vertical-align: middle;
   overflow: auto;
   height: 36px;
@@ -414,7 +414,7 @@ i.chevron-right{
 
 .dropdown .divider {
   width: auto;
-  background-color: var(--bg-softest);
+  background-color: var(--border-primary);
   margin: 4px 8px;
   height: 1px;
 }

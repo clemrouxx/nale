@@ -19,8 +19,8 @@
   --text-muted: #94a3b8;
   
   /* Border colors */
-  --border-primary: #475569;
-  --border-secondary: #334155;
+  --border-primary: #476956;
+  --border-secondary: #335544;
 }
 
 /* Light theme */
@@ -40,13 +40,13 @@
     --accent-danger: #e11d48;
     
     /* Text colors */
-    --text-primary: #0f172a;
-    --text-secondary: #1e293b;
-    --text-muted: #64748b;
+    --text-primary: #0f2a19;
+    --text-secondary: #1e3b2c;
+    --text-muted: #648b77;
     
     /* Border colors */
-    --border-primary: #d1d5db;
-    --border-secondary: #e5e7eb;
+    --border-primary: #d1dbd6;
+    --border-secondary: #e5ebe8;
   }
 }
 

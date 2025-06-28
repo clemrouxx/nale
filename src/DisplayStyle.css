@@ -29,6 +29,11 @@
     --inch: 25.4mm;
 }
 
+.editor-base.theme-dark{
+    background-color: black;
+    color: white;
+}
+
 .editor-container{
     overflow: auto;
     width: 100%;

@@ -62,7 +62,7 @@ export function AutoNumberer(ref){
                     }
                 };
                 visit(root);
-                console.log(newheadings);
+                //console.log(newheadings);
 
                 // Possibly, reorder citationKeys, and choose other labels
                 const citationsDict = Object.fromEntries(citationKeys.map((str, i) => [str, `${i+1}`])); // <citationKey> : <label>
