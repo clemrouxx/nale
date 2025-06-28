@@ -3,6 +3,8 @@
   grid-template-rows: auto 1fr;
   grid-template-columns: min-content 1fr;
   height: 100vh;
+  background-color: black;
+  color: white;
 }
 
 .App > .header{
@@ -33,7 +35,6 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
-  padding: 0 0.7rem;
 }
 
 .options-panel{
@@ -65,10 +66,22 @@
 }
 
 .vertical-handle{
-  background-color: darkgreen;
+  background-color: rgb(0, 66, 0);
   cursor: pointer;
   width: 12px;
+  background-size: 100% auto;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+
+.vertical-handle.left{
+  background-image: url(images/icons/chevron-white-left.svg);
+}
+
+.vertical-handle.right{
+  background-image: url(images/icons/chevron-white-right.svg);
+}
+
 
 .options-headings-numbering-templates input{
   width: 7em;
@@ -87,8 +100,9 @@
 
 .actionbar{
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 3px;
+  background-color: #333;
 }
 
 .actionbar h1{

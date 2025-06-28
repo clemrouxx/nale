@@ -3,8 +3,6 @@
   display: flex;
   background: #fff;
   padding: 4px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
   border-bottom: solid #eee 1px;
   vertical-align: middle;
   overflow: auto;
@@ -298,7 +296,7 @@ i.insert-reference{
 }
 
 .icon.citation{
-  background-image: url(images/icons/internal-reference.svg);/* placeholder */
+  background-image: url(images/icons/journal-bookmark.svg);
 }
 
 .icon.paragraph { background-image: url(images/icons/paragraph.svg) }
