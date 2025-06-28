@@ -50,8 +50,11 @@ export function AutoNumberer(ref){
                         node.updateNumbering(equationsNumber);
                         newequations.push({label:node.getLabel(),numberingString:equationsNumber.toString(),formula:MathNodes.getFormula(node.getMathTree(),false)});
                     }
-                    else if (node instanceof CitationNode && !citationKeys.includes(node.getCitationKey())){
-                        citationKeys.push(node.getCitationKey());
+                    
+                    else if (node instanceof CitationNode){
+                        node.getCitationKeys().forEach((citationKey)=>{
+                            if (!citationKeys.includes(citationKey)) citationKeys.push(citationKey);
+                        });
                     }
 
                     if (node.getChildren) {

@@ -4,18 +4,19 @@ import { SelectableComponent } from '../plugins/SelectableComponent';
 export class CitationNode extends DecoratorNode {
   static getType() {return 'citation'}
 
-  constructor(citationKey,key) {
+  constructor(citationKeys,key) {
     super(key);
-    this.__citation_key = citationKey;
-    this.__text = `[${citationKey}]`;
+    this.__citation_keys = citationKeys;
+    console.log(citationKeys);
+    this.__text = `[${citationKeys.join(",")}]`;
   }
 
   static clone(node) {
-    return new CitationNode(node.__citation_key,node.__key);
+    return new CitationNode(node.__citation_keys,node.__key);
   }
 
   isInline() { return true }
-  getCitationKey(){return this.__citation_key}
+  getCitationKeys(){return this.__citation_keys}
   getText(){return this.__text}
   getTextContent(){return this.__text}
 
@@ -24,7 +25,8 @@ export class CitationNode extends DecoratorNode {
   }
 
   updateText(citationsDict){
-    const text = citationsDict[this.__citation_key] ? citationsDict[this.__citation_key] : `[${this.__citation_key}]`;
+    const keyToText = (referenceKey) => citationsDict[referenceKey] ?? referenceKey;
+    const text = this.__citation_keys.map(keyToText).join(',');
     if (this.getText() !== text){
       this.__setText(text);
     }
@@ -39,10 +41,11 @@ export class CitationNode extends DecoratorNode {
   }
 
   updateDOM(prevNode, dom){
-    return prevNode.__text!==this.__text
+    return false;
   };
 
   decorate(){
+    console.log('Text content:', this.__text, 'Keys:', this.__citation_keys);
     return (
     <SelectableComponent nodeKey={this.__key}>
       {this.__text}
@@ -51,17 +54,17 @@ export class CitationNode extends DecoratorNode {
   }
 
   static importJSON(serializedNode) {
-    return new CitationNode(serializedNode.citation_key);
+    return new CitationNode(serializedNode.citation_keys);
   }
 
   exportJSON() {
     return {
       ...super.exportJSON(),
-      citation_key : this.__citation_key,
+      citation_keys : this.__citation_keys,
     };
   }
 
-  toLatex(){return `\\cite{${this.__citation_key}}`}
+  toLatex(){return `\\cite{${this.citation_keys.join(",")}}`}
 }
 
 export function insertCitationNode(editor,citationKey) { // To improve
@@ -69,7 +72,7 @@ export function insertCitationNode(editor,citationKey) { // To improve
     const selection = $getSelection();
     
     if (selection) {
-      const nodeToInsert = new CitationNode(citationKey);
+      const nodeToInsert = new CitationNode([citationKey]);
       selection.insertNodes([nodeToInsert]);
     }
   });
