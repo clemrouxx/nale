@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="8.4666662mm"
+   height="8.4666662mm"
+   viewBox="0 0 8.4666661 8.466666"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   sodipodi:docname="favicon.svg"
+   inkscape:export-filename="favicon.ico"
+   inkscape:export-xdpi="144.00002"
+   inkscape:export-ydpi="144.00002"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#cccccc"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="1"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="5.8083614"
+     inkscape:cx="101.40554"
+     inkscape:cy="5.0788851"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#001809;fill-opacity:1;stroke-width:0.25;stroke-linejoin:round;paint-order:markers fill stroke;font-variation-settings:normal;opacity:1;vector-effect:none;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
+       d="M 0,4.233333 V 8.466666 H 4.233333 L 8.466666,4.233333 V 0 H 4.233333 Z"
+       id="path1" />
+    <rect
+       style="fill:#001809;fill-opacity:1;stroke-width:0.25;stroke-linejoin:round;paint-order:markers fill stroke"
+       id="rect1"
+       width="8.4666662"
+       height="8.4666662"
+       x="0"
+       y="0"
+       ry="4.2333331" />
+    <g
+       data-mml-node="TeXAtom"
+       data-mjx-texclass="ORD"
+       id="g3"
+       style="fill:#00d770;stroke:#000000;stroke-width:0;fill-opacity:1"
+       transform="matrix(0.0067848,0,0,-0.0067848,1.0037691,6.7402408)">
+      <g
+         data-mml-node="mi"
+         id="g2"
+         style="stroke-width:0;fill:#00d770;fill-opacity:1">
+        <path
+           id="use1"
+           d="m 343,705 q 15,0 15,-7 2,-2 12,-40 10,-38 41,-134 31,-96 73,-205 52,-145 106,-237 l 5,-9 20,79 q 31,122 68,255 46,164 69,230 23,66 47,90 53,53 138,61 2,0 10,0 8,0 11,1 h 4 q 17,0 17,-24 0,-43 -28,-73 -9,-9 -27,-9 -36,-2 -65,-11 -29,-9 -41,-18 -12,-9 -15,-15 Q 784,608 708,322 632,36 631,15 q 0,-1 -1,0 0,2 -1,0 -1,-1 -1,-3 -7,-16 -27,-29 -20,-13 -41,-14 -10,0 -14,3 -4,3 -16,21 -46,74 -72,130 -26,56 -60,149 -46,120 -84,242 l -8,21 v -1 q 0,-1 -10,-46 Q 286,443 272,379 258,315 234,239 210,163 185,100 160,37 127,-7 94,-51 61,-50 34,-50 4,-34 -26,-18 -27,8 -27,33 -12,61 3,89 18,90 21,90 36,77 51,64 87,57 h 5 q 17,0 31,21 14,21 39,95 44,126 70,244 26,118 33,182 7,64 11,68 8,14 28,26 20,12 39,12 z"
+           style="stroke-width:0;fill:#00d770;fill-opacity:1" />
+      </g>
+    </g>
+  </g>
+</svg>

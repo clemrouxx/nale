@@ -12,7 +12,7 @@ import { useDocumentStructureContext } from "./plugins/NumberingPlugin/DocumentS
 export const ActionBar = () => {
     return (
         <div className="span2cols actionbar">
-            <h1 className='inline'>NaLE</h1>
+            <span className="logo-main"></span>
             <FileButton/>
             <DisplayMenu/>
         </div>

@@ -17,6 +17,7 @@
   --text-primary: white;
   --text-secondary: #cbe1d1;
   --text-muted: #94a3b8;
+  --text-colored: #41b177;
   
   /* Border colors */
   --border-primary: #476956;
@@ -43,6 +44,7 @@
     --text-primary: #0f2a19;
     --text-secondary: #1e3b2c;
     --text-muted: #648b77;
+    --text-colored: #128148;
     
     /* Border colors */
     --border-primary: #d1dbd6;
@@ -167,9 +169,12 @@ button:hover{
   background-color: var(--bg-maximal);
 }
 
-.actionbar h1{
-  margin: 0;
-  margin-right: 0.3rem;
+.logo-main{
+  background-color: var(--text-colored);
+  mask: url(images/icons/NaLE.svg) no-repeat center center;
+  mask-size: contain;
+  width: 5em;
+  height: 2.5em;
 }
 
 .actionbar > button{
