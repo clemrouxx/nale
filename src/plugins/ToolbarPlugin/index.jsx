@@ -731,7 +731,8 @@ export default function ToolbarPlugin({
 
   return (
     <div className="toolbar">
-    <button
+    <div className="toolbar-itemgroup">
+      <button
       disabled={!toolbarState.canUndo || !isEditable}
       onClick={() => {
         activeEditor.dispatchCommand(UNDO_COMMAND, undefined);
@@ -753,19 +754,18 @@ export default function ToolbarPlugin({
       aria-label="Redo">
       <i className="format redo" />
     </button>
-    
-    <Divider />
+    </div>
+
     {toolbarState.blockType in blockTypeToBlockName &&
       activeEditor === editor && (
-        <>
+        <div className="toolbar-itemgroup">
           <BlockFormatDropDown
             disabled={!isEditable}
             blockType={toolbarState.blockType}
             rootType={toolbarState.rootType}
             editor={activeEditor}
           />
-          <Divider />
-        </>
+        </div>
       )}
 
     {toolbarState.blockType === 'code' && (/*
@@ -790,7 +790,8 @@ export default function ToolbarPlugin({
       <></>
     )}
     {!(["code","latex"].includes(toolbarState.blockType)) && ( // Not a code block or raw latex
-      <>
+    <>
+      <div className='toolbar-itemgroup'>
         <button
           disabled={!isEditable}
           onClick={() => {
@@ -854,65 +855,82 @@ export default function ToolbarPlugin({
           aria-label="Format text in code style">
           <i className="format code" />
         </button>
-        <Divider/>
-        <InsertReferenceButton/>
-        <Divider/>
-        <CitationDropDown editor={activeEditor}/>
+      </div>
 
-        <Divider />
-        <DropDown
-          disabled={!isEditable}
-          buttonClassName="toolbar-item spaced"
-          buttonLabel="Insert"
-          buttonAriaLabel="Insert specialized editor node"
-          buttonIconClassName="plus"
-          chevron={false}>
-            
-          <DropDownItem onClick={() => insertTitle(activeEditor)}>
-            <i className="icon code" />
-            <span className="text">Main title</span>
-          </DropDownItem>
-          <DropDownItem onClick={() => activeEditor.dispatchCommand(INSERT_MATH_COMMAND,true)}>
-            <i className="icon equation" />
-            <span className="text">Inline math</span>
-            <span className="shortcut">{SHORTCUTS.MATH_INLINE}</span>
-          </DropDownItem>
-          <DropDownItem onClick={() => activeEditor.dispatchCommand(INSERT_MATH_COMMAND,false)}>
-            <i className="icon equation" />
-            <span className="text">Display math</span>
-            <span className="shortcut">{SHORTCUTS.MATH_DISPLAY}</span>
-          </DropDownItem>
-          <DropDownItem
-            onClick={() => {
-              showModal('Insert Image', (onClose) => (
-                <InsertImageDialog
-                  activeEditor={activeEditor}
-                  onClose={onClose}
-                  figureMode={false}
-                />
-              ));
-            }}>
-            <i className="icon image" />
-            <span className="text">Image</span>
-          </DropDownItem>
-          <DropDownItem
-            onClick={() => {
-              showModal('Insert Figure', (onClose) => (
-                <InsertImageDialog
-                  activeEditor={activeEditor}
-                  onClose={onClose}
-                  figureMode={true}
-                />
-              ));
-            }}
-            className="item">
-            <i className="icon figure" />
-            <span className="text">Figure</span>
-          </DropDownItem>
-        </DropDown>
+        <div className="toolbar-itemgroup">
+          <InsertReferenceButton/>
+        </div>
+        
+        <div className="toolbar-itemgroup">
+          <CitationDropDown editor={activeEditor}/>
+        </div>
+
+        <div className="toolbar-itemgroup">
+          <DropDown
+            disabled={!isEditable}
+            buttonClassName="toolbar-item spaced"
+            buttonLabel="Insert"
+            buttonAriaLabel="Insert specialized editor node"
+            buttonIconClassName="plus"
+            chevron={false}>
+              
+            <DropDownItem onClick={() => activeEditor.dispatchCommand(INSERT_MATH_COMMAND,true)}>
+              <i className="icon equation" />
+              <span className="text">Inline math</span>
+              <span className="shortcut">{SHORTCUTS.MATH_INLINE}</span>
+            </DropDownItem>
+            <DropDownItem onClick={() => activeEditor.dispatchCommand(INSERT_MATH_COMMAND,false)}>
+              <i className="icon equation" />
+              <span className="text">Display math</span>
+              <span className="shortcut">{SHORTCUTS.MATH_DISPLAY}</span>
+            </DropDownItem>
+            <DropDownItem
+              onClick={() => {
+                showModal('Insert Image', (onClose) => (
+                  <InsertImageDialog
+                    activeEditor={activeEditor}
+                    onClose={onClose}
+                    figureMode={false}
+                  />
+                ));
+              }}>
+              <i className="icon image" />
+              <span className="text">Image</span>
+            </DropDownItem>
+            <DropDownItem
+              onClick={() => {
+                showModal('Insert Figure', (onClose) => (
+                  <InsertImageDialog
+                    activeEditor={activeEditor}
+                    onClose={onClose}
+                    figureMode={true}
+                  />
+                ));
+              }}
+              className="item">
+              <i className="icon figure" />
+              <span className="text">Figure</span>
+            </DropDownItem>
+          </DropDown>
+        </div>
+
+        <div className="toolbar-itemgroup">
+          <DropDown
+            disabled={!isEditable}
+            buttonClassName="toolbar-item spaced"
+            buttonLabel="Title page..."
+            buttonAriaLabel="Title page"
+            buttonIconClassName="plus"
+            chevron={false}>
+
+            <DropDownItem onClick={() => insertTitle(activeEditor)}>
+              <i className="icon code" />
+              <span className="text">Main title</span>
+            </DropDownItem>
+          </DropDown>
+        </div>
       </>
     )}
-    <Divider />
 
     {modal}
   </div>

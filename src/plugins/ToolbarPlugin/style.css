@@ -1,16 +1,22 @@
 
 .toolbar {
   display: flex;
+  flex-wrap: wrap;
   background: var(--bg-contrasted);
-  padding: 4px;
   border-bottom: solid var(--border-primary) 1px;
   vertical-align: middle;
   overflow: auto;
-  height: 36px;
   position: sticky;
   top: 0;
   z-index: 2;
   overflow-y: hidden; /* disable vertical scroll*/
+}
+
+.toolbar-itemgroup{
+  display: flex;
+  flex-shrink: 0;
+  border-bottom: solid var(--border-primary) 1px;
+  border-right: solid var(--border-primary) 1px;
 }
 
 button.toolbar-item {
