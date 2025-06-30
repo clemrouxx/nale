@@ -102,6 +102,7 @@ import { insertBibliographyNode } from '../../nodes/BibliographyNode.jsx';
 import { $isNumberedHeadingNode } from '../../nodes/NumberedHeadingNode.js';
 import { INSERT_MATH_COMMAND } from '../MathPlugin/index.jsx';
 import { insertTitle } from '../../nodes/TitleNode.jsx';
+import { insertAbstract } from '../../nodes/AbstractNode.jsx';
 
 /*
 const rootTypeToRootName = {
@@ -924,8 +925,12 @@ export default function ToolbarPlugin({
             chevron={false}>
 
             <DropDownItem onClick={() => insertTitle(activeEditor)}>
-              <i className="icon code" />
+              <i className="code" />
               <span className="text">Main title</span>
+            </DropDownItem>
+            <DropDownItem onClick={() => insertAbstract(activeEditor)}>
+              <i className="paragraph" />
+              <span className="text">Abstract</span>
             </DropDownItem>
           </DropDown>
         </div>

@@ -171,3 +171,19 @@
     margin-bottom: 1.5em;
     line-height: 1.2;
 }
+
+.editor-abstract{
+    margin: 3ex 2.6em;
+}
+
+.editor-abstract::before {
+  content: "Abstract";
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 1ex;
+}
+
+.editor-abstract .editor-paragraph{
+    text-indent: var(--paragraph-indent); /* Always indented */
+}

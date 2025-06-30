@@ -22,6 +22,7 @@ import ImagesPlugin from './plugins/ImagesPlugin';
 import MathPlugin from './plugins/MathPlugin';
 import { useDisplayOptions, zoomFactors } from './plugins/DisplayOptionsContext';
 import { $isNumberedHeadingNode } from './nodes/NumberedHeadingNode';
+import { AbstractNodePlugin } from './plugins/AbstractNodePlugin';
 
 function Editor() {
   const [editor] = useLexicalComposerContext();
@@ -120,6 +121,7 @@ function Editor() {
           <AutoNumberer/>
           <ImagesPlugin/>
           <MathPlugin/>
+          <AbstractNodePlugin/>
         </div>
     </>
   );
