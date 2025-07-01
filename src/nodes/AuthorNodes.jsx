@@ -115,29 +115,33 @@ export function $isAuthorListNode(node) {
   return node instanceof AuthorListNode;
 }
 
-export function insertAuthorList(editor) {
-  editor.update(() => {
-    const root = $getRoot();
-    const node = $createAuthorListNode();
-    node.getChildAtIndex(0).selectEnd();
-    const index = 0;
-    root.splice(index, 0, [node]); // To improve !!! (should be right after the title if there is some)
-  });
+export function $insertAuthorList(){
+  const root = $getRoot();
+  const node = $createAuthorListNode();
+  node.getChildAtIndex(0).selectEnd();
+  let index = 0;
+  const firstNode = root.getChildAtIndex(0);
+  if (firstNode && firstNode.getType()==="title") index = 1;// (should be right after the title if there is one)
+  root.splice(index, 0, [node]);
 }
 
-export function appendAuthor(editor){
-    editor.update(()=>{
-        const root = $getRoot();
-        const authorListNode = root.getChildren().find(child => 
-            child.getType() === 'author-list'
-        );
-        if (authorListNode){
-            const newnode = $createAuthorNode();
-            authorListNode.append(newnode);
-            const textNode = newnode.getFirstChild();
-            textNode.selectEnd();
-        }
-    });
+export function $appendAuthor(editor){
+    const root = $getRoot();
+    const authorListNode = root.getChildren().find(child => 
+      child.getType() === 'author-list'
+    );
+    if (!authorListNode){
+      // Then add one
+      $insertAuthorList(editor);
+    }
+    else{
+      if (authorListNode){
+        const newnode = $createAuthorNode();
+        authorListNode.append(newnode);
+        const textNode = newnode.getFirstChild();
+        textNode.selectEnd();
+      }
+    }
 }
 
 // Event handling
@@ -153,7 +157,7 @@ export function AuthorshipPlugin() {
           const node = selection.anchor.getNode();
           if (node.getParent().getType()==="author") {
             event.preventDefault();
-            appendAuthor(editor);
+            $appendAuthor();
             return true;
           }
         }

@@ -103,7 +103,7 @@ import { $isNumberedHeadingNode } from '../../nodes/NumberedHeadingNode.js';
 import { INSERT_MATH_COMMAND } from '../MathPlugin/index.jsx';
 import { insertTitle } from '../../nodes/TitleNode.jsx';
 import { insertAbstract } from '../../nodes/AbstractNode.jsx';
-import { appendAuthor, insertAuthorList } from '../../nodes/AuthorNodes.jsx';
+import { $appendAuthor } from '../../nodes/AuthorNodes.jsx';
 
 /*
 const rootTypeToRootName = {
@@ -929,11 +929,7 @@ export default function ToolbarPlugin({
               <i className="code" />
               <span className="text">Main title</span>
             </DropDownItem>
-            <DropDownItem onClick={() => insertAuthorList(activeEditor)}>
-              <i className="code" />
-              <span className="text">Authorship</span>
-            </DropDownItem>
-            <DropDownItem onClick={() => appendAuthor(activeEditor)}>
+            <DropDownItem onClick={() => activeEditor.update($appendAuthor)}>
               <i className="code" />
               <span className="text">Add author</span>
             </DropDownItem>
