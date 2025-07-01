@@ -187,3 +187,22 @@
 .editor-abstract .editor-paragraph{
     text-indent: var(--paragraph-indent); /* Always indented */
 }
+
+.editor-author-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.editor-author + .editor-author::before{
+    content: ", ";
+}
+
+.editor-author + .editor-author:last-child::before{
+    content: ", and ";
+}
+
+.editor-author + .editor-author:nth-child(2):last-child::before{
+    content: " and ";
+}

@@ -23,6 +23,7 @@ import MathPlugin from './plugins/MathPlugin';
 import { useDisplayOptions, zoomFactors } from './plugins/DisplayOptionsContext';
 import { $isNumberedHeadingNode } from './nodes/NumberedHeadingNode';
 import { AbstractNodePlugin } from './plugins/AbstractNodePlugin';
+import { AuthorshipPlugin } from './nodes/AuthorNodes';
 
 function Editor() {
   const [editor] = useLexicalComposerContext();
@@ -122,6 +123,7 @@ function Editor() {
           <ImagesPlugin/>
           <MathPlugin/>
           <AbstractNodePlugin/>
+          <AuthorshipPlugin/>
         </div>
     </>
   );
