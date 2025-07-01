@@ -53,7 +53,7 @@ import {
   blockTypeToBlockName,
   useToolbarState,
 } from './ToolbarContext';
-import DropDown, {DropDownItem} from '../../ui/DropDown';
+import DropDown, {DropDownItem, DropDownItemWithIcon} from '../../ui/DropDown';
 import useModal from '../../hooks/useModal';
 import {getSelectedNode} from '../../utils/getSelectedNode';
 
@@ -300,8 +300,8 @@ function CitationDropDown({editor}){
 
   return (
     <DropDown buttonClassName="toolbar-item" buttonLabel={"Cite..."} chevron={false} buttonIconClassName={"citation"}>
-      <button className='item bold' onClick={()=>addBiblioFromClipboard(editor,biblio,setBiblio)}>From clipboard...</button>
-      <button className='item bold' onClick={()=>insertBibliographyNode(editor)}>Insert Bibliography</button>
+      <DropDownItemWithIcon onClick={() => addBiblioFromClipboard(editor,biblio,setBiblio)} iconClassName={"clipboard"} title={"From clipboard..."}/>
+      <DropDownItemWithIcon onClick={() => insertBibliographyNode(editor)} iconClassName={"plus"} title={"Insert Bibliography"}/>
       {biblio.map(bibitem => (
         <DropDownItem key={bibitem.key} className={"can-be-wide"} onClick={()=>insertCitation(editor,bibitem.key)}>
           {bibItemToUIString(bibitem)}
@@ -925,18 +925,9 @@ export default function ToolbarPlugin({
             buttonIconClassName="plus"
             chevron={false}>
 
-            <DropDownItem onClick={() => insertTitle(activeEditor)}>
-              <i className="code" />
-              <span className="text">Main title</span>
-            </DropDownItem>
-            <DropDownItem onClick={() => activeEditor.update($appendAuthor)}>
-              <i className="code" />
-              <span className="text">Add author</span>
-            </DropDownItem>
-            <DropDownItem onClick={() => insertAbstract(activeEditor)}>
-              <i className="paragraph" />
-              <span className="text">Abstract</span>
-            </DropDownItem>
+            <DropDownItemWithIcon title={"Main title"} onClick={() => insertTitle(activeEditor)} iconClassName={"fonts"}/>
+            <DropDownItemWithIcon title={"Add author"} onClick={() => activeEditor.update($appendAuthor)} iconClassName={"person-plus"}/>
+            <DropDownItemWithIcon title={"Abstract"} onClick={() => insertAbstract(activeEditor)} iconClassName={"paragraph"}/>
           </DropDown>
         </div>
       </>

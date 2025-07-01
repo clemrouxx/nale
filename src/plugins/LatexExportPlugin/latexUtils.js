@@ -28,15 +28,15 @@ function usePackage(name){ return `\\usepackage{${name}}\n`}
 const TEXT_FORMAT_COMMANDS = {bold:"\\textbf",italic:"\\textit",capitalize:"\\textsc"}
 export const HEADING_COMMANDS = {1:"\\section",2:"\\subsection",3:"\\subsubsection",4:"\\paragraph",5:"\\subparagraph"};
 
-export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Set(),title:null}){
+export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Set(),title:null,authors:[]}){
     var string = "";
     
     if ($isTextNode(node)) {
-        string += node.getTextContent(); // TODO : add escaping
+        string += node.getTextContent(); // TODO : add escaping !!!
         for (const format in TEXT_FORMAT_COMMANDS){
             if (node.hasFormat(format)) string = putInCommand(string,TEXT_FORMAT_COMMANDS[format]);
         }
-        if (node.hasFormat("code")) string = `\\verb|${string}|`; // TODO : add escaping
+        if (node.hasFormat("code")) string = `\\verb|${string}|`; // TODO : add escaping !!!
     }
     else if (node.getChildren){
         string = node.getChildren().map((n)=>convertToLatex(n,documentOptions,bubbledInfo)).join('');
@@ -50,11 +50,22 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
             let heading = LATEX_HEADING;
             bubbledInfo.packages.forEach(name => {heading += usePackage(name)}); // Add LaTeX packages, but only those needed
             if (bubbledInfo.title) heading += `\\title{${bubbledInfo.title}}\n`;
+            bubbledInfo.authors.forEach((author)=>{
+                heading += `\\author{${author}}\n`;
+            });
             string = heading + LATEX_BEGIN_DOCUMENT + string + LATEX_END_DOCUMENT;
             break;
         case "title":
             bubbledInfo.title = string; // We pass the text content of the title to the root node
             string = "\\maketitle\n"; // This is what should be where the title is.
+            break;
+        case "author":
+            bubbledInfo.authors.push(string);
+            break;
+        case "author-list":
+            bubbledInfo.packages.add("authblk");
+            if (bubbledInfo.title) return "";
+            else string = "\\maketitle\n"; // This way, the authors show up even if there is no title (as in the editor).
             break;
         case "text":
             break;
@@ -83,7 +94,7 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
             bubbledInfo.packages.add("hyperref");
             break;
         default:
-            if (!node.toLatex)  console.log("Node type : ", node.getType());
+            if (!node.toLatex)  console.warn("Cannot export to LaTeX node type : ", node.getType());
             break;
     }
     return string;

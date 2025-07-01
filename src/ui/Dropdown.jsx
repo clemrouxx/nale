@@ -228,7 +228,7 @@ export default function DropDown({
         className={buttonClassName}
         onClick={() => setShowDropDown(!showDropDown)}
         ref={buttonRef}>
-        {buttonIconClassName && <span className={"icon "+buttonIconClassName} />}
+        {buttonIconClassName && <i className={buttonIconClassName} />}
         {buttonLabel && (
           <span className="text dropdown-button-text">{buttonLabel}</span>
         )}
@@ -244,4 +244,17 @@ export default function DropDown({
         )}
     </>
   );
+}
+
+export function DropDownItemWithIcon({
+  className,
+  onClick,
+  title,
+  iconClassName}){
+  return (
+    <DropDownItem onClick={onClick} className={className}>
+      <i className={iconClassName} />
+      <span className="text">{title}</span>
+    </DropDownItem>
+  )
 }

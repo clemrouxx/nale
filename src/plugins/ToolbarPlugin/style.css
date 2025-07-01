@@ -44,7 +44,7 @@ button.toolbar-item.spaced {
   margin-right: 2px;
 }
 
-button.toolbar-item .icon, button.toolbar-item i, .dropdown i{
+button.toolbar-item i, button.toolbar-item i, .dropdown i{
   opacity: 0.6;
 }
 
@@ -57,7 +57,7 @@ button.toolbar-item i.format {
   display: flex;
 }
 
-button.toolbar-item:disabled .icon,
+button.toolbar-item:disabled i,
 button.toolbar-item:disabled .text,
 button.toolbar-item:disabled i.format,
 button.toolbar-item:disabled .chevron-down {
@@ -98,7 +98,7 @@ button.toolbar-item.active i {
   padding-right: 10px;
 }
 
-.toolbar .toolbar-item .icon, .toolbar .toolbar-item i {
+.toolbar .toolbar-item i, .toolbar .toolbar-item i {
   display: flex;
   width: 15px;
   height: 15px;
@@ -156,42 +156,38 @@ i.close {
   background-image: url(images/icons/close.svg);
 }
 
-.icon.left-align,
 i.left-align {
   background-image: url(images/icons/text-left.svg);
 }
 
-.icon.center-align,
 i.center-align {
   background-image: url(images/icons/text-center.svg);
 }
 
-.icon.right-align,
 i.right-align {
   background-image: url(images/icons/text-right.svg);
 }
 
-.icon.justify-align,
 i.justify-align {
   background-image: url(images/icons/justify.svg);
 }
 
-.icon.vertical-top,
+i.vertical-top,
 i.left-align {
   background-image: url(images/icons/vertical-top.svg);
 }
 
-.icon.vertical-middle,
+i.vertical-middle,
 i.center-align {
   background-image: url(images/icons/vertical-middle.svg);
 }
 
-.icon.vertical-bottom,
+i.vertical-bottom,
 i.right-align {
   background-image: url(images/icons/vertical-bottom.svg);
 }
 
-.icon.plus{
+i.plus{
   background-image: url(images/icons/plus-sign.svg);
 }
 
@@ -235,8 +231,7 @@ i.success {
   background-image: url(images/icons/success.svg);
 }
 
-i.page-break,
-.icon.page-break {
+i.page-break {
   background-image: url(images/icons/scissors.svg);
 }
 
@@ -252,7 +247,7 @@ i.clear {
   background-image: url(images/icons/trash.svg);
 }
 
-.icon.code, i.code {
+i.code, i.code {
   background-image: url(images/icons/code.svg);
 }
 
@@ -301,25 +296,27 @@ i.chevron-down{
 }
 
 i.insert-reference{
-  background-image: url(images/icons/internal-reference.svg);
+  background-image: url(images/icons/arrow-90deg-up.svg);
 }
 
-.icon.citation{
+i.citation{
   background-image: url(images/icons/journal-bookmark.svg);
 }
 
-.icon.paragraph { background-image: url(images/icons/paragraph.svg) }
-.icon.h1 { background-image: url(images/icons/h1.svg) }
-.icon.h2 { background-image: url(images/icons/h2.svg) }
-.icon.h3 { background-image: url(images/icons/h3.svg) }
-.icon.list-bullets, .icon.bullet { background-image: url(images/icons/list-bullets.svg) }
-.icon.list-numbers, .icon.number { background-image: url(images/icons/list-numbers.svg) }
-.icon.list-check { background-image: url(images/icons/list-check.svg) }
-.icon.latex { background-image: url(images/icons/latex.svg) }
+i.paragraph { background-image: url(images/icons/paragraph.svg) }
+i.h1 { background-image: url(images/icons/h1.svg) }
+i.h2 { background-image: url(images/icons/h2.svg) }
+i.h3 { background-image: url(images/icons/h3.svg) }
+i.list-bullets, i.bullet { background-image: url(images/icons/list-bullets.svg) }
+i.list-numbers, i.number { background-image: url(images/icons/list-numbers.svg) }
+i.list-check { background-image: url(images/icons/list-check.svg) }
+i.latex { background-image: url(images/icons/latex.svg) }
 
-i.chevron-right{
-  background-image: url(images/icons/chevron-right.svg);
-}
+i.person-plus { background-image: url(images/icons/person-plus.svg) }
+i.icon-text, i.fonts { background-image: url(images/icons/fonts.svg) }
+i.clipboard { background-image: url(images/icons/clipboard.svg) }
+
+i.chevron-right{ background-image: url(images/icons/chevron-right.svg) }
 
 .dropdown {
   z-index: 100;
@@ -403,7 +400,7 @@ i.chevron-right{
   min-width: 150px;
 }
 
-.dropdown .item .icon {
+.dropdown .item i {
   display: flex;
   width: 20px;
   height: 20px;

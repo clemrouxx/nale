@@ -60,7 +60,7 @@ export class AuthorListNode extends ElementNode {
   }
 
   static importJSON(serializedNode) {
-    return $createAuthorListNode();
+    return new AuthorListNode();
   }
 
   exportJSON() {
