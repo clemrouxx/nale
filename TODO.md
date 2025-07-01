@@ -11,6 +11,8 @@
 - Math : add virtual keyboard
 - LaTeX export : include all documentOptions (margins, styles...)
 - Tables
+- Footnotes
+- Authors
 
 ### Useful features
 - Export to PDF through LaTeX compilation

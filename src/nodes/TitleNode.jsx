@@ -33,6 +33,10 @@ export class TitleNode extends ElementNode{
     };
   }
 
+  // Custom propetries
+
+  isTitlePageNode(){ return true }
+
   // Mutate
   
   insertNewAfter(_, restoreSelection) {

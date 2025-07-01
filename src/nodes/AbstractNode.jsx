@@ -60,11 +60,18 @@ export function $createAbstractNode() {
   return node;
 }
 
-export function insertAbstract(editor) { // !!! change : allow only one abstract, and place it properly !
+export function insertAbstract(editor) {
   editor.update(() => {
     const root = $getRoot();
     const node = $createAbstractNode();
     node.select();
-    root.splice(0, 0, [node]);// Insert as first child
+    // We want to place the abstract just after the title page.
+    let index = 0;
+    const children = root.getChildren();
+    for (let i=0;i<children.length;i++){
+      if (children[i].isTitlePageNode) index++;
+      else break;
+    }
+    root.splice(index, 0, [node]);
   });
 }
