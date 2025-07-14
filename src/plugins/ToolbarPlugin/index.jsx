@@ -83,14 +83,12 @@ import {SHORTCUTS} from '../ShortcutsPlugin/shortcuts';
 
 import {
     clearFormatting,
-    formatBulletList,
-    formatCheckList,
     formatCode,
     formatHeading,
-    formatNumberedList,
     formatParagraph,
     formatQuote,
     formatLatex,
+    formatList,
   } from './utils';
 import { useDocumentOptions } from '../Options/DocumentOptionsContext';
 import { ReferenceNode,insertReferenceNode } from '../../nodes/ReferenceNode';
@@ -249,7 +247,7 @@ function BlockFormatDropDown({
       </DropDownItem>
       <DropDownItem
         className={'wide ' + dropDownActiveClass(blockType === 'bullet')}
-        onClick={() => formatBulletList(editor, blockType)}>
+        onClick={() => formatList(editor, blockType,"bullet")}>
         <div className="icon-text-container">
           <i className="icon list-bullets" />
           <span className="text">{blockTypeToBlockName["bullet"]}</span>
@@ -258,21 +256,12 @@ function BlockFormatDropDown({
       </DropDownItem>
       <DropDownItem
         className={'wide ' + dropDownActiveClass(blockType === 'number')}
-        onClick={() => formatNumberedList(editor, blockType)}>
+        onClick={() => formatList(editor, blockType,"number")}>
         <div className="icon-text-container">
           <i className="icon list-numbers" />
           <span className="text">{blockTypeToBlockName["number"]}</span>
         </div>
         <span className="shortcut">{SHORTCUTS.NUMBERED_LIST}</span>
-      </DropDownItem>
-      <DropDownItem
-        className={'wide ' + dropDownActiveClass(blockType === 'check')}
-        onClick={() => formatCheckList(editor, blockType)}>
-        <div className="icon-text-container">
-          <i className="icon list-check" />
-          <span className="text">{blockTypeToBlockName["check"]}</span>
-        </div>
-        <span className="shortcut">{SHORTCUTS.CHECK_LIST}</span>
       </DropDownItem>
       <DropDownItem
         className={'wide ' + dropDownActiveClass(blockType === 'code')}

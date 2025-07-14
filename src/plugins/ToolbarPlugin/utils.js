@@ -7,6 +7,7 @@
  */
 import {$createCodeNode} from '@lexical/code';
 import {
+  $insertList,
   INSERT_CHECK_LIST_COMMAND,
   INSERT_ORDERED_LIST_COMMAND,
   INSERT_UNORDERED_LIST_COMMAND,
@@ -179,28 +180,11 @@ export const formatHeading = (
   }
 };
 
-export const formatBulletList = (editor, blockType) => {
-  if (blockType !== 'bullet') {
-    editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
-  } else {
-    formatParagraph(editor);
-  }
-};
-
-export const formatCheckList = (editor, blockType) => {
-  if (blockType !== 'check') {
-    editor.dispatchCommand(INSERT_CHECK_LIST_COMMAND, undefined);
-  } else {
-    formatParagraph(editor);
-  }
-};
-
-export const formatNumberedList = (
-  editor,
-  blockType,
-) => {
-  if (blockType !== 'number') {
-    editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
+export const formatList = (editor, blockType, listType) => {
+  if (blockType !== listType) {
+    editor.update(()=>{
+      $insertList(listType);
+    })
   } else {
     formatParagraph(editor);
   }

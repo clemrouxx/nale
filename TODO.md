@@ -1,8 +1,6 @@
 # TODO list
 ## Bugs
-- Creating lists (all sorts) from the toolbar menu does not work
 - Different bugs (and maybe lag) when trying to select a math node.
-- References are lost between saves. Need to keep some identifier on all nodes.
 
 ## Features
 ### Priority features
