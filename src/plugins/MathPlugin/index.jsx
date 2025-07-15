@@ -24,7 +24,8 @@ import {
   COMMAND_PRIORITY_LOW,
   SELECTION_CHANGE_COMMAND,
   DELETE_CHARACTER_COMMAND,
-  $createRangeSelection
+  $createRangeSelection,
+  COMMAND_PRIORITY_NORMAL
 } from 'lexical';
 import { $createMathNode, MathNode } from '../../nodes/MathNode';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -42,6 +43,8 @@ const COMMANDS_TO_IGNORE = [ // These commands are just completely ignored when 
 ];
 
 export const INSERT_MATH_COMMAND = createCommand('INSERT_MATH_COMMAND');
+
+export const ADD_MATH_SYMBOL_COMMAND = createCommand('ADD_MATH_SYMBOL_COMMAND');
 
 const $getCurrentMathNode = () => {
   const selection = $getSelection();
@@ -134,6 +137,21 @@ export default function MathPlugin() {
           return true;
         },
         COMMAND_PRIORITY_EDITOR,
+      ),
+      editor.registerCommand(
+        ADD_MATH_SYMBOL_COMMAND,
+        (symbol) => {
+          const selectedNode = $getCurrentMathNode();
+          if (selectedNode){
+            const ref = selectedNode.getEditorRef();
+            if (ref.current){
+              ref.current.addSymbol(symbol);
+              return true;
+            }
+          }
+          return false;
+        },
+        COMMAND_PRIORITY_NORMAL
       ),
       editor.registerCommand(
         KEY_ARROW_LEFT_COMMAND,

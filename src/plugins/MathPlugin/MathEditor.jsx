@@ -6,12 +6,16 @@ import MathNodes from "./MathNodes";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $getNodeByKey, $getSelection, SELECTION_CHANGE_COMMAND, COMMAND_PRIORITY_LOW, $isNodeSelection, $isRangeSelection } from "lexical";
 
-const MathEditor = ({nodeKey,initMathTree,inline,numbering},ref) => {
+const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
     const [mathTree,setMathTree] = useState(structuredClone(initMathTree));
     const [formula,setFormula] = useState("");
     const [command,setCommand] = useState("");
     const domRef = useRef(null);
     const [editor] = useLexicalComposerContext();
+
+    useImperativeHandle(ref, () => ({
+        addSymbol // Makes this function accessible from outside (in the lexical command callback)
+    }));
 
     const setLocalMathTree = (newtree) => {// The tree is getting changed from inside this component
         setMathTree(newtree);
@@ -21,7 +25,7 @@ const MathEditor = ({nodeKey,initMathTree,inline,numbering},ref) => {
         });
     }
 
-    const changeMathTree = (newtree) => { // 'Real' changes (ie not just cursor movement or selection) to the math tree. Relevant for the undo-redo functionnality
+    const changeMathTree = (newtree) => { // 'Real' changes (ie not just cursor movement or selection) to the math tree. Relevant for the undo-redo functionnality. Would be nice if only those changes were taken into account for HistoryPlugin.
         setLocalMathTree(newtree);
     }
 
@@ -378,7 +382,7 @@ const MathEditor = ({nodeKey,initMathTree,inline,numbering},ref) => {
         {true && <MathJax key={formula} inline={inline}>{`${delimiter} ${formula} ${tag} ${delimiter}`}</MathJax>}
     </>
   );
-};
+});
 
 export default MathEditor;
 

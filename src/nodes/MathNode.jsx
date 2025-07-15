@@ -3,6 +3,7 @@ import { DecoratorNode } from 'lexical';
 import { SelectableComponent } from '../plugins/SelectableComponent';
 import MathEditor from '../plugins/MathPlugin/MathEditor';
 import MathNodes from '../plugins/MathPlugin/MathNodes';
+import { createRef } from 'react';
 
 export class MathNode extends DecoratorNode {
   constructor(inline,mathTree,versionCounter,is_numbered,labelNumber,key) {
@@ -13,6 +14,7 @@ export class MathNode extends DecoratorNode {
     this.__is_numbered = is_numbered;
     this.__numbering = "?";
     this.__label_number = labelNumber ?? -1;
+    this.__ref = createRef();
   }
 
   static clone(node) {
@@ -26,6 +28,7 @@ export class MathNode extends DecoratorNode {
   isNumbered() { return this.__is_numbered }
   isInline(){return this.__inline}
   getLabel(){return `eq:${this.__label_number}`}
+  getEditorRef(){ return this.__ref }
 
   // Setters
   setMathTree(mathTree){
@@ -56,7 +59,7 @@ export class MathNode extends DecoratorNode {
   decorate(){
     return (
     <SelectableComponent nodeKey={this.__key}>
-      <MathEditor nodeKey={this.getKey()} initMathTree={this.__math_tree} inline={this.__inline} numbering={this.__is_numbered?this.__numbering:null}/>
+      <MathEditor nodeKey={this.getKey()} ref={this.__ref} initMathTree={this.__math_tree} inline={this.__inline} numbering={this.__is_numbered?this.__numbering:null}/>
     </SelectableComponent>
     );
   }
