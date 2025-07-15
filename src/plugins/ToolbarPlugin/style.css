@@ -40,10 +40,6 @@ button.toolbar-item:disabled {
   cursor: not-allowed;
 }
 
-button.toolbar-item.spaced {
-  margin-right: 2px;
-}
-
 button.toolbar-item i, button.toolbar-item i, .dropdown i{
   opacity: 0.6;
 }

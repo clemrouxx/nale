@@ -129,23 +129,38 @@ button:hover{
   width: 80px;
 }
 
-.vertical-handle{
+.drawer-handle{
   background-color: var(--bg-softest);
   cursor: pointer;
-  width: 12px;
-  background-size: 100% auto;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-.vertical-handle.left{
+.drawer-handle.vertical{
+  width: 12px;
+  background-size: 100% auto;
+}
+
+.drawer-handle.horizontal{
+  height: 12px;
+  background-size: auto 100%;
+}
+
+.drawer-handle.left{
   background-image: url(images/icons/chevron-white-left.svg);
 }
 
-.vertical-handle.right{
+.drawer-handle.right{
   background-image: url(images/icons/chevron-white-right.svg);
 }
 
+.drawer-handle.up{
+  background-image: url(images/icons/chevron-white-up.svg);
+}
+
+.drawer-handle.down{
+  background-image: url(images/icons/chevron-white-down.svg);
+}
 
 .options-headings-numbering-templates input{
   width: 7em;

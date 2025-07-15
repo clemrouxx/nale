@@ -24,6 +24,7 @@ import { useDisplayOptions, zoomFactors } from './plugins/DisplayOptionsContext'
 import { $isNumberedHeadingNode } from './nodes/NumberedHeadingNode';
 import { AbstractNodePlugin } from './plugins/AbstractNodePlugin';
 import { AuthorshipPlugin } from './nodes/AuthorNodes';
+import { VirtualKeyboard } from './plugins/MathPlugin/VirtualKeyboard';
 
 function Editor() {
   const [editor] = useLexicalComposerContext();
@@ -112,9 +113,9 @@ function Editor() {
                 spellCheck={false}
                 ref={editorRef}
               />
-            }
-            ErrorBoundary={LexicalErrorBoundary}
-          />
+              }
+              ErrorBoundary={LexicalErrorBoundary}
+            />
           </div>
           <HistoryPlugin />
           <AutoFocusPlugin />
@@ -125,6 +126,7 @@ function Editor() {
           <AbstractNodePlugin/>
           <AuthorshipPlugin/>
         </div>
+        <VirtualKeyboard/>
     </>
   );
 }

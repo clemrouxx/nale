@@ -37,7 +37,7 @@ export function AutoOptionsPanel() { // Automatically chooses the relevant optio
             {category!=="general"&&<GlobalOptionsPanel category={category}/>}
             <GlobalOptionsPanel category={"general"}/>
         </div>)}
-        <div className={"vertical-handle"+(isOpen?" left":" right")} onClick={()=>{setOpen(!isOpen)}}></div>
+        <div className={"drawer-handle vertical"+(isOpen?" left":" right")} onClick={()=>{setOpen(!isOpen)}}></div>
         </div>
     );
 }
