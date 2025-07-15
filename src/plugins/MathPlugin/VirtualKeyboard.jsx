@@ -37,17 +37,19 @@ export const VirtualKeyboard = ({ formulaEditorRef }) => {
             {isOpen && (
                 <MathJax>
                 <div className="virtual-keyboard">
-                    <FirstRow />
-                    <Category title="Other delimiters & constructs" symbols={CONSTRUCTS} nKeysShown={15} keyClassName="larger-button"/>
-                    <Category title="Binary operators" symbols={BINARY_OPERATORS} nKeysShown={14}/>
-                    <Category title="Miscellaneous" symbols={MISC} nKeysShown={18}/>
-                    <Category title="Binary 'equivalence' relations" symbols={RELATIONS} nKeysShown={16}/>
-                    <Category title="Binary 'ordering' relations" symbols={ORDER} nKeysShown={17}/>
-                    <Category title="Arrows" symbols={ARROWS} nKeysShown={15}/>
+                    <CommonConstructsCategory />
+                    <StylesCategory/>
                     <Category title="Accents" symbols={ACCENTS} reference={formulaEditorRef}/>
-                    <Category title="Greek letters" symbols={GREEK_LETTERS} className="wide-category"/>
-                    <Category title="Functions & such" symbols={NAMED_FUNCTIONS} nKeysShown={16} className="wide-category"/>
-                    <MultilineCategory reference={formulaEditorRef}/>
+                    <Category title="Greek letters" symbols={GREEK_LETTERS}/>
+                    <Category title="Binary operators" symbols={BINARY_OPERATORS} nKeysShown={14}/>
+                    <Category title="Equivalence" symbols={RELATIONS} nKeysShown={16}/>
+                    <Category title="Ordering" symbols={ORDER} nKeysShown={17}/>
+                    <Category title="Arrows" symbols={ARROWS} nKeysShown={15}/>
+                    <Category title="Miscellaneous" symbols={MISC} nKeysShown={18}/>
+                    <Category title="Functions..." symbols={NAMED_FUNCTIONS} nKeysShown={16}/>
+                    <Category title="Other delimiters & constructs" symbols={CONSTRUCTS} nKeysShown={15} keyClassName="larger-button" className="less-rows"/>
+                    <DelimiterSizeCategory/>
+                    <MultilineCategory/>
                 </div>
                 </MathJax>
             )}
@@ -57,10 +59,10 @@ export const VirtualKeyboard = ({ formulaEditorRef }) => {
     );
 };
 
-const FirstRow = () => {
+const CommonConstructsCategory = () => {
   const PLACEHOLDER_STRING = "\\class{math-placeholder}{\\square}";
   return (
-    <div className="first-row">
+    <div className="one-column">
       <h3>Common constructs</h3>
       <div className="key-row">
         <VirtualKey symbol="squared" tooltip={getShortcut("squared")} display={`${PLACEHOLDER_STRING}^2`} />
@@ -71,6 +73,13 @@ const FirstRow = () => {
         <VirtualKey symbol="nsqrt" tooltip={getShortcut("nsqrt")} display={MathNodes.getFormula(MathNodes.getNode("nsqrt",false,true))}   className="small-text"/>
         <VirtualKey symbol="\not" display={`\\not ${PLACEHOLDER_STRING}`} tooltip={getShortcut("\\not")}  />
         </div>
+    </div>
+  );
+}
+
+const StylesCategory = () => {
+  return (
+    <div>
       <h3>Styles</h3>
       <div className="key-row">
         {["\\mathbf","\\mathcal","\\mathbb","\\mathfrak","\\mathsf","\\boldsymbol"].map((symbol)=> (
@@ -84,9 +93,9 @@ const FirstRow = () => {
 
 const MultilineCategory =  () => {
   return (
-  <div className="wide-category">
+  <div>
     <h3>Multiline environments</h3>
-    <div className="key-row">
+    <div className="key-row less-rows">
       {MULTILINES.map((symbol, index) => (
         <VirtualKey symbol={symbol} display={MathNodes.getFormula(MathNodes.getNode(symbol,false,true))} tooltip={getShortcut(symbol)} key={index} className="x-small-text larger-button"/>
       ))}
@@ -97,13 +106,20 @@ const MultilineCategory =  () => {
       <CustomVirtualKey name="array-align-c" display={"\\rightarrow \\!\\! |\\!\\! \\leftarrow"} />
       <CustomVirtualKey name="array-align-r" display={"\\rightarrow \\! |"} />
     </div>
-    <h3>Delimiter size</h3>
-    <div className="key-row">
-      <CustomVirtualKey name="delimiter-size-auto" display={"\\text{auto}"} />
-      <CustomVirtualKey name="delimiter-size-smaller" display={"-"} />
-      <CustomVirtualKey name="delimiter-size-bigger" display={"+"} />
-    </div>
   </div>);
+}
+
+const DelimiterSizeCategory = () => {
+  return (
+    <div className="one-column">
+      <h3>Delimiter size</h3>
+      <div className="key-row">
+        <CustomVirtualKey name="delimiter-size-auto" display={"\\text{auto}"} />
+        <CustomVirtualKey name="delimiter-size-smaller" display={"-"} />
+        <CustomVirtualKey name="delimiter-size-bigger" display={"+"} />
+      </div>
+    </div>
+  )
 }
 
 const Category = ({title,symbols,nKeysShown,className,keyClassName}) => {

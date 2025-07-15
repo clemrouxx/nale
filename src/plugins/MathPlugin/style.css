@@ -31,53 +31,50 @@
 
 .virtual-keyboard{
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.virtual-keyboard > div{
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin: 0.3rem;
+  display: grid;
+  grid-template-columns: min-content min-content;
+  grid-template-rows: min-content min-content;
+  place-items: center;
+  gap : 0 0.5em;
+  border: solid 1px var(--border-primary);
+}
+
+.virtual-keyboard > div.one-column{
+  grid-template-columns: min-content;
 }
 
 .virtual-keyboard h3{
   margin: 0.5rem;
   margin-top: 0;
-  font-size: 1.1rem;
+  font-size: 1rem;
+  font-weight: normal;
+  grid-column: 1 / -1;
+  white-space: nowrap;
 }
-
-.virtual-keyboard > div{
-  max-width: 22rem;
-  padding: 0.5rem;
-  border-radius: 0.3rem;
-  margin: 0.3rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.virtual-keyboard > div.wide-category{
-  max-width: 30rem;
-}
-
-.virtual-keyboard > div:nth-child(1) { background-color: rgba(255, 99, 71, 0.2); }    /* Tomato */
-.virtual-keyboard > div:nth-child(2) { background-color: rgba(30, 144, 255, 0.2); }   /* Dodger Blue */
-.virtual-keyboard > div:nth-child(3) { background-color: rgba(50, 205, 50, 0.2); }    /* Lime Green */
-.virtual-keyboard > div:nth-child(4) { background-color: rgba(255, 165, 0, 0.2); }    /* Orange */
-.virtual-keyboard > div:nth-child(5) { background-color: rgba(138, 43, 226, 0.2); }   /* Blue Violet */
-.virtual-keyboard > div:nth-child(6) { background-color: rgba(255, 20, 147, 0.2); }   /* Deep Pink */
-.virtual-keyboard > div:nth-child(7) { background-color: rgba(70, 130, 180, 0.2); }   /* Steel Blue */
-.virtual-keyboard > div:nth-child(8) { background-color: rgba(46, 139, 87, 0.2); }    /* Sea Green */
-.virtual-keyboard > div:nth-child(9) { background-color: rgba(220, 20, 60, 0.2); }    /* Crimson */
-.virtual-keyboard > div:nth-child(10) { background-color: rgba(255, 215, 0, 0.2); }  
-.virtual-keyboard > div:nth-child(11) { background-color: rgba(255, 99, 71, 0.2); }    /* Tomato */
 
 .virtual-keyboard .key-row{
   margin: 0;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-auto-flow: column;
   justify-content: center;
   align-items: center;
 }
 
+.virtual-keyboard .less-rows .key-row, .virtual-keyboard .less-rows.key-row{
+  grid-template-rows: repeat(3, 1fr);
+}
+
 .virtual-keyboard button.key{
   font-size: large;
-  min-width: 2.2rem;
   height: 2.2rem;
   margin: 0;
   padding: 0.2rem 0.5rem;
@@ -93,6 +90,10 @@
 
 .virtual-keyboard button.x-small-text{
   font-size:x-small;
+}
+
+.virtual-keyboard mjx-container[jax="CHTML"][display="true"] {
+  margin: 0;
 }
 
 button.drawer-handle{
