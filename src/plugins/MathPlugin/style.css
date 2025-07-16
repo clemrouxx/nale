@@ -76,7 +76,8 @@
 .virtual-keyboard button.key{
   font-size: large;
   height: 2.2rem;
-  margin: 0;
+  margin: 0.1em;
+  border-radius: 0.3em;
   padding: 0.2rem 0.5rem;
 }
 

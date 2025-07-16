@@ -61,6 +61,8 @@ const NAMED_NODES = {
   updagger: {...getNode("^"),children:[{symbol:"\\dagger"}]},
   dvn : {...ThreeChildren("\\dv"),childrenstring:"[§0]{§1}{§2}"},
   pdvn : {...ThreeChildren("\\pdv"),childrenstring:"[§0]{§1}{§2}"},
+  dv2: {...FracLike("\\dv"),childrenstring:"[2]{§0}{§1}"},
+  pdv2: {...FracLike("\\pdv"),childrenstring:"[2]{§0}{§1}"},
   pdvmixed : ThreeChildren("\\pdv"),
   rbrace : {leftsymbol:".",rightsymbol:"\\rbrace",children:[getNode("\\begin{array}{}")],size:"auto"},
 }

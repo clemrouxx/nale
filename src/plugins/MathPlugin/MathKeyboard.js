@@ -77,7 +77,7 @@ const SHORTCUTS = {
   maap:"\\longmapsto",
 
   // Misc symbols
-  inf:"\\infty",
+  if:"\\infty",
   all:"\\forall",
   Re:"\\Re",
   Im:"\\Im",
@@ -98,7 +98,7 @@ const SHORTCUTS = {
   curl:"\\curl",
   lapl:"\\laplacian",
   l:"\\ell",
-  dd:"\\dd",
+  d:"\\dd",
   squ:"\\square",
   tfr:"\\therefore",
   compl:"\\complement",
@@ -129,6 +129,8 @@ const SHORTCUTS = {
   ox:"\\otimes",
   box:"\\Box",
   xbox:"\\boxtimes",
+  "-box":"\\boxminus",
+  "+box":"\\boxplus",
   "===":"\\equiv",
   cong:"\\cong",
   prop:"\\propto",
@@ -181,6 +183,7 @@ const SHORTCUTS = {
   max:"\\max",
   arg:"\\arg",
   sup:"\\sup",
+  inf:"\\inf",
   cos:"\\cos",
   sin:"\\sin",
   tan:"\\tan",
@@ -250,6 +253,8 @@ const SHORTCUTS = {
   dag:"updagger",
   nsr:"nsqrt",
   rbr:"rbrace",
+  dv2:"dv2",
+  pdv2:"pdv2",
 };
 
 const MathKeyboard =  {DIRECT_INPUT,TEXTMODE_ESCAPED_SYMBOLS,SIMPLE_REPLACEMENT,SHORTCUTS};
