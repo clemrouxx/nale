@@ -1,6 +1,6 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useActiveNode } from "../../utils/lexicalUtils";
-import { useState } from "react";
+import React, { useState, useEffect, useCallback, act } from "react";
 import { MathJax } from "better-react-mathjax";
 //import { Tooltip } from "react-tooltip";
 import MathKeyboard from "./MathKeyboard";
@@ -26,52 +26,59 @@ const VERY_BIG_SYMBOLS = ["\\sum","\\prod","\\int","\\iint","\\iiint","\\oint","
 const reversedShortcuts = Object.fromEntries(Object.entries(MathKeyboard.SHORTCUTS).map(([key, value]) => [value, key]));
 const getShortcut = (symbol) => reversedShortcuts[symbol] ? `${reversedShortcuts[symbol]} [Space]` : undefined;
 
-export const VirtualKeyboard = ({ formulaEditorRef }) => {
-    const { activeNode } = useActiveNode();
+export function VirtualKeyboardContainer() {
+  const { activeNode } = useActiveNode();
+  
+  console.log(activeNode);
+  // Only render VirtualKeyboard when needed
+  if (!activeNode || activeNode.getType()!=="math") return null;
+  
+  // Still pretty slow. Maybe need to switch to KaTeX which is apparently faster.
+  return <VirtualKeyboard />;
+}
+
+const VirtualKeyboard = React.memo(() => {
     const [isOpen,setOpen] = useState(true);
+
     return (
-        <>
-        {activeNode && ( //activeNode.getType() === "math"
-        <div className="span2cols">
-            <div className={"drawer-handle horizontal " + (isOpen?"down":"up")} onClick={()=>{setOpen(!isOpen)}} title="Toggle Virtual Keyboard"></div>
-            {isOpen && (
-                <MathJax>
-                <div className="virtual-keyboard">
-                    <CommonConstructsCategory />
-                    <StylesCategory/>
-                    <Category title="Accents" symbols={ACCENTS} reference={formulaEditorRef}/>
-                    <Category title="Greek letters" symbols={GREEK_LETTERS}/>
-                    <Category title="Binary operators" symbols={BINARY_OPERATORS} nKeysShown={14}/>
-                    <Category title="Equivalence" symbols={RELATIONS} nKeysShown={16}/>
-                    <Category title="Ordering" symbols={ORDER} nKeysShown={17}/>
-                    <Category title="Arrows" symbols={ARROWS} nKeysShown={15}/>
-                    <Category title="Miscellaneous" symbols={MISC} nKeysShown={18}/>
-                    <Category title="Functions..." symbols={NAMED_FUNCTIONS} nKeysShown={16}/>
-                    <Category title="Other delimiters & constructs" symbols={CONSTRUCTS} nKeysShown={15} keyClassName="larger-button" className="less-rows"/>
-                    <DelimiterSizeCategory/>
-                    <MultilineCategory/>
-                </div>
-                </MathJax>
-            )}
-        </div>
-        )}
-        </>
+      <div className="span2cols">
+          <div className={"drawer-handle horizontal " + (isOpen?"down":"up")} onClick={()=>{setOpen(!isOpen)}} title="Toggle Virtual Keyboard"></div>
+          {isOpen && (
+              <MathJax>
+              <div className="virtual-keyboard">
+                  <CommonConstructsCategory />
+                  <StylesCategory/>
+                  <Category title="Accents" symbols={ACCENTS}/>
+                  <Category title="Greek letters" symbols={GREEK_LETTERS}/>
+                  <Category title="Binary operators" symbols={BINARY_OPERATORS} nKeysShown={14}/>
+                  <Category title="Equivalence" symbols={RELATIONS} nKeysShown={16}/>
+                  <Category title="Ordering" symbols={ORDER} nKeysShown={17}/>
+                  <Category title="Arrows" symbols={ARROWS} nKeysShown={15}/>
+                  <Category title="Miscellaneous" symbols={MISC} nKeysShown={18}/>
+                  <Category title="Functions..." symbols={NAMED_FUNCTIONS} nKeysShown={16}/>
+                  <Category title="Other delimiters & constructs" symbols={CONSTRUCTS} nKeysShown={15} keyClassName="larger-button" className="less-rows"/>
+                  <DelimiterSizeCategory/>
+                  <MultilineCategory/>
+              </div>
+              </MathJax>
+          )}
+      </div>
     );
-};
+});
 
 const CommonConstructsCategory = () => {
   const PLACEHOLDER_STRING = "\\class{math-placeholder}{\\square}";
   return (
     <div className="one-column">
       <h3>Common constructs</h3>
-      <div className="key-row">
-        <VirtualKey symbol="squared" tooltip={getShortcut("squared")} display={`${PLACEHOLDER_STRING}^2`} />
-        <VirtualKey symbol="^" display={`A^${PLACEHOLDER_STRING}`} tooltip="Ctrl+u OR ^"  />
-        <VirtualKey symbol="_" display={`A_${PLACEHOLDER_STRING}`} tooltip="Ctrl+d OR _"  />
-        <SymbolVirtualKey symbol="\frac"  className="x-small-text"/>
-        <SymbolVirtualKey symbol="\sqrt"  className="small-text"/>
-        <VirtualKey symbol="nsqrt" tooltip={getShortcut("nsqrt")} display={MathNodes.getFormula(MathNodes.getNode("nsqrt",false,true))}   className="small-text"/>
-        <VirtualKey symbol="\not" display={`\\not ${PLACEHOLDER_STRING}`} tooltip={getShortcut("\\not")}  />
+        <div className="key-row">
+          <VirtualKey symbol="squared" tooltip={getShortcut("squared")} display={`${PLACEHOLDER_STRING}^2`}/>
+          <VirtualKey symbol="^" display={`A^${PLACEHOLDER_STRING}`} tooltip="Ctrl+u OR ^"/>
+          <VirtualKey symbol="_" display={`A_${PLACEHOLDER_STRING}`} tooltip="Ctrl+d OR _"/>
+          <SymbolVirtualKey symbol="\frac"  className="x-small-text"/>
+          <SymbolVirtualKey symbol="\sqrt"  className="small-text"/>
+          <VirtualKey symbol="nsqrt" tooltip={getShortcut("nsqrt")} display={MathNodes.getFormula(MathNodes.getNode("nsqrt",false,true))}   className="small-text"/>
+          <VirtualKey symbol="\not" display={`\\not ${PLACEHOLDER_STRING}`} tooltip={getShortcut("\\not")}/>
         </div>
     </div>
   );
@@ -83,7 +90,7 @@ const StylesCategory = () => {
       <h3>Styles</h3>
       <div className="key-row">
         {["\\mathbf","\\mathcal","\\mathbb","\\mathfrak","\\mathsf","\\boldsymbol"].map((symbol)=> (
-          <SymbolVirtualKey symbol={symbol}  />
+          <SymbolVirtualKey symbol={symbol} key={symbol} />
         ))}
         <VirtualKey symbol="\text" display="\text{Tt}" tooltip={getShortcut("\\text")}  />
       </div>
@@ -149,7 +156,7 @@ const VirtualKey = ({symbol,display,tooltip,className}) => {
 const CustomVirtualKey = ({name,display,tooltip,className}) => {
   return (
       <button onMouseDown={(e) => e.preventDefault()} data-tooltip-id={name} data-tooltip-content={tooltip} className={className+" key"} onClick={() => reference.current?.customAction(name)}>
-            {`$$${display} $$`} 
+            {`$$${display}$$`} 
       </button>
   );
 }//{tooltip && <Tooltip id={name} />}
