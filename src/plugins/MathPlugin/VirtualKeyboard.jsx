@@ -1,6 +1,6 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useActiveNode } from "../../utils/lexicalUtils";
-import React, { useState, useEffect, useCallback, act } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { MathJax } from "better-react-mathjax";
 //import { Tooltip } from "react-tooltip";
 import MathKeyboard from "./MathKeyboard";
@@ -39,13 +39,37 @@ export function VirtualKeyboardContainer() {
 
 const VirtualKeyboard = React.memo(() => {
     const [isOpen,setOpen] = useState(true);
+    const scrollRef = useRef(null);
+
+    // For horizontal scrolling
+    useEffect(() => {
+      const scrollContainer = scrollRef.current;
+      const handleWheel = (e) => {
+        // Check if the element can scroll horizontally
+        if (scrollContainer.scrollWidth > scrollContainer.clientWidth) {
+          e.preventDefault(); // Prevent default vertical scrolling
+          scrollContainer.scrollLeft += e.deltaY; // Convert vertical scroll to horizontal
+        }
+      };
+
+      if (scrollContainer) {
+        scrollContainer.addEventListener('wheel', handleWheel, { passive: false });
+      }
+
+      // Cleanup event listener on unmount
+      return () => {
+        if (scrollContainer) {
+          scrollContainer.removeEventListener('wheel', handleWheel);
+        }
+      };
+    }, []);
 
     return (
       <div className="span2cols">
           <div className={"drawer-handle horizontal " + (isOpen?"down":"up")} onClick={()=>{setOpen(!isOpen)}} title="Toggle Virtual Keyboard"></div>
           {isOpen && (
               <MathJax>
-              <div className="virtual-keyboard">
+              <div className="virtual-keyboard" ref={scrollRef}>
                   <CommonConstructsCategory />
                   <StylesCategory/>
                   <Category title="Accents" symbols={ACCENTS}/>
