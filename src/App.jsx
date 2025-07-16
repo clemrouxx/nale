@@ -8,10 +8,10 @@ import { DocumentStructureProvider } from "./plugins/NumberingPlugin/DocumentStr
 import { MathJaxContext } from "better-react-mathjax";
 
 const mathJaxConfig = {
-  loader: { load: ["[tex]/html","[tex]/physics"] },
+  loader: { load: ["[tex]/html","[tex]/ams","[tex]/physics",'[tex]/boldsymbol'] },
   tex: {
     packages: { 
-      "[+]": ["html","ams","physics"] 
+      "[+]": ["html","ams","physics","boldsymbol"] 
     },
     inlineMath: [
       ["$", "$"],
