@@ -145,17 +145,16 @@ const Category = ({title,symbols,nKeysShown,className,keyClassName}) => {
 
 const VirtualKey = ({symbol,display,tooltip,className}) => {
     const [editor] = useLexicalComposerContext();
-    const tooltipId = symbol.replace(" ","__").replace("\\","--");// Necessary replacement to have a valid (but still unique) id
     return (
-        <button onMouseDown={(e) => e.preventDefault()} data-tooltip-id={tooltipId} data-tooltip-content={tooltip} className={className+" key"} onClick={() => editor.dispatchCommand(ADD_MATH_SYMBOL_COMMAND,symbol)}>
-                {`$$${display} $$`} 
+        <button onMouseDown={(e) => e.preventDefault()} data-tooltip={tooltip} className={`${className} key ${tooltip?"tooltip":""}`} onClick={() => editor.dispatchCommand(ADD_MATH_SYMBOL_COMMAND,symbol)}>
+                {`$$${display}$$`} 
         </button>
     );
 }
 //{tooltip && <Tooltip id={tooltipId} />}
 const CustomVirtualKey = ({name,display,tooltip,className}) => {
   return (
-      <button onMouseDown={(e) => e.preventDefault()} data-tooltip-id={name} data-tooltip-content={tooltip} className={className+" key"} onClick={() => reference.current?.customAction(name)}>
+      <button onMouseDown={(e) => e.preventDefault()} data-tooltip={tooltip} className={`${className} key ${tooltip?"tooltip":""}`} onClick={() => reference.current?.customAction(name)}>
             {`$$${display}$$`} 
       </button>
   );

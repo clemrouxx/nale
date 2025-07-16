@@ -195,3 +195,32 @@ button:hover{
 .actionbar > button{
   border-radius: 0;
 }
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--bg-contrasted);
+  color: var(--text-muted);
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s;
+  margin-bottom: 8px;
+  z-index: 1;
+}
+
+.tooltip:hover::before {
+  opacity: 1;
+  visibility: visible;
+}

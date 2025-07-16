@@ -54,6 +54,6 @@ h3, h4, h5{
   display: flex;
 }
 
-.hidden{
-  display: none;
+.hidden{ 
+  display: none !important; 
 }
