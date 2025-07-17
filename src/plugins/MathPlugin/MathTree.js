@@ -137,7 +137,6 @@ function alignCol(tree,path,value){
   var arr = pathToNode(tree,arrpath);
   if (arr.colparams.length > icol){
     arr.colparams = [...arr.colparams.slice(0, icol), value, ...arr.colparams.slice(icol + 1)].join("");
-    console.log(arr.colparams);
   }
   else{
     arr.colparams += "c".repeat(icol-arr.colparams.length) + value;

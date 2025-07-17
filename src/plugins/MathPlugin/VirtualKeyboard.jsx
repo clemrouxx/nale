@@ -5,7 +5,7 @@ import { MathJax } from "better-react-mathjax";
 //import { Tooltip } from "react-tooltip";
 import MathKeyboard from "./MathKeyboard";
 import MathNodes from "./MathNodes";
-import { ADD_MATH_SYMBOL_COMMAND } from ".";
+import { ADD_MATH_SYMBOL_COMMAND, MATH_CUSTOM_ACTION_COMMAND } from ".";
 
 const GREEK_LETTERS = ["\\alpha","\\beta","\\gamma","\\Gamma","\\delta","\\Delta","\\epsilon","\\varepsilon","\\zeta","\\eta","\\theta","\\vartheta","\\Theta","\\iota","\\kappa","\\varkappa","\\lambda","\\Lambda","\\mu","\\nu","\\xi","\\Xi","\\pi","\\Pi","\\rho","\\varrho","\\sigma","\\Sigma","\\tau","\\upsilon","\\Upsilon","\\phi","\\varphi","\\Phi","\\chi","\\psi","\\Psi","\\omega","\\Omega"];
 const MISC = ["\\infty","\\partial","\\forall","\\exists","\\nexists","\\varnothing","\\ell","\\nabla","\\triangle","\\square","\\hbar","\\imaginary","\\real","\\complement","\\dagger","\\neg","\\therefore","\\dots","\\because","\\vdots","\\ddots","\\top","\\ddagger","\\_","\\bigstar","\\emptyset","\\imath","\\jmath","\\sharp","\\flat","\\natural","\\diagdown","\\diagup","\\diamond","\\Diamond","\\Finv","\\Game","\\hslash","\\mho","\\prime","\\surd","\\wp","\\angle","\\measuredangle","\\sphericalangle","\\triangledown","\\vartriangle","\\blacklozenge","\\blacksquare","\\blacktriangle","\\blacktriangledown","\\backprime","\\circledS","\\circledR","\\digamma","\\eth","\\S","\\checkmark","\\maltese","\\grad","\\div","\\curl","\\laplacian","\\aleph","\\beth","\\daleth","\\gimel","k_B"];
@@ -29,7 +29,7 @@ const getShortcut = (symbol) => reversedShortcuts[symbol] ? `${reversedShortcuts
 export function VirtualKeyboardContainer() {
   const { activeNode } = useActiveNode();
   
-  console.log(activeNode);
+  //console.log(activeNode);
   // Only render VirtualKeyboard when needed
   if (!activeNode || activeNode.getType()!=="math") return null;
   
@@ -177,8 +177,9 @@ const VirtualKey = ({symbol,display,tooltip,className}) => {
 }
 //{tooltip && <Tooltip id={tooltipId} />}
 const CustomVirtualKey = ({name,display,tooltip,className}) => {
+  const [editor] = useLexicalComposerContext();
   return (
-      <button onMouseDown={(e) => e.preventDefault()} data-tooltip={tooltip} className={`${className} key ${tooltip?"tooltip":""}`} onClick={() => reference.current?.customAction(name)}>
+      <button onMouseDown={(e) => e.preventDefault()} data-tooltip={tooltip} className={`${className} key ${tooltip?"tooltip":""}`} onClick={() => editor.dispatchCommand(MATH_CUSTOM_ACTION_COMMAND,name)}>
             {`$$${display}$$`} 
       </button>
   );

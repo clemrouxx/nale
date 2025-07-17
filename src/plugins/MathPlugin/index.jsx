@@ -43,8 +43,8 @@ const COMMANDS_TO_IGNORE = [ // These commands are just completely ignored when 
 ];
 
 export const INSERT_MATH_COMMAND = createCommand('INSERT_MATH_COMMAND');
-
 export const ADD_MATH_SYMBOL_COMMAND = createCommand('ADD_MATH_SYMBOL_COMMAND');
+export const MATH_CUSTOM_ACTION_COMMAND = createCommand('MATH_CUSTOM_ACTION_COMMAND');
 
 const $getCurrentMathNode = () => {
   const selection = $getSelection();
@@ -146,6 +146,21 @@ export default function MathPlugin() {
             const ref = selectedNode.getEditorRef();
             if (ref.current){
               ref.current.addSymbol(symbol);
+              return true;
+            }
+          }
+          return false;
+        },
+        COMMAND_PRIORITY_NORMAL
+      ),
+      editor.registerCommand(
+        MATH_CUSTOM_ACTION_COMMAND,
+        (actionName) => {
+          const selectedNode = $getCurrentMathNode();
+          if (selectedNode){
+            const ref = selectedNode.getEditorRef();
+            if (ref.current){
+              ref.current.customAction(actionName);
               return true;
             }
           }

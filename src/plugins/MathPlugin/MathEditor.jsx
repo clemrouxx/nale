@@ -14,7 +14,8 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
     const [editor] = useLexicalComposerContext();
 
     useImperativeHandle(ref, () => ({
-        addSymbol // Makes this function accessible from outside (in the lexical command callback)
+        addSymbol,
+        customAction // Makes this function accessible from outside (in the lexical command callback)
     }));
 
     const setLocalMathTree = (newtree) => {// The tree is getting changed from inside this component
@@ -91,9 +92,10 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
             }
         }
     };
-    /*
+    
     const customAction = (name) => {
         const splitname = name.split("-");
+        const editMode = MathTree.getEditMode(mathTree);
         switch (splitname[0]){
             case "array":
                 if (editMode==="cursor" || editMode==="selection"){
@@ -114,7 +116,7 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
                     }
                 }
         }
-    }*/
+    }
 
     const handleClick =  (event) => {
         event.preventDefault();
