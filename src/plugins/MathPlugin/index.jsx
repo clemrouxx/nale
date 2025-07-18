@@ -40,7 +40,6 @@ const COMMANDS_TO_IGNORE = [ // These commands are just completely ignored when 
   KEY_ARROW_UP_COMMAND,
   KEY_TAB_COMMAND,
   KEY_ESCAPE_COMMAND,
-  KEY_ENTER_COMMAND,
 ];
 
 export const INSERT_MATH_COMMAND = createCommand('INSERT_MATH_COMMAND');
@@ -260,7 +259,7 @@ export default function MathPlugin() {
           }
           return false; 
         },
-        COMMAND_PRIORITY_CRITICAL // Apparently to override default lexical behaviour (even though it does nothing)
+        COMMAND_PRIORITY_HIGH
       ),
       editor.registerCommand(
         SELECTION_CHANGE_COMMAND,
@@ -269,7 +268,6 @@ export default function MathPlugin() {
             if ($isNodeSelection(selection)) {
                 const selectedMathNode = $getCurrentMathNode();
                 if (selectedMathNode && (lastSelectionKey !== selectedMathNode.getKey())) { // Entering the math node
-                  //console.log("cursor enter");
                   const previousSibling = $getNodeByKey(selectedMathNode.getKey()).getPreviousSibling();
                   const previousSiblingKey = previousSibling ? previousSibling.getKey() : null;
                   const mathTree = selectedMathNode.getMathTree();
