@@ -84,6 +84,7 @@ export class MathNode extends DecoratorNode {
     const delimiter = this.__inline ? "$" : "$$";
     return `${delimiter} ${MathNodes.getFormula(this.__math_tree,false)} ${delimiter} ${this.__inline ? '' : '\n'}`
   }
+
 }
 
 export function $createMathNode(inline,label){

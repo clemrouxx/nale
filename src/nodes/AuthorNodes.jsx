@@ -166,7 +166,7 @@ export function AuthorshipPlugin() {
         const selection = $getSelection();
         if ($isRangeSelection(selection)) {
           const node = selection.anchor.getNode();
-          if (node.getParent().getType()==="author") {
+          if (node.getParent() && node.getParent().getType()==="author") {
             event.preventDefault();
             const newnode = $createParagraphNode();
             newnode.select();

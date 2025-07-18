@@ -4,7 +4,7 @@ import MathTree from "./MathTree";
 import MathKeyboard from "./MathKeyboard";
 import MathNodes from "./MathNodes";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $getNodeByKey, $getSelection, SELECTION_CHANGE_COMMAND, COMMAND_PRIORITY_LOW, $isNodeSelection, $isRangeSelection } from "lexical";
+import { $getNodeByKey, $getSelection, SELECTION_CHANGE_COMMAND, COMMAND_PRIORITY_LOW, $isNodeSelection, $isRangeSelection, $createNodeSelection, $setSelection } from "lexical";
 
 const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
     const [mathTree,setMathTree] = useState(structuredClone(initMathTree));
@@ -15,7 +15,8 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
 
     useImperativeHandle(ref, () => ({
         addSymbol,
-        customAction // Makes this function accessible from outside (in the lexical command callback)
+        customAction,
+        handleClick // Makes these functions accessible from outside (in the lexical command callback)
     }));
 
     const setLocalMathTree = (newtree) => {// The tree is getting changed from inside this component
@@ -119,8 +120,18 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
     }
 
     const handleClick =  (event) => {
-        event.preventDefault();
-        event.stopPropagation();// Avoids problems with focusing
+        //event.preventDefault();
+        event.stopPropagation(); // Avoids problems with focusing
+
+        // Make sure to select the node in lexical
+        editor.update(() => {
+            const node = $getNodeByKey(nodeKey);
+            if (node) {
+                const nodeSelection = $createNodeSelection();
+                nodeSelection.add(nodeKey);
+                $setSelection(nodeSelection);
+            }
+        });
         
         var element = event.target; // We need to go up the tree until we find an element with id 'math-...'
         while (!element.id || element.id.split("-")[0]!=="math") element = element.parentElement;
@@ -198,18 +209,21 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
     };
 
     const handleCursormodeKeyDown = (event,parent,cursorPath) => {
-        event.preventDefault();
         switch (event.key){
             case "Tab":
                 if (parent.ismultiline) addSymbol("&");
                 else if (parent.isroot) addSymbol("\\quad");
                 else setLocalMathTree(MathTree.shiftCursor(mathTree,"right"));
+                event.preventDefault();
                 break;
             case "Enter":
                 if (parent.ismultiline) addSymbol("\\\\");
                 else if (parent.isroot){//AutoAlign
-                    setLocalMathTree(MathTree.alignAll(mathTree));
-                    addSymbol("\\\\");
+                    if (event.shiftKey){ // Now only if the shift key is pressed, to make leaving the math node easier
+                        setLocalMathTree(MathTree.alignAll(mathTree));
+                        addSymbol("\\\\");
+                        //event.preventDefault();!!!
+                    }
                 }
                 // Add \substack if needed
                 else if (parent.nodeletion || parent.childrenaredown){
@@ -218,13 +232,16 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
                     parent.children = [substack];
                     setLocalMathTree(MathTree.insertAtPath(mathTree,cursorPath,parent,true));
                     addSymbol("\\\\");
+                    event.preventDefault();
                 }
                 break;
             case "ArrowRight":
                 setLocalMathTree(MathTree.shiftCursor(mathTree,"right"));
+                event.preventDefault();
                 break;
             case "ArrowLeft":
                 setLocalMathTree(structuredClone(MathTree.shiftCursor(mathTree,"left")));
+                event.preventDefault();
                 break;
             case "ArrowDown":
                 if (cursorPath.length>=1){ // In a frac-like sub-element. We need to go up two levels
@@ -236,6 +253,7 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
                         newtree = MathTree.pushCursorAtPath(newtree,path);
                         setLocalMathTree(newtree);
                     }
+                    event.preventDefault();
                 }
                 break;
             case "ArrowUp":
@@ -248,15 +266,18 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
                         newtree = MathTree.pushCursorAtPath(newtree,path);
                         setLocalMathTree(newtree);
                     }
+                    event.preventDefault();
                 }
                 break;
             case "Backspace":
                 var deletionResult = MathTree.deleteNextToCursor(mathTree,"left");
                 if (deletionResult) changeMathTree(deletionResult);
+                event.preventDefault();
                 break;
             case "Delete":
                 var deletionResult = MathTree.deleteNextToCursor(mathTree,"right");
                 if (deletionResult) changeMathTree(deletionResult);
+                event.preventDefault();
                 break;
             case " ": // Space
                 let replacementResult = MathTree.applyReplacementShortcut(mathTree);
@@ -264,12 +285,14 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
                     setLocalMathTree(replacementResult.tree);// This removes the previously added characters
                     addSymbol(replacementResult.symbol);// This adds the new symbol (and updates the tree for Undo/Redo)
                 }
+                event.preventDefault();
                 break;
             default:
                 if (Object.values(MathNodes.DELIMITERS).includes(event.key)){
                     if (parent.rightsymbol===event.key && parent.children[parent.children.length-1].iscursor){
                         // Close the delimiter
                         setLocalMathTree(MathTree.shiftCursor(mathTree,"right"));
+                        event.preventDefault();
                     }
                 }
                 break;
@@ -347,28 +370,14 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
         }
     }
 
-    const addListeners = () => {
-        // Ensure MathJax renders first
-        setTimeout(() => {
-            document.querySelectorAll(".math-node").forEach((el) => {
-                el.addEventListener("click",handleClick);
-            });
-        }, 500); // Small delay to allow rendering. TODO : change this
-
-        // Keyboard handling
-        window.addEventListener("keydown", handleKeyDown);
-    };
-
-    const removeListeners = () => {
-        window.removeEventListener("keydown", handleKeyDown);
-        document.querySelectorAll(".mjx-char").forEach((el) => {
-            el.removeEventListener("click",handleClick); // Remove listeners on unmount
-        });
-    };
-
     useEffect(() => { // Times where I need to change the listeners...
-        addListeners();
-        return () => removeListeners();
+        const domElement = domRef.current;
+        if (domElement) domElement.addEventListener("click",handleClick);
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+            if (domElement) domElement.removeEventListener("click",handleClick);
+            window.removeEventListener("keydown", handleKeyDown);
+        }
     }, [mathTree,command]);
 
     useLayoutEffect(() => { // Updates the formula and thus the displayed equation
@@ -380,9 +389,9 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
     const tag = numbering ? `\\tag{${numbering}}` : "";
 
   return (
-    <>
-        {true && <MathJax key={formula} inline={inline}>{`${delimiter} ${formula} ${tag} ${delimiter}`}</MathJax>}
-    </>
+    <div ref={domRef} className={inline?"inline":""}>
+        <MathJax key={formula} inline={inline}>{`${delimiter} ${formula} ${tag} ${delimiter}`}</MathJax>
+    </div>
   );
 });
 

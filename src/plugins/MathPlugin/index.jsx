@@ -25,7 +25,8 @@ import {
   SELECTION_CHANGE_COMMAND,
   DELETE_CHARACTER_COMMAND,
   $createRangeSelection,
-  COMMAND_PRIORITY_NORMAL
+  COMMAND_PRIORITY_NORMAL,
+  COMMAND_PRIORITY_CRITICAL
 } from 'lexical';
 import { $createMathNode, MathNode } from '../../nodes/MathNode';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -230,6 +231,7 @@ export default function MathPlugin() {
       editor.registerCommand(
         KEY_DELETE_COMMAND,
         (event) => {
+          console.log("okdsdsd");
           const selectedNode = $getCurrentMathNode();
           if (selectedNode){
             const mathTree = selectedNode.getMathTree();
@@ -241,6 +243,26 @@ export default function MathPlugin() {
           return false; 
         },
         COMMAND_PRIORITY_HIGH
+      ),
+      editor.registerCommand(
+        KEY_ENTER_COMMAND,
+        (event) => {
+          console.log("ok");
+          const selectedNode = $getCurrentMathNode();
+          if (selectedNode){
+            const mathTree = selectedNode.getMathTree();
+            
+            if (MathTree.isCursorAtEnd(mathTree)){
+              event.preventDefault();
+              const newnode = $createParagraphNode();
+              newnode.select();
+              selectedNode.insertAfter(newnode);// Insert after AuthorListNode
+              return true;
+            }
+          }
+          return false; 
+        },
+        COMMAND_PRIORITY_CRITICAL // Apparently to override default lexical behaviour (even though it does nothing)
       ),
       editor.registerCommand(
         SELECTION_CHANGE_COMMAND,
