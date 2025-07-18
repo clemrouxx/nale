@@ -231,7 +231,6 @@ export default function MathPlugin() {
       editor.registerCommand(
         KEY_DELETE_COMMAND,
         (event) => {
-          console.log("okdsdsd");
           const selectedNode = $getCurrentMathNode();
           if (selectedNode){
             const mathTree = selectedNode.getMathTree();
@@ -247,7 +246,6 @@ export default function MathPlugin() {
       editor.registerCommand(
         KEY_ENTER_COMMAND,
         (event) => {
-          console.log("ok");
           const selectedNode = $getCurrentMathNode();
           if (selectedNode){
             const mathTree = selectedNode.getMathTree();
@@ -275,11 +273,14 @@ export default function MathPlugin() {
                   const previousSibling = $getNodeByKey(selectedMathNode.getKey()).getPreviousSibling();
                   const previousSiblingKey = previousSibling ? previousSibling.getKey() : null;
                   const mathTree = selectedMathNode.getMathTree();
-                  if (previousSiblingKey === lastSelectionKey){
+                  const currentEditMode = MathTree.getEditMode(mathTree);
+                  if (currentEditMode === "none"){
+                    if (previousSiblingKey === lastSelectionKey){
                       selectedMathNode.setMathTree(MathTree.appendCursor(mathTree,true));
-                  }
-                  else{
+                    }
+                    else{
                       selectedMathNode.setMathTree(MathTree.appendCursor(mathTree,false));
+                    }
                   }
                 }
                 setLastSelectionKey(selection.getNodes()[0].getKey());
