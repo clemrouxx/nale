@@ -28,17 +28,20 @@ const getShortcut = (symbol) => reversedShortcuts[symbol] ? `${reversedShortcuts
 
 export function VirtualKeyboardContainer() {
   const { activeNode } = useActiveNode();
+  const [isOpen,setOpen] = useState(true);
+  const shouldBeVisible = (activeNode && activeNode.getType()==="math");
   
-  //console.log(activeNode);
-  // Only render VirtualKeyboard when needed
-  if (!activeNode || activeNode.getType()!=="math") return null;
-  
-  // Still pretty slow. Maybe need to switch to KaTeX which is apparently faster.
-  return <VirtualKeyboard />;
+  return (
+  <div className={`span2cols ${shouldBeVisible?"visible":"hidden"}`}>
+    <div className={"drawer-handle horizontal " + (isOpen?"down":"up")} onClick={()=>{setOpen(!isOpen)}} title="Toggle Virtual Keyboard"></div>
+    <div className={isOpen?"visible":"hidden"}>
+      <VirtualKeyboard />
+    </div>
+  </div>
+  );
 }
 
 const VirtualKeyboard = React.memo(() => {
-    const [isOpen,setOpen] = useState(true);
     const scrollRef = useRef(null);
 
     // For horizontal scrolling
@@ -65,28 +68,23 @@ const VirtualKeyboard = React.memo(() => {
     }, []);
 
     return (
-      <div className="span2cols">
-          <div className={"drawer-handle horizontal " + (isOpen?"down":"up")} onClick={()=>{setOpen(!isOpen)}} title="Toggle Virtual Keyboard"></div>
-          {isOpen && (
-              <MathJax>
-              <div className="virtual-keyboard" ref={scrollRef}>
-                  <CommonConstructsCategory />
-                  <StylesCategory/>
-                  <Category title="Accents" symbols={ACCENTS}/>
-                  <Category title="Greek letters" symbols={GREEK_LETTERS}/>
-                  <Category title="Binary operators" symbols={BINARY_OPERATORS} nKeysShown={14}/>
-                  <Category title="Equivalence" symbols={RELATIONS} nKeysShown={16}/>
-                  <Category title="Ordering" symbols={ORDER} nKeysShown={17}/>
-                  <Category title="Arrows" symbols={ARROWS} nKeysShown={15}/>
-                  <Category title="Miscellaneous" symbols={MISC} nKeysShown={18}/>
-                  <Category title="Functions..." symbols={NAMED_FUNCTIONS} nKeysShown={16}/>
-                  <Category title="Other delimiters & constructs" symbols={CONSTRUCTS} nKeysShown={15} keyClassName="larger-button" className="less-rows"/>
-                  <DelimiterSizeCategory/>
-                  <MultilineCategory/>
-              </div>
-              </MathJax>
-          )}
-      </div>
+      <MathJax>
+        <div className="virtual-keyboard" ref={scrollRef}>
+            <CommonConstructsCategory />
+            <StylesCategory/>
+            <Category title="Accents" symbols={ACCENTS}/>
+            <Category title="Greek letters" symbols={GREEK_LETTERS}/>
+            <Category title="Binary operators" symbols={BINARY_OPERATORS} nKeysShown={14}/>
+            <Category title="Equivalence" symbols={RELATIONS} nKeysShown={16}/>
+            <Category title="Ordering" symbols={ORDER} nKeysShown={17}/>
+            <Category title="Arrows" symbols={ARROWS} nKeysShown={15}/>
+            <Category title="Miscellaneous" symbols={MISC} nKeysShown={18}/>
+            <Category title="Functions..." symbols={NAMED_FUNCTIONS} nKeysShown={16}/>
+            <Category title="Other delimiters & constructs" symbols={CONSTRUCTS} nKeysShown={15} keyClassName="larger-button" className="less-rows"/>
+            <DelimiterSizeCategory/>
+            <MultilineCategory/>
+        </div>
+      </MathJax>
     );
 });
 
