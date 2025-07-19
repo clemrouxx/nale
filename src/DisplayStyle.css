@@ -151,11 +151,11 @@
 }
 
 .editor-base img.focused{
-    outline: dotted orangered 3px;
+    outline: solid var(--selection-primary) 3px;
 }
 
 .editor-reference .selected, .editor-citation .selected{
-    color : orangered;
+    color : var(--selection-primary);
 }
 
 .editor-base a {
