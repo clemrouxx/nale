@@ -19,17 +19,17 @@
   min-width: 300px;
   display: flex;
   flex-grow: 0px;
-  background-color: #fff;
+  background-color: var(--bg-contrasted);
   flex-direction: column;
   position: relative;
-  box-shadow: 0 0 20px 0 #444;
+  box-shadow: 0 0 20px 0 #333;
   border-radius: 10px;
 }
 .Modal__title {
-  color: #444;
+  color: var(--text-colored);
   margin: 0px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--border-primary);
 }
 .Modal__closeButton {
   border: 0px;
@@ -43,11 +43,8 @@
   height: 30px;
   text-align: center;
   cursor: pointer;
-  background-color: #eee;
 }
-.Modal__closeButton:hover {
-  background-color: #ddd;
-}
+
 .Modal__content {
   padding-top: 20px;
 }

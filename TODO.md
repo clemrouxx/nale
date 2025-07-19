@@ -1,6 +1,7 @@
 # TODO list
 ## Bugs
 - Different bugs (and maybe lag) when trying to select a math node.
+- Can't add internal references anymore for some reason
 
 ## Features
 ### Priority features
