@@ -14,22 +14,6 @@ export function InsertReferenceButton() {
 
   const close = () => setIsDropdownOpen(false);
 
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    }
-
-    if (isDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isDropdownOpen]);
-
   return (
     <div ref={dropdownRef}>
     <button onClick={()=>setIsDropdownOpen(!isDropdownOpen)} className="toolbar-item"><i className="icon insert-reference"/><span className="text">Internal reference</span></button>
@@ -39,7 +23,7 @@ export function InsertReferenceButton() {
         <div className="item">
           <DropDown disabled={Object.keys(numberedHeadings).length===0} onClose={close} buttonLabel={"Section..."} position='right' buttonClassName={"toolbar-item nopadding"}>
           {numberedHeadings.map((info) => (
-              <DropDownItem key={info.label} onClick={() => insertReferenceNode(editor,info.label)} className={"item"}>
+              <DropDownItem key={info.label} onClick={() => insertReferenceNode(editor,info.label)}>
                 {info.numberingString} - {info.textContent}
               </DropDownItem>
             ))}
@@ -49,7 +33,7 @@ export function InsertReferenceButton() {
         <div className="item">
           <DropDown disabled={Object.keys(figures).length===0} onClose={close} buttonLabel={"Figure..."} position='right' buttonClassName={"toolbar-item nopadding"}>
           {figures.map((info) => (
-              <DropDownItem key={info.label} onClick={() => insertReferenceNode(editor,info.label)} className={"item"}>
+              <DropDownItem key={info.label} onClick={() => insertReferenceNode(editor,info.label)}>
                 Fig. {info.numberingString} : {truncate(info.textContent,30)}
               </DropDownItem>
             ))}
@@ -59,7 +43,7 @@ export function InsertReferenceButton() {
         <div className="item">
           <DropDown disabled={Object.keys(numberedEquations).length===0} onClose={close} buttonLabel={"Equation..."} position='right' buttonClassName={"toolbar-item nopadding"}>
           {numberedEquations.map((info) => (
-              <DropDownItem key={info.label} onClick={() => insertReferenceNode(editor,info.label)} className={"item"}>
+              <DropDownItem key={info.label} onClick={() => insertReferenceNode(editor,info.label)}>
                 {`(${info.numberingString}) `} <MathJax inline={true}>{`$ ${info.formula} $`}</MathJax>
               </DropDownItem>
             ))}
