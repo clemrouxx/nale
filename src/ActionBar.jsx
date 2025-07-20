@@ -6,7 +6,7 @@ import { setGlobalCSSRule } from './utils/generalUtils';
 import { useDisplayOptions, zoomFactors } from './plugins/DisplayOptionsContext';
 import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
 import DropDown, { DropDownItem } from './ui/DropDown';
-import { handleFileChange, saveInFile } from './plugins/SaveLoadPlugin';
+import { useSave } from './plugins/SaveLoadPlugin';
 import { useDocumentStructureContext } from "./plugins/NumberingPlugin/DocumentStructureContext";
 
 export const ActionBar = () => {
@@ -20,10 +20,9 @@ export const ActionBar = () => {
 }
 
 const FileButton = () => {
+    const {documentOptions} = useDocumentOptions();
     const [editor] = useLexicalComposerContext();
-    const {documentOptions,setDocumentOptions} = useDocumentOptions();
-    const {nextLabelNumber,setNextLabelNumber} = useDocumentStructureContext();
-    const {biblio,setBiblio} = useDocumentStructureContext();
+    const { saveAs, quickSave, handleFileChange } = useSave();
 
     const readEditorState = () => {
         editor.getEditorState().read(() => {
@@ -37,18 +36,23 @@ const FileButton = () => {
         <>
             <input
                 type="file"
-                onChange={(e)=>handleFileChange(editor,setDocumentOptions,setBiblio,setNextLabelNumber,e)}
-                style={{ display: 'none' }}
+                onChange={handleFileChange}
+                className='hidden'
                 id="fileInput"
             />
             <DropDown buttonLabel={"File"}>
-                <DropDownItem onClick={()=>{saveInFile(editor,documentOptions,biblio,nextLabelNumber)}}>Save</DropDownItem>
+                <DropDownItem onClick={quickSave}>Save</DropDownItem>
+                <DropDownItem onClick={saveAs}>Save As...</DropDownItem>
                 <DropDownItem onClick={() => document.getElementById('fileInput').click()}>Load</DropDownItem>
                 <DropDownItem onClick={readEditorState}>Export to LaTeX</DropDownItem>
             </DropDown>
         </>
-        
     );
+    /*
+    
+            */
+    
+    //
 }
 
 const DisplayMenu = () => {

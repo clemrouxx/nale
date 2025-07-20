@@ -6,6 +6,7 @@ import { ActionBar } from "./ActionBar";
 import { DisplayOptionsProvider } from "./plugins/DisplayOptionsContext";
 import { DocumentStructureProvider } from "./plugins/NumberingPlugin/DocumentStructureContext";
 import { MathJaxContext } from "better-react-mathjax";
+import { SaveProvider } from "./plugins/SaveLoadPlugin";
 
 const mathJaxConfig = {
   loader: { load: ["[tex]/html","[tex]/ams","[tex]/physics",'[tex]/boldsymbol'] },
@@ -32,10 +33,12 @@ function App() {
         <DocumentOptionsProvider>
         <DocumentStructureProvider>
         <DisplayOptionsProvider>
+        <SaveProvider>
         <MathJaxContext config={mathJaxConfig}>
           <ActionBar/>
           <Editor />
         </MathJaxContext>
+        </SaveProvider>
         </DisplayOptionsProvider>
         </DocumentStructureProvider>
         </DocumentOptionsProvider>

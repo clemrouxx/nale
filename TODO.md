@@ -11,6 +11,7 @@
 - Footnotes
 - Authors
 - Better Save/Load (should ask for the file saving location, and override if necessary)
+- Working shortcuts and shortcuts indications
 
 ### Useful features
 - Export to PDF through LaTeX compilation
