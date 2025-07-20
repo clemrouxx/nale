@@ -1,6 +1,5 @@
 # TODO list
 ## Bugs
-- Different bugs (and maybe lag) when trying to select a math node.
 
 ## Features
 ### Priority features
@@ -11,6 +10,7 @@
 - Tables
 - Footnotes
 - Authors
+- Better Save/Load (should ask for the file saving location, and override if necessary)
 
 ### Useful features
 - Export to PDF through LaTeX compilation
