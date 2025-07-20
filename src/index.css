@@ -21,8 +21,11 @@ body {
 button {
   border-radius: 8px;
   padding: 0.6em 1.2em;
-  cursor: pointer;
   border: 0;
+}
+
+button:not([disabled]){
+  cursor: pointer;
 }
 
 button:focus,

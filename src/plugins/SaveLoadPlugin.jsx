@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { useDocumentOptions } from './Options/DocumentOptionsContext';
 import { useDocumentStructureContext } from './NumberingPlugin/DocumentStructureContext';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -12,6 +12,25 @@ export function SaveProvider({ children }) {
   const [editor] = useLexicalComposerContext();
   const {documentOptions, setDocumentOptions} = useDocumentOptions();
   const {nextLabelNumber, setNextLabelNumber, biblio, setBiblio} = useDocumentStructureContext();
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        quickSave();
+      }
+      else if (e.ctrlKey && e.key === 'S') {
+        e.preventDefault();
+        saveAs();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [lastFilename]);
 
   // Export/Save editor state to file
   const saveInFile = (filename) => {
@@ -74,10 +93,10 @@ export function SaveProvider({ children }) {
 }
 
 // Custom hook to use save context
-export function useSave() {
+export function useSaveLoadContext() {
   const context = useContext(SaveContext);
   if (!context) {
-    throw new Error('useSave must be used within a SaveProvider');
+    throw new Error('useSaveLoadContext must be used within a SaveProvider');
   }
   return context;
 }

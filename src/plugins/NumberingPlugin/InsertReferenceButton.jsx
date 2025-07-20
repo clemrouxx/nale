@@ -19,9 +19,9 @@ export function InsertReferenceButton() {
     <button onClick={()=>setIsDropdownOpen(!isDropdownOpen)} className="toolbar-item"><i className="icon insert-reference"/><span className="text">Internal reference</span></button>
     {isDropdownOpen && 
     (
-      <div className='dropdown'>
+      <div className='dropdown primary-dropdown'>
         <div className="item">
-          <DropDown disabled={Object.keys(numberedHeadings).length===0} onClose={close} buttonLabel={"Section..."} position='right' buttonClassName={"toolbar-item nopadding"}>
+          <DropDown disabled={Object.keys(numberedHeadings).length===0} onClose={close} buttonLabel={"Section..."} position='right' buttonClassName={""}>
           {numberedHeadings.map((info) => (
               <DropDownItem key={info.label} onClick={() => insertReferenceNode(editor,info.label)}>
                 {info.numberingString} - {info.textContent}
@@ -31,7 +31,7 @@ export function InsertReferenceButton() {
         </div>
 
         <div className="item">
-          <DropDown disabled={Object.keys(figures).length===0} onClose={close} buttonLabel={"Figure..."} position='right' buttonClassName={"toolbar-item nopadding"}>
+          <DropDown disabled={Object.keys(figures).length===0} onClose={close} buttonLabel={"Figure..."} position='right' buttonClassName={""}>
           {figures.map((info) => (
               <DropDownItem key={info.label} onClick={() => insertReferenceNode(editor,info.label)}>
                 Fig. {info.numberingString} : {truncate(info.textContent,30)}
@@ -41,7 +41,7 @@ export function InsertReferenceButton() {
         </div>
 
         <div className="item">
-          <DropDown disabled={Object.keys(numberedEquations).length===0} onClose={close} buttonLabel={"Equation..."} position='right' buttonClassName={"toolbar-item nopadding"}>
+          <DropDown disabled={Object.keys(numberedEquations).length===0} onClose={close} buttonLabel={"Equation..."} position='right' buttonClassName={""}>
           {numberedEquations.map((info) => (
               <DropDownItem key={info.label} onClick={() => insertReferenceNode(editor,info.label)}>
                 {`(${info.numberingString}) `} <MathJax inline={true}>{`$ ${info.formula} $`}</MathJax>

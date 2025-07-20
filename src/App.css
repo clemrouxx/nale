@@ -71,7 +71,7 @@ button{
   background-color: var(--bg-intermediate);
 }
 
-button:hover{
+button:hover:not([disabled]){
   background-color: var(--bg-softer);
 }
 

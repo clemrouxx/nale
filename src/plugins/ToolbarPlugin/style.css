@@ -342,10 +342,6 @@ i.chevron-right{ background-image: url(images/icons/chevron-right.svg) }
   align-items: center;
 }
 
-.dropdown button {
-  cursor: pointer;
-}
-
 .dropdown button:focus {
   outline: none;
 }
@@ -355,10 +351,6 @@ i.chevron-right{ background-image: url(images/icons/chevron-right.svg) }
   margin-left: 0;
   margin-right: 0;
   box-sizing: border-box;
-}
-
-.dropdown .item:not(.can-be-wide){
-  /*max-width: 250px;*/
 }
 
 .dropdown .item.wide {
@@ -376,6 +368,7 @@ i.chevron-right{ background-image: url(images/icons/chevron-right.svg) }
 .dropdown .item .shortcut {
   color: var(--text-muted);
   align-self: flex-end;
+  margin-left: 0.5em;
 }
 
 .dropdown .item .active {
@@ -385,7 +378,7 @@ i.chevron-right{ background-image: url(images/icons/chevron-right.svg) }
   background-size: contain;
 }
 
-.dropdown .item:hover{
+.dropdown .item:hover:not([disabled]){
   background-color: var(--bg-softer);
 }
 
@@ -393,7 +386,7 @@ i.chevron-right{ background-image: url(images/icons/chevron-right.svg) }
   display: flex;
   line-height: 20px;
   flex-grow: 1;
-  min-width: 150px;
+  margin-right: 0.5em;
 }
 
 .dropdown .item i {
@@ -416,4 +409,20 @@ i.chevron-right{ background-image: url(images/icons/chevron-right.svg) }
   background-color: var(--border-primary);
   margin: 4px 8px;
   height: 1px;
+}
+
+.primary-dropdown > .item > button{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px;
+}
+
+.primary-dropdown > .item > button > i{
+  margin-right: 0;
+  margin-left: 0.5em;
+}
+
+.primary-dropdown > *{
+  padding: 0;
 }

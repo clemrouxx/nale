@@ -6,7 +6,7 @@ import { setGlobalCSSRule } from './utils/generalUtils';
 import { useDisplayOptions, zoomFactors } from './plugins/DisplayOptionsContext';
 import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
 import DropDown, { DropDownItem } from './ui/DropDown';
-import { useSave } from './plugins/SaveLoadPlugin';
+import { useSaveLoadContext } from './plugins/SaveLoadPlugin';
 import { useDocumentStructureContext } from "./plugins/NumberingPlugin/DocumentStructureContext";
 
 export const ActionBar = () => {
@@ -22,7 +22,7 @@ export const ActionBar = () => {
 const FileButton = () => {
     const {documentOptions} = useDocumentOptions();
     const [editor] = useLexicalComposerContext();
-    const { saveAs, quickSave, handleFileChange } = useSave();
+    const { saveAs, quickSave, handleFileChange } = useSaveLoadContext();
 
     const readEditorState = () => {
         editor.getEditorState().read(() => {
@@ -41,8 +41,8 @@ const FileButton = () => {
                 id="fileInput"
             />
             <DropDown buttonLabel={"File"}>
-                <DropDownItem onClick={quickSave}>Save</DropDownItem>
-                <DropDownItem onClick={saveAs}>Save As...</DropDownItem>
+                <DropDownItem onClick={quickSave}><span className="text">Save</span><span className="shortcut">Ctrl + S</span></DropDownItem>
+                <DropDownItem onClick={saveAs}><span className="text">Save As...</span><span className="shortcut">Ctrl + Shift + S</span></DropDownItem>
                 <DropDownItem onClick={() => document.getElementById('fileInput').click()}>Load</DropDownItem>
                 <DropDownItem onClick={readEditorState}>Export to LaTeX</DropDownItem>
             </DropDown>
