@@ -26,6 +26,10 @@ export function SaveProvider({ children }) {
         e.preventDefault();
         saveAs();
       }
+      else if (e.ctrlKey && e.key==="o"){
+        e.preventDefault();
+        document.getElementById('mainFileInput').click();
+      }
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => {
