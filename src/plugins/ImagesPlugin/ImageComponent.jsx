@@ -50,6 +50,8 @@ function useSuspenseImage(src) {
 
 function LazyImage({className,imageRef,src,width,height,maxWidth,onError}) {
 
+    console.log(src);
+
     const hasError = useSuspenseImage(src);
 
     useEffect(() => {
@@ -84,23 +86,21 @@ function BrokenImage() {
     );
 }
 
-export default function ImageComponent({src,altText,nodeKey,width,height,maxWidth,resizable}) {
+export default function ImageComponent({src,filename,altText,nodeKey,width,height,maxWidth,resizable}) {
     const imageRef = useRef(null);
     const [isSelected, setSelected, clearSelection] =
         useLexicalNodeSelection(nodeKey);
-    const [isResizing, setIsResizing] = useState(false);
     const [editor] = useLexicalComposerContext();
     const [selection, setSelection] = useState(null);
     const [isLoadError, setIsLoadError] = useState(false);
     const isEditable = useLexicalEditable();
 
+    const isPDF = (filename.split(".").pop()==="pdf");
+
     const onClick = useCallback(
         (payload) => {
             const event = payload;
 
-            if (isResizing) {
-                return true;
-            }
             if (event.target === imageRef.current) {
                 if (event.shiftKey) {
                     setSelected(!isSelected);
@@ -113,7 +113,7 @@ export default function ImageComponent({src,altText,nodeKey,width,height,maxWidt
 
             return false;
         },
-        [isResizing, isSelected, setSelected, clearSelection],
+        [isSelected, setSelected, clearSelection],
     );
 
     const onRightClick = useCallback(
@@ -160,7 +160,6 @@ export default function ImageComponent({src,altText,nodeKey,width,height,maxWidt
     }, [
         clearSelection,
         editor,
-        isResizing,
         isSelected,
         nodeKey,
         onClick,
@@ -168,40 +167,29 @@ export default function ImageComponent({src,altText,nodeKey,width,height,maxWidt
         setSelected,
     ]);
 
-    /*const onResizeEnd = (
-        nextWidth,
-        nextHeight,
-    ) => {
-        // Delay hiding the resize bars for click case
-        setTimeout(() => {
-        setIsResizing(false);
-        }, 200);
+    const isFocused = isSelected && isEditable;
 
-        editor.update(() => {
-        const node = $getNodeByKey(nodeKey);
-        if ($isImageNode(node)) {
-            node.setWidthAndHeight(nextWidth, nextHeight);
-        }
-        });
-    };
+    if (isPDF){
+        const PDF_parameterString = "#toolbar=0&navpanes=0&scrollbar=0&view=Fit&zoom=100";
+        return (
+        <iframe src={src+PDF_parameterString} style={{width}}>
+            Your browser doesn't support PDF viewing.
+        </iframe>
+        );
+    }
 
-    const onResizeStart = () => {
-        setIsResizing(true);
-    };*/
-
-    const draggable = isSelected && $isNodeSelection(selection) && !isResizing;
-    const isFocused = (isSelected || isResizing) && isEditable;
+    // Else
     return (
         <Suspense fallback={null}>
         <>
-            <span draggable={draggable}>
+            <span>
             {isLoadError ? (
                 <BrokenImage />
             ) : (
                 <LazyImage
                 className={
                     isFocused
-                    ? `focused ${$isNodeSelection(selection) ? 'draggable' : ''}`
+                    ? `focused`
                     : null
                 }
                 src={src}
@@ -214,17 +202,6 @@ export default function ImageComponent({src,altText,nodeKey,width,height,maxWidt
                 />
             )}
             </span>
-            
-            {/*resizable && $isNodeSelection(selection) && isFocused && (
-            <ImageResizer
-                editor={editor}
-                buttonRef={buttonRef}
-                imageRef={imageRef}
-                maxWidth={maxWidth}
-                onResizeStart={onResizeStart}
-                onResizeEnd={onResizeEnd}
-            />
-            )*/}
         </>
         </Suspense>
     );

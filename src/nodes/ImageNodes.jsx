@@ -66,7 +66,8 @@ export class SimpleImageNode extends DecoratorNode {
       return (
         <ImageComponent
           src={this.__src}
-          width={widthString}// To change !!! (take scale into account)
+          filename={this.__filename}
+          width={widthString}
           nodeKey={this.getKey()}
           showCaption={false}
           captionsEnabled={false}
