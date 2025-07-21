@@ -9,10 +9,12 @@ const SaveContext = createContext();
 // Save Provider Component
 export function SaveProvider({ children }) {
   const [lastFilename, setLastFilename] = useState('article.nale');
+  const [lastFileHandle, setLastFileHandle] = useState(null);
   const [editor] = useLexicalComposerContext();
   const {documentOptions, setDocumentOptions} = useDocumentOptions();
   const {nextLabelNumber, setNextLabelNumber, biblio, setBiblio} = useDocumentStructureContext();
 
+  // Shortcuts
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.ctrlKey && e.key === 's') {
@@ -24,47 +26,65 @@ export function SaveProvider({ children }) {
         saveAs();
       }
     };
-
     document.addEventListener('keydown', handleKeyDown);
-    
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [lastFilename]);
+  }, [lastFileHandle,lastFilename]);
 
-  // Export/Save editor state to file
-  const saveInFile = (filename) => {
-    setLastFilename(filename);
+  // Returns a string to save in a file
+  const getTextToSave = () => {
     const editorState = editor.getEditorState().toJSON();
     const toSave = {editorState,documentOptions,biblio,documentStructure:{nextLabelNumber}};
-    const serializedState = JSON.stringify(toSave, null, 2);
-    
-    // Create blob and download link
-    const blob = new Blob([serializedState], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    
-    // Create temporary download link
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    link.style.display = 'none';
-    
-    // Trigger download
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    // Clean up object URL
-    URL.revokeObjectURL(url);
+    return JSON.stringify(toSave, null, 2);
   }
 
-  const saveAs = () => {
-    const filename = prompt("Enter filename:" || "article");
-    saveInFile(filename+".nale");
+  // Export/Save editor state to file (without Api)
+  const directSaveInFile = (filename) => {
+    setLastFilename(filename);
+    const serializedState = getTextToSave();
+    downloadJsonFile(filename,serializedState);
   }
 
-  const quickSave = () => {
-    saveInFile(lastFilename);
+  // Same, but using File System Access API
+  const saveAsWithApi = async () => {
+    const options = {
+          suggestedName:"article.nale",
+          types: [{ description: 'NALE files', accept: { 'application/nale': ['.nale'] } }]
+        };
+    const fileHandle = await window.showSaveFilePicker(options);
+    setLastFileHandle(fileHandle);
+    setLastFilename(fileHandle.name);
+    const writable = await fileHandle.createWritable();
+    await writable.write(getTextToSave());
+    await writable.close();
+    return true; // Success
+  };
+
+  const saveAs = async () => {
+    if (isFileApiAvaillable()){
+      await saveAsWithApi();
+    }
+    else{
+      const filename = prompt("Enter filename:" || "article"); // !!! Maybe this should be a nicer modal window
+      directSaveInFile(filename+".nale");
+    }
+  }
+
+  const quickSave = async () => {
+    if (isFileApiAvaillable()){
+      if (lastFileHandle){
+        // Directly overwrite the same file
+        const writable = await lastFileHandle.createWritable();
+        await writable.write(getTextToSave());
+        await writable.close();
+        return true;
+      }
+      else{// First time saving... default to the same as saveAs
+        await saveAsWithApi();
+      }
+    }
+    else directSaveInFile(lastFilename);
   }
 
   // File input handler for loading files
@@ -82,7 +102,6 @@ export function SaveProvider({ children }) {
 
   return (
     <SaveContext.Provider value={{ 
-      saveInFile, 
       saveAs, 
       quickSave,
       handleFileChange
@@ -128,7 +147,28 @@ function importFile(editor, setDocumentOptions, setBiblio, setNextLabelNumber, f
   reader.readAsText(file);
 }
 
+function downloadJsonFile(filename,content){
+  // Create blob and download link
+  const blob = new Blob([content], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  // Create temporary download link
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  link.style.display = 'none';
+  // Trigger download
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  // Clean up object URL
+  URL.revokeObjectURL(url);
+}
+
 const getOriginalFilename = (filename) => {
   // Remove " (number)" pattern before the file extension
   return filename.replace(/ \(\d+\)(?=\.[^.]*$)/, '');
 };
+
+function isFileApiAvaillable(){
+  return ('showSaveFilePicker' in window);
+}
