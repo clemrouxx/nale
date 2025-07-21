@@ -11,7 +11,7 @@
   --accent-primary: #1e40af;
   --accent-success: #047857;
   --accent-warning: #d97706;
-  --accent-danger: #dc2626;
+  --accent-error: #dc2626;
   --selection-primary: #0084a5;
   --selection-secondary: #32a56a;
   
@@ -40,7 +40,7 @@
     --accent-primary: #2563eb;
     --accent-success: #059669;
     --accent-warning: #ea580c;
-    --accent-danger: #e11d48;
+    --accent-error: #e11d48;
     
     /* Text colors */
     --text-primary: #0f2a19;
@@ -225,4 +225,32 @@ button:hover:not([disabled]){
 .tooltip:hover::before {
   opacity: 1;
   visibility: visible;
+}
+
+.toast{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  color: var(--text-primary);
+  background-color: var(--bg-intermediate);
+  padding: 12px 16px;
+  border-radius: 4px;
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.toast.success{
+  background: var(--accent-success);
+  color: white;
+}
+
+.toast.warning{
+  background: var(--accent-warning);
+  color: white;
+}
+
+.toast.error{
+  background: var(--accent-error);
+  color: white;
 }

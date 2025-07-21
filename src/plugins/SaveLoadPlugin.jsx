@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import { useDocumentOptions } from './Options/DocumentOptionsContext';
 import { useDocumentStructureContext } from './NumberingPlugin/DocumentStructureContext';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { showToast } from '../ui/Toast';
 
 // Create the Save Context
 const SaveContext = createContext();
@@ -78,6 +79,7 @@ export function SaveProvider({ children }) {
         const writable = await lastFileHandle.createWritable();
         await writable.write(getTextToSave());
         await writable.close();
+        showToast("Saved !",2000,"success");// Needs some user feedback because it is otherwise invisible
         return true;
       }
       else{// First time saving... default to the same as saveAs
