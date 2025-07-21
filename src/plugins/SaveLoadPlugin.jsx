@@ -3,6 +3,7 @@ import { useDocumentOptions } from './Options/DocumentOptionsContext';
 import { useDocumentStructureContext } from './NumberingPlugin/DocumentStructureContext';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { showToast } from '../ui/Toast';
+import { CLEAR_HISTORY_COMMAND } from 'lexical';
 
 // Create the Save Context
 const SaveContext = createContext();
@@ -49,6 +50,7 @@ export function SaveProvider({ children }) {
     setLastFilename(filename);
     const serializedState = getTextToSave();
     downloadJsonFile(filename,serializedState);
+    editor.dispatchCommand(CLEAR_HISTORY_COMMAND); // Reset History
   }
 
   // Same, but using File System Access API
@@ -63,6 +65,7 @@ export function SaveProvider({ children }) {
     const writable = await fileHandle.createWritable();
     await writable.write(getTextToSave());
     await writable.close();
+    editor.dispatchCommand(CLEAR_HISTORY_COMMAND); // Reset History
     return true; // Success
   };
 
@@ -139,9 +142,11 @@ function importFile(editor, setDocumentOptions, setBiblio, setNextLabelNumber, f
       setDocumentOptions(parsedContent.documentOptions);
       setBiblio(parsedContent.biblio);
       setNextLabelNumber(parsedContent.documentStructure.nextLabelNumber);
+      editor.dispatchCommand(CLEAR_HISTORY_COMMAND); // Reset History
     } catch (error) {
       console.error('Invalid file format:', error.message);
       alert('Error: Invalid file format');
+      return;
     }
   };
   
