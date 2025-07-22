@@ -20,7 +20,7 @@ import {
 import {useEffect, useRef, useState} from 'react';
 import * as React from 'react';
 
-import yellowFlowerImage from '../../images/sample.jpg';
+import sampleImage from '../../images/sample.pdf';
 import { $createSimpleImageNode, SimpleImageNode } from '../../nodes/ImageNodes';
 import FileInput from '../../ui/FileInput';
 import TextInput from '../../ui/TextInput';
@@ -132,7 +132,7 @@ export function InsertImageDialog({
           <button
             data-test-id="image-modal-option-sample"
             onClick={() =>
-              onClick({src: yellowFlowerImage,filename:"sample.jpg"})
+              onClick({src: sampleImage,filename:"sample.pdf"})
             }>
             Sample
           </button>
