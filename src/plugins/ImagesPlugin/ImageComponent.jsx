@@ -49,9 +49,6 @@ function useSuspenseImage(src) {
 }
 
 function LazyImage({className,imageRef,src,width,height,maxWidth,onError}) {
-
-    console.log(src);
-
     const hasError = useSuspenseImage(src);
 
     useEffect(() => {

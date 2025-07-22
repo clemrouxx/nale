@@ -18,11 +18,9 @@ import {
   DELETE_CHARACTER_COMMAND,
 } from 'lexical';
 import {useEffect, useRef, useState} from 'react';
-import * as React from 'react';
 
 import yellowFlowerImage from '../../images/sample.jpg';
 import { $createSimpleImageNode, SimpleImageNode } from '../../nodes/ImageNodes';
-import FileInput from '../../ui/FileInput';
 import TextInput from '../../ui/TextInput';
 import { $createFigureNode } from '../../nodes/FigureNode';
 import { $onDeleteCharacterInCaption } from '../../nodes/CaptionNode';
@@ -57,49 +55,6 @@ export function InsertImageUriDialogBody({onClick}) {
   );
 }
 
-export function InsertImageUploadedDialogBody({
-  onClick,
-}) {
-  const [src, setSrc] = useState('');
-  const [filename,setFilename] = useState('');
-
-  const isDisabled = src === '';
-
-  const loadImage = (files) => {
-    const reader = new FileReader();
-    reader.onload = function () {
-      if (typeof reader.result === 'string') {
-        setSrc(reader.result);
-        setFilename(files[0].name);
-      }
-      return '';
-    };
-    if (files !== null) {
-      reader.readAsDataURL(files[0]);
-    }
-  };
-
-  return (
-    <>
-      <FileInput
-        label="Image Upload"
-        onChange={loadImage}
-        accept="image/*"
-        data-test-id="age-modal-file-upload"
-      />
-
-      <div>
-        <button
-          data-test-id="image-modal-file-upload-btn"
-          disabled={isDisabled}
-          onClick={() => onClick({src, filename})}>
-          Confirm
-        </button>
-      </div>
-    </>
-  );
-}
-
 export function InsertImageDialog({
   activeEditor,
   onClose,
@@ -107,6 +62,7 @@ export function InsertImageDialog({
 }) {
   const [mode, setMode] = useState(null);
   const hasModifier = useRef(false);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     hasModifier.current = false;
@@ -123,6 +79,20 @@ export function InsertImageDialog({
     if (figureMode) activeEditor.dispatchCommand(INSERT_FIGURE_COMMAND, payload);
     else activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, payload);
     onClose();
+  };
+
+  const loadFromFile = (e) => {
+    const files = e.target.files;
+    const reader = new FileReader();
+    reader.onload = function () {
+      if (typeof reader.result === 'string') {
+        onClick({src:reader.result,filename:files[0].name})
+      }
+      return '';
+    };
+    if (files !== null) {
+      reader.readAsDataURL(files[0]);
+    }
   };
 
   return (
@@ -143,13 +113,20 @@ export function InsertImageDialog({
           </button>
           <button
             data-test-id="image-modal-option-file"
-            onClick={() => setMode('file')}>
+            onClick={() => fileInputRef.current.click()}>
             File
           </button>
+          <input
+            type='file'
+            onChange={loadFromFile}
+            accept="application/pdf,image/jpeg,image/png"
+            data-test-id="age-modal-file-upload"
+            className="hidden"
+            ref={fileInputRef}
+          />
         </div>
       )}
       {mode === 'url' && <InsertImageUriDialogBody onClick={onClick} />}
-      {mode === 'file' && <InsertImageUploadedDialogBody onClick={onClick} />}
     </>
   );
 }
