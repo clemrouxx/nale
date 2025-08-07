@@ -22,7 +22,7 @@ function parseBibTeX(bibContent) {
         
         if (!typeKeyMatch) continue; // Skip if not properly formatted
         
-        const entryType = typeKeyMatch[1].toLowerCase();
+        const entryType = typeKeyMatch[1];
         const key = typeKeyMatch[2].trim();
         
         // Create the basic entry object
@@ -189,4 +189,24 @@ export function bibItemToHTML(bibItem) {
         {doi && <span className="citation-doi">, {doi}</span>}
       </div>
     );
-  }
+}
+
+export function jsonToBib(jsonArray) {
+  return jsonArray.map(entry => {
+    const key = entry.key;
+    const authors = entry.author
+      .map(a => `${a.firstName} ${a.lastName}`)
+      .join(" and ");
+
+    // Build fields string dynamically excluding `key` and `author`
+    const fields = Object.entries(entry)
+      .filter(([k]) => k !== "key" && k !== "author")
+      .map(([k, v]) => `  ${k} = {${v}}`)
+      .join(",\n");
+
+    return `@article{${key},
+  author = {${authors}},
+${fields}
+}`;
+  }).join('\n\n');
+}

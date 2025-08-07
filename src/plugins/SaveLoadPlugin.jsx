@@ -4,6 +4,7 @@ import { useDocumentStructureContext } from './NumberingPlugin/DocumentStructure
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { showToast } from '../ui/Toast';
 import { CLEAR_HISTORY_COMMAND } from 'lexical';
+import { jsonToBib } from '../utils/bibliographyUtils';
 
 // Create the Save Context
 const SaveContext = createContext();
