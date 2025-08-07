@@ -1,4 +1,5 @@
 import { ElementNode, $createParagraphNode, $getRoot, $getSelection, $isRangeSelection } from 'lexical';
+import { putInEnvironment } from '../plugins/LatexExportPlugin/latexUtils';
 
 export class AbstractNode extends ElementNode {
   static getType() {
@@ -31,9 +32,7 @@ export class AbstractNode extends ElementNode {
     return new AbstractNode();
   }
 
-  toLatex(childrenstring){
-    return `\\begin{abstract}\n${childrenstring}\\end{abstract}`;
-  }
+  toLatex(childrenstring){ return putInEnvironment(childrenstring,"abstract") }
 
   canBeEmpty(){
     return false;

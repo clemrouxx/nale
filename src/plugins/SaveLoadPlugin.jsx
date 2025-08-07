@@ -142,7 +142,6 @@ function importFile(editor, setDocumentOptions, setBiblio, setNextLabelNumber, f
       editor.setEditorState(editorState);
       setDocumentOptions(parsedContent.documentOptions);
       setBiblio(parsedContent.biblio);
-      console.log("parsed",parsedContent.documentStructure.nextLabelNumber);
       setNextLabelNumber(parsedContent.documentStructure.nextLabelNumber);
       editor.dispatchCommand(CLEAR_HISTORY_COMMAND); // Reset History
     } catch (error) {

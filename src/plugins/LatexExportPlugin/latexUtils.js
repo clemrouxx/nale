@@ -17,7 +17,7 @@ function putInCommand(string,command){
     return `${command}{${string}}`;
 }
 
-function putInEnvironment(string,envname){
+export function putInEnvironment(string,envname){
     return `\\begin{${envname}}\n${string}\\end{${envname}}\n`;
 }
 
@@ -28,15 +28,38 @@ function usePackage(name){ return `\\usepackage{${name}}\n`}
 const TEXT_FORMAT_COMMANDS = {bold:"\\textbf",italic:"\\textit",capitalize:"\\textsc"}
 export const HEADING_COMMANDS = {1:"\\section",2:"\\subsection",3:"\\subsubsection",4:"\\paragraph",5:"\\subparagraph"};
 
+const needEscaping = ["#","$","%","&","_","{","}"];
+const replaceBy = {"\\":"\\textbackslash","~":"\\~{}","^":"\\^{}","<":"$<$",">":"$>$"};
+
+function escapeText(text){
+    let escaped = "";
+    for (const char of text) {
+        if (needEscaping.includes(char)) {
+            escaped += "\\" + char; // prepend backslash
+        } else if (char in replaceBy) {
+            escaped += replaceBy[char];// replace with mapped value
+        } else {
+            escaped += char;
+        }
+    }
+    return escaped;
+}
+
 export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Set(),title:null,authors:[]}){
     var string = "";
     
     if ($isTextNode(node)) {
-        string += node.getTextContent(); // TODO : add escaping !!!
+        let text = node.getTextContent();
+        if (!node.hasFormat("code")){
+            text = escapeText(text);
+        }
+        string += text;
+
+        // Formating
         for (const format in TEXT_FORMAT_COMMANDS){
             if (node.hasFormat(format)) string = putInCommand(string,TEXT_FORMAT_COMMANDS[format]);
         }
-        if (node.hasFormat("code")) string = `\\verb|${string}|`; // TODO : add escaping !!!
+        if (node.hasFormat("code")) string = `\\verb|${string}|`;
     }
     else if (node.getChildren){
         string = node.getChildren().map((n)=>convertToLatex(n,documentOptions,bubbledInfo)).join('');
