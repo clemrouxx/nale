@@ -29,6 +29,15 @@
                   "format": 0,
                   "mode": "normal",
                   "style": "",
+                  "text": "",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
                   "text": "Clem Rouxx",
                   "type": "text",
                   "version": 1
@@ -166,7 +175,7 @@
             {
               "type": "reference",
               "version": 1,
-              "reference_label": "sec:5"
+              "reference_label": "sec:15"
             },
             {
               "detail": 0,
@@ -537,7 +546,7 @@
             {
               "type": "reference",
               "version": 1,
-              "reference_label": "fig:0"
+              "reference_label": "fig:10"
             },
             {
               "detail": 0,
@@ -595,7 +604,7 @@
           "type": "figure",
           "version": 1,
           "src": "/src/images/sample.jpg",
-          "label_number": 0
+          "label_number": 10
         },
         {
           "children": [
@@ -636,7 +645,7 @@
           "version": 1,
           "level": 2,
           "is_numbered": true,
-          "label_number": 1
+          "label_number": 11
         },
         {
           "children": [
@@ -689,7 +698,7 @@
                 "id": 0
               },
               "is_numbered": false,
-              "label_number": 2
+              "label_number": 12
             },
             {
               "detail": 0,
@@ -870,7 +879,7 @@
             "selected": false
           },
           "is_numbered": true,
-          "label_number": 3
+          "label_number": 13
         },
         {
           "children": [
@@ -906,7 +915,7 @@
             {
               "type": "reference",
               "version": 1,
-              "reference_label": "eq:3"
+              "reference_label": "eq:13"
             },
             {
               "detail": 0,
@@ -945,7 +954,7 @@
           "version": 1,
           "level": 1,
           "is_numbered": true,
-          "label_number": 3
+          "label_number": 14
         },
         {
           "children": [
@@ -1055,7 +1064,7 @@
           "version": 1,
           "level": 1,
           "is_numbered": true,
-          "label_number": 5
+          "label_number": 15
         },
         {
           "children": [
