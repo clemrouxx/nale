@@ -16,28 +16,6 @@ export function SaveProvider({ children }) {
   const {documentOptions, setDocumentOptions} = useDocumentOptions();
   const {nextLabelNumber, setNextLabelNumber, biblio, setBiblio} = useDocumentStructureContext();
 
-  // Shortcuts
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.ctrlKey && e.key === 's') {
-        e.preventDefault();
-        quickSave();
-      }
-      else if (e.ctrlKey && e.key === 'S') {
-        e.preventDefault();
-        saveAs();
-      }
-      else if (e.ctrlKey && e.key==="o"){
-        e.preventDefault();
-        document.getElementById('mainFileInput').click();
-      }
-    };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [lastFileHandle,lastFilename]);
-
   // Returns a string to save in a file
   const getTextToSave = () => {
     const editorState = editor.getEditorState().toJSON();
@@ -55,6 +33,7 @@ export function SaveProvider({ children }) {
 
   // Same, but using File System Access API
   const saveAsWithApi = async () => {
+    console.log(nextLabelNumber);
     const options = {
           suggestedName:"article.nale",
           types: [{ description: 'NALE files', accept: { 'application/nale': ['.nale'] } }]
@@ -109,6 +88,28 @@ export function SaveProvider({ children }) {
     importFile(editor, setDocumentOptions, setBiblio, setNextLabelNumber, file);
   }
 
+  // Shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        quickSave();
+      }
+      else if (e.ctrlKey && e.key === 'S') {
+        e.preventDefault();
+        saveAs();
+      }
+      else if (e.ctrlKey && e.key==="o"){
+        e.preventDefault();
+        document.getElementById('mainFileInput').click();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [lastFileHandle,lastFilename,quickSave,saveAs]);
+
   return (
     <SaveContext.Provider value={{ 
       saveAs, 
@@ -141,6 +142,7 @@ function importFile(editor, setDocumentOptions, setBiblio, setNextLabelNumber, f
       editor.setEditorState(editorState);
       setDocumentOptions(parsedContent.documentOptions);
       setBiblio(parsedContent.biblio);
+      console.log("parsed",parsedContent.documentStructure.nextLabelNumber);
       setNextLabelNumber(parsedContent.documentStructure.nextLabelNumber);
       editor.dispatchCommand(CLEAR_HISTORY_COMMAND); // Reset History
     } catch (error) {

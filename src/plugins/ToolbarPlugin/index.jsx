@@ -191,7 +191,6 @@ function dropDownActiveClass(active) {
   }
 }
 
-
 function BlockFormatDropDown({
   editor,
   blockType,

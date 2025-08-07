@@ -56,7 +56,7 @@ export class CaptionNode extends ParagraphNode{
     // LaTeX
 
     toLatex(childrenString){
-        const label = this.getParent().getKey().toString();
+        const label = this.getParent().getLabel();
         return `    \\caption{\\label{${label}}${childrenString}}`;
     }
 

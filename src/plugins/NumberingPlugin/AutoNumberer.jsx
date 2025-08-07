@@ -87,6 +87,7 @@ export function AutoNumberer(ref){
                 update(root);
 
                 // Used for the toolbar for example
+                console.log(newheadings);
                 setNumberedHeadings(newheadings);
                 setFigures(newfigures);
                 setNumberedEquations(newequations);
