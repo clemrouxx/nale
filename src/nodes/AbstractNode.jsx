@@ -31,6 +31,10 @@ export class AbstractNode extends ElementNode {
     return new AbstractNode();
   }
 
+  toLatex(childrenstring){
+    return `\\begin{abstract}\n${childrenstring}\\end{abstract}`;
+  }
+
   canBeEmpty(){
     return false;
   }

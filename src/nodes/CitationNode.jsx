@@ -65,7 +65,7 @@ export class CitationNode extends DecoratorNode {
     };
   }
 
-  toLatex(){return `\\cite{${this.citation_keys.join(",")}}`}
+  toLatex(){return `\\cite{${this.__citation_keys.join(",")}}`}
 }
 
 export function insertCitation(editor,citationKey) {

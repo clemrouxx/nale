@@ -1,0 +1,1181 @@
+{
+  "editorState": {
+    "root": {
+      "children": [
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "NaLE : Sample document",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "title",
+          "version": 1
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Clem Rouxx",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "type": "author",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "author-list",
+          "version": 1
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "This document is a sample demonstrating what can be created with NaLE (Not a LaTeX Editor).",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "abstract",
+          "version": 1
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "Text content",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "numbered-heading",
+          "version": 1,
+          "level": 1,
+          "is_numbered": true,
+          "label_number": 0
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "Titles and references",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "numbered-heading",
+          "version": 1,
+          "level": 2,
+          "is_numbered": true,
+          "label_number": 1
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "Adding titles of various importance is very easy. They get automatically numbered by NaLE. It is possible to toggle the numbering of some specific title, as well as to change the numbering style in the options menu (on the left). It is possible to create references to the titles using the \"Internal reference\" dropdown in the toolbar. The text in these references will be updated automatically. Here is for example a reference to the current subsection : ",
+              "type": "text",
+              "version": 1
+            },
+            {
+              "type": "reference",
+              "version": 1,
+              "reference_label": "sec:1"
+            },
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": ".",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "For the main title of the document, see Section ",
+              "type": "text",
+              "version": 1
+            },
+            {
+              "type": "reference",
+              "version": 1,
+              "reference_label": "sec:5"
+            },
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": ".",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "Other text elements",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "numbered-heading",
+          "version": 1,
+          "level": 2,
+          "is_numbered": true,
+          "label_number": 4
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "Text-like elements can be accessed via the leftmost dropdown in the toolbar. In addition to paragraphs (normal text) and titles of variable importance, you have access to : ",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Bulleted lists (like this one)",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "type": "listitem",
+              "version": 1,
+              "value": 1
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Numbered lists",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "type": "listitem",
+              "version": 1,
+              "value": 2
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Code blocks",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "type": "listitem",
+              "version": 1,
+              "value": 3
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Raw LaTeX input (will be displayed as LaTeX in the editor, i.e. not compiled; can be useful if you want to include custom LaTeX before exporting).",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "type": "listitem",
+              "version": 1,
+              "value": 4
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "list",
+          "version": 1,
+          "listType": "bullet",
+          "start": 1,
+          "tag": "ul"
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "Bibliographic references",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "numbered-heading",
+          "version": 1,
+          "level": 1,
+          "is_numbered": true,
+          "label_number": 7
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "NaLE makes it really easy to include bibliographic references in your document. Just copy the citation in BibTeX format, and use the toolbar : \"Cite...\" > \"From clipboard...\". It is also possible to paste the contents of a whole .bib file this way, and then access the individual citations in the dropdown. There is even already 2 sample citations just for testing. Citations appear like this in your document : ",
+              "type": "text",
+              "version": 1
+            },
+            {
+              "type": "citation",
+              "version": 1,
+              "citation_keys": [
+                "Example1",
+                "Example2"
+              ]
+            },
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": ".",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "To add the bibliography, just go where you want it to be and click \"Cite...\" > \"Insert bibliography\" !",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "Images and math",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "numbered-heading",
+          "version": 1,
+          "level": 1,
+          "is_numbered": true,
+          "label_number": 6
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "Using the \"Insert\" dropdown, you can add images or math elements.",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "Inline image",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "numbered-heading",
+          "version": 1,
+          "level": 2,
+          "is_numbered": true,
+          "label_number": 8
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "The \"Image\" insertion inserts your image in the text, like this : ",
+              "type": "text",
+              "version": 1
+            },
+            {
+              "type": "image",
+              "version": 1,
+              "src": "/src/images/sample.jpg",
+              "filename": "sample.jpg",
+              "width_value": 30,
+              "width_unit": "mm"
+            },
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": ". You can change the size of the image in the options menu on the left. However, most of the time in articles, images are rather included in figures and include a caption.",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        },
+        {
+          "children": [],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "Figure",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "numbered-heading",
+          "version": 1,
+          "level": 2,
+          "is_numbered": true,
+          "label_number": 9
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "A Figure is a centered image with a caption and a label (number). Take a look at Figure ",
+              "type": "text",
+              "version": 1
+            },
+            {
+              "type": "reference",
+              "version": 1,
+              "reference_label": "fig:0"
+            },
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": ".",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        },
+        {
+          "children": [
+            {
+              "type": "captioned-image",
+              "version": 1,
+              "src": "/src/images/sample.jpg",
+              "filename": "sample.jpg",
+              "width_value": 50,
+              "width_unit": "%"
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "This is the caption of my sample figure.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "type": "caption",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": "",
+              "number": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "figure",
+          "version": 1,
+          "src": "/src/images/sample.jpg",
+          "label_number": 0
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "NB : In NaLE, the Figure will be displayed just after where you inserted it. Please keep in mind that this can be changed when the LaTeX gets compiled. Indeed, the compiler will generally make it so that figures are placed at the beginning of a page, and will move the text content if needed.",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "Math",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "numbered-heading",
+          "version": 1,
+          "level": 2,
+          "is_numbered": true,
+          "label_number": 1
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "Mathematical expressions can also be added through the same \"Insert\" menu. Math expressions can be inline (in the text, like ",
+              "type": "text",
+              "version": 1
+            },
+            {
+              "type": "math",
+              "version": 1,
+              "inline": true,
+              "math_tree": {
+                "isroot": true,
+                "nodeletion": true,
+                "children": [
+                  {
+                    "symbol": "E",
+                    "id": 1
+                  },
+                  {
+                    "symbol": "=",
+                    "id": 2
+                  },
+                  {
+                    "symbol": "m",
+                    "id": 3
+                  },
+                  {
+                    "symbol": "c",
+                    "id": 4
+                  },
+                  {
+                    "symbol": "^",
+                    "children": [
+                      {
+                        "symbol": "2",
+                        "id": 6
+                      }
+                    ],
+                    "nodeletionfromright": true,
+                    "ismultiline": false,
+                    "id": 5
+                  }
+                ],
+                "id": 0
+              },
+              "is_numbered": false,
+              "label_number": 2
+            },
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": ") or in \"display\" mode : ",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        },
+        {
+          "type": "math",
+          "version": 1,
+          "inline": false,
+          "math_tree": {
+            "isroot": true,
+            "nodeletion": true,
+            "children": [
+              {
+                "symbol": "\\sum",
+                "verticalorientation": "up",
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "symbol": "n",
+                        "id": 3,
+                        "selected": false
+                      },
+                      {
+                        "symbol": "=",
+                        "id": 4,
+                        "selected": false
+                      },
+                      {
+                        "symbol": "1",
+                        "id": 5,
+                        "selected": false
+                      }
+                    ],
+                    "nodeletion": true,
+                    "id": 2,
+                    "selected": false
+                  },
+                  {
+                    "children": [
+                      {
+                        "symbol": "\\infty",
+                        "id": 7,
+                        "selected": false
+                      }
+                    ],
+                    "nodeletion": true,
+                    "id": 6,
+                    "selected": false
+                  }
+                ],
+                "fixedchildren": true,
+                "implodes": true,
+                "childrenstring": "_{§0}^{§1}",
+                "id": 1,
+                "selected": false
+              },
+              {
+                "symbol": "\\frac",
+                "verticalorientation": "down",
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "symbol": "1",
+                        "id": 10,
+                        "selected": false
+                      }
+                    ],
+                    "nodeletion": true,
+                    "id": 9,
+                    "selected": false
+                  },
+                  {
+                    "children": [
+                      {
+                        "symbol": "n",
+                        "id": 12,
+                        "selected": false
+                      },
+                      {
+                        "symbol": "^",
+                        "children": [
+                          {
+                            "symbol": "2",
+                            "id": 14,
+                            "selected": false
+                          }
+                        ],
+                        "nodeletionfromright": true,
+                        "ismultiline": false,
+                        "id": 13,
+                        "selected": false
+                      }
+                    ],
+                    "nodeletion": true,
+                    "id": 11,
+                    "selected": false
+                  }
+                ],
+                "fixedchildren": true,
+                "implodes": true,
+                "childrenstring": "{§0}{§1}",
+                "id": 8,
+                "selected": false
+              },
+              {
+                "symbol": "=",
+                "id": 15,
+                "selected": false
+              },
+              {
+                "symbol": "\\frac",
+                "verticalorientation": "down",
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "symbol": "\\pi",
+                        "id": 18,
+                        "selected": false
+                      },
+                      {
+                        "symbol": "^",
+                        "children": [
+                          {
+                            "symbol": "2",
+                            "id": 20,
+                            "selected": false
+                          }
+                        ],
+                        "nodeletionfromright": true,
+                        "ismultiline": false,
+                        "id": 19,
+                        "selected": false
+                      }
+                    ],
+                    "nodeletion": true,
+                    "id": 17,
+                    "selected": false
+                  },
+                  {
+                    "children": [
+                      {
+                        "symbol": "6",
+                        "id": 22,
+                        "selected": false
+                      }
+                    ],
+                    "nodeletion": true,
+                    "id": 21,
+                    "selected": false
+                  }
+                ],
+                "fixedchildren": true,
+                "implodes": true,
+                "childrenstring": "{§0}{§1}",
+                "id": 16,
+                "selected": false
+              }
+            ],
+            "id": 0,
+            "selected": false
+          },
+          "is_numbered": true,
+          "label_number": 3
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "When editing a math formula, a virtual keyboard will be available at the bottom of the editor. Most of these symbols can also be inserted using \"shortcuts\", that consist of a sequence of letters followed by pressing Space. You can discover these shortcuts by hovering over the keys. In display mode, you can also use Shift+Enter to create a new line, and Tab for aligning.",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "Besides, equations can be numbered : just toggle the option in the options menu. You can then add a reference to the equation, for example see Equation (",
+              "type": "text",
+              "version": 1
+            },
+            {
+              "type": "reference",
+              "version": 1,
+              "reference_label": "eq:3"
+            },
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": ").",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "Options menu",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "numbered-heading",
+          "version": 1,
+          "level": 1,
+          "is_numbered": true,
+          "label_number": 3
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "The options menu, on the left, contains up to 3 sections :",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Local options : options for the currently selected element (e.g. toggeling numbering of a specific title)",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "type": "listitem",
+              "version": 1,
+              "value": 1
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Global options for that element type : options that target all elements of a specific type (e.g. numbering style of all titles)",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "type": "listitem",
+              "version": 1,
+              "value": 2
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Global options for the document (font size, and margins if \"Display\" > \"Real page width\" is activated).",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "type": "listitem",
+              "version": 1,
+              "value": 3
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "list",
+          "version": 1,
+          "listType": "bullet",
+          "start": 1,
+          "tag": "ul"
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "Title page",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "numbered-heading",
+          "version": 1,
+          "level": 1,
+          "is_numbered": true,
+          "label_number": 5
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "With the title page dropdown in the toolbar, you can set the main title of the document, authors, and create an abstract.",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        },
+        {
+          "type": "bibliography",
+          "version": 1,
+          "inner_array": [
+            {
+              "label": "1",
+              "bibItem": {
+                "key": "Example1",
+                "author": [
+                  {
+                    "firstName": "Emmy",
+                    "lastName": "Noether"
+                  }
+                ],
+                "title": "Example of an article that would have been written by E. Noether."
+              }
+            },
+            {
+              "label": "2",
+              "bibItem": {
+                "key": "Example2",
+                "author": [
+                  {
+                    "firstName": "Gaspard",
+                    "lastName": "Monge"
+                  }
+                ],
+                "title": "Another example of bibliographic reference."
+              }
+            }
+          ]
+        },
+        {
+          "children": [],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        }
+      ],
+      "direction": "ltr",
+      "format": "",
+      "indent": 0,
+      "type": "root",
+      "version": 1
+    }
+  },
+  "documentOptions": {
+    "general": {
+      "fontSize": 12,
+      "margins": {
+        "left": 38,
+        "right": 38,
+        "top": 25,
+        "bottom": 25
+      }
+    },
+    "headings": {
+      "numberingStyles": {
+        "1": "Roman",
+        "2": "Alph",
+        "3": "a"
+      },
+      "numberingTemplates": {
+        "1": "{S}",
+        "2": "{S}.{sS}",
+        "3": "{S}.{sS}.{ssS}"
+      }
+    },
+    "paragraphs": {
+      "indentFirst": true
+    }
+  },
+  "biblio": [
+    {
+      "key": "Example1",
+      "author": [
+        {
+          "firstName": "Emmy",
+          "lastName": "Noether"
+        }
+      ],
+      "title": "Example of an article that would have been written by E. Noether."
+    },
+    {
+      "key": "Example2",
+      "author": [
+        {
+          "firstName": "Gaspard",
+          "lastName": "Monge"
+        }
+      ],
+      "title": "Another example of bibliographic reference."
+    }
+  ],
+  "documentStructure": {
+    "nextLabelNumber": 3
+  }
+}
