@@ -82,8 +82,8 @@ export class MathNode extends DecoratorNode {
 
   toLatex(){
     const formula = MathNodes.getFormula(this.__math_tree,false);
-    if (this.is_numbered){
-      return `\\begin{equation} \n ${formula} \n \\label{${this.getLabel()}} \n \\end{equation}`;
+    if (this.__is_numbered){
+      return `\\begin{equation} \n ${formula} \n \\label{${this.getLabel()}} \n \\end{equation} \n`;
     }
     else{
       const delimiter = this.__inline ? "$" : "$$";
