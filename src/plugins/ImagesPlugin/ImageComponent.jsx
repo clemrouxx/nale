@@ -175,7 +175,7 @@ export default function ImageComponent({src,filename,altText,nodeKey,width,heigh
             Your browser doesn't support PDF viewing.
         </iframe>
         );*/
-        return (<PDFviewer file={src} width={width} imageRef={imageRef}/>);
+        return (<PDFviewer file={src} width={width} imageRef={imageRef} className={isFocused ? "focused" :""}/>);
     }
 
     // Else

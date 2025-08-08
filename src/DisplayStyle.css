@@ -150,7 +150,7 @@
     text-align: center;
 }
 
-.editor-base img.focused{
+.editor-base img.focused, .editor-base canvas.focused{
     outline: solid var(--selection-primary) 3px;
 }
 
