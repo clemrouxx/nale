@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export const PDFviewer = ({ file, className, width, imageRef }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
-  let currentRenderTask = null;
+    let currentRenderTask = null;
 
     const loadAndRenderPDF = async (file) => {
         if (currentRenderTask) {
@@ -15,7 +15,6 @@ export const PDFviewer = ({ file, className, width, imageRef }) => {
 
     if (cancelled) return;
       setLoading(true);
-      // eslint-disable-next-line no-undef
       const loadingTask = pdfjsLib.getDocument(file);
 
       try {
@@ -40,6 +39,7 @@ export const PDFviewer = ({ file, className, width, imageRef }) => {
         }).promise;
 
         if (currentRenderTask) await currentRenderTask.promise;
+
         currentRenderTask = null;
       } catch (error) {
         if (!cancelled && error.name !== 'RenderingCancelledException') {
@@ -48,18 +48,18 @@ export const PDFviewer = ({ file, className, width, imageRef }) => {
       }
       if (!cancelled) {
         setLoading(false);
-        }
+      }
     };
     if (file) {
       loadAndRenderPDF(file);
     }
 
     return () => {
-    cancelled = true;
-    if (currentRenderTask) {
-      currentRenderTask.cancel();
-    }
-  };
+        cancelled = true;
+        if (currentRenderTask) {
+            currentRenderTask.cancel();
+        }
+    };
   }, [file]);
 
   return (
