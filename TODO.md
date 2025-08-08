@@ -1,6 +1,6 @@
 # TODO list
 ## Bugs
-
+- When adding a PDF image, it is horizontally mirrored about 20% of the time.
 ## Features
 ### Priority features
 - Title "page" : authors, abstract...

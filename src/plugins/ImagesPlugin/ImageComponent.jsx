@@ -23,6 +23,7 @@ KEY_ESCAPE_COMMAND,
 } from 'lexical';
 import * as React from 'react';
 import {Suspense, useCallback, useEffect, useRef, useState} from 'react';
+import { PDFviewer } from './PDFviewer';
 
 const imageCache = new Map();
 
@@ -168,11 +169,13 @@ export default function ImageComponent({src,filename,altText,nodeKey,width,heigh
 
     if (isPDF){
         const PDF_parameterString = "#toolbar=0&navpanes=0&scrollbar=0&view=Fit&zoom=100";
+        /*
         return (
         <iframe src={src+PDF_parameterString} style={{width}}>
             Your browser doesn't support PDF viewing.
         </iframe>
-        );
+        );*/
+        return (<PDFviewer file={src} width={width} imageRef={imageRef}/>);
     }
 
     // Else
