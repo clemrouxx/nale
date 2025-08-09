@@ -34,7 +34,6 @@ export function SaveProvider({ children }) {
 
   // Same, but using File System Access API
   const saveAsWithApi = async () => {
-    console.log(nextLabelNumber);
     const options = {
           suggestedName:"article.nale",
           types: [{ description: 'NALE files', accept: { 'application/nale': ['.nale'] } }]
@@ -82,7 +81,7 @@ export function SaveProvider({ children }) {
     if (!file) return;
     
     if (file.type !== 'application/json' && !file.name.endsWith('.nale')) {
-      alert('Please select a valid .nale file');
+      showToast('Please select a valid .nale file');
       return;
     }
     setLastFilename(getOriginalFilename(file.name));
@@ -117,10 +116,9 @@ export function SaveProvider({ children }) {
       importFile(editor, setDocumentOptions, setBiblio, setNextLabelNumber, file);
       
     } catch (error) {
-      if (error.name === 'AbortError') {
-        console.log('User cancelled file selection');
-      } else {
-        console.error('Error opening file:', error);
+      if (!error.name === 'AbortError') {
+        showToast('Error while opening file', 3000,"error");
+        console.error('Error while opening file', error);
       }
       return null;
     }
@@ -176,6 +174,7 @@ function importFile(editor, setDocumentOptions, setBiblio, setNextLabelNumber, f
     try {
       const content = event.target.result;
       const parsedContent = JSON.parse(content);
+
       // Parse and set the editor state
       const editorState = editor.parseEditorState(parsedContent.editorState);
       editor.setEditorState(editorState);
@@ -185,14 +184,14 @@ function importFile(editor, setDocumentOptions, setBiblio, setNextLabelNumber, f
       editor.dispatchCommand(CLEAR_HISTORY_COMMAND); // Reset History
     } catch (error) {
       console.error('Invalid file format:', error.message);
-      alert('Error: Invalid file format');
+      showToast('Error: Invalid file format',3000,"error");
       return;
     }
   };
   
   reader.onerror = () => {
     console.error('Failed to read file');
-    alert('Error: Failed to read file');
+    showToast('Error: Failed to read file',3000,"error");
   };
   
   reader.readAsText(file);

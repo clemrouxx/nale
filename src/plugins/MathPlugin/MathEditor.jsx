@@ -5,6 +5,7 @@ import MathKeyboard from "./MathKeyboard";
 import MathNodes from "./MathNodes";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $getNodeByKey, $getSelection, SELECTION_CHANGE_COMMAND, COMMAND_PRIORITY_LOW, $isNodeSelection, $isRangeSelection, $createNodeSelection, $setSelection } from "lexical";
+import { showToast } from "../../ui/Toast";
 
 const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
     const [mathTree,setMathTree] = useState(structuredClone(initMathTree));
@@ -183,7 +184,7 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
                             addNode(JSON.parse(string));
                         }
                         catch{
-                            alert("Could not paste text. Only valid imputs are single-character strings or formula parts directly copied.")
+                            showToast("Could not paste text. Only valid imputs are single-character strings or formula parts directly copied.")
                             return;// Invalid JSON input
                         }
                     }// This code is hideous

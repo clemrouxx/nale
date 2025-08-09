@@ -111,7 +111,6 @@ export class NumberedHeadingNode extends ElementNode{
 }
 
 export function $createNumberedHeadingNode(headingLevel,documentOptions,labelNumber) {
-  console.log("label number",labelNumber);
   return $applyNodeReplacement(new NumberedHeadingNode(headingLevel,{},documentOptions.headings,true,labelNumber));
 }
 
