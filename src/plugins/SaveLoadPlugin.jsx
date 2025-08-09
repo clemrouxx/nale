@@ -76,7 +76,7 @@ export function SaveProvider({ children }) {
     else directSaveInFile(lastFilename);
   }
 
-  // File input handler for loading files
+  // File input handler for loading files (without the API)
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -88,6 +88,43 @@ export function SaveProvider({ children }) {
     setLastFilename(getOriginalFilename(file.name));
     importFile(editor, setDocumentOptions, setBiblio, setNextLabelNumber, file);
   }
+
+  // Function to open a file and get its handle for later saving (if possible)
+  const openFile = async () => {
+    try {
+      // Check if the File System Access API is supported
+      if (!('showOpenFilePicker' in window)) {
+        document.getElementById('mainFileInput').click();// Use the default method
+      }
+
+      // Configure file picker options (optional)
+      const options = {
+        types: [
+          {
+            description: 'NaLE file',
+            accept: {"application/nale":[".nale"]}
+          },
+        ],
+        excludeAcceptAllOption: true,
+        multiple: false,
+      };
+
+      const [fileHandle] = await window.showOpenFilePicker(options);
+      const file = await fileHandle.getFile();
+      const content = await file.text();
+      
+      setLastFileHandle(fileHandle);
+      importFile(editor, setDocumentOptions, setBiblio, setNextLabelNumber, file);
+      
+    } catch (error) {
+      if (error.name === 'AbortError') {
+        console.log('User cancelled file selection');
+      } else {
+        console.error('Error opening file:', error);
+      }
+      return null;
+    }
+  };
 
   // Shortcuts
   useEffect(() => {
@@ -115,7 +152,8 @@ export function SaveProvider({ children }) {
     <SaveContext.Provider value={{ 
       saveAs, 
       quickSave,
-      handleFileChange
+      handleFileChange,
+      openFile,
     }}>
       {children}
     </SaveContext.Provider>

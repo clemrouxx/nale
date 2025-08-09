@@ -22,7 +22,7 @@ export const ActionBar = () => {
 const FileButton = () => {
     const {documentOptions} = useDocumentOptions();
     const [editor] = useLexicalComposerContext();
-    const { saveAs, quickSave, handleFileChange } = useSaveLoadContext();
+    const { saveAs, quickSave, handleFileChange, openFile } = useSaveLoadContext();
 
     const readEditorState = () => {
         editor.getEditorState().read(() => {
@@ -44,7 +44,7 @@ const FileButton = () => {
             <DropDown buttonLabel={"File"}>
                 <DropDownItem onClick={quickSave}><span className="text">Save</span><span className="shortcut">Ctrl + S</span></DropDownItem>
                 <DropDownItem onClick={saveAs}><span className="text">Save As...</span><span className="shortcut">Ctrl + Shift + S</span></DropDownItem>
-                <DropDownItem onClick={() => document.getElementById('mainFileInput').click()}><span className="text">Open...</span><span className="shortcut">Ctrl + O</span></DropDownItem>
+                <DropDownItem onClick={openFile}><span className="text">Open...</span><span className="shortcut">Ctrl + O</span></DropDownItem>
                 <DropDownItem onClick={readEditorState}>Export to LaTeX</DropDownItem>
             </DropDown>
         </>
