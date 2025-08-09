@@ -28,6 +28,7 @@
 - Custom style for the bibliography title (replace title with a horizontal separator for example)
 - Choice for another font
 - Other citation styles (ex : superscript)
+- Drag-and-drop Figures or equations for quick references
 
 ### Possible later features
 - Working with bibliography software

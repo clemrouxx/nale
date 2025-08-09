@@ -38,7 +38,14 @@ export function SaveProvider({ children }) {
           suggestedName:"article.nale",
           types: [{ description: 'NALE files', accept: { 'application/nale': ['.nale'] } }]
         };
-    const fileHandle = await window.showSaveFilePicker(options);
+    try{
+      const fileHandle = await window.showSaveFilePicker(options);
+    } catch(error) {
+      if (error.name === 'AbortError') {
+        return true;
+      }
+      throw error;
+    }
     setLastFileHandle(fileHandle);
     setLastFilename(fileHandle.name);
     const writable = await fileHandle.createWritable();
@@ -92,7 +99,7 @@ export function SaveProvider({ children }) {
   const openFile = async () => {
     try {
       // Check if the File System Access API is supported
-      if (!('showOpenFilePicker' in window)) {
+      if (!isFileApiAvaillable()) {
         document.getElementById('mainFileInput').click();// Use the default method
       }
 
