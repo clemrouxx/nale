@@ -32,10 +32,6 @@ button.toolbar-item {
   justify-content: space-between;
 }
 
-button.toolbar-item:focus {
-  outline: none;
-}
-
 button.toolbar-item:disabled {
   cursor: not-allowed;
 }
@@ -340,10 +336,6 @@ i.chevron-right{ background-image: url(images/icons/chevron-right.svg) }
   flex-shrink: 0;
   justify-content: space-between;
   align-items: center;
-}
-
-.dropdown button:focus {
-  outline: none;
 }
 
 .dropdown .item{

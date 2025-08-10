@@ -12,6 +12,10 @@
   --accent-success: #047857;
   --accent-warning: #d97706;
   --accent-error: #dc2626;
+
+  --complementary-subtle: #1d6485;
+  --complementary-contrasted: #5a97ba;
+
   --selection-primary: #0084a5;
   --selection-secondary: #32a56a;
   
@@ -125,10 +129,11 @@ button:hover:not([disabled]){
 .options-panel .form-line{
   display: flex;
   align-items: center;
+  gap: 0.3em;
 }
 
 .options-panel input[type=range]{
-  width: 80px;
+  width: 100px;
 }
 
 .drawer-handle{
@@ -184,6 +189,7 @@ button:hover:not([disabled]){
   align-items: stretch;
   gap: 3px;
   background-color: var(--bg-maximal);
+  border-bottom: solid 3px var(--border-primary);
 }
 
 .logo-main{
@@ -253,4 +259,88 @@ button:hover:not([disabled]){
 .toast.error{
   background: var(--accent-error);
   color: white;
+}
+
+
+/* Basic range input styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background: var(--complementary-subtle);
+  height: 8px;
+  border-radius: 4px;
+}
+
+input[type="range"]::-moz-range-track {
+  background: var(--complementary-subtle);
+  height: 8px;
+  border-radius: 4px;
+}
+
+/* Thumb styling for WebKit browsers */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 18px;
+    width: 18px;
+    margin-top: -5px;
+    background: var(--complementary-contrasted);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Thumb styling for Firefox */
+input[type="range"]::-moz-range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 18px;
+    width: 18px;
+    margin-top: -5px;
+    background: var(--complementary-contrasted);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Hover effects */
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.1);
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 3px var(--border-secondary); 
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--bg-intermediate);
+  border-radius: 6px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bg-softer);
+  cursor: pointer;
 }
