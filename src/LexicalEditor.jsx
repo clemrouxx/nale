@@ -20,11 +20,12 @@ import { AutoOptionsPanel } from './plugins/Options/OptionsPanel';
 import { DocumentStructureProvider } from './plugins/NumberingPlugin/DocumentStructureContext';
 import ImagesPlugin from './plugins/ImagesPlugin';
 import MathPlugin from './plugins/MathPlugin';
-import { useDisplayOptions, zoomFactors } from './plugins/DisplayOptionsContext';
+import { useDisplayOptions, zoomFactors, zoomLevelToText } from './plugins/DisplayOptionsContext';
 import { $isNumberedHeadingNode } from './nodes/NumberedHeadingNode';
 import { AbstractNodePlugin } from './plugins/AbstractNodePlugin';
 import { AuthorshipPlugin } from './nodes/AuthorNodes';
 import { VirtualKeyboardContainer } from './plugins/MathPlugin/VirtualKeyboard';
+import { showToast } from './ui/Toast';
 
 function Editor() {
   const [editor] = useLexicalComposerContext();
@@ -70,10 +71,18 @@ function Editor() {
     
   useEffect(() => {
       const zoomIn = () => {
-        if (displayOptions.zoomLevel<zoomFactors.length-1) setDisplayOption("zoomLevel",displayOptions.zoomLevel+1);
+        if (displayOptions.zoomLevel<zoomFactors.length-1){
+          const newZoomLevel = displayOptions.zoomLevel+1
+          setDisplayOption("zoomLevel",newZoomLevel);
+          showToast(zoomLevelToText(newZoomLevel),1000);
+        }
       }
       const zoomOut = () => {
-          if (displayOptions.zoomLevel>=1) setDisplayOption("zoomLevel",displayOptions.zoomLevel-1);
+          if (displayOptions.zoomLevel>=1) { 
+            const newZoomLevel = displayOptions.zoomLevel-1;
+            setDisplayOption("zoomLevel",newZoomLevel);
+            showToast(zoomLevelToText(newZoomLevel),1000);
+          }
       }
       const element = editorRef.current;
       const handleWheel = (e) => {

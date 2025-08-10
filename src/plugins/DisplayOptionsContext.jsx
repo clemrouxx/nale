@@ -3,6 +3,8 @@ import { setGlobalCSSRule } from "../utils/generalUtils";
 
 export const zoomFactors = [0.25,0.33,0.5,0.67,0.75,0.8,0.9,1,1.1,1.25,1.5,1.75,2,2.5,3,4,5];
 
+export const zoomLevelToText = zoomLevel => `${Math.round(100*zoomFactors[zoomLevel])} %`;
+
 const DEFAULT_DISPLAY_OPTIONS = {zoomLevel:9,realPageWidth:false,darkEditor:false}
 
 const DisplayOptionsContext = createContext();

@@ -3,7 +3,7 @@ import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import {convertToLatex} from './plugins/LatexExportPlugin/latexUtils';
 import { useEffect, useState } from 'react';
 import { setGlobalCSSRule } from './utils/generalUtils';
-import { useDisplayOptions, zoomFactors } from './plugins/DisplayOptionsContext';
+import { useDisplayOptions, zoomFactors, zoomLevelToText } from './plugins/DisplayOptionsContext';
 import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
 import DropDown, { DropDownItem } from './ui/DropDown';
 import { useSaveLoadContext } from './plugins/SaveLoadPlugin';
@@ -64,7 +64,7 @@ const DisplayMenu = () => {
             <div>
                 <span>Zoom</span>
                 <button onClick={zoomOut}>-</button>
-                <span>{`${Math.round(100*zoomFactors[displayOptions.zoomLevel])} %`}</span>
+                <span>{zoomLevelToText(displayOptions.zoomLevel)}</span>
                 <button onClick={zoomIn}>+</button>
             </div>
             <div>

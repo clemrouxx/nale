@@ -35,5 +35,4 @@
 ## Other improvements (UI/UX, ...)
 - In real width mode, show the edges of the page
 - Make scrollbar for the editing area look better (ex white bg)
-- When zooming with the scrollwheel, show zoom percentage somewhere
 - Make the options panel more understandable
