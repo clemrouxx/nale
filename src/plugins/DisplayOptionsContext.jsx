@@ -10,12 +10,15 @@ const DEFAULT_DISPLAY_OPTIONS = {zoomLevel:9,realPageWidth:false,darkEditor:fals
 const DisplayOptionsContext = createContext();
 
 export function DisplayOptionsProvider({ children }) {
-    const [displayOptions, setDisplayOptions] = useState(DEFAULT_DISPLAY_OPTIONS);
+    const storedValue = localStorage.getItem("displayOptions")
+    const [displayOptions, setDisplayOptions] = useState(storedValue ? JSON.parse(storedValue) : DEFAULT_DISPLAY_OPTIONS);
 
     const setDisplayOption = (option,value) => {
         let newOptions = structuredClone(displayOptions)
         newOptions[option]=value;
         setDisplayOptions(newOptions);
+        // Change also the local storage
+        localStorage.setItem("displayOptions",JSON.stringify(newOptions));
     }
 
     useEffect(()=>{
