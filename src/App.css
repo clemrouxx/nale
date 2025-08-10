@@ -79,11 +79,6 @@ button:hover:not([disabled]){
   background-color: var(--bg-softer);
 }
 
-.editor-base{
-  display: flow-root;
-  outline: none;
-}
-
 .horizontal-layout{
   display: flex;
   width: 100%;

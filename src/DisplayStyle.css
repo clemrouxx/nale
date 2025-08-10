@@ -16,7 +16,9 @@
 
     font-size: var(--fontsize-normal);
 
-    padding: 0.3rem;
+    display: flow-root;
+    outline: none;
+    padding: 0.7rem;
 
     --paperwidth-base: 210mm;
     --paperheight-base: 297mm;
@@ -152,6 +154,7 @@
 
 .editor-base img.focused, .editor-base canvas.focused{
     outline: solid var(--selection-primary) 3px;
+    filter: sepia(1) saturate(3) hue-rotate(140deg);
 }
 
 .editor-reference .selected, .editor-citation .selected{
