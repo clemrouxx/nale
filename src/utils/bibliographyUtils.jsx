@@ -1,4 +1,6 @@
 import { insertCitation } from "../nodes/CitationNode";
+import { showToast } from "../ui/Toast";
+
 
 /**
  * Parse BibTeX string into an array of structured objects
@@ -93,10 +95,15 @@ export async function addBiblioFromClipboard(editor,biblio,setBiblio){
     const clipboardText = await navigator.clipboard.readText();
     if (clipboardText) {
       const parsedEntries = parseBibTeX(clipboardText);
-      //console.log(parsedEntries);
+      if (parsedEntries.length===0){
+        showToast("No valid .bib entry found in clipboard.",3000,"warning");
+      }
       setBiblio(biblio.concat(parsedEntries));
       if (parsedEntries.length===1){
         insertCitation(editor,parsedEntries[0].key);
+      }
+      else{
+        showToast("Entries successfully added to the list. Use toolbar to insert.",4000,"success");
       }
     }
 }
