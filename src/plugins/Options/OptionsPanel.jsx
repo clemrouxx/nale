@@ -163,7 +163,7 @@ export function GlobalOptionsPanel({category}) {
                                     value={documentOptions.headings.numberingStyles[index+1]}
                                     onChange={handleInputChange}
                                 >
-                                    <option value="a">1, 2, 3</option>
+                                    <option value="arabic">1, 2, 3</option>
                                     <option value="Alph">A, B, C</option>
                                     <option value="alph">a, b, c</option>
                                     <option value="Roman">I, II, III</option>

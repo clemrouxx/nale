@@ -5,7 +5,7 @@ import { HEADING_COMMANDS } from "../plugins/LatexExportPlugin/latexUtils";
 import { DEFAULT_DOCUMENT_OPTIONS } from "../plugins/Options/documentOptions";
 
 function numberToString(num,style){
-  if (style==="a") return String(num); // Arab numerals
+  if (style==="arabic") return String(num); // Arab numerals
   else if (num < 1 || num > 26) return null;
   else if (style.toLowerCase()==="alph"){ // Alphanumeric
     const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -19,6 +19,7 @@ function numberToString(num,style){
     ];
     return (style==="roman") ? ROMAN_NUMERALS[num-1].toLowerCase() : ROMAN_NUMERALS[num-1];
   }
+  return String(num);
 }
 
 export class NumberedHeadingNode extends ElementNode{

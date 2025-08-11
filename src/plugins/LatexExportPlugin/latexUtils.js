@@ -23,6 +23,7 @@ function usePackage(name){ return `\\usepackage{${name}}\n`}
 
 const TEXT_FORMAT_COMMANDS = {bold:"\\textbf",italic:"\\textit",capitalize:"\\textsc",superscript:"\\textsuperscript",subscript:"\\textsubscript"}
 export const HEADING_COMMANDS = {1:"\\section",2:"\\subsection",3:"\\subsubsection",4:"\\paragraph",5:"\\subparagraph"};
+const HEADING_NUMBERS = {1:"\\thesection",2:"\\thesubsection",3:"\\thesubsubsection"};
 
 const needEscaping = ["#","$","%","&","_","{","}"];
 const replaceBy = {"\\":"\\textbackslash","~":"\\~{}","^":"\\^{}","<":"$<$",">":"$>$"};
@@ -56,6 +57,17 @@ function convertDocumentOptions(documentOptions){
     const default_margins = DEFAULT_DOCUMENT_OPTIONS.general.margins;
     if (JSON.stringify(margins) !== JSON.stringify(default_margins)){
         latex += `\\usepackage[a4paper, top=${margins.top}mm, bottom=${margins.bottom}mm, left=${margins.left}mm, right=${margins.right}mm]{geometry}\n`;
+    }
+
+    // heading numbering
+    if (JSON.stringify(documentOptions.headings) !== JSON.stringify(DEFAULT_DOCUMENT_OPTIONS.headings)){
+        const styles = documentOptions.headings.numberingStyles;
+        const templates = documentOptions.headings.numberingTemplates;
+        const numbering = Object.fromEntries([1, 2, 3].map(level => [level, putInCommand(HEADING_COMMANDS[level].slice(1),"\\"+styles[level])]));
+        for (let level=1;level<=3;level++){
+            const numberingString = templates[level].replace("{S}",numbering[1]).replace("{sS}",numbering[2]).replace("{ssS}",numbering[3]);
+            latex += `\\renewcommand{\\the${HEADING_COMMANDS[level].slice(1)}}{${numberingString}}\n`;
+        }
     }
 
     latex += "\n";
