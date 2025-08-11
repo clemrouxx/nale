@@ -1,9 +1,5 @@
 import {$isTextNode} from 'lexical';
-
-const LATEX_HEADING = 
-`\\documentclass{article}
-
-`;
+import { DEFAULT_DOCUMENT_OPTIONS } from '../Options/documentOptions';
 
 const LATEX_BEGIN_DOCUMENT = 
 `\\begin{document}
@@ -45,6 +41,27 @@ function escapeText(text){
     return escaped;
 }
 
+function getDocumentCommandOptions(documentOptions){
+    let options = "a4paper";
+    if (documentOptions.general.fontSize !== DEFAULT_DOCUMENT_OPTIONS.general.fontSize){
+        options += `,${documentOptions.general.fontSize}pt`;
+    }
+    return options;
+}
+
+function convertDocumentOptions(documentOptions){
+    let latex = "";
+    // margins (geometry package)
+    const margins = documentOptions.general.margins;
+    const default_margins = DEFAULT_DOCUMENT_OPTIONS.general.margins;
+    if (JSON.stringify(margins) !== JSON.stringify(default_margins)){
+        latex += `\\usepackage[a4paper, top=${margins.top}mm, bottom=${margins.bottom}mm, left=${margins.left}mm, right=${margins.right}mm]{geometry}\n`;
+    }
+
+    latex += "\n";
+    return latex;
+}
+
 export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Set(),title:null,authors:[]}){
     var string = "";
     
@@ -70,12 +87,16 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
     }
     switch (node.getType()){
         case "root":
-            let heading = LATEX_HEADING;
+            let heading = `\\documentclass[${getDocumentCommandOptions(documentOptions)}]{article}\n`;
             bubbledInfo.packages.forEach(name => {heading += usePackage(name)}); // Add LaTeX packages, but only those needed
+            heading += convertDocumentOptions(documentOptions);// Takes care of the relevant documentOptions (margins, renamings...)
+
+            // data for title page
             if (bubbledInfo.title) heading += `\\title{${bubbledInfo.title}}\n`;
             bubbledInfo.authors.forEach((author)=>{
                 heading += `\\author{${author}}\n`;
             });
+            // put everything together
             string = heading + LATEX_BEGIN_DOCUMENT + string + LATEX_END_DOCUMENT;
             break;
         case "title":
