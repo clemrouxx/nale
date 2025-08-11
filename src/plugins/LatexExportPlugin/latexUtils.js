@@ -25,7 +25,7 @@ function usePackage(name){ return `\\usepackage{${name}}\n`}
 
 // ALL TEXT FORMATS : "bold" | "underline" | "strikethrough" | "italic" | "highlight" | "code" | "subscript" | "superscript" | "lowercase" | "uppercase" | "capitalize"
 
-const TEXT_FORMAT_COMMANDS = {bold:"\\textbf",italic:"\\textit",capitalize:"\\textsc"}
+const TEXT_FORMAT_COMMANDS = {bold:"\\textbf",italic:"\\textit",capitalize:"\\textsc",superscript:"\\textsuperscript",subscript:"\\textsubscript"}
 export const HEADING_COMMANDS = {1:"\\section",2:"\\subsection",3:"\\subsubsection",4:"\\paragraph",5:"\\subparagraph"};
 
 const needEscaping = ["#","$","%","&","_","{","}"];
