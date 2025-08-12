@@ -8,7 +8,6 @@
 - Tables
 - Footnotes
 - Working shortcuts and shortcuts indications (ex for section titles)
-- Use document options in the LaTeX export
 
 ### Useful features
 - Export to PDF through LaTeX compilation
