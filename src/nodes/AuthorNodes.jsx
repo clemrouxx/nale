@@ -4,17 +4,23 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 
 // AuthorNode - contains editable text
 export class AuthorNode extends ElementNode {
+  constructor(affiliations,key){
+    super(key);
+    this.__affiliations = affiliations;
+  }
+
   static getType() {
     return 'author';
   }
 
   static clone(node) {
-    return new AuthorNode(node.__key);
+    return new AuthorNode([...node.__affiliations],node.__key);
   }
 
   createDOM() {
     const elmt = document.createElement('div'); // I have a bug with selection when using inline or inline-block elements... divs and flexbox seems to work.
     elmt.className = "editor-author";
+    elmt.setAttribute("data-affiliations",this.__affiliations.join(","));
     return elmt;
   }
 
@@ -23,13 +29,14 @@ export class AuthorNode extends ElementNode {
   }
 
   static importJSON(serializedNode) {
-    return $createAuthorNode();
+    return $createAuthorNode(serializedNode.affiliations);
   }
 
   exportJSON() {
     return {
       ...super.exportJSON(),
       type: 'author',
+      affiliations: this.__affiliations,
       version: 1,
     };
   }
@@ -96,7 +103,7 @@ export class AuthorListNode extends ElementNode {
 }
 
 function $createAuthorNode() {
-  const node = new AuthorNode();
+  const node = new AuthorNode([]);
   node.append($createTextNode());
   return node;
 }
@@ -105,14 +112,6 @@ export function $createAuthorListNode() {
   const node = new AuthorListNode();
   node.append($createAuthorNode());
   return node;
-}
-
-export function $isAuthorNode(node) {
-  return node instanceof AuthorNode;
-}
-
-export function $isAuthorListNode(node) {
-  return node instanceof AuthorListNode;
 }
 
 export function $insertAuthorList(){

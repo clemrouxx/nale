@@ -231,7 +231,8 @@
     font-size: 0.75em;
 }
 
-.editor-image > iframe{/* PDF */
-    aspect-ratio: 1 / 1.41;/* CHANGE ! detect the pdf aspect ratio */
-    border: none;
+.editor-author::after{
+    content: attr(data-affiliations);
+    vertical-align: super;
+    font-size: 0.75em;
 }

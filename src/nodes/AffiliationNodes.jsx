@@ -1,5 +1,5 @@
-import { ElementNode, TextNode, $createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, KEY_DOWN_COMMAND, $createParagraphNode } from 'lexical';
-import React, { useEffect } from 'react';
+import { ElementNode, $createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, KEY_DOWN_COMMAND, $createParagraphNode } from 'lexical';
+import { useEffect } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { showToast } from "../ui/Toast";
 
