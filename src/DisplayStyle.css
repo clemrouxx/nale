@@ -174,8 +174,8 @@
     font-size: var(--fontsize-LARGE);
     font-weight: normal;
     text-align: center;
-    margin-top: 2em;
-    margin-bottom: 1.5em;
+    margin-top: 3ex;
+    margin-bottom: 2ex;
     line-height: 1.2;
 }
 
@@ -200,6 +200,7 @@
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
+    font-size: var(--fontsize-large);
 }
 
 .editor-author + .editor-author::before{
@@ -212,6 +213,22 @@
 
 .editor-author + .editor-author:nth-child(2):last-child::before{
     content: " and ";
+}
+
+.editor-author-list:not(:has(+ .editor-affiliation-list)), .editor-affiliation-list { /* Author list but no affiliation. Or affiliation list if it exists. */
+    margin-bottom: 6.5ex;
+}
+
+.editor-affiliation-list{
+    text-align: center;
+    font-size: var(--fontsize-large);
+    margin-top: 1.2ex;
+}
+
+.editor-affiliation::before{
+    content: attr(data-symbol);
+    vertical-align: super;
+    font-size: 0.75em;
 }
 
 .editor-image > iframe{/* PDF */

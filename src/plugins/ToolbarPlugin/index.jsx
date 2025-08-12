@@ -102,6 +102,7 @@ import { INSERT_MATH_COMMAND } from '../MathPlugin/index.jsx';
 import { insertTitle } from '../../nodes/TitleNode.jsx';
 import { insertAbstract } from '../../nodes/AbstractNode.jsx';
 import { $appendAuthor } from '../../nodes/AuthorNodes.jsx';
+import { $appendAffiliation } from '../../nodes/AffiliationNodes.jsx';
 
 /*
 const rootTypeToRootName = {
@@ -915,6 +916,7 @@ export default function ToolbarPlugin({
 
             <DropDownItemWithIcon title={"Main title"} onClick={() => insertTitle(activeEditor)} iconClassName={"fonts"}/>
             <DropDownItemWithIcon title={"Add author"} onClick={() => activeEditor.update($appendAuthor)} iconClassName={"person-plus"}/>
+            <DropDownItemWithIcon title={"Add affiliation"} onClick={() => activeEditor.update($appendAffiliation)} iconClassName={"person-plus"}/>
             <DropDownItemWithIcon title={"Abstract"} onClick={() => insertAbstract(activeEditor)} iconClassName={"paragraph"}/>
           </DropDown>
         </div>
