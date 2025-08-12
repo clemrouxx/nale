@@ -70,6 +70,11 @@ function convertDocumentOptions(documentOptions){
         }
     }
 
+    // paragraph indentation
+    if (documentOptions.paragraphs.indentFirst){
+        latex += "\\usepackage{indentfirst}\n";
+    }
+
     latex += "\n";
     return latex;
 }
