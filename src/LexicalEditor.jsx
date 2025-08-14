@@ -27,6 +27,7 @@ import { AuthorshipPlugin } from './nodes/AuthorNodes';
 import { VirtualKeyboardContainer } from './plugins/MathPlugin/VirtualKeyboard';
 import { showToast } from './ui/Toast';
 import { AffiliationsPlugin } from './nodes/AffiliationNodes';
+import PreventRefocusPlugin from './plugins/PreventRefocusPlugin';
 
 function Editor() {
   const [editor] = useLexicalComposerContext();
@@ -136,6 +137,7 @@ function Editor() {
           <AbstractNodePlugin/>
           <AuthorshipPlugin/>
           <AffiliationsPlugin/>
+          <PreventRefocusPlugin />
         </div>
         <VirtualKeyboardContainer/>
     </>

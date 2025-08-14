@@ -17,11 +17,8 @@ export function useActiveNode() {
           const firstNode = selection.getNodes()[0];
           setActiveNode(firstNode);
           setActiveNodeParent(firstNode.getParent());
-        } 
-        else {
-          setActiveNode(null);
-          setActiveNodeParent(null);
         }
+        // If selection goes to null, we keep the last selected node as active node
       });
     });
   }, [editor]);
