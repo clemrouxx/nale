@@ -7,6 +7,8 @@ import { useState } from "react";
 const OPTIONS_CATEGORY_PER_NODETYPE = {
     paragraph : "paragraphs",
     "numbered-heading":"headings",
+    caption:"figures",
+    "captioned-image":"figures"
 }
 
 export function AutoOptionsPanel() { // Automatically chooses the relevant options category to show
@@ -135,7 +137,7 @@ export function GlobalOptionsPanel({category}) {
         case "paragraphs":
             inner = (
                 <>
-                <h4>Paragraph options</h4>
+                <h4>Paragraphs options</h4>
                 <label htmlFor="indentFirst">
                     <input 
                     type="checkbox"
@@ -189,6 +191,21 @@ export function GlobalOptionsPanel({category}) {
                 </>
             );
             break;
+        case "figures":
+            inner = (
+                <>
+                <h4>Figures options</h4>
+                <div>
+                    <label htmlFor="figureName">Figure name: </label>
+                    <input
+                    type="text"
+                    name={"figureName"}
+                    value={documentOptions.figures.figureName ?? "Figure"}
+                    onChange={handleInputChange}
+                    />
+                </div>
+                </>
+            )
     }
     return (<div className="options-panel">{inner}</div>);
 }
@@ -246,7 +263,7 @@ function NodeOptionsPanel({node}) {
         case "captioned-image":
             inner = (
                 <>
-                <h4>Figure options</h4>
+                <h4>Image options</h4>
                 <div className="form-line">
                     <label>Relative width: </label>
                     <input type="range" min="1" max="100" step="1" value={editor.read(() => node.getWidthValue())}

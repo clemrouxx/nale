@@ -85,9 +85,9 @@ ${childrenString}
     }
   }
   
-export function $createFigureNode(imagePayload,labelNumber) {
+export function $createFigureNode(imagePayload,labelNumber,documentOptions) {
     const figureNode = new FigureNode(imagePayload.src,0,labelNumber);
     figureNode.append($createCaptionedImageNode(imagePayload));
-    figureNode.append($createCaptionNode());
+    figureNode.append($createCaptionNode(documentOptions));
     return figureNode;
 }

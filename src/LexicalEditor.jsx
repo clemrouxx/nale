@@ -57,7 +57,7 @@ function Editor() {
     editor.update(()=>{
       const root = $getRoot();
       const visit = (node) => { // Can be simplified : no recursion needed
-          if ($isNumberedHeadingNode(node)) {
+          if (node.setDocumentOptions) {
             node.setDocumentOptions(documentOptions);
           }
           

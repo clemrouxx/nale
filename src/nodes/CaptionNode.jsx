@@ -2,22 +2,29 @@ import { $getSelection, $isRangeSelection, ParagraphNode } from "lexical";
 import {
     $findMatchingParent,
   } from '@lexical/utils';
+import { DEFAULT_DOCUMENT_OPTIONS } from "../plugins/Options/documentOptions";
 
 export class CaptionNode extends ParagraphNode{
-    __prefix_template;
+    __figures_options;
     __number;
 
-    constructor(number,key){
+    constructor(number,figures_options,key){
         super(key);
-        this.__prefix_template = "Figure {}: ";
+        this.__figures_options = figures_options ?? DEFAULT_DOCUMENT_OPTIONS.figures;
         this.__number = number ?? 0;
     }
 
     static getType() { return "caption" }
 
-    static clone(node){ return new CaptionNode(node.__number,node.__key) }
+    static clone(node){ return new CaptionNode(node.__number,structuredClone(node.__figures_options),node.__key) }
 
     setNumber(number){ this.getWritable().__number = number }
+
+    setDocumentOptions(documentOptions){
+        const writable = this.getWritable();
+        writable.__figures_options = documentOptions.figures;
+        writable.markDirty();
+    }
 
     // View
 
@@ -29,7 +36,7 @@ export class CaptionNode extends ParagraphNode{
     }
 
     getPrefix(){
-        return this.__prefix_template.replaceAll("{}",this.__number);
+        return `${this.__figures_options.figureName} ${this.__number}: `;
     }
 
     updateDOM(prevNode){ return prevNode.getPrefix() !== this.getPrefix() }
@@ -37,7 +44,7 @@ export class CaptionNode extends ParagraphNode{
     // Serializaton
 
     static importJSON(serializedNode) {
-        return new CaptionNode(serializedNode.number);
+        return new CaptionNode(serializedNode.number,DEFAULT_DOCUMENT_OPTIONS.figures_options);
     }
 
     exportJSON() {
@@ -62,8 +69,8 @@ export class CaptionNode extends ParagraphNode{
 
 }
 
-export function $createCaptionNode(){
-    return new CaptionNode();
+export function $createCaptionNode(documentOptions){
+    return new CaptionNode(null,documentOptions.figures);
 }
 
 function $isCaptionNode(node){ return node instanceof CaptionNode }

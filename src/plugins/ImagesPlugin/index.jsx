@@ -25,6 +25,7 @@ import TextInput from '../../ui/TextInput';
 import { $createFigureNode } from '../../nodes/FigureNode';
 import { $onDeleteCharacterInCaption } from '../../nodes/CaptionNode';
 import { useDocumentStructureContext } from '../NumberingPlugin/DocumentStructureContext';
+import { useDocumentOptions } from '../Options/DocumentOptionsContext';
 
 export const INSERT_IMAGE_COMMAND = createCommand('INSERT_IMAGE_COMMAND');
 export const INSERT_FIGURE_COMMAND = createCommand('INSERT_FIGURE_COMMAND');
@@ -134,6 +135,7 @@ export function InsertImageDialog({
 export default function ImagesPlugin() {
   const [editor] = useLexicalComposerContext();
   const {nextLabelNumber,setNextLabelNumber} = useDocumentStructureContext();
+  const {documentOptions} = useDocumentOptions();
 
   useEffect(() => {
     if (!editor.hasNodes([SimpleImageNode])) {
@@ -158,7 +160,7 @@ export default function ImagesPlugin() {
         INSERT_FIGURE_COMMAND,
         (payload) => {
           //console.log(payload);
-          const figureNode = $createFigureNode(payload,nextLabelNumber);
+          const figureNode = $createFigureNode(payload,nextLabelNumber,documentOptions);
           setNextLabelNumber(nextLabelNumber+1);
           $insertNodes([figureNode]);
           return true;

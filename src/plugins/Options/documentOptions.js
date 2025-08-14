@@ -10,5 +10,8 @@ export const DEFAULT_DOCUMENT_OPTIONS = {
     },
     paragraphs : {
         indentFirst : false,
-    }
+    },
+    figures : {
+        figureName : "Figure",
+    },
 }
