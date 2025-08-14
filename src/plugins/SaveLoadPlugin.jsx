@@ -41,19 +41,19 @@ export function SaveProvider({ children }) {
         };
     try{
       const fileHandle = await window.showSaveFilePicker(options);
+      setLastFileHandle(fileHandle);
+      setLastFilename(fileHandle.name);
+      const writable = await fileHandle.createWritable();
+      await writable.write(getTextToSave());
+      await writable.close();
+      editor.dispatchCommand(CLEAR_HISTORY_COMMAND); // Reset History
+      return true; // Success
     } catch(error) {
       if (error.name === 'AbortError') {
         return true;
       }
       throw error;
     }
-    setLastFileHandle(fileHandle);
-    setLastFilename(fileHandle.name);
-    const writable = await fileHandle.createWritable();
-    await writable.write(getTextToSave());
-    await writable.close();
-    editor.dispatchCommand(CLEAR_HISTORY_COMMAND); // Reset History
-    return true; // Success
   };
 
   const saveAs = async () => {
