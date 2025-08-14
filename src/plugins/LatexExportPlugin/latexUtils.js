@@ -75,6 +75,16 @@ function convertDocumentOptions(documentOptions){
         latex += "\\usepackage{indentfirst}\n";
     }
 
+    // figure options
+    if (documentOptions.figures.figureName !== DEFAULT_DOCUMENT_OPTIONS.figures.figureName){
+        latex += `\\renewcommand{\\figurename}{${documentOptions.figures.figureName}}`;
+    }
+    if (documentOptions.figures.labelSeparator !== DEFAULT_DOCUMENT_OPTIONS.figures.labelSeparator){
+        latex += `\\usepackage{caption}
+\\DeclareCaptionLabelSeparator{customLabelSeparator}{${documentOptions.figures.labelSeparator}}
+\\captionsetup[figure]{labelsep=customLabelSeparator}`;
+    }
+
     latex += "\n";
     return latex;
 }

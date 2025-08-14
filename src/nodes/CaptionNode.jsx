@@ -36,7 +36,7 @@ export class CaptionNode extends ParagraphNode{
     }
 
     getPrefix(){
-        return `${this.__figures_options.figureName} ${this.__number}${this.__figures_options.labelSeparator} `;
+        return `${this.__figures_options.figureName} ${this.__number}${this.__figures_options.labelSeparator}`;
     }
 
     updateDOM(prevNode){ return prevNode.getPrefix() !== this.getPrefix() }
