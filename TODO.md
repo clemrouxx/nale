@@ -1,6 +1,7 @@
 # TODO list
 ## Bugs
 - When adding a PDF image, it is mirrored about 20% of the time.
+- Since solving the unfocusing bug with the options panel, sliders for node-specific properties (ex image width) are not fully working
 
 ## Features
 ### Priority features
