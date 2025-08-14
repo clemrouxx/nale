@@ -200,7 +200,16 @@ export function GlobalOptionsPanel({category}) {
                     <input
                     type="text"
                     name={"figureName"}
-                    value={documentOptions.figures.figureName ?? "Figure"}
+                    value={documentOptions.figures.figureName}
+                    onChange={handleInputChange}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="labelSeparator">Label separator: </label>
+                    <input
+                    type="text"
+                    name={"labelSeparator"}
+                    value={documentOptions.figures.labelSeparator}
                     onChange={handleInputChange}
                     />
                 </div>

@@ -13,5 +13,22 @@ export const DEFAULT_DOCUMENT_OPTIONS = {
     },
     figures : {
         figureName : "Figure",
+        labelSeparator : ":",
     },
+}
+
+export function completeDocumentOptions(documentOptions) { // Completes with default values for compatibility with older files
+    const result = { ...documentOptions };
+    
+    for (const [key, defaultValue] of Object.entries(DEFAULT_DOCUMENT_OPTIONS)) {
+        if (key in result) {
+            if (typeof result[key] === 'object' && result[key] !== null) {
+                result[key] = { ...defaultValue, ...result[key] }; // Merge, but with priority to documentOptions
+            }
+        } else {
+            result[key] = value;
+        }
+    }
+    
+    return result;
 }

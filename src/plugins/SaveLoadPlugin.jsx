@@ -5,7 +5,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { showToast } from '../ui/Toast';
 import { CLEAR_HISTORY_COMMAND } from 'lexical';
 import { jsonToBib } from '../utils/bibliographyUtils';
-import { DEFAULT_DOCUMENT_OPTIONS } from './Options/documentOptions';
+import { completeDocumentOptions, DEFAULT_DOCUMENT_OPTIONS } from './Options/documentOptions';
 
 // Create the Save Context
 const SaveContext = createContext();
@@ -186,7 +186,7 @@ function importFile(editor, setDocumentOptions, setBiblio, setNextLabelNumber, f
       // Parse and set the editor state
       const editorState = editor.parseEditorState(parsedContent.editorState);
       editor.setEditorState(editorState);
-      setDocumentOptions({...DEFAULT_DOCUMENT_OPTIONS,...parsedContent.documentOptions});// For backwards compatibility
+      setDocumentOptions(completeDocumentOptions(parsedContent.documentOptions));// For backwards compatibility
       setBiblio(parsedContent.biblio);
       setNextLabelNumber(parsedContent.documentStructure.nextLabelNumber);
       editor.dispatchCommand(CLEAR_HISTORY_COMMAND); // Reset History
