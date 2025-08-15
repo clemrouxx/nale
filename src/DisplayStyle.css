@@ -10,7 +10,7 @@
     --fontsize-Large: calc(var(--fontsize-large)*1.2);
     --fontsize-LARGE: calc(var(--fontsize-Large)*1.2);
     --fontsize-huge: calc(var(--fontsize-LARGE)*1.2);
-    --fontsize-HUGE: calc(var(--fontsize-huge)*1.2);
+    --fontsize-Huge: calc(var(--fontsize-huge)*1.2);
     --fontsize-tiny: calc(var(--fontsize-normal)/1.2);
     --fontsize-scriptsize: calc(var(--fontsize-tiny)/1.2);
 
@@ -171,7 +171,7 @@
 }
 
 .editor-title{
-    font-size: var(--fontsize-LARGE);
+    /*font-size: var(--fontsize-LARGE);*/
     font-weight: normal;
     text-align: center;
     margin-top: 3ex;

@@ -8,8 +8,20 @@ const OPTIONS_CATEGORY_PER_NODETYPE = {
     paragraph : "paragraphs",
     "numbered-heading":"headings",
     caption:"figures",
-    "captioned-image":"figures"
+    "captioned-image":"figures",
+    title:"title",
 }
+
+const latexFontSizes = [
+    { commandName: 'scriptsize', display: 'Script Size' },
+    { commandName: 'tiny', display: 'Tiny' },
+    { commandName: 'normalsize', display: 'Normal' },
+    { commandName: 'large', display: 'Large' },
+    { commandName: 'Large', display: 'Larger' },
+    { commandName: 'LARGE', display: 'Very Large' },
+    { commandName: 'huge', display: 'Huge' },
+    { commandName: 'Huge', display: 'Largest' }
+  ];
 
 export function AutoOptionsPanel() { // Automatically chooses the relevant options category to show
     const { activeNode, activeNodeParent } = useActiveNode();
@@ -212,6 +224,27 @@ export function GlobalOptionsPanel({category}) {
                     value={documentOptions.figures.labelSeparator}
                     onChange={handleInputChange}
                     />
+                </div>
+                </>
+            );
+            break;
+        case "title":
+            inner = (
+                <>
+                <h4>Title options</h4>
+                <div className="form-line">
+                    <label htmlFor="relativeFontSize">Font Size: </label>
+                    <select 
+                        name="relativeFontSize"
+                        value={documentOptions.title.relativeFontSize}
+                        onChange={handleInputChange}
+                    >
+                        {latexFontSizes.map((size) => (
+                            <option key={size.commandName} value={size.commandName}>
+                                {size.display}
+                            </option>))
+                        }
+                    </select>
                 </div>
                 </>
             )

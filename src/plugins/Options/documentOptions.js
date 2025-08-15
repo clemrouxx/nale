@@ -15,6 +15,9 @@ export const DEFAULT_DOCUMENT_OPTIONS = {
         figureName : "Figure",
         labelSeparator : ":",
     },
+    title : {
+        relativeFontSize : "LARGE",
+    }
 }
 
 export function completeDocumentOptions(documentOptions) { // Completes with default values for compatibility with older files
