@@ -171,16 +171,17 @@
 }
 
 .editor-title{
-    /*font-size: var(--fontsize-LARGE);*/
     font-weight: normal;
     text-align: center;
     margin-top: 3ex;
     margin-bottom: 2ex;
     line-height: 1.2;
+    column-span: all;
 }
 
 .editor-abstract{
     margin: 3ex 2.6em;
+    column-span: all;
 }
 
 .editor-abstract::before {
@@ -201,6 +202,7 @@
     justify-content: center;
     flex-wrap: wrap;
     font-size: var(--fontsize-large);
+    column-span: all;
 }
 
 .editor-author + .editor-author::before{
@@ -223,6 +225,7 @@
     text-align: center;
     font-size: var(--fontsize-large);
     margin-top: 1.2ex;
+    column-span: all;
 }
 
 /*

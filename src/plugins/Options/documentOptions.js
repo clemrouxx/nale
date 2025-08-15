@@ -3,6 +3,7 @@ export const DEFAULT_DOCUMENT_OPTIONS = {
     general : {
         fontSize : 10, // Main font size
         margins : {left:38,right:38,top:25,bottom:25}, // (mm)
+        twoColumns : false,
     },
     headings : {
         numberingStyles : {1 : "arabic", 2 : "arabic", 3 : "arabic"}, // { <headingLevel> : <style> }

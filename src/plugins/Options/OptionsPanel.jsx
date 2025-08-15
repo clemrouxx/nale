@@ -140,6 +140,17 @@ export function GlobalOptionsPanel({category}) {
                             />
                             <span>{documentOptions.general.margins.bottom} mm</span>
                         </div>
+
+                        <label htmlFor="twoColumns">
+                            <input 
+                            type="checkbox"
+                            name="twoColumns"
+                            id="twoColumns"
+                            checked={documentOptions.general.twoColumns}
+                            onChange={handleCheckboxChange}
+                            />
+                            Two columns layout
+                        </label>
                     </>
                     )}
                     
