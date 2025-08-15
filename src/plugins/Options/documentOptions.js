@@ -30,7 +30,7 @@ export function completeDocumentOptions(documentOptions) { // Completes with def
                 result[key] = { ...defaultValue, ...result[key] }; // Merge, but with priority to documentOptions
             }
         } else {
-            result[key] = value;
+            result[key] = defaultValue;
         }
     }
     

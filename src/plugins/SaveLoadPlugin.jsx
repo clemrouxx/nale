@@ -179,22 +179,22 @@ function importFile(editor, setDocumentOptions, setBiblio, setNextLabelNumber, f
   const reader = new FileReader();
   
   reader.onload = (event) => {
+    let parsedContent = null;
     try {
       const content = event.target.result;
-      const parsedContent = JSON.parse(content);
-
-      // Parse and set the editor state
-      const editorState = editor.parseEditorState(parsedContent.editorState);
-      editor.setEditorState(editorState);
-      setDocumentOptions(completeDocumentOptions(parsedContent.documentOptions));// For backwards compatibility
-      setBiblio(parsedContent.biblio);
-      setNextLabelNumber(parsedContent.documentStructure.nextLabelNumber);
-      editor.dispatchCommand(CLEAR_HISTORY_COMMAND); // Reset History
+      parsedContent = JSON.parse(content);
     } catch (error) {
       console.error('Invalid file format:', error.message);
       showToast('Error: Invalid file format',3000,"error");
       return;
     }
+    // Parse and set the editor state
+    const editorState = editor.parseEditorState(parsedContent.editorState);
+    editor.setEditorState(editorState);
+    setDocumentOptions(completeDocumentOptions(parsedContent.documentOptions));// For backwards compatibility
+    setBiblio(parsedContent.biblio);
+    setNextLabelNumber(parsedContent.documentStructure.nextLabelNumber);
+    editor.dispatchCommand(CLEAR_HISTORY_COMMAND); // Reset History
   };
   
   reader.onerror = () => {
