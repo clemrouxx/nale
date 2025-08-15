@@ -225,6 +225,7 @@
     margin-top: 1.2ex;
 }
 
+/*
 .editor-affiliation::before{
     content: attr(data-symbol);
     vertical-align: super;
@@ -235,4 +236,4 @@
     content: attr(data-affiliations);
     vertical-align: super;
     font-size: 0.75em;
-}
+}*/
