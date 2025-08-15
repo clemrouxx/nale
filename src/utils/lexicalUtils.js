@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { $getSelection, $isNodeSelection, $isRangeSelection } from 'lexical';
+import { $getNodeByKey, $getSelection, $isNodeSelection, $isRangeSelection } from 'lexical';
 
 // Custom hook to track active node (and its parent)
 export function useActiveNode() {
@@ -18,10 +18,14 @@ export function useActiveNode() {
           setActiveNode(firstNode);
           setActiveNodeParent(firstNode.getParent());
         }
-        // If selection goes to null, we keep the last selected node as active node
+        // If selection goes to null, we keep the last selected node as active node (but we update it anyway !)
+        else if (activeNode){
+          setActiveNode($getNodeByKey(activeNode.getKey()));
+          setActiveNodeParent($getNodeByKey(activeNodeParent.getKey()));
+        }
       });
     });
-  }, [editor]);
+  }, [editor,activeNode?.getKey()]);
 
   return { activeNode, activeNodeParent };
 }

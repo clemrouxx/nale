@@ -297,6 +297,7 @@ function NodeOptionsPanel({node}) {
                         onChange={(e) => {
                         editor.update(()=>{
                             node.setWidthValue(parseInt(e.target.value));
+                            console.log(node.getWidthString());
                         })
                     }}
                     />
