@@ -47,6 +47,7 @@ function getDocumentCommandOptions(documentOptions){
     if (documentOptions.general.fontSize !== DEFAULT_DOCUMENT_OPTIONS.general.fontSize){
         options += `,${documentOptions.general.fontSize}pt`;
     }
+    if (documentOptions.general.twoColumns) options += ",twocolumn";
     return options;
 }
 
@@ -141,7 +142,7 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
         case "text":
             break;
         case "paragraph":
-            string += "\n";
+            string += "\n\n";
             break;
         case "heading":
             let index = node.getTag()[1]-1;
