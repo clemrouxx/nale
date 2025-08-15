@@ -45,7 +45,11 @@ function Editor() {
     setGlobalCSSRule(".editor-base","--marginbottom-base",`${String(documentOptions.general.margins.bottom)}mm`);
     setGlobalCSSRule(".editor-paragraph","text-indent",documentOptions.paragraphs.indentFirst?"var(--paragraph-indent)":"");
     setGlobalCSSRule(".editor-title","font-size",`var(--fontsize-${documentOptions.title.relativeFontSize})`);
-    setGlobalCSSRule(".real-page-width .editor-base","column-count",documentOptions.general.twoColumns?"2":"1");
+  }
+
+  const getAdditionalEditorClassName = (docOptions) => {
+    if (docOptions.general.twoColumns) return "two-columns";
+    return "";
   }
 
   // Changed documentOptions
@@ -58,7 +62,7 @@ function Editor() {
     // Direct node modifications
     editor.update(()=>{
       const root = $getRoot();
-      const visit = (node) => { // Can be simplified : no recursion needed
+      const visit = (node) => {
           if (node.setDocumentOptions) {
             node.setDocumentOptions(documentOptions);
           }
@@ -122,7 +126,7 @@ function Editor() {
                 id='main-editor'
                 aria-placeholder={""}
                 placeholder={<></>}
-                className='editor-base'
+                className={`editor-base ${getAdditionalEditorClassName(documentOptions)}`}
                 spellCheck={false}
                 ref={editorRef}
               />
