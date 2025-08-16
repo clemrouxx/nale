@@ -44,16 +44,15 @@ export function AutoOptionsPanel() { // Automatically chooses the relevant optio
     }
     return (
         <div className="flex">
-        {isOpen && (<div className="side-panel">
-            {activeNode && 
-            <>
-                <h3>Local options ({nodeType})</h3>
-                <NodeOptionsPanel node={useParentNode?activeNodeParent:activeNode}/>
-            </>}
-            <h3>Global options</h3>
-            {category!=="general"&&<GlobalOptionsPanel category={category}/>}
-            <GlobalOptionsPanel category={"general"}/>
-        </div>)}
+        {isOpen && (
+            <div className="side-panel">
+                {activeNode && 
+                    <NodeOptionsPanel node={useParentNode?activeNodeParent:activeNode}/>}
+                {category!=="general" && 
+                    <GlobalOptionsPanel category={category}/>}
+                <GlobalOptionsPanel category={"general"}/>
+            </div>)
+        }
         <div className={"drawer-handle vertical"+(isOpen?" left":" right")} onClick={()=>{setOpen(!isOpen)}}></div>
         </div>
     );
@@ -163,7 +162,7 @@ export function GlobalOptionsPanel({category}) {
         case "paragraphs":
             inner = (
                 <>
-                <h4>Paragraphs options</h4>
+                <h4>Global paragraphs options</h4>
                 <label htmlFor="indentFirst">
                     <input 
                     type="checkbox"
@@ -180,7 +179,7 @@ export function GlobalOptionsPanel({category}) {
         case "headings":
             inner =  (
                 <>
-                    <h4>Headings options</h4>
+                    <h4>Global headings options</h4>
                     <div>
                         <h5>Numbering styles</h5>
                         {["Section","Subsection","Subsubsection"].map((name, index) => (
@@ -220,7 +219,7 @@ export function GlobalOptionsPanel({category}) {
         case "figures":
             inner = (
                 <>
-                <h4>Figures options</h4>
+                <h4>Global figures options</h4>
                 <div>
                     <label htmlFor="figureName">Figure name: </label>
                     <input
@@ -371,5 +370,5 @@ function NodeOptionsPanel({node}) {
             );
             break;
     }
-    return (<div className="options-panel">{inner}</div>);
+    return (inner.props.children?<div className="options-panel">{inner}</div>:<></>);
 }
