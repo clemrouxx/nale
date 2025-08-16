@@ -35,6 +35,7 @@ import {
   $getNodeByKey,
   $getRoot,
   $getSelection,
+  $insertNodes,
   $isElementNode,
   $isRangeSelection,
   $isRootOrShadowRoot,
@@ -100,9 +101,11 @@ import { insertBibliographyNode } from '../../nodes/BibliographyNode.jsx';
 import { $isNumberedHeadingNode } from '../../nodes/NumberedHeadingNode.js';
 import { INSERT_MATH_COMMAND } from '../MathPlugin/index.jsx';
 import { insertTitle } from '../../nodes/TitleNode.jsx';
-import { insertAbstract } from '../../nodes/AbstractNode.jsx';
+import { $createAbstractNode, insertAbstract } from '../../nodes/AbstractNode.jsx';
 import { $appendAuthor } from '../../nodes/AuthorNodes.jsx';
 import { $appendAffiliation } from '../../nodes/AffiliationNodes.jsx';
+import { useDisplayOptions } from '../DisplayOptionsContext.jsx';
+import { $createPageBreakNode } from '../../nodes/PageBreakNode.jsx';
 
 /*
 const rootTypeToRootName = {
@@ -300,9 +303,6 @@ function CitationDropDown({editor}){
   )
 }
 
-function Divider(){
-  return <div className="divider" />;
-}
 
 /*
 function FontDropDown({
@@ -481,6 +481,7 @@ export default function ToolbarPlugin({
   const [modal, showModal] = useModal();
   const [isEditable, setIsEditable] = useState(() => editor.isEditable());
   const {toolbarState, updateToolbarState} = useToolbarState();
+  const {displayOptions} = useDisplayOptions();
 
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -909,7 +910,7 @@ export default function ToolbarPlugin({
           <DropDown
             disabled={!isEditable}
             buttonClassName="toolbar-item spaced"
-            buttonLabel="Title page..."
+            buttonLabel="Title page"
             buttonAriaLabel="Title page"
             buttonIconClassName="plus"
             chevron={false}>
@@ -918,6 +919,19 @@ export default function ToolbarPlugin({
             <DropDownItemWithIcon title={"Add author"} onClick={() => activeEditor.update($appendAuthor)} iconClassName={"person-plus"}/>
             <DropDownItemWithIcon title={"Add affiliation"} onClick={() => activeEditor.update($appendAffiliation)} iconClassName={"person-plus"}/>
             <DropDownItemWithIcon title={"Abstract"} onClick={() => insertAbstract(activeEditor)} iconClassName={"paragraph"}/>
+          </DropDown>
+        </div>
+
+        <div className="toolbar-itemgroup">
+          <DropDown
+            disabled={!(isEditable && displayOptions.emulateLayout)}
+            buttonClassName="toolbar-item spaced"
+            buttonLabel="Layout element"
+            buttonAriaLabel="Layout element"
+            buttonIconClassName="plus"
+            chevron={false}>
+
+            <DropDownItemWithIcon title={"Page break"} onClick={() => activeEditor.update(() => $insertNodes([$createPageBreakNode()]))} iconClassName={"minus"}/>
           </DropDown>
         </div>
       </>

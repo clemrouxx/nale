@@ -36,7 +36,7 @@
     color: white;
 }
 
-.editor-base.two-columns{
+.emulate-layout .editor-base.two-columns{
     column-count: 2;
 }
 
@@ -248,3 +248,17 @@
     vertical-align: super;
     font-size: 0.75em;
 }*/
+
+.emulate-layout .editor-pagebreak{
+    height: 20px;
+    background-color:var(--bg-contrasted);
+    color: grey;
+    text-align: center;
+    column-span: all;
+    margin-top: calc(var(--marginbottom-base) * var(--editor-scale));
+    margin-bottom: calc(var(--margintop-base) * var(--editor-scale));
+}
+
+.editor-container:not(.emulate-layout) .editor-pagebreak{
+    display: none;
+}
