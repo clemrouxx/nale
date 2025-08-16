@@ -71,10 +71,10 @@ const DisplayMenu = () => {
                 <label>
                     <input
                     type="checkbox"
-                    checked={displayOptions.realPageWidth}
-                    onChange={(e)=>{setDisplayOption("realPageWidth",e.target.checked)}}
+                    checked={displayOptions.emulateLayout}
+                    onChange={(e)=>{setDisplayOption("emulateLayout",e.target.checked)}}
                     />
-                    Real page width
+                    Emulate layout
                 </label>
             </div>
             <div>

@@ -5,7 +5,7 @@ export const zoomFactors = [0.25,0.33,0.5,0.67,0.75,0.8,0.9,1,1.1,1.25,1.5,1.75,
 
 export const zoomLevelToText = zoomLevel => `${Math.round(100*zoomFactors[zoomLevel])} %`;
 
-const DEFAULT_DISPLAY_OPTIONS = {zoomLevel:9,realPageWidth:false,darkEditor:false}
+const DEFAULT_DISPLAY_OPTIONS = {zoomLevel:9,emulateLayout:false,darkEditor:false}
 
 const DisplayOptionsContext = createContext();
 
@@ -25,10 +25,10 @@ export function DisplayOptionsProvider({ children }) {
         setGlobalCSSRule(".editor-base","--editor-scale",zoomFactors[displayOptions.zoomLevel]);
         
         const editorContainer = document.getElementById('main-editor-container');
-        if (displayOptions.realPageWidth) {
-            editorContainer.classList.add('real-page-width');
+        if (displayOptions.emulateLayout) {
+            editorContainer.classList.add('emulate-layout');
         } else {
-            editorContainer.classList.remove('real-page-width');
+            editorContainer.classList.remove('emulate-layout');
         }
 
         const editorDomElement = document.getElementById("main-editor");

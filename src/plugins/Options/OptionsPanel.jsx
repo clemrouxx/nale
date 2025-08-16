@@ -107,7 +107,7 @@ export function GlobalOptionsPanel({category}) {
                         </select>
                     </div>
                     
-                    {displayOptions.realPageWidth && (
+                    {displayOptions.emulateLayout && (
                     <>
                         <div className="form-line">
                             <label htmlFor="margins-left">Left margin: </label>
