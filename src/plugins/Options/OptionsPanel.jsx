@@ -10,6 +10,7 @@ const OPTIONS_CATEGORY_PER_NODETYPE = {
     caption:"figures",
     "captioned-image":"figures",
     title:"title",
+    abstract:"abstract",
 }
 
 const latexFontSizes = [
@@ -24,7 +25,7 @@ const latexFontSizes = [
   ];
 
 export function AutoOptionsPanel() { // Automatically chooses the relevant options category to show
-    const { activeNode, activeNodeParent } = useActiveNode();
+    const { activeNode, activeNodeParent, activeNodeAncestorTypes } = useActiveNode();
     const [isOpen,setOpen] = useState(true);
 
     var category = "general";
@@ -35,6 +36,8 @@ export function AutoOptionsPanel() { // Automatically chooses the relevant optio
             useParentNode = true;
             nodeType = activeNodeParent.getType(); // Go up one node in this case
         }
+        // Specific case : if we are in an abstract (and only from a text or paragraph), it takes priority
+        if (nodeType === "paragraph" && activeNodeAncestorTypes.includes("abstract")) nodeType = "abstract";
         if (nodeType in OPTIONS_CATEGORY_PER_NODETYPE){
             category = OPTIONS_CATEGORY_PER_NODETYPE[nodeType];
         }
@@ -258,7 +261,24 @@ export function GlobalOptionsPanel({category}) {
                     </select>
                 </div>
                 </>
-            )
+            );
+            break;
+        case "abstract":
+            inner = (
+                <>
+                <h4>Abstract options</h4>
+                {documentOptions.general.twoColumns && <label htmlFor="spanAllCols">
+                    <input 
+                    type="checkbox"
+                    id="spanAllCols"
+                    name="spanAllCols"
+                    checked={documentOptions.abstract.spanAllCols}
+                    onChange={handleCheckboxChange}
+                    />
+                    Span both columns
+                </label>}
+                </>
+            );
     }
     return (<div className="options-panel">{inner}</div>);
 }

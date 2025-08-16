@@ -7,6 +7,7 @@ export function useActiveNode() {
   const [editor] = useLexicalComposerContext();
   const [activeNode, setActiveNode] = useState(null);
   const [activeNodeParent, setActiveNodeParent] = useState(null);
+  const [activeNodeAncestorTypes,setActiveNodeAncestorTypes] = useState([]);
 
   useEffect(() => {
     // Update when editor changes or selection changes
@@ -17,17 +18,19 @@ export function useActiveNode() {
           const firstNode = selection.getNodes()[0];
           setActiveNode(firstNode);
           setActiveNodeParent(firstNode.getParent());
+          setActiveNodeAncestorTypes(firstNode.getParents().map(parent => parent.getType()));
         }
         // If selection goes to null, we keep the last selected node as active node (but we update it anyway !)
         else if (activeNode){
           setActiveNode($getNodeByKey(activeNode.getKey()));
           setActiveNodeParent($getNodeByKey(activeNodeParent.getKey()));
+          setActiveNodeAncestorTypes(activeNode.getParents().map(parent => parent.getType()));
         }
       });
     });
   }, [editor,activeNode?.getKey()]);
 
-  return { activeNode, activeNodeParent };
+  return { activeNode, activeNodeParent, activeNodeAncestorTypes };
 }
 
 export function $findSelectedOrBeforeCursor(nodeType){

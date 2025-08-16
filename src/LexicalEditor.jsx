@@ -45,6 +45,7 @@ function Editor() {
     setGlobalCSSRule(".editor-base","--marginbottom-base",`${String(documentOptions.general.margins.bottom)}mm`);
     setGlobalCSSRule(".editor-paragraph","text-indent",documentOptions.paragraphs.indentFirst?"var(--paragraph-indent)":"");
     setGlobalCSSRule(".editor-title","font-size",`var(--fontsize-${documentOptions.title.relativeFontSize})`);
+    setGlobalCSSRule(".editor-abstract","column-span",documentOptions.abstract.spanAllCols?"all":"1");
   }
 
   const getAdditionalEditorClassName = (docOptions) => {
