@@ -128,7 +128,9 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
             string = heading + LATEX_BEGIN_DOCUMENT + string + LATEX_END_DOCUMENT;
             break;
         case "title":
-            bubbledInfo.title = string; // We pass the text content of the title to the root node
+            let titleString = string;
+            if (documentOptions.title.relativeFontSize !== DEFAULT_DOCUMENT_OPTIONS.title.relativeFontSize) titleString = `\\${documentOptions.title.relativeFontSize} ${titleString}`;
+            bubbledInfo.title = titleString; // We pass the text content of the title to the root node
             string = "\\maketitle\n"; // This is what should be where the title is.
             break;
         case "author":
