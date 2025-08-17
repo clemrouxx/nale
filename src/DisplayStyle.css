@@ -250,13 +250,17 @@
 }*/
 
 .emulate-layout .editor-pagebreak{
-    height: 20px;
+    height: 5ex;
     background-color:var(--bg-contrasted);
-    color: grey;
-    text-align: center;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     column-span: all;
-    margin-top: calc(var(--marginbottom-base) * var(--editor-scale));
+    margin-top: calc((var(--marginbottom-base)) * var(--editor-scale));
     margin-bottom: calc(var(--margintop-base) * var(--editor-scale));
+    margin-left: calc( -1 * var(--marginleft-base) * var(--editor-scale));
+    margin-right: calc( -1 * var(--marginright-base) * var(--editor-scale));
 }
 
 .editor-container:not(.emulate-layout) .editor-pagebreak{

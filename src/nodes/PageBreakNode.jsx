@@ -1,6 +1,5 @@
 
 import { DecoratorNode } from 'lexical';
-import React from 'react';
 
 export class PageBreakNode extends DecoratorNode {
   static getType() {
@@ -13,7 +12,7 @@ export class PageBreakNode extends DecoratorNode {
 
   createDOM() {
     const div = document.createElement('div');
-    div.className = "editor-pagebreak"
+    div.className = "editor-pagebreak";
     return div;
   }
 
@@ -22,7 +21,7 @@ export class PageBreakNode extends DecoratorNode {
   }
 
   decorate() {
-    return (<div>PAGE BREAK</div>);
+    return (<>PAGE BREAK</>);
   }
 
   isInline() {
@@ -32,6 +31,8 @@ export class PageBreakNode extends DecoratorNode {
   isKeyboardSelectable() {
     return true;
   }
+
+  toLatex() {return "\\newpage\n" }
 }
 
 export function $createPageBreakNode(){
