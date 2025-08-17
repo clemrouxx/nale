@@ -1,13 +1,10 @@
 import {$getRoot} from 'lexical';
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import {convertToLatex} from './plugins/LatexExportPlugin/latexUtils';
-import { useEffect, useState } from 'react';
-import { setGlobalCSSRule } from './utils/generalUtils';
 import { useDisplayOptions, zoomFactors, zoomLevelToText } from './plugins/DisplayOptionsContext';
 import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
 import DropDown, { DropDownItem } from './ui/DropDown';
 import { useSaveLoadContext } from './plugins/SaveLoadPlugin';
-import { useDocumentStructureContext } from "./plugins/NumberingPlugin/DocumentStructureContext";
 
 export const ActionBar = () => {
     return (
