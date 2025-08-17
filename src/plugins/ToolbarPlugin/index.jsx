@@ -339,6 +339,26 @@ export default function ToolbarPlugin({
     );
   }, [$updateToolbar, activeEditor, editor, updateToolbarState]);
 
+  // (Some) shortcut handling
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+        if (e.ctrlKey && e.key === 'F') {
+            e.preventDefault();
+            showModal('Insert Figure', (onClose) => (
+              <InsertImageDialog
+                activeEditor={activeEditor}
+                onClose={onClose}
+                figureMode={true}
+              />
+            ));
+        }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [editor]);
+
   return (
     <div className="toolbar">
     <div className="toolbar-itemgroup">
@@ -499,6 +519,7 @@ export default function ToolbarPlugin({
               className="item">
               <i className="icon figure" />
               <span className="text">Figure</span>
+              <span className="shortcut">Ctrl+Shift+F</span>
             </DropDownItem>
           </DropDown>
         </div>
