@@ -177,6 +177,7 @@ button:hover:not([disabled]){
 
 .dialog-buttons-list button {
   margin-bottom: 20px;
+  font-size: medium;
 }
 
 .actionbar{
@@ -338,4 +339,8 @@ input[type="range"]::-moz-range-thumb:hover {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--bg-softer);
   cursor: pointer;
+}
+
+.Modal__modal .Modal__content{
+  padding-top: 0;
 }

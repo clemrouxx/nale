@@ -5,6 +5,9 @@ import { useDisplayOptions, zoomFactors, zoomLevelToText } from './plugins/Displ
 import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
 import DropDown, { DropDownItem } from './ui/DropDown';
 import { useSaveLoadContext } from './plugins/SaveLoadPlugin';
+import useModal from './hooks/useModal';
+import { showToast } from './ui/Toast';
+import { useEffect } from 'react';
 
 export const ActionBar = () => {
     return (
@@ -16,18 +19,43 @@ export const ActionBar = () => {
     )
 }
 
-const FileButton = () => {
+const LatexExportModal = () => {
     const {documentOptions} = useDocumentOptions();
     const [editor] = useLexicalComposerContext();
-    const { saveAs, quickSave, handleFileChange, openFile } = useSaveLoadContext();
 
-    const readEditorState = () => {
+    const toClipboard = () => {
         editor.getEditorState().read(() => {
             const root = $getRoot();
             const latex = convertToLatex(root,documentOptions);
-            console.log(latex);
+            navigator.clipboard.writeText(latex).then(()=>showToast("LaTeX successfully copied to clipboard"));
         });
     };
+
+    return (
+        <div className='dialog-buttons-list'>
+            <button onClick={toClipboard}>To clipboard</button>
+        </div>
+    )
+}
+
+const FileButton = () => {
+    const { saveAs, quickSave, handleFileChange, openFile } = useSaveLoadContext();
+    const [modal, showModal] = useModal();
+    const [editor] = useLexicalComposerContext();
+
+    // latex export shortcut
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.ctrlKey && e.key === 'e') {
+                e.preventDefault();
+                showModal("Export to LaTeX",(onClose)=>(<LatexExportModal/>));
+            }
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [editor]);
 
     return (
         <>
@@ -42,8 +70,9 @@ const FileButton = () => {
                 <DropDownItem onClick={quickSave}><span className="text">Save</span><span className="shortcut">Ctrl + S</span></DropDownItem>
                 <DropDownItem onClick={saveAs}><span className="text">Save As...</span><span className="shortcut">Ctrl + Shift + S</span></DropDownItem>
                 <DropDownItem onClick={openFile}><span className="text">Open...</span><span className="shortcut">Ctrl + O</span></DropDownItem>
-                <DropDownItem onClick={readEditorState}>Export to LaTeX</DropDownItem>
+                <DropDownItem onClick={()=>showModal("Export to LaTeX",(onClose)=>(<LatexExportModal/>))}><span>Export to LaTeX</span><span className="shortcut">Ctrl + E</span></DropDownItem>
             </DropDown>
+            {modal}
         </>
     );
 }
