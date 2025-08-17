@@ -338,6 +338,10 @@ i.chevron-right{ background-image: url(images/icons/chevron-right.svg) }
   align-items: center;
 }
 
+.dropdown button{
+  color:var(--text-secondary);
+}
+
 .dropdown .item{
   width: 100%;
   margin-left: 0;
@@ -370,7 +374,7 @@ i.chevron-right{ background-image: url(images/icons/chevron-right.svg) }
   background-size: contain;
 }
 
-.dropdown .item:hover:not([disabled]){
+.dropdown button.item:hover:not([disabled]){
   background-color: var(--bg-softer);
 }
 

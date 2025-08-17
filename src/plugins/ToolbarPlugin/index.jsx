@@ -542,14 +542,14 @@ export default function ToolbarPlugin({
 
         <div className="toolbar-itemgroup">
           <DropDown
-            disabled={!(isEditable && displayOptions.emulateLayout)}
+            disabled={!(isEditable)}
             buttonClassName="toolbar-item spaced"
             buttonLabel="Layout element"
             buttonAriaLabel="Layout element"
             buttonIconClassName="plus"
             chevron={false}>
 
-            <DropDownItemWithIcon title={"Page break"} onClick={() => activeEditor.update(() => $insertNodes([$createPageBreakNode()]))} iconClassName={"minus"}/>
+            <DropDownItemWithIcon title={"Page break"} onClick={() => activeEditor.update(() => $insertNodes([$createPageBreakNode()]))} iconClassName={"plus"} disabled={!(displayOptions.emulateLayout)}/>
           </DropDown>
         </div>
       </>

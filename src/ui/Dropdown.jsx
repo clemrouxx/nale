@@ -26,7 +26,8 @@ export function DropDownItem({
   children,
   className,
   onClick,
-  title
+  title,
+  disabled
 }) {
   const ref = useRef(null);
 
@@ -47,6 +48,7 @@ export function DropDownItem({
   return (
     <button
       className={className+" item"}
+      disabled={disabled}
       onClick={onClick}
       ref={ref}
       title={title}
@@ -250,9 +252,10 @@ export function DropDownItemWithIcon({
   className,
   onClick,
   title,
-  iconClassName}){
+  iconClassName,
+  disabled}){
   return (
-    <DropDownItem onClick={onClick} className={className}>
+    <DropDownItem onClick={onClick} className={className} disabled={disabled}>
       <i className={iconClassName} />
       <span className="text">{title}</span>
     </DropDownItem>
