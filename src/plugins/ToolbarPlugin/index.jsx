@@ -91,6 +91,44 @@ function BlockFormatDropDown({
 }){
   const {documentOptions} = useDocumentOptions();
   const {nextLabelNumber,setNextLabelNumber} = useDocumentStructureContext();
+
+  // Shortcuts handling
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+        if (e.ctrlKey && e.altKey) {
+            switch (e.code){
+              case "KeyN":
+                e.preventDefault();
+                formatParagraph(editor);
+                break;
+              case "Digit1":
+                e.preventDefault();
+                formatHeading(editor, blockType, 'h1',documentOptions,nextLabelNumber,setNextLabelNumber);
+                break;
+              case "Digit2":
+                e.preventDefault();
+                formatHeading(editor, blockType, 'h2',documentOptions,nextLabelNumber,setNextLabelNumber);
+                break;
+              case "Digit3":
+                e.preventDefault();
+                formatHeading(editor, blockType, 'h3',documentOptions,nextLabelNumber,setNextLabelNumber);
+                break;
+              case "c":
+                e.preventDefault();
+                formatCode(editor, blockType);
+                break;
+            }
+            
+            console.log(e.code);
+        }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [editor]);
+
+
   return (
     <DropDown
       disabled={disabled}
@@ -107,7 +145,7 @@ function BlockFormatDropDown({
           <i className="icon paragraph" />
           <span className="text">{blockTypeToBlockName["paragraph"]}</span>
         </div>
-        <span className="shortcut">{SHORTCUTS.NORMAL}</span>
+        <span className="shortcut">Ctrl+Alt+N</span>
       </DropDownItem>
       <DropDownItem
         className={'wide ' + dropDownActiveClass(blockType === 'h1')}
@@ -116,7 +154,7 @@ function BlockFormatDropDown({
           <i className="icon h1" />
           <span className="text">{blockTypeToBlockName["h1"]}</span>
         </div>
-        <span className="shortcut">{SHORTCUTS.HEADING1}</span>
+        <span className="shortcut">Ctrl+Alt+1</span>
       </DropDownItem>
       <DropDownItem
         className={'wide ' + dropDownActiveClass(blockType === 'h2')}
@@ -125,7 +163,7 @@ function BlockFormatDropDown({
           <i className="icon h2" />
           <span className="text">{blockTypeToBlockName["h2"]}</span>
         </div>
-        <span className="shortcut">{SHORTCUTS.HEADING2}</span>
+        <span className="shortcut">Ctrl+Alt+2</span>
       </DropDownItem>
       <DropDownItem
         className={'wide ' + dropDownActiveClass(blockType === 'h3')}
@@ -134,7 +172,7 @@ function BlockFormatDropDown({
           <i className="icon h3" />
           <span className="text">{blockTypeToBlockName["h3"]}</span>
         </div>
-        <span className="shortcut">{SHORTCUTS.HEADING3}</span>
+        <span className="shortcut">Ctrl+Alt+3</span>
       </DropDownItem>
       <DropDownItem
         className={'wide ' + dropDownActiveClass(blockType === 'bullet')}
@@ -143,7 +181,6 @@ function BlockFormatDropDown({
           <i className="icon list-bullets" />
           <span className="text">{blockTypeToBlockName["bullet"]}</span>
         </div>
-        <span className="shortcut">{SHORTCUTS.BULLET_LIST}</span>
       </DropDownItem>
       <DropDownItem
         className={'wide ' + dropDownActiveClass(blockType === 'number')}
@@ -152,7 +189,6 @@ function BlockFormatDropDown({
           <i className="icon list-numbers" />
           <span className="text">{blockTypeToBlockName["number"]}</span>
         </div>
-        <span className="shortcut">{SHORTCUTS.NUMBERED_LIST}</span>
       </DropDownItem>
       <DropDownItem
         className={'wide ' + dropDownActiveClass(blockType === 'code')}
@@ -161,14 +197,14 @@ function BlockFormatDropDown({
           <i className="icon code" />
           <span className="text">{blockTypeToBlockName["code"]}</span>
         </div>
-        <span className="shortcut">{SHORTCUTS.CODE_BLOCK}</span>
+        <span className="shortcut">Ctrl+Alt+C</span>
       </DropDownItem>
       <DropDownItem
         className={'wide ' + dropDownActiveClass(blockType === 'latex')}
         onClick={() => formatLatex(editor, blockType)}>
         <div className="icon-text-container">
           <i className="icon latex" />
-          <span className="text">{blockTypeToBlockName["latex"]}</span>
+          <span className="text">Raw LaTeX</span>
         </div>
       </DropDownItem>
     </DropDown>
@@ -352,12 +388,13 @@ export default function ToolbarPlugin({
               />
             ));
         }
+        else if (e.ctrlKey && e.key==="_"){ activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'subscript'); }
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => {
         document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [editor]);
+  }, [editor, activeEditor]);
 
   return (
     <div className="toolbar">
@@ -434,7 +471,7 @@ export default function ToolbarPlugin({
           className={
             'toolbar-item spaced ' + (toolbarState.isSubscript ? 'active' : '')
           }
-          title="Subscript"
+          title="Subscript (Ctrl+_)"
           aria-label="Format text with a subscript">
           <i className="format subscript" />
           <span className="shortcut"></span>
@@ -459,7 +496,7 @@ export default function ToolbarPlugin({
           className={
             'toolbar-item spaced ' + (toolbarState.isCode ? 'active' : '')
           }
-          title={`Code style (${SHORTCUTS.INSERT_CODE_BLOCK})`}
+          title={`Code style`}
           type="button"
           aria-label="Format text in code style">
           <i className="format code" />
