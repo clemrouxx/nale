@@ -4,7 +4,7 @@ import {convertToLatex} from './plugins/LatexExportPlugin/latexUtils';
 import { useDisplayOptions, zoomFactors, zoomLevelToText } from './plugins/DisplayOptionsContext';
 import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
 import DropDown, { DropDownItem } from './ui/DropDown';
-import { useSaveLoadContext } from './plugins/SaveLoadPlugin';
+import { saveToTextFile, useSaveLoadContext } from './plugins/SaveLoadPlugin';
 import useModal from './hooks/useModal';
 import { showToast } from './ui/Toast';
 import { useEffect } from 'react';
@@ -31,9 +31,18 @@ const LatexExportModal = () => {
         });
     };
 
+    const toFile = () => {
+        editor.getEditorState().read(() => {
+            const root = $getRoot();
+            const latex = convertToLatex(root,documentOptions);
+            saveToTextFile(latex,"index.tex", {description: 'LaTeX files', accept: {'text/x-tex': ['.tex']}});
+        });
+    }
+
     return (
         <div className='dialog-buttons-list'>
             <button onClick={toClipboard}>To clipboard</button>
+            <button onClick={toFile}>As a file</button>
         </div>
     )
 }

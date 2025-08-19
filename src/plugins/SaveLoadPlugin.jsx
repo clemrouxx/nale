@@ -5,7 +5,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { showToast } from '../ui/Toast';
 import { CLEAR_HISTORY_COMMAND } from 'lexical';
 import { jsonToBib } from '../utils/bibliographyUtils';
-import { completeDocumentOptions, DEFAULT_DOCUMENT_OPTIONS } from './Options/documentOptions';
+import { completeDocumentOptions } from './Options/documentOptions';
 
 // Create the Save Context
 const SaveContext = createContext();
@@ -208,6 +208,10 @@ function importFile(editor, setDocumentOptions, setBiblio, setNextLabelNumber, f
 function downloadJsonFile(filename,content){
   // Create blob and download link
   const blob = new Blob([content], { type: 'application/json' });
+  directBlobDownload(blob,filename);
+}
+
+function directBlobDownload(blob,filename){
   const url = URL.createObjectURL(blob);
   // Create temporary download link
   const link = document.createElement('a');
@@ -229,4 +233,18 @@ const getOriginalFilename = (filename) => {
 
 function isFileApiAvaillable(){
   return ('showSaveFilePicker' in window);
+}
+
+export async function saveToTextFile(textContent,filename,filetype=null){
+  if (isFileApiAvaillable()){
+    const options = { suggestedName:filename,types: [filetype]};
+    const fileHandle = await window.showSaveFilePicker(options);
+    const writable = await fileHandle.createWritable();
+    await writable.write(textContent);
+    await writable.close();
+  }
+  else{
+    const blob = new Blob([textContent]);
+    directBlobDownload(blob,filename);
+  }
 }
