@@ -1,4 +1,4 @@
-import {$isTextNode} from 'lexical';
+import {$getRoot, $isTextNode} from 'lexical';
 import { DEFAULT_DOCUMENT_OPTIONS } from '../Options/documentOptions';
 
 const LATEX_BEGIN_DOCUMENT = 
@@ -172,4 +172,8 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
             break;
     }
     return string;
+}
+
+export function getLatex(editor,documentOptions){
+    return editor.getEditorState().read(()=>convertToLatex($getRoot(),documentOptions));
 }

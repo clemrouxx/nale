@@ -1,6 +1,6 @@
 import {$getRoot} from 'lexical';
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
-import {convertToLatex} from './plugins/LatexExportPlugin/latexUtils';
+import {convertToLatex, getLatex} from './plugins/LatexExportPlugin/latexUtils';
 import { useDisplayOptions, zoomFactors, zoomLevelToText } from './plugins/DisplayOptionsContext';
 import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
 import DropDown, { DropDownItem } from './ui/DropDown';
@@ -24,19 +24,11 @@ const LatexExportModal = () => {
     const [editor] = useLexicalComposerContext();
 
     const toClipboard = () => {
-        editor.getEditorState().read(() => {
-            const root = $getRoot();
-            const latex = convertToLatex(root,documentOptions);
-            navigator.clipboard.writeText(latex).then(()=>showToast("LaTeX successfully copied to clipboard"));
-        });
+        navigator.clipboard.writeText(getLatex(editor,documentOptions)).then(()=>showToast("LaTeX successfully copied to clipboard"));
     };
 
     const toFile = () => {
-        editor.getEditorState().read(() => {
-            const root = $getRoot();
-            const latex = convertToLatex(root,documentOptions);
-            saveToTextFile(latex,"index.tex", {description: 'LaTeX files', accept: {'text/x-tex': ['.tex']}});
-        });
+        saveToTextFile(getLatex(editor,documentOptions),"index.tex", {description: 'LaTeX files', accept: {'text/x-tex': ['.tex']}});
     }
 
     return (
@@ -48,7 +40,7 @@ const LatexExportModal = () => {
 }
 
 const FileButton = () => {
-    const { saveAs, quickSave, handleFileChange, openFile } = useSaveLoadContext();
+    const { saveAs, quickSave, handleFileChange, openFile, downloadCompilationZip } = useSaveLoadContext();
     const [modal, showModal] = useModal();
     const [editor] = useLexicalComposerContext();
 
@@ -80,6 +72,7 @@ const FileButton = () => {
                 <DropDownItem onClick={saveAs}><span className="text">Save As...</span><span className="shortcut">Ctrl + Shift + S</span></DropDownItem>
                 <DropDownItem onClick={openFile}><span className="text">Open...</span><span className="shortcut">Ctrl + O</span></DropDownItem>
                 <DropDownItem onClick={()=>showModal("Export to LaTeX",(onClose)=>(<LatexExportModal/>))}><span>Export to LaTeX</span><span className="shortcut">Ctrl + E</span></DropDownItem>
+                <DropDownItem onClick={downloadCompilationZip}>Get compile-ready project</DropDownItem>
             </DropDown>
             {modal}
         </>

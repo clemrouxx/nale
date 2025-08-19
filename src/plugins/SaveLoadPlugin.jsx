@@ -6,6 +6,7 @@ import { showToast } from '../ui/Toast';
 import { CLEAR_HISTORY_COMMAND } from 'lexical';
 import { jsonToBib } from '../utils/bibliographyUtils';
 import { completeDocumentOptions } from './Options/documentOptions';
+import { convertToLatex, getLatex } from './LatexExportPlugin/latexUtils';
 
 // Create the Save Context
 const SaveContext = createContext();
@@ -118,7 +119,6 @@ export function SaveProvider({ children }) {
 
       const [fileHandle] = await window.showOpenFilePicker(options);
       const file = await fileHandle.getFile();
-      const content = await file.text();
       
       setLastFileHandle(fileHandle);
       importFile(editor, setDocumentOptions, setBiblio, setNextLabelNumber, file);
@@ -131,6 +131,32 @@ export function SaveProvider({ children }) {
       return null;
     }
   };
+
+  const downloadCompilationZip = async ()=>{
+    const files = [
+      { name: 'README.md', content: '# My Project\n\nThis is a sample project with multiple files.' },
+      { name: 'main.tex', content: getLatex(editor,documentOptions)},
+    ];
+
+    try {
+        const JSZip = (await import('jszip')).default;
+        const zip = new JSZip();
+        files.forEach(file => {
+          zip.file(file.name, file.content);
+        });
+
+        // Generate ZIP file
+        const content = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE', compressionOptions: {level: 6}});
+        
+        const url = URL.createObjectURL(content);
+        saveFromLink(url,"test.zip");
+        URL.revokeObjectURL(url);
+        
+      } catch (error) {
+        console.error('Error creating ZIP:', error);
+        showToast('Error creating exporting project: ' + error.message,5000,"error");
+      }
+  }
 
   // Shortcuts
   useEffect(() => {
@@ -160,6 +186,7 @@ export function SaveProvider({ children }) {
       quickSave,
       handleFileChange,
       openFile,
+      downloadCompilationZip
     }}>
       {children}
     </SaveContext.Provider>
@@ -213,6 +240,12 @@ function downloadJsonFile(filename,content){
 
 function directBlobDownload(blob,filename){
   const url = URL.createObjectURL(blob);
+  directLinkDownload(url,filename);
+  // Clean up object URL
+  URL.revokeObjectURL(url);
+}
+
+function directLinkDownload(url,filename){
   // Create temporary download link
   const link = document.createElement('a');
   link.href = url;
@@ -222,8 +255,6 @@ function directBlobDownload(blob,filename){
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-  // Clean up object URL
-  URL.revokeObjectURL(url);
 }
 
 const getOriginalFilename = (filename) => {
@@ -247,4 +278,9 @@ export async function saveToTextFile(textContent,filename,filetype=null){
     const blob = new Blob([textContent]);
     directBlobDownload(blob,filename);
   }
+}
+
+async function saveFromLink(url,filename) {
+  // Without file system api for now
+  directLinkDownload(url,filename);
 }
