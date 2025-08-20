@@ -142,8 +142,6 @@ export function SaveProvider({ children }) {
     const newFiles = await getAllImageFiles(editor);
 
     files.push(...newFiles);
-
-    console.log(files);
     
     try {
         const JSZip = (await import('jszip')).default;
