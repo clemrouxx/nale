@@ -3,10 +3,11 @@ import { useDocumentOptions } from './Options/DocumentOptionsContext';
 import { useDocumentStructureContext } from './NumberingPlugin/DocumentStructureContext';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { showToast } from '../ui/Toast';
-import { CLEAR_HISTORY_COMMAND } from 'lexical';
+import { $getRoot, $isElementNode, CLEAR_HISTORY_COMMAND } from 'lexical';
 import { jsonToBib } from '../utils/bibliographyUtils';
 import { completeDocumentOptions } from './Options/documentOptions';
 import { convertToLatex, getLatex } from './LatexExportPlugin/latexUtils';
+import { $isImageNode } from '../nodes/ImageNodes';
 
 // Create the Save Context
 const SaveContext = createContext();
@@ -138,6 +139,12 @@ export function SaveProvider({ children }) {
       { name: 'main.tex', content: getLatex(editor,documentOptions)},
     ];
 
+    const newFiles = await getAllImageFiles(editor);
+
+    files.push(...newFiles);
+
+    console.log(files);
+    
     try {
         const JSZip = (await import('jszip')).default;
         const zip = new JSZip();
@@ -283,4 +290,37 @@ export async function saveToTextFile(textContent,filename,filetype=null){
 async function saveFromLink(url,filename) {
   // Without file system api for now
   directLinkDownload(url,filename);
+}
+
+export async function urlToBlob(url){
+  const response = await fetch(url);
+  const blob = await response.blob();
+  return blob;
+}
+
+async function getAllImageFiles(editor) {
+  const imageFiles = editor.read(() => {
+    const root = $getRoot();
+    const imageFiles = [];
+    
+    function traverse(node) {
+      if ($isImageNode(node)) {
+        imageFiles.push({name:node.getFilename(),src:node.getSrc()});
+      }
+      
+      // Only element nodes have children
+      if ($isElementNode(node)) { 
+        node.getChildren().forEach(traverse);
+      }
+    }
+    
+    traverse(root);
+    return imageFiles;
+  });
+
+  await Promise.all(imageFiles.map(async (elmt) => {
+    elmt.content = await urlToBlob(elmt.src);
+  }));
+
+  return imageFiles;
 }

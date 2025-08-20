@@ -90,6 +90,10 @@ export function $createSimpleImageNode({src,filename}) {
     return new SimpleImageNode(src,filename,40,"mm");
 }
 
+export function $isImageNode(node){
+  return node instanceof SimpleImageNode;
+}
+
 export class CaptionedImageNode extends SimpleImageNode{
   static getType(){return 'captioned-image'}
 
