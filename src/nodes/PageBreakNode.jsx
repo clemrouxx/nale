@@ -33,8 +33,12 @@ export class PageBreakNode extends DecoratorNode {
   }
 
   toLatex() {return "\\newpage\n" }
+
+  static importJSON(serializedNode) {
+    return new PageBreakNode();
+  }
 }
 
 export function $createPageBreakNode(){
-    return new PageBreakNode();
+  return new PageBreakNode();
 }
