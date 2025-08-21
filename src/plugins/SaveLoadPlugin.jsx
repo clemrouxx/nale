@@ -139,9 +139,14 @@ export function SaveProvider({ children }) {
       { name: 'main.tex', content: getLatex(editor,documentOptions)},
     ];
 
+    // Images
     const newFiles = await getAllImageFiles(editor);
-
     files.push(...newFiles);
+
+    // Bibliographic references
+    if (biblio.length > 0){
+      files.push({name:"referencences.bib", content:jsonToBib(biblio)});
+    }
     
     try {
         const JSZip = (await import('jszip')).default;

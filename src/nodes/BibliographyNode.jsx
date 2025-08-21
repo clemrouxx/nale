@@ -1,6 +1,5 @@
 import { $getSelection, $isRangeSelection, DecoratorNode } from 'lexical';
 import { bibItemToHTML } from '../utils/bibliographyUtils';
-import { areIdentical } from '../utils/generalUtils';
 import React from 'react';
 
 function compareInnerArrays(a,b){
@@ -27,7 +26,7 @@ export class BibliographyNode extends DecoratorNode {
   updateInner(citationKeys,citationsDict,biblio){
     const newInnerArray = citationKeys.map(key=>{return {label:citationsDict[key],bibItem:biblio.find(item=>item.key===key)};});
     if (!compareInnerArrays(this.__inner_array,newInnerArray)){
-      const writableNode = this.getWritable().__inner_array = structuredClone(newInnerArray);
+      this.getWritable().__inner_array = structuredClone(newInnerArray);
     }
   }
   
@@ -57,7 +56,7 @@ export class BibliographyNode extends DecoratorNode {
     );
   }
 
-  toLatex() {return '\\printbibliography\n'}
+  toLatex() {return '\\bibliographystyle{unsrt}\n\\bibliography{references}\n'}
 
   static importJSON(serializedNode) {
     return new BibliographyNode(serializedNode.inner_array);

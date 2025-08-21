@@ -1,5 +1,4 @@
 import { $applyNodeReplacement,$createParagraphNode } from "lexical";
-import { areIdentical } from "../utils/generalUtils";
 import { ElementNode } from "lexical";
 import { HEADING_COMMANDS } from "../plugins/LatexExportPlugin/latexUtils";
 import { DEFAULT_DOCUMENT_OPTIONS } from "../plugins/Options/documentOptions";
