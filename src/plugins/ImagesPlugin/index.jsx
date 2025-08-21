@@ -30,6 +30,8 @@ import { useDocumentOptions } from '../Options/DocumentOptionsContext';
 export const INSERT_IMAGE_COMMAND = createCommand('INSERT_IMAGE_COMMAND');
 export const INSERT_FIGURE_COMMAND = createCommand('INSERT_FIGURE_COMMAND');
 
+const IMAGES_FOLDER = "images";
+
 export function InsertImageUriDialogBody({onClick}) {
   const [src, setSrc] = useState('');
 
@@ -87,7 +89,7 @@ export function InsertImageDialog({
     const reader = new FileReader();
     reader.onload = function () {
       if (typeof reader.result === 'string') {
-        onClick({src:reader.result,filename:files[0].name})
+        onClick({src:reader.result,filename:`${IMAGES_FOLDER}/${files[0].name}`})
       }
       return '';
     };
@@ -103,7 +105,7 @@ export function InsertImageDialog({
           <button
             data-test-id="image-modal-option-sample"
             onClick={() =>
-              onClick({src: yellowFlowerImage,filename:"sample.jpg"})
+              onClick({src: yellowFlowerImage,filename:IMAGES_FOLDER+"/sample.jpg"})
             }>
             Sample
           </button>
