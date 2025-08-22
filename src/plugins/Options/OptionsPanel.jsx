@@ -263,23 +263,27 @@ export function GlobalOptionsPanel({category}) {
             );
             break;
         case "abstract":
-            inner = (
-                <>
-                <h4>Abstract options</h4>
-                {documentOptions.general.twoColumns && <label htmlFor="spanAllCols">
-                    <input 
-                    type="checkbox"
-                    id="spanAllCols"
-                    name="spanAllCols"
-                    checked={documentOptions.abstract.spanAllCols}
-                    onChange={handleCheckboxChange}
-                    />
-                    Span both columns
-                </label>}
-                </>
-            );
+            if (documentOptions.general.twoColumns){ // For now. Remove if more Abstract options
+                inner = (
+                    <>
+                    <h4>Abstract options</h4>
+                    {documentOptions.general.twoColumns && 
+                    <label htmlFor="spanAllCols">
+                        <input 
+                        type="checkbox"
+                        id="spanAllCols"
+                        name="spanAllCols"
+                        checked={documentOptions.abstract.spanAllCols}
+                        onChange={handleCheckboxChange}
+                        />
+                        Span both columns
+                    </label>}
+                    </>
+                );
+            }
+            break;
     }
-    return (<div className="options-panel">{inner}</div>);
+    return (inner.props.children ? <div className="options-panel">{inner}</div> : <></>);
 }
 
 

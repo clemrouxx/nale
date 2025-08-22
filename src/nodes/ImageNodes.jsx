@@ -80,7 +80,7 @@ export class SimpleImageNode extends DecoratorNode {
 
     __getLatexParameters(){
       if (this.__width_unit==="%") return `width=${this.__width_value/100}\\linewidth`;
-      else return `width=${this.__width_value}`;
+      else return `width=${this.__width_value}mm`;
     }
 
     toLatex(){ return `\\includegraphics[${this.__getLatexParameters()}]{${this.__filename}}` }
