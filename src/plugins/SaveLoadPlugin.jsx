@@ -145,7 +145,7 @@ export function SaveProvider({ children }) {
 
     // Bibliographic references
     if (biblio.length > 0){
-      files.push({name:"referencences.bib", content:jsonToBib(biblio)});
+      files.push({name:"references.bib", content:jsonToBib(biblio)});
     }
     
     try {
