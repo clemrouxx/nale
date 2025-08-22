@@ -227,7 +227,12 @@ function importFile(editor, setDocumentOptions, setBiblio, setNextLabelNumber, f
     }
     // Parse and set the editor state
     const editorState = editor.parseEditorState(parsedContent.editorState);
-    editor.setEditorState(editorState);
+    try {
+      editor.setEditorState(editorState);
+    } catch (error) {
+      console.error("Error while setting editor state from file : ",error);
+    }// try to continue anyway
+
     setDocumentOptions(completeDocumentOptions(parsedContent.documentOptions));// For backwards compatibility
     setBiblio(parsedContent.biblio);
     setNextLabelNumber(parsedContent.documentStructure.nextLabelNumber);
