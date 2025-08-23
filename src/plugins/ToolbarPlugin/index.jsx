@@ -567,12 +567,12 @@ export default function ToolbarPlugin({
             buttonClassName="toolbar-item spaced"
             buttonLabel="Title page"
             buttonAriaLabel="Title page"
-            buttonIconClassName="plus"
+            buttonIconClassName="fonts"
             chevron={false}>
 
             <DropDownItemWithIcon title={"Main title"} onClick={() => insertTitle(activeEditor)} iconClassName={"fonts"}/>
             <DropDownItemWithIcon title={"Add author"} onClick={() => activeEditor.update($appendAuthor)} iconClassName={"person-plus"}/>
-            <DropDownItemWithIcon title={"Add affiliation"} onClick={() => activeEditor.update($appendAffiliation)} iconClassName={"person-plus"}/>
+            <DropDownItemWithIcon title={"Add affiliation"} onClick={() => activeEditor.update($appendAffiliation)} iconClassName={"institution"}/>
             <DropDownItemWithIcon title={"Abstract"} onClick={() => insertAbstract(activeEditor)} iconClassName={"paragraph"}/>
           </DropDown>
         </div>
@@ -586,7 +586,7 @@ export default function ToolbarPlugin({
             buttonIconClassName="plus"
             chevron={false}>
 
-            <DropDownItemWithIcon title={"Page break"} onClick={() => activeEditor.update(() => $insertNodes([$createPageBreakNode()]))} iconClassName={"plus"} disabled={!(displayOptions.emulateLayout)}/>
+            <DropDownItemWithIcon title={"Page break"} onClick={() => activeEditor.update(() => $insertNodes([$createPageBreakNode()]))} iconClassName={"page-break"} disabled={!(displayOptions.emulateLayout)}/>
           </DropDown>
         </div>
       </>

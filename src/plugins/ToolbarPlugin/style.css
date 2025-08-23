@@ -305,9 +305,10 @@ i.list-check { background-image: url(images/icons/list-check.svg) }
 i.latex { background-image: url(images/icons/latex.svg) }
 
 i.person-plus { background-image: url(images/icons/person-plus.svg) }
+i.institution { background-image: url(images/icons/institution.svg) }
 i.icon-text, i.fonts { background-image: url(images/icons/fonts.svg) }
 i.clipboard { background-image: url(images/icons/clipboard.svg) }
-
+i.page-break { background-image: url(images/icons/page-break.svg) }
 i.chevron-right{ background-image: url(images/icons/chevron-right.svg) }
 
 .dropdown {
