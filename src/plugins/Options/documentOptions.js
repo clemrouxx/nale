@@ -22,6 +22,9 @@ export const DEFAULT_DOCUMENT_OPTIONS = {
     },
     abstract : {
         spanAllCols : false, // Only relevant for twoColumns = true
+    },
+    affiliations : {
+        italic : false,
     }
 }
 

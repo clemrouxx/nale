@@ -11,6 +11,7 @@ const OPTIONS_CATEGORY_PER_NODETYPE = {
     "captioned-image":"figures",
     title:"title",
     abstract:"abstract",
+    affiliation: "affiliations",
 }
 
 const latexFontSizes = [
@@ -291,6 +292,23 @@ export function GlobalOptionsPanel({category}) {
                     </>
                 );
             }
+            break;
+        case "affiliations":
+            inner = (
+                <>
+                <h4>Affiliations options</h4>
+                <label htmlFor="italic">
+                    <input 
+                    type="checkbox"
+                    name="italic"
+                    id="italic"
+                    checked={documentOptions.affiliations.italic}
+                    onChange={handleCheckboxChange}
+                    />
+                    Italic
+                </label>
+                </>
+            );
             break;
     }
     return (inner.props.children ? <div className="options-panel">{inner}</div> : <></>);

@@ -45,6 +45,7 @@ function Editor() {
     setGlobalCSSRule(".editor-title","font-size",`var(--fontsize-${documentOptions.title.relativeFontSize})`);
     setGlobalCSSRule(".editor-title","font-weight",documentOptions.title.bold?"bold":"normal");
     setGlobalCSSRule(".editor-abstract","column-span",documentOptions.abstract.spanAllCols?"all":"1");
+    setGlobalCSSRule(".editor-affiliation","font-style",documentOptions.affiliations.italic?"italic":"normal");
   }
 
   const getAdditionalEditorClassName = (docOptions) => {
