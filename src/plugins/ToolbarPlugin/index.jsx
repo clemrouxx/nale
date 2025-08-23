@@ -406,7 +406,7 @@ export default function ToolbarPlugin({
       }}
       title={IS_APPLE ? 'Undo (⌘Z)' : 'Undo (Ctrl+Z)'}
       type="button"
-      className="toolbar-item spaced"
+      className="toolbar-item"
       aria-label="Undo">
       <i className="format undo" />
     </button>
@@ -444,7 +444,7 @@ export default function ToolbarPlugin({
             activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
           }}
           className={
-            'toolbar-item spaced ' + (toolbarState.isBold ? 'active' : '')
+            'toolbar-item ' + (toolbarState.isBold ? 'active' : '')
           }
           title={`Bold (${SHORTCUTS.BOLD})`}
           type="button"
@@ -457,7 +457,7 @@ export default function ToolbarPlugin({
             activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
           }}
           className={
-            'toolbar-item spaced ' + (toolbarState.isItalic ? 'active' : '')
+            'toolbar-item ' + (toolbarState.isItalic ? 'active' : '')
           }
           title={`Italic (${SHORTCUTS.ITALIC})`}
           type="button"
@@ -469,7 +469,7 @@ export default function ToolbarPlugin({
             activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'subscript');
           }}
           className={
-            'toolbar-item spaced ' + (toolbarState.isSubscript ? 'active' : '')
+            'toolbar-item ' + (toolbarState.isSubscript ? 'active' : '')
           }
           title="Subscript (Ctrl+_)"
           aria-label="Format text with a subscript">
@@ -481,7 +481,7 @@ export default function ToolbarPlugin({
             activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'superscript');
           }}
           className={
-            'toolbar-item spaced ' + (toolbarState.isSuperscript ? 'active' : '')
+            'toolbar-item ' + (toolbarState.isSuperscript ? 'active' : '')
           }
           title="Superscript"
           aria-label="Format text with a superscript">
@@ -494,7 +494,7 @@ export default function ToolbarPlugin({
             activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
           }}
           className={
-            'toolbar-item spaced ' + (toolbarState.isCode ? 'active' : '')
+            'toolbar-item ' + (toolbarState.isCode ? 'active' : '')
           }
           title={`Code style`}
           type="button"
@@ -514,7 +514,7 @@ export default function ToolbarPlugin({
         <div className="toolbar-itemgroup">
           <DropDown
             disabled={!isEditable}
-            buttonClassName="toolbar-item spaced"
+            buttonClassName="toolbar-item"
             buttonLabel="Insert"
             buttonAriaLabel="Insert specialized editor node"
             buttonIconClassName="plus"
@@ -564,7 +564,7 @@ export default function ToolbarPlugin({
         <div className="toolbar-itemgroup">
           <DropDown
             disabled={!isEditable}
-            buttonClassName="toolbar-item spaced"
+            buttonClassName="toolbar-item"
             buttonLabel="Title page"
             buttonAriaLabel="Title page"
             buttonIconClassName="fonts"
@@ -580,7 +580,7 @@ export default function ToolbarPlugin({
         <div className="toolbar-itemgroup">
           <DropDown
             disabled={!(isEditable)}
-            buttonClassName="toolbar-item spaced"
+            buttonClassName="toolbar-item"
             buttonLabel="Layout element"
             buttonAriaLabel="Layout element"
             buttonIconClassName="plus"

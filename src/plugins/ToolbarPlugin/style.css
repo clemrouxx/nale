@@ -4,19 +4,16 @@
   flex-wrap: wrap;
   background: var(--bg-contrasted);
   border-bottom: solid var(--border-primary) 1px;
-  vertical-align: middle;
-  overflow: auto;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  overflow-y: hidden; /* disable vertical scroll*/
 }
 
 .toolbar-itemgroup{
-  display: flex;
-  flex-shrink: 0;
-  border-bottom: solid var(--border-primary) 1px;
-  border-right: solid var(--border-primary) 1px;
+    display: flex;
+    flex-shrink: 0;
+    border-bottom: solid var(--border-primary) 1px;
+    border-top: solid var(--border-primary) 1px;
+    border-right: solid var(--border-primary) 1px;
+    margin-top: -0.5px;
+    margin-bottom: -0.5px;
 }
 
 button.toolbar-item {
@@ -32,6 +29,10 @@ button.toolbar-item {
   justify-content: space-between;
 }
 
+button.toolbar-item:only-child{
+  border-radius: 0;
+}
+
 button.toolbar-item:disabled {
   cursor: not-allowed;
 }
@@ -41,12 +42,9 @@ button.toolbar-item i, button.toolbar-item i, .dropdown i{
 }
 
 button.toolbar-item i.format {
-  background-size: contain;
-  display: inline-block;
   height: 18px;
   width: 18px;
-  vertical-align: -0.25em;
-  display: flex;
+  margin: 0;
 }
 
 button.toolbar-item:disabled i,
