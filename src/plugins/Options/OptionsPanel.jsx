@@ -259,6 +259,16 @@ export function GlobalOptionsPanel({category}) {
                         }
                     </select>
                 </div>
+                <label htmlFor="bold">
+                    <input 
+                    type="checkbox"
+                    name="bold"
+                    id="bold"
+                    checked={documentOptions.title.bold}
+                    onChange={handleCheckboxChange}
+                    />
+                    Bold
+                </label>
                 </>
             );
             break;
