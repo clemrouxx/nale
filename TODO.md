@@ -1,6 +1,7 @@
 # TODO list
 ## Bugs
 - When adding a PDF image, it is mirrored about 20% of the time.
+- Special characters from .bib files (like "{\'e}") are not taken into account. The parsing function is to be modified.
 
 ## Features
 ### Priority features

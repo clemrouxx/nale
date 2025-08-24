@@ -90,7 +90,10 @@ function handleTextInput(text,editor,biblio,setBiblio){
     }
     setBiblio(biblio.concat(parsedEntries));
     if (parsedEntries.length===1){
-      insertCitation(editor,parsedEntries[0].key);
+      const wasInserted = insertCitation(editor,parsedEntries[0].key);
+      if (!wasInserted){
+        showToast("Entry successfully added to the list. Use toolbar to insert.",4000,"success");
+      }
     }
     else{
       showToast("Entries successfully added to the list. Use toolbar to insert.",4000,"success");
@@ -103,7 +106,7 @@ export async function addBiblioFromClipboard(editor,biblio,setBiblio,showModal){
       clipboardText = await navigator.clipboard.readText();
     } catch (error) {
       if (error.name === "NotAllowedError"){
-        showModal('Manual .bib input', () => (<BibTextInputModal />));
+        showModal('Manual .bib input', (onClose) => (<BibTextInputModal onClose={onClose} />));
       }
     }
     if (clipboardText) {
@@ -111,7 +114,7 @@ export async function addBiblioFromClipboard(editor,biblio,setBiblio,showModal){
     }
 }
 
-function BibTextInputModal() {
+function BibTextInputModal(onClose) {
   const [text, setText] = useState('');
   const [editor] = useLexicalComposerContext();
   const {biblio,setBiblio} = useDocumentStructureContext();
@@ -125,7 +128,7 @@ function BibTextInputModal() {
         style={{height: '15em', width: '100%'}}
       />
       <button
-        onClick={() => handleTextInput(text,editor,biblio,setBiblio)}
+        onClick={() => {handleTextInput(text,editor,biblio,setBiblio);onClose()}}
       >
         Submit
       </button>
@@ -170,7 +173,7 @@ export function bibItemToHTML(bibItem) {
     
     // Add "and" before the last author if there are multiple authors
     const authorText = bibItem.author.length > 1 
-      ? formattedAuthors.replace(/,([^,]*)$/, ', &$1')
+      ? formattedAuthors.replace(/,([^,]*,[^,]*)$/, ', &$1')
       : formattedAuthors;
     
     // Format year

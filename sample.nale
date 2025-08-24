@@ -65,6 +65,15 @@
                   "format": 0,
                   "mode": "normal",
                   "style": "",
+                  "text": "",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
                   "text": "Clem Rouxx",
                   "type": "text",
                   "version": 1
@@ -388,8 +397,8 @@
               "type": "citation",
               "version": 1,
               "citation_keys": [
-                "Example1",
-                "Example2"
+                "noether1971invariant",
+                "PhysRev.47.777"
               ]
             },
             {
@@ -1175,27 +1184,53 @@
             {
               "label": "1",
               "bibItem": {
-                "key": "Example1",
+                "entryType": "article",
+                "key": "noether1971invariant",
+                "title": "Invariant variation problems",
                 "author": [
                   {
-                    "firstName": "Emmy",
-                    "lastName": "Noether"
+                    "lastName": "Noether",
+                    "firstName": "Emmy"
                   }
                 ],
-                "title": "Example of an article that would have been written by E. Noether."
+                "journal": "Transport theory and statistical physics",
+                "volume": "1",
+                "number": "3",
+                "pages": "186--207",
+                "year": "1971",
+                "publisher": "Taylor \\& Francis"
               }
             },
             {
               "label": "2",
               "bibItem": {
-                "key": "Example2",
+                "entryType": "article",
+                "key": "PhysRev.47.777",
+                "title": "Can Quantum-Mechanical Description of Physical Reality Be Considered Complete?",
                 "author": [
                   {
-                    "firstName": "Gaspard",
-                    "lastName": "Monge"
+                    "lastName": "Einstein",
+                    "firstName": "A."
+                  },
+                  {
+                    "lastName": "Podolsky",
+                    "firstName": "B."
+                  },
+                  {
+                    "lastName": "Rosen",
+                    "firstName": "N."
                   }
                 ],
-                "title": "Another example of bibliographic reference."
+                "journal": "Phys. Rev.",
+                "volume": "47",
+                "issue": "10",
+                "pages": "777--780",
+                "numpages": "0",
+                "year": "1935",
+                "month": "May",
+                "publisher": "American Physical Society",
+                "doi": "10.1103/PhysRev.47.777",
+                "url": "https://link.aps.org/doi/10.1103/PhysRev.47.777"
               }
             }
           ]
@@ -1249,32 +1284,62 @@
       "labelSeparator": ":"
     },
     "title": {
-      "relativeFontSize": "LARGE"
+      "relativeFontSize": "LARGE",
+      "bold": false
     },
     "abstract": {
       "spanAllCols": false
+    },
+    "affiliations": {
+      "italic": false
     }
   },
   "biblio": [
     {
-      "key": "Example1",
+      "entryType": "article",
+      "key": "noether1971invariant",
+      "title": "Invariant variation problems",
       "author": [
         {
-          "firstName": "Emmy",
-          "lastName": "Noether"
+          "lastName": "Noether",
+          "firstName": "Emmy"
         }
       ],
-      "title": "Example of an article that would have been written by E. Noether."
+      "journal": "Transport theory and statistical physics",
+      "volume": "1",
+      "number": "3",
+      "pages": "186--207",
+      "year": "1971",
+      "publisher": "Taylor \\& Francis"
     },
     {
-      "key": "Example2",
+      "entryType": "article",
+      "key": "PhysRev.47.777",
+      "title": "Can Quantum-Mechanical Description of Physical Reality Be Considered Complete?",
       "author": [
         {
-          "firstName": "Gaspard",
-          "lastName": "Monge"
+          "lastName": "Einstein",
+          "firstName": "A."
+        },
+        {
+          "lastName": "Podolsky",
+          "firstName": "B."
+        },
+        {
+          "lastName": "Rosen",
+          "firstName": "N."
         }
       ],
-      "title": "Another example of bibliographic reference."
+      "journal": "Phys. Rev.",
+      "volume": "47",
+      "issue": "10",
+      "pages": "777--780",
+      "numpages": "0",
+      "year": "1935",
+      "month": "May",
+      "publisher": "American Physical Society",
+      "doi": "10.1103/PhysRev.47.777",
+      "url": "https://link.aps.org/doi/10.1103/PhysRev.47.777"
     }
   ],
   "documentStructure": {
