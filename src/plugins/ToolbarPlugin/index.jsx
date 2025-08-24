@@ -119,7 +119,7 @@ function BlockFormatDropDown({
                 break;
             }
             
-            console.log(e.code);
+            //console.log(e.code);
         }
     };
     document.addEventListener('keydown', handleKeyDown);
@@ -213,17 +213,22 @@ function BlockFormatDropDown({
 
 function CitationDropDown({editor}){
   const {biblio,setBiblio} = useDocumentStructureContext();
+  const [modal, showModal] = useModal();
 
   return (
+    <>
     <DropDown buttonClassName="toolbar-item" buttonLabel={"Cite..."} chevron={false} buttonIconClassName={"citation"}>
-      <DropDownItemWithIcon onClick={() => addBiblioFromClipboard(editor,biblio,setBiblio)} iconClassName={"clipboard"} title={"From clipboard..."}/>
+      <DropDownItemWithIcon onClick={() => addBiblioFromClipboard(editor,biblio,setBiblio,showModal)} iconClassName={"clipboard"} title={"From clipboard..."}/>
       <DropDownItemWithIcon onClick={() => insertBibliographyNode(editor)} iconClassName={"plus"} title={"Insert Bibliography"}/>
       {biblio.map(bibitem => (
         <DropDownItem key={bibitem.key} className={"can-be-wide"} onClick={()=>insertCitation(editor,bibitem.key)}>
           {bibItemToUIString(bibitem)}
         </DropDownItem>
       ))}
+      
     </DropDown>
+    {modal}
+    </>
   )
 }
 

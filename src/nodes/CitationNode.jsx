@@ -77,7 +77,7 @@ export function insertCitation(editor,citationKey) {
     if (citationNode){
       citationNode.addCitationKey(citationKey);
     }
-    else{
+    else if (selection){
       selection.insertNodes([new CitationNode([citationKey])]);
     }
   });
