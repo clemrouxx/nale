@@ -1,7 +1,6 @@
 # TODO list
 ## Bugs
 - When adding a PDF image, it is mirrored about 20% of the time.
-- When using dark editor mode, changing from 1 to 2 columns or the opposite reverts the editor background color to white 
 
 ## Features
 ### Priority features

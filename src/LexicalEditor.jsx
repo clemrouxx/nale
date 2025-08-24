@@ -48,9 +48,11 @@ function Editor() {
     setGlobalCSSRule(".editor-affiliation","font-style",documentOptions.affiliations.italic?"italic":"normal");
   }
 
-  const getAdditionalEditorClassName = (docOptions) => {
-    if (docOptions.general.twoColumns) return "two-columns";
-    return "";
+  const getAdditionalEditorClassName = (docOptions,disOptions) => {
+    let s = "";
+    if (docOptions.general.twoColumns) s += " two-columns";
+    if (disOptions.darkEditor) s += " editor-dark";
+    return s;
   }
 
   // Changed documentOptions
@@ -120,14 +122,14 @@ function Editor() {
                 setIsLinkEditMode={setIsLinkEditMode}
               />
           </ToolbarContext>
-          <div id="main-editor-container" className="editor-container">
+          <div id="main-editor-container" className={"editor-container "+(displayOptions.emulateLayout?"emulate-layout":"")}>
             <RichTextPlugin
             contentEditable={
               <ContentEditable
                 id='main-editor'
                 aria-placeholder={""}
                 placeholder={<></>}
-                className={`editor-base ${getAdditionalEditorClassName(documentOptions)}`}
+                className={`editor-base ${getAdditionalEditorClassName(documentOptions,displayOptions)}`}
                 spellCheck={false}
                 ref={editorRef}
               />
