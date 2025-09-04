@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 export const ActionBar = () => {
     return (
         <div className="span2cols actionbar">
-            <span className="logo-main"></span>
+            <a className="logo-main" href="https://github.com/clemrouxx/nale"></a>
             <FileButton/>
             <DisplayMenu/>
         </div>
