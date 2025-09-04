@@ -1,5 +1,4 @@
 import { DecoratorNode } from 'lexical';
-import * as React from 'react';
 import ImageComponent from '../plugins/ImagesPlugin/ImageComponent';
 
 export class SimpleImageNode extends DecoratorNode {
@@ -25,10 +24,16 @@ export class SimpleImageNode extends DecoratorNode {
 
     getSrc() { return this.__src }
     getFilename() { return this.__filename }
+    getShortFilename() { return this.getFilename().split("/").at(-1) }
     getWidthString() { return this.__width_value.toString() + this.__width_unit}
     getWidthValue() { return this.__width_value }
 
     setWidthValue(val){ this.getWritable().__width_value = val }
+    setImage(src,filename){ // Sets both source and filename
+      const writable = this.getWritable();
+      writable.__src = src;
+      writable.__filename = filename;
+    }
 
     // Serialization
 

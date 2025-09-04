@@ -136,6 +136,14 @@ button:disabled{
   width: 100px;
 }
 
+.options-panel button{
+  background-color: var(--bg-softer);
+}
+
+.options-panel button:hover{
+  background-color: var(--bg-softest);
+}
+
 .drawer-handle{
   background-color: var(--bg-softest);
   cursor: pointer;

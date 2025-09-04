@@ -385,6 +385,7 @@ export default function ToolbarPlugin({
                 activeEditor={activeEditor}
                 onClose={onClose}
                 figureMode={true}
+                replaceMode={false}
               />
             ));
         }
@@ -537,6 +538,7 @@ export default function ToolbarPlugin({
                     activeEditor={activeEditor}
                     onClose={onClose}
                     figureMode={false}
+                    replaceMode={false}
                   />
                 ));
               }}>
@@ -550,6 +552,7 @@ export default function ToolbarPlugin({
                     activeEditor={activeEditor}
                     onClose={onClose}
                     figureMode={true}
+                    replaceMode={false}
                   />
                 ));
               }}

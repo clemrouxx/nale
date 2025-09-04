@@ -3,6 +3,8 @@ import { useActiveNode } from "../../utils/lexicalUtils";
 import { useDocumentOptions } from "./DocumentOptionsContext";
 import { useDisplayOptions } from "../DisplayOptionsContext";
 import { useState } from "react";
+import useModal from "../../hooks/useModal";
+import { InsertImageDialog } from "../ImagesPlugin";
 
 const OPTIONS_CATEGORY_PER_NODETYPE = {
     paragraph : "paragraphs",
@@ -286,6 +288,7 @@ export function GlobalOptionsPanel({category}) {
 
 function NodeOptionsPanel({node}) {
     const [editor] = useLexicalComposerContext();
+    const [modal,showModal] = useModal();
 
     var inner = (<></>);
 
@@ -337,6 +340,20 @@ function NodeOptionsPanel({node}) {
                 <>
                 <h4>Image options</h4>
                 <div className="form-line">
+                    Image: 
+                    <button title="Change image" onClick={() => {
+                        showModal('Insert Figure', (onClose) => (
+                            <InsertImageDialog
+                            activeEditor={editor}
+                            onClose={onClose} 
+                            figureMode={true}
+                            replaceMode={true}
+                            imageNode={node}
+                            />
+                        ));
+                    }}>{editor.read(()=>node.getShortFilename())}</button>
+                </div>
+                <div className="form-line">
                     <label>Relative width: </label>
                     <input type="range" min="1" max="100" step="1" value={editor.read(() => node.getWidthValue())}
                         onChange={(e) => {
@@ -347,25 +364,41 @@ function NodeOptionsPanel({node}) {
                     />
                     <span>{editor.read(()=>node.getWidthString())}</span>
                 </div>
+                {modal}
                 </>
             );
             break;
         case "image":
             inner = (
                 <>
-                <h4>Image options</h4>
-                <div className="form-line">
-                    <label>Width: </label>
-                    <input type="range" min="1" max="200" step="1" value={editor.read(() => node.getWidthValue())}
-                        onChange={(e) => {
-                        editor.update(()=>{
-                            node.setWidthValue(parseInt(e.target.value));
-                            console.log(node.getWidthString());
-                        })
-                    }}
-                    />
-                    <span>{editor.read(()=>node.getWidthString())}</span>
-                </div>
+                    <h4>Image options</h4>
+                    <div className="form-line">
+                        Image: 
+                        <button title="Change image" onClick={() => {
+                            showModal('Insert Figure', (onClose) => (
+                                <InsertImageDialog
+                                activeEditor={editor}
+                                onClose={onClose} 
+                                figureMode={false}
+                                replaceMode={true}
+                                imageNode={node}
+                                />
+                            ));
+                        }}>{editor.read(()=>node.getShortFilename())}</button>
+                    </div>
+                    <div className="form-line">
+                        <label>Width: </label>
+                        <input type="range" min="1" max="200" step="1" value={editor.read(() => node.getWidthValue())}
+                            onChange={(e) => {
+                            editor.update(()=>{
+                                node.setWidthValue(parseInt(e.target.value));
+                                console.log(node.getWidthString());
+                            })
+                        }}
+                        />
+                        <span>{editor.read(()=>node.getWidthString())}</span>
+                    </div>
+                    {modal}
                 </>
             );
             break;

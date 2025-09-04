@@ -61,7 +61,9 @@ export function InsertImageUriDialogBody({onClick}) {
 export function InsertImageDialog({
   activeEditor,
   onClose,
-  figureMode
+  figureMode,
+  replaceMode,
+  imageNode
 }) {
   const [mode, setMode] = useState(null);
   const hasModifier = useRef(false);
@@ -79,8 +81,13 @@ export function InsertImageDialog({
   }, [activeEditor]);
 
   const onClick = (payload) => {
-    if (figureMode) activeEditor.dispatchCommand(INSERT_FIGURE_COMMAND, payload);
-    else activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, payload);
+    if (replaceMode){
+      activeEditor.update(()=>imageNode.setImage(payload.src,payload.filename));
+    }
+    else{
+      if (figureMode) activeEditor.dispatchCommand(INSERT_FIGURE_COMMAND, payload);
+      else activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, payload);
+    }
     onClose();
   };
 
