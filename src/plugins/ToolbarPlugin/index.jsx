@@ -119,7 +119,7 @@ function BlockFormatDropDown({
                 break;
             }
             
-            console.log(e.code);
+            //console.log(e.code);
         }
     };
     document.addEventListener('keydown', handleKeyDown);
@@ -213,17 +213,22 @@ function BlockFormatDropDown({
 
 function CitationDropDown({editor}){
   const {biblio,setBiblio} = useDocumentStructureContext();
+  const [modal, showModal] = useModal();
 
   return (
+    <>
     <DropDown buttonClassName="toolbar-item" buttonLabel={"Cite..."} chevron={false} buttonIconClassName={"citation"}>
-      <DropDownItemWithIcon onClick={() => addBiblioFromClipboard(editor,biblio,setBiblio)} iconClassName={"clipboard"} title={"From clipboard..."}/>
+      <DropDownItemWithIcon onClick={() => addBiblioFromClipboard(editor,biblio,setBiblio,showModal)} iconClassName={"clipboard"} title={"From clipboard..."}/>
       <DropDownItemWithIcon onClick={() => insertBibliographyNode(editor)} iconClassName={"plus"} title={"Insert Bibliography"}/>
       {biblio.map(bibitem => (
         <DropDownItem key={bibitem.key} className={"can-be-wide"} onClick={()=>insertCitation(editor,bibitem.key)}>
           {bibItemToUIString(bibitem)}
         </DropDownItem>
       ))}
+      
     </DropDown>
+    {modal}
+    </>
   )
 }
 
@@ -407,7 +412,7 @@ export default function ToolbarPlugin({
       }}
       title={IS_APPLE ? 'Undo (⌘Z)' : 'Undo (Ctrl+Z)'}
       type="button"
-      className="toolbar-item spaced"
+      className="toolbar-item"
       aria-label="Undo">
       <i className="format undo" />
     </button>
@@ -445,7 +450,7 @@ export default function ToolbarPlugin({
             activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
           }}
           className={
-            'toolbar-item spaced ' + (toolbarState.isBold ? 'active' : '')
+            'toolbar-item ' + (toolbarState.isBold ? 'active' : '')
           }
           title={`Bold (${SHORTCUTS.BOLD})`}
           type="button"
@@ -458,7 +463,7 @@ export default function ToolbarPlugin({
             activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
           }}
           className={
-            'toolbar-item spaced ' + (toolbarState.isItalic ? 'active' : '')
+            'toolbar-item ' + (toolbarState.isItalic ? 'active' : '')
           }
           title={`Italic (${SHORTCUTS.ITALIC})`}
           type="button"
@@ -470,7 +475,7 @@ export default function ToolbarPlugin({
             activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'subscript');
           }}
           className={
-            'toolbar-item spaced ' + (toolbarState.isSubscript ? 'active' : '')
+            'toolbar-item ' + (toolbarState.isSubscript ? 'active' : '')
           }
           title="Subscript (Ctrl+_)"
           aria-label="Format text with a subscript">
@@ -482,7 +487,7 @@ export default function ToolbarPlugin({
             activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'superscript');
           }}
           className={
-            'toolbar-item spaced ' + (toolbarState.isSuperscript ? 'active' : '')
+            'toolbar-item ' + (toolbarState.isSuperscript ? 'active' : '')
           }
           title="Superscript"
           aria-label="Format text with a superscript">
@@ -495,7 +500,7 @@ export default function ToolbarPlugin({
             activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
           }}
           className={
-            'toolbar-item spaced ' + (toolbarState.isCode ? 'active' : '')
+            'toolbar-item ' + (toolbarState.isCode ? 'active' : '')
           }
           title={`Code style`}
           type="button"
@@ -515,7 +520,7 @@ export default function ToolbarPlugin({
         <div className="toolbar-itemgroup">
           <DropDown
             disabled={!isEditable}
-            buttonClassName="toolbar-item spaced"
+            buttonClassName="toolbar-item"
             buttonLabel="Insert"
             buttonAriaLabel="Insert specialized editor node"
             buttonIconClassName="plus"
@@ -567,15 +572,15 @@ export default function ToolbarPlugin({
         <div className="toolbar-itemgroup">
           <DropDown
             disabled={!isEditable}
-            buttonClassName="toolbar-item spaced"
+            buttonClassName="toolbar-item"
             buttonLabel="Title page"
             buttonAriaLabel="Title page"
-            buttonIconClassName="plus"
+            buttonIconClassName="fonts"
             chevron={false}>
 
             <DropDownItemWithIcon title={"Main title"} onClick={() => insertTitle(activeEditor)} iconClassName={"fonts"}/>
             <DropDownItemWithIcon title={"Add author"} onClick={() => activeEditor.update($appendAuthor)} iconClassName={"person-plus"}/>
-            <DropDownItemWithIcon title={"Add affiliation"} onClick={() => activeEditor.update($appendAffiliation)} iconClassName={"person-plus"}/>
+            <DropDownItemWithIcon title={"Add affiliation"} onClick={() => activeEditor.update($appendAffiliation)} iconClassName={"institution"}/>
             <DropDownItemWithIcon title={"Abstract"} onClick={() => insertAbstract(activeEditor)} iconClassName={"paragraph"}/>
           </DropDown>
         </div>
@@ -583,13 +588,13 @@ export default function ToolbarPlugin({
         <div className="toolbar-itemgroup">
           <DropDown
             disabled={!(isEditable)}
-            buttonClassName="toolbar-item spaced"
+            buttonClassName="toolbar-item"
             buttonLabel="Layout element"
             buttonAriaLabel="Layout element"
             buttonIconClassName="plus"
             chevron={false}>
 
-            <DropDownItemWithIcon title={"Page break"} onClick={() => activeEditor.update(() => $insertNodes([$createPageBreakNode()]))} iconClassName={"plus"} disabled={!(displayOptions.emulateLayout)}/>
+            <DropDownItemWithIcon title={"Page break"} onClick={() => activeEditor.update(() => $insertNodes([$createPageBreakNode()]))} iconClassName={"page-break"} disabled={!(displayOptions.emulateLayout)}/>
           </DropDown>
         </div>
       </>

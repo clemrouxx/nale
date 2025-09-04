@@ -135,7 +135,7 @@ export function SaveProvider({ children }) {
 
   const downloadCompilationZip = async ()=>{
     const files = [
-      { name: 'README.md', content: '# My Project\n\nThis is a sample project with multiple files.' },
+      { name: 'README.md', content: '# NaLE Compilation-ready folder\n\nThis folder contains all the necessary files for you to create your pdf. \nThis is done by running a LaTeX PDF compiler in this folder. \nTo do this, we advise you to : \n- Download TeX Live from https://tug.org/texlive/ \n- In a command promp in this folder (on Windows, the Powershell will do), run "latexmk -pdf main.tex"\n- This should create your PDF document "main.pdf", as well as a bunch of other files. You can get rid of them by running "latexmk -pdf -c main.tex".'},
       { name: 'main.tex', content: getLatex(editor,documentOptions)},
     ];
 
@@ -145,7 +145,7 @@ export function SaveProvider({ children }) {
 
     // Bibliographic references
     if (biblio.length > 0){
-      files.push({name:"referencences.bib", content:jsonToBib(biblio)});
+      files.push({name:"references.bib", content:jsonToBib(biblio)});
     }
     
     try {
@@ -227,7 +227,12 @@ function importFile(editor, setDocumentOptions, setBiblio, setNextLabelNumber, f
     }
     // Parse and set the editor state
     const editorState = editor.parseEditorState(parsedContent.editorState);
-    editor.setEditorState(editorState);
+    try {
+      editor.setEditorState(editorState);
+    } catch (error) {
+      console.error("Error while setting editor state from file : ",error);
+    }// try to continue anyway
+
     setDocumentOptions(completeDocumentOptions(parsedContent.documentOptions));// For backwards compatibility
     setBiblio(parsedContent.biblio);
     setNextLabelNumber(parsedContent.documentStructure.nextLabelNumber);

@@ -1,11 +1,3 @@
-/**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import {$wrapNodeInElement, mergeRegister} from '@lexical/utils';
 import {
@@ -34,14 +26,13 @@ const IMAGES_FOLDER = "images";
 
 export function InsertImageUriDialogBody({onClick}) {
   const [src, setSrc] = useState('');
-
-  const isDisabled = src === '';
+  const isDisabled = (src === '');
 
   return (
     <>
       <TextInput
         label="Image URL"
-        placeholder="i.e. https://source.unsplash.com/random"
+        placeholder="https://..."
         onChange={setSrc}
         value={src}
         data-test-id="image-modal-url-input"
@@ -168,7 +159,6 @@ export default function ImagesPlugin() {
       editor.registerCommand(
         INSERT_FIGURE_COMMAND,
         (payload) => {
-          //console.log(payload);
           const figureNode = $createFigureNode(payload,nextLabelNumber,documentOptions);
           setNextLabelNumber(nextLabelNumber+1);
           $insertNodes([figureNode]);

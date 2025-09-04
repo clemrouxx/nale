@@ -1,27 +1,15 @@
-/**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import {useLexicalEditable} from '@lexical/react/useLexicalEditable';
 import {useLexicalNodeSelection} from '@lexical/react/useLexicalNodeSelection';
 import {mergeRegister} from '@lexical/utils';
 import {
-$getNodeByKey,
 $getSelection,
 $isNodeSelection,
 $isRangeSelection,
 CLICK_COMMAND,
 COMMAND_PRIORITY_LOW,
 createCommand,
-KEY_ENTER_COMMAND,
-KEY_ESCAPE_COMMAND,
 } from 'lexical';
-import * as React from 'react';
 import {Suspense, useCallback, useEffect, useRef, useState} from 'react';
 import { PDFviewer } from './PDFviewer';
 

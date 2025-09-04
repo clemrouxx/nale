@@ -23,21 +23,6 @@ export function DisplayOptionsProvider({ children }) {
 
     useEffect(()=>{
         setGlobalCSSRule(".editor-base","--editor-scale",zoomFactors[displayOptions.zoomLevel]);
-        
-        const editorContainer = document.getElementById('main-editor-container');
-        if (displayOptions.emulateLayout) {
-            editorContainer.classList.add('emulate-layout');
-        } else {
-            editorContainer.classList.remove('emulate-layout');
-        }
-
-        const editorDomElement = document.getElementById("main-editor");
-        if (displayOptions.darkEditor) {
-            editorDomElement.classList.add('editor-dark');
-        } else {
-            editorDomElement.classList.remove('editor-dark');
-        }
-
     },[displayOptions]);
 
     return (

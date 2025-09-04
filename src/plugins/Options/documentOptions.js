@@ -18,9 +18,13 @@ export const DEFAULT_DOCUMENT_OPTIONS = {
     },
     title : {
         relativeFontSize : "LARGE",
+        bold : false,
     },
     abstract : {
         spanAllCols : false, // Only relevant for twoColumns = true
+    },
+    affiliations : {
+        italic : false,
     }
 }
 

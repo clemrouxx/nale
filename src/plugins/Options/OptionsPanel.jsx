@@ -13,6 +13,7 @@ const OPTIONS_CATEGORY_PER_NODETYPE = {
     "captioned-image":"figures",
     title:"title",
     abstract:"abstract",
+    affiliation: "affiliations",
 }
 
 const latexFontSizes = [
@@ -261,27 +262,58 @@ export function GlobalOptionsPanel({category}) {
                         }
                     </select>
                 </div>
+                <label htmlFor="bold">
+                    <input 
+                    type="checkbox"
+                    name="bold"
+                    id="bold"
+                    checked={documentOptions.title.bold}
+                    onChange={handleCheckboxChange}
+                    />
+                    Bold
+                </label>
                 </>
             );
             break;
         case "abstract":
+            if (documentOptions.general.twoColumns){ // For now. Remove if more Abstract options
+                inner = (
+                    <>
+                    <h4>Abstract options</h4>
+                    {documentOptions.general.twoColumns && 
+                    <label htmlFor="spanAllCols">
+                        <input 
+                        type="checkbox"
+                        id="spanAllCols"
+                        name="spanAllCols"
+                        checked={documentOptions.abstract.spanAllCols}
+                        onChange={handleCheckboxChange}
+                        />
+                        Span both columns
+                    </label>}
+                    </>
+                );
+            }
+            break;
+        case "affiliations":
             inner = (
                 <>
-                <h4>Abstract options</h4>
-                {documentOptions.general.twoColumns && <label htmlFor="spanAllCols">
+                <h4>Affiliations options</h4>
+                <label htmlFor="italic">
                     <input 
                     type="checkbox"
-                    id="spanAllCols"
-                    name="spanAllCols"
-                    checked={documentOptions.abstract.spanAllCols}
+                    name="italic"
+                    id="italic"
+                    checked={documentOptions.affiliations.italic}
                     onChange={handleCheckboxChange}
                     />
-                    Span both columns
-                </label>}
+                    Italic
+                </label>
                 </>
             );
+            break;
     }
-    return (<div className="options-panel">{inner}</div>);
+    return (inner.props.children ? <div className="options-panel">{inner}</div> : <></>);
 }
 
 
@@ -392,7 +424,6 @@ function NodeOptionsPanel({node}) {
                             onChange={(e) => {
                             editor.update(()=>{
                                 node.setWidthValue(parseInt(e.target.value));
-                                console.log(node.getWidthString());
                             })
                         }}
                         />

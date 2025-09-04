@@ -1,12 +1,9 @@
+import { useState } from "react";
 import { insertCitation } from "../nodes/CitationNode";
 import { showToast } from "../ui/Toast";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { useDocumentStructureContext } from "../plugins/NumberingPlugin/DocumentStructureContext";
 
-
-/**
- * Parse BibTeX string into an array of structured objects
- * @param {string} bibContent - The content of a .bib file as a string
- * @returns {Array} Array of objects representing bibliography entries
- */
 function parseBibTeX(bibContent) {
     const entries = [];
     
@@ -61,12 +58,6 @@ function parseBibTeX(bibContent) {
     return entries;
 }
 
-
-/**
- * Parse author string into an array of structured author objects
- * @param {string} authorString - BibTeX author string (e.g., "Smith, John and Doe, Jane")
- * @returns {Array} Array of author objects with firstName, lastName properties
- */
 function parseAuthors(authorString) {
     // Split by "and" to get individual authors
     const authors = authorString.split(/\s+and\s+/);
@@ -91,28 +82,60 @@ function parseAuthors(authorString) {
     });
 }
 
-export async function addBiblioFromClipboard(editor,biblio,setBiblio){
-    const clipboardText = await navigator.clipboard.readText();
+function handleTextInput(text,editor,biblio,setBiblio){
+    const parsedEntries = parseBibTeX(text);
+    if (parsedEntries.length===0){
+      showToast("No valid .bib entry was found.",3000,"warning");
+      return;
+    }
+    setBiblio(biblio.concat(parsedEntries));
+    if (parsedEntries.length===1){
+      const wasInserted = insertCitation(editor,parsedEntries[0].key);
+      if (!wasInserted){
+        showToast("Entry successfully added to the list. Use toolbar to insert.",4000,"success");
+      }
+    }
+    else{
+      showToast("Entries successfully added to the list. Use toolbar to insert.",4000,"success");
+    } 
+}
+
+export async function addBiblioFromClipboard(editor,biblio,setBiblio,showModal){
+    let clipboardText = null;
+    try{
+      clipboardText = await navigator.clipboard.readText();
+    } catch (error) {
+      if (error.name === "NotAllowedError"){
+        showModal('Manual .bib input', (onClose) => (<BibTextInputModal onClose={onClose} />));
+      }
+    }
     if (clipboardText) {
-      const parsedEntries = parseBibTeX(clipboardText);
-      if (parsedEntries.length===0){
-        showToast("No valid .bib entry found in clipboard.",3000,"warning");
-      }
-      setBiblio(biblio.concat(parsedEntries));
-      if (parsedEntries.length===1){
-        insertCitation(editor,parsedEntries[0].key);
-      }
-      else{
-        showToast("Entries successfully added to the list. Use toolbar to insert.",4000,"success");
-      }
+      handleTextInput(clipboardText,editor,biblio,setBiblio);
     }
 }
 
-/**
- * Format bibliography item for UI as authors (last names only) and title
- * @param {Object} bibItem - Bibliography item from parseBibTeX function
- * @returns {string} Formatted string with authors and title
- */
+function BibTextInputModal(onClose) {
+  const [text, setText] = useState('');
+  const [editor] = useLexicalComposerContext();
+  const {biblio,setBiblio} = useDocumentStructureContext();
+
+  return (
+    <div>
+      <textarea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Enter bibTeX reference(s) here"
+        style={{height: '15em', width: '100%'}}
+      />
+      <button
+        onClick={() => {handleTextInput(text,editor,biblio,setBiblio);onClose()}}
+      >
+        Submit
+      </button>
+    </div>
+  );
+}
+
 export function bibItemToUIString(bibItem) {
     // Handle missing author or title
     if (!bibItem.author || !bibItem.title) {
@@ -150,7 +173,7 @@ export function bibItemToHTML(bibItem) {
     
     // Add "and" before the last author if there are multiple authors
     const authorText = bibItem.author.length > 1 
-      ? formattedAuthors.replace(/,([^,]*)$/, ', &$1')
+      ? formattedAuthors.replace(/,([^,]*,[^,]*)$/, ', &$1')
       : formattedAuthors;
     
     // Format year

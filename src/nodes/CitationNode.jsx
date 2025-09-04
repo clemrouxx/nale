@@ -69,16 +69,19 @@ export class CitationNode extends DecoratorNode {
 }
 
 export function insertCitation(editor,citationKey) {
-  editor.update(() => {
+  return editor.update(() => {
     const selection = $getSelection();
     
     // We need to find when we are right after a citation node
     const citationNode = $findSelectedOrBeforeCursor("citation");
     if (citationNode){
       citationNode.addCitationKey(citationKey);
+      return true;
     }
-    else{
+    else if (selection){
       selection.insertNodes([new CitationNode([citationKey])]);
+      return true;
     }
+    return false;
   });
 }
