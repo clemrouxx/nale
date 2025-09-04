@@ -127,187 +127,187 @@ button.toolbar-item.active i {
 }
   
 i.image {
-  background-image: url(images/icons/file-image.svg);
+  background-image: url(/images/icons/file-image.svg);
 }
 
 i.figure {
-  background-image: url(images/icons/file-figure.svg);
+  background-image: url(/images/icons/file-figure.svg);
 }
 
 i.equation {
-  background-image: url(images/icons/plus-slash-minus.svg);
+  background-image: url(/images/icons/plus-slash-minus.svg);
 }
 
 i.table {
-  background-image: url(images/icons/table.svg);
+  background-image: url(/images/icons/table.svg);
 }
 
 i.close {
-  background-image: url(images/icons/close.svg);
+  background-image: url(/images/icons/close.svg);
 }
 
 i.left-align {
-  background-image: url(images/icons/text-left.svg);
+  background-image: url(/images/icons/text-left.svg);
 }
 
 i.center-align {
-  background-image: url(images/icons/text-center.svg);
+  background-image: url(/images/icons/text-center.svg);
 }
 
 i.right-align {
-  background-image: url(images/icons/text-right.svg);
+  background-image: url(/images/icons/text-right.svg);
 }
 
 i.justify-align {
-  background-image: url(images/icons/justify.svg);
+  background-image: url(/images/icons/justify.svg);
 }
 
 i.vertical-top,
 i.left-align {
-  background-image: url(images/icons/vertical-top.svg);
+  background-image: url(/images/icons/vertical-top.svg);
 }
 
 i.vertical-middle,
 i.center-align {
-  background-image: url(images/icons/vertical-middle.svg);
+  background-image: url(/images/icons/vertical-middle.svg);
 }
 
 i.vertical-bottom,
 i.right-align {
-  background-image: url(images/icons/vertical-bottom.svg);
+  background-image: url(/images/icons/vertical-bottom.svg);
 }
 
 i.plus{
-  background-image: url(images/icons/plus-sign.svg);
+  background-image: url(/images/icons/plus-sign.svg);
 }
 
 i.indent {
-  background-image: url(images/icons/indent.svg);
+  background-image: url(/images/icons/indent.svg);
 }
 
 i.outdent {
-  background-image: url(images/icons/outdent.svg);
+  background-image: url(/images/icons/outdent.svg);
 }
 
 i.undo {
-  background-image: url(images/icons/arrow-counterclockwise.svg);
+  background-image: url(/images/icons/arrow-counterclockwise.svg);
 }
 
 i.redo {
-  background-image: url(images/icons/arrow-clockwise.svg);
+  background-image: url(/images/icons/arrow-clockwise.svg);
 }
 
 i.upload {
-  background-image: url(images/icons/upload.svg);
+  background-image: url(/images/icons/upload.svg);
 }
 
 i.download {
-  background-image: url(images/icons/download.svg);
+  background-image: url(/images/icons/download.svg);
 }
 
 i.share {
-  background-image: url(images/icons/send.svg);
+  background-image: url(/images/icons/send.svg);
 }
 
 i.equation {
-  background-image: url(images/icons/plus-slash-minus.svg);
+  background-image: url(/images/icons/plus-slash-minus.svg);
 }
 
 i.copy {
-  background-image: url(images/icons/copy.svg);
+  background-image: url(/images/icons/copy.svg);
 }
 
 i.success {
-  background-image: url(images/icons/success.svg);
+  background-image: url(/images/icons/success.svg);
 }
 
 i.page-break {
-  background-image: url(images/icons/scissors.svg);
+  background-image: url(/images/icons/scissors.svg);
 }
 
 i.bold {
-  background-image: url(images/icons/type-bold.svg);
+  background-image: url(/images/icons/type-bold.svg);
 }
 
 i.italic {
-  background-image: url(images/icons/type-italic.svg);
+  background-image: url(/images/icons/type-italic.svg);
 }
 
 i.clear {
-  background-image: url(images/icons/trash.svg);
+  background-image: url(/images/icons/trash.svg);
 }
 
 i.code, i.code {
-  background-image: url(images/icons/code.svg);
+  background-image: url(/images/icons/code.svg);
 }
 
 i.underline {
-  background-image: url(images/icons/type-underline.svg);
+  background-image: url(/images/icons/type-underline.svg);
 }
 
 i.uppercase {
-  background-image: url(images/icons/type-uppercase.svg);
+  background-image: url(/images/icons/type-uppercase.svg);
 }
 
 i.lowercase {
-  background-image: url(images/icons/type-lowercase.svg);
+  background-image: url(/images/icons/type-lowercase.svg);
 }
 
 i.capitalize {
-  background-image: url(images/icons/type-capitalize.svg);
+  background-image: url(/images/icons/type-capitalize.svg);
 }
 
 i.strikethrough {
-  background-image: url(images/icons/type-strikethrough.svg);
+  background-image: url(/images/icons/type-strikethrough.svg);
 }
 
 i.subscript {
-  background-image: url(images/icons/type-subscript.svg);
+  background-image: url(/images/icons/type-subscript.svg);
 }
 
 i.superscript {
-  background-image: url(images/icons/type-superscript.svg);
+  background-image: url(/images/icons/type-superscript.svg);
 }
 
 i.highlight {
-  background-image: url(images/icons/highlighter.svg);
+  background-image: url(/images/icons/highlighter.svg);
 }
 
 i.link {
-  background-image: url(images/icons/link.svg);
+  background-image: url(/images/icons/link.svg);
 }
 
 i.horizontal-rule {
-  background-image: url(images/icons/horizontal-rule.svg);
+  background-image: url(/images/icons/horizontal-rule.svg);
 }
 
 i.chevron-down{
-  background-image: url(images/icons/chevron-down.svg);
+  background-image: url(/images/icons/chevron-down.svg);
 }
 
 i.insert-reference{
-  background-image: url(images/icons/arrow-90deg-up.svg);
+  background-image: url(/images/icons/arrow-90deg-up.svg);
 }
 
 i.citation{
-  background-image: url(images/icons/journal-bookmark.svg);
+  background-image: url(/images/icons/journal-bookmark.svg);
 }
 
-i.paragraph { background-image: url(images/icons/paragraph.svg) }
-i.h1 { background-image: url(images/icons/h1.svg) }
-i.h2 { background-image: url(images/icons/h2.svg) }
-i.h3 { background-image: url(images/icons/h3.svg) }
-i.list-bullets, i.bullet { background-image: url(images/icons/list-bullets.svg) }
-i.list-numbers, i.number { background-image: url(images/icons/list-numbers.svg) }
-i.list-check { background-image: url(images/icons/list-check.svg) }
-i.latex { background-image: url(images/icons/latex.svg) }
+i.paragraph { background-image: url(/images/icons/paragraph.svg) }
+i.h1 { background-image: url(/images/icons/h1.svg) }
+i.h2 { background-image: url(/images/icons/h2.svg) }
+i.h3 { background-image: url(/images/icons/h3.svg) }
+i.list-bullets, i.bullet { background-image: url(/images/icons/list-bullets.svg) }
+i.list-numbers, i.number { background-image: url(/images/icons/list-numbers.svg) }
+i.list-check { background-image: url(/images/icons/list-check.svg) }
+i.latex { background-image: url(/images/icons/latex.svg) }
 
-i.person-plus { background-image: url(images/icons/person-plus.svg) }
-i.institution { background-image: url(images/icons/institution.svg) }
-i.icon-text, i.fonts { background-image: url(images/icons/fonts.svg) }
-i.clipboard { background-image: url(images/icons/clipboard.svg) }
-i.page-break { background-image: url(images/icons/page-break.svg) }
-i.chevron-right{ background-image: url(images/icons/chevron-right.svg) }
+i.person-plus { background-image: url(/images/icons/person-plus.svg) }
+i.institution { background-image: url(/images/icons/institution.svg) }
+i.icon-text, i.fonts { background-image: url(/images/icons/fonts.svg) }
+i.clipboard { background-image: url(/images/icons/clipboard.svg) }
+i.page-break { background-image: url(/images/icons/page-break.svg) }
+i.chevron-right{ background-image: url(/images/icons/chevron-right.svg) }
 
 .dropdown {
   z-index: 100;

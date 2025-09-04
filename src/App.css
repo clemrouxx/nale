@@ -162,19 +162,19 @@ button:disabled{
 }
 
 .drawer-handle.left{
-  background-image: url(images/icons/chevron-white-left.svg);
+  background-image: url(/images/icons/chevron-white-left.svg);
 }
 
 .drawer-handle.right{
-  background-image: url(images/icons/chevron-white-right.svg);
+  background-image: url(/images/icons/chevron-white-right.svg);
 }
 
 .drawer-handle.up{
-  background-image: url(images/icons/chevron-white-up.svg);
+  background-image: url(/images/icons/chevron-white-up.svg);
 }
 
 .drawer-handle.down{
-  background-image: url(images/icons/chevron-white-down.svg);
+  background-image: url(/images/icons/chevron-white-down.svg);
 }
 
 .options-headings-numbering-templates input{
@@ -203,7 +203,7 @@ button:disabled{
 
 .logo-main{
   background-color: var(--text-colored);
-  mask: url(images/icons/NaLE.svg) no-repeat center center;
+  mask: url(/images/icons/NaLE.svg) no-repeat center center;
   mask-size: contain;
   width: 5em;
   height: 2.5em;
