@@ -515,7 +515,7 @@
             {
               "type": "image",
               "version": 1,
-              "src": "/src/images/sample.jpg",
+              "src": "/nale/images/sample.jpg",
               "filename": "images/sample.jpg",
               "width_value": 30,
               "width_unit": "mm"
@@ -622,7 +622,7 @@
             {
               "type": "captioned-image",
               "version": 1,
-              "src": "/src/images/sample.jpg",
+              "src": "/nale/images/sample.jpg",
               "filename": "images/sample.jpg",
               "width_value": 48,
               "width_unit": "%"
