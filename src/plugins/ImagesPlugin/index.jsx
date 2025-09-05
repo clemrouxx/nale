@@ -11,7 +11,7 @@ import {
 } from 'lexical';
 import {useEffect, useRef, useState} from 'react';
 
-import yellowFlowerImage from '../../images/sample.jpg';
+import sampleImage from '/images/sample.jpg?url';
 import { $createSimpleImageNode, SimpleImageNode } from '../../nodes/ImageNodes';
 import TextInput from '../../ui/TextInput';
 import { $createFigureNode } from '../../nodes/FigureNode';
@@ -103,7 +103,7 @@ export function InsertImageDialog({
           <button
             data-test-id="image-modal-option-sample"
             onClick={() =>
-              onClick({src: yellowFlowerImage,filename:IMAGES_FOLDER+"/sample.jpg"})
+              onClick({src: sampleImage,filename:IMAGES_FOLDER+"/sample.jpg"})
             }>
             Sample
           </button>
