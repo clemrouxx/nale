@@ -32,7 +32,7 @@ export function VirtualKeyboardContainer() {
   const shouldBeVisible = (activeNode && activeNode.getType()==="math");
   
   return (
-  <div className={`span2cols ${shouldBeVisible?"visible":"hidden"}`}>
+  <div className={`span2cols ${shouldBeVisible?"visible":"hidden"} hide-on-fullscreen`}>
     <div className={"drawer-handle horizontal " + (isOpen?"down":"up")} onClick={()=>{setOpen(!isOpen)}} title="Toggle Virtual Keyboard"></div>
     <div className={isOpen?"visible":"hidden"}>
       <VirtualKeyboard />

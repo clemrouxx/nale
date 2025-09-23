@@ -221,9 +221,9 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
                 if (parent.ismultiline) addSymbol("\\\\");
                 else if (parent.isroot){//AutoAlign
                     if (event.shiftKey){ // Now only if the shift key is pressed, to make leaving the math node easier
+                        event.preventDefault();// For some reason, this doesn't work for the first press.
                         setLocalMathTree(MathTree.alignAll(mathTree));
                         addSymbol("\\\\");
-                        //event.preventDefault();!!!
                     }
                 }
                 // Add \substack if needed

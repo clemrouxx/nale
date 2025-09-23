@@ -31,8 +31,7 @@ export function DisplayOptionsProvider({ children }) {
         setGlobalCSSRule(".editor-base","--editor-scale",zoomFactors[displayOptions.zoomLevel]);
 
         // Fullscreen
-        setGlobalCSSRule(".actionbar","display",displayOptions.fullscreen?"none":"flex");
-        //setGlobalCSSRule(".toolbar","display",displayOptions.fullscreen?"none":"flex");
+        setGlobalCSSRule(".hide-on-fullscreen","display",displayOptions.fullscreen?"none":"");
         setGlobalCSSRule(".side-panel-container","width",displayOptions.fullscreen?"0":"auto");
     },[displayOptions]);
 

@@ -6,10 +6,6 @@
   border-bottom: solid var(--border-primary) 1px;
 }
 
-.fullscreen .toolbar{
-  display: none;
-}
-
 .toolbar-itemgroup{
     display: flex;
     flex-shrink: 0;

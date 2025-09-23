@@ -403,7 +403,7 @@ export default function ToolbarPlugin({
   }, [editor, activeEditor]);
 
   return (
-    <div className="toolbar">
+    <div className="toolbar hide-on-fullscreen">
     <div className="toolbar-itemgroup">
       <button
       disabled={!toolbarState.canUndo || !isEditable}

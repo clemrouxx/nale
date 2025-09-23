@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 
 export const ActionBar = () => {
     return (
-        <div className="span2cols actionbar">
+        <div className="span2cols actionbar hide-on-fullscreen">
             <a className="logo-main" href="https://github.com/clemrouxx/nale"></a>
             <FileButton/>
             <DisplayMenu/>
