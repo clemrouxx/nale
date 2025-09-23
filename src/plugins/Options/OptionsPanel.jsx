@@ -46,7 +46,7 @@ export function AutoOptionsPanel() { // Automatically chooses the relevant optio
         }
     }
     return (
-        <div className="flex">
+        <div className="flex side-panel-container">
         {isOpen && (
             <div className="side-panel">
                 {activeNode && 

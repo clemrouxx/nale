@@ -87,6 +87,24 @@ const DisplayMenu = () => {
     const zoomOut = () => {
         if (displayOptions.zoomLevel>=1) setDisplayOption("zoomLevel",displayOptions.zoomLevel-1);
     }
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.ctrlKey && e.key === "F11"){
+                e.preventDefault();
+                setDisplayOption("fullscreen",!displayOptions.fullscreen);
+            }
+            else if(e.key==="Escape" && displayOptions.fullscreen){
+                e.preventDefault();
+                setDisplayOption("fullscreen",false);
+            }
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [displayOptions]);
+
     return (
         <DropDown buttonLabel={"Display"} stopCloseOnClickSelf={true}>
             <div>
@@ -113,6 +131,16 @@ const DisplayMenu = () => {
                     onChange={(e)=>{setDisplayOption("darkEditor",e.target.checked)}}
                     />
                     Editor dark mode
+                </label>
+            </div>
+             <div>
+                <label>
+                    <input
+                    type="checkbox"
+                    checked={displayOptions.fullscreen}
+                    onChange={(e)=>{setDisplayOption("fullscreen",e.target.checked)}}
+                    />
+                    Full screen editor
                 </label>
             </div>
         </DropDown>

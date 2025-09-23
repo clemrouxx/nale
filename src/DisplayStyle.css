@@ -29,6 +29,12 @@
     --topmargin-base: 36mm;
 
     --inch: 25.4mm;
+
+    box-sizing: border-box;
+}
+
+.fullscreen .editor-base{
+    height: 100%;
 }
 
 .editor-base.editor-dark{

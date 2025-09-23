@@ -106,6 +106,10 @@ button:disabled{
   background-color: var(--bg-contrasted);
 }
 
+.editor-block.fullscreen{
+  height: 100vh;
+}
+
 .options-panel{
   background-color: var(--bg-intermediate);
   margin-bottom: 0.5em;

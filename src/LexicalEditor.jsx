@@ -113,7 +113,7 @@ function Editor() {
   return (
     <>
         <AutoOptionsPanel/>
-        <div className='editor-block'>
+        <div className={'editor-block '+(displayOptions.fullscreen?"fullscreen":"")}>
           <ToolbarContext>
             <ToolbarPlugin
                 editor={editor}
