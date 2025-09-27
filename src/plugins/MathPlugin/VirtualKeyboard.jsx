@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { MathJax } from "better-react-mathjax";
 //import { Tooltip } from "react-tooltip";
 import MathKeyboard from "./MathKeyboard";
-import MathNodes from "./MathNodes";
+import MathNodes, { MATH_COLOR_NODES } from "./MathNodes";
 import { ADD_MATH_SYMBOL_COMMAND, MATH_CUSTOM_ACTION_COMMAND } from ".";
 
 const GREEK_LETTERS = ["\\alpha","\\beta","\\gamma","\\Gamma","\\delta","\\Delta","\\epsilon","\\varepsilon","\\zeta","\\eta","\\theta","\\vartheta","\\Theta","\\iota","\\kappa","\\varkappa","\\lambda","\\Lambda","\\mu","\\nu","\\xi","\\Xi","\\pi","\\Pi","\\rho","\\varrho","\\sigma","\\Sigma","\\tau","\\upsilon","\\Upsilon","\\phi","\\varphi","\\Phi","\\chi","\\psi","\\Psi","\\omega","\\Omega"];
@@ -83,6 +83,7 @@ const VirtualKeyboard = React.memo(() => {
             <Category title="Other delimiters & constructs" symbols={CONSTRUCTS} nKeysShown={15} keyClassName="larger-button" className="less-rows"/>
             <DelimiterSizeCategory/>
             <MultilineCategory/>
+            <Category title="Colors" symbols={MATH_COLOR_NODES}/>
         </div>
       </MathJax>
     );

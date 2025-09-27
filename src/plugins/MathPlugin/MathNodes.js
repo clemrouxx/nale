@@ -4,7 +4,8 @@
 // Includes the core and AMS commands (as well as a few commands from the physics package)
 export const MATH_COLORS = ["black", "blue", "brown", "cyan", "darkgray", "gray", "green", "lightgray", "lime", "magenta", "olive", "orange", "pink", "purple", "red", "teal", "violet", "white", "yellow"];
 const PARENT_SYMBOLS = ["\\sqrt","\\overline","\\underline","\\widehat","\\widetilde","\\overrightarrow","\\overleftarrow","\\overleftrightarrow","\\underleftarrow","\\underrightarrow","\\underleftrightarrow","\\bra","\\ket","\\Bra","\\Ket","\\abs","\\norm","\\order","\\stackrel{!}","\\stackrel{?}","\\boxed","\\operatorname","\\mod","\\bmod","\\pmod","\\substack"];
-const INVISIBLE_PARENT_SYMBOLS = ["_","^"].concat(MATH_COLORS.map(c=>`\\textcolor{${c}}`));
+export const MATH_COLOR_NODES = MATH_COLORS.map(c=>`\\textcolor{${c}}`);
+const INVISIBLE_PARENT_SYMBOLS = ["_","^"].concat(MATH_COLOR_NODES);
 const MULTILINE_PARENT_SYMBOLS = ["\\substack"];
 const ACCENTS = ["\\vec","\\bar","\\dot","\\ddot","\\dddot","\\ddddot","\\hat","\\vu","\\check","\\tilde","\\breve","\\acute","\\grave","\\mathring"];
 const STYLES = ["\\mathcal","\\mathbb","\\mathfrak","\\mathbf","\\mathsf","\\vb","\\va","\\boldsymbol","\\pmb"];
@@ -95,11 +96,13 @@ const PLACEHOLDER = {isplaceholder:true,symbol:"\\square"};
 const SMALLLETTERPLACEHOLDER = {isplaceholder:true,symbol:"x"};
 const BIGLETTERPLACEHOLDER = {symbol:"A"};// Removed the placeholder flag so that it is not transluscent
 const MULTILINEPLACEHOLDER = {symbol:".&.\\\\.&."};
+const FULLSQUAREPLACEHOLDER = {symbol:"\\blacksquare"};
 
 function includePlaceholders(node){
   if (!node.children) return node;
   if (ACCENTS.includes(node.symbol)) return {...node,children:[SMALLLETTERPLACEHOLDER]};
   if (STYLES.includes(node.symbol)) return {...node,children:[BIGLETTERPLACEHOLDER]};
+  if (MATH_COLOR_NODES.includes(node.symbol)) return {...node,children:[FULLSQUAREPLACEHOLDER]};
   if (node.fixedchildren) return {...node,children:node.children.map(c=>{return c.children?{...c,children:[PLACEHOLDER]}:c;})};
   if (node.children.length===0) return {...node,children:[node.ismultiline?MULTILINEPLACEHOLDER:PLACEHOLDER]};
   // Parent node, we do this recursively (should be the case also for fixedchildren...)

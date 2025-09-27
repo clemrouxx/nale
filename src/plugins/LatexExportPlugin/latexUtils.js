@@ -162,6 +162,7 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
         case "math":
             bubbledInfo.packages.add("physics");
             bubbledInfo.packages.add("amsmath,amssymb");
+            bubbledInfo.packages.add("xcolor");
             break;
         case "citation":
         case "reference":
