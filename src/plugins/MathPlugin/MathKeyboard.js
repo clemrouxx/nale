@@ -255,6 +255,9 @@ const SHORTCUTS = {
   rbr:"rbrace",
   dv2:"dv2",
   pdv2:"pdv2",
+
+  // Colors
+  red:"\\textcolor{red}",
 };
 
 const MathKeyboard =  {DIRECT_INPUT,TEXTMODE_ESCAPED_SYMBOLS,SIMPLE_REPLACEMENT,SHORTCUTS};

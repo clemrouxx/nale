@@ -2,7 +2,9 @@
 
 // The following lists / dictionnaries determine the propesrties of the inserted node (regarding selection, cursor placement, deletion...)
 // Includes the core and AMS commands (as well as a few commands from the physics package)
-const PARENT_SYMBOLS = ["_","^","\\sqrt","\\overline","\\underline","\\widehat","\\widetilde","\\overrightarrow","\\overleftarrow","\\overleftrightarrow","\\underleftarrow","\\underrightarrow","\\underleftrightarrow","\\bra","\\ket","\\Bra","\\Ket","\\abs","\\norm","\\order","\\stackrel{!}","\\stackrel{?}","\\boxed","\\operatorname","\\mod","\\bmod","\\pmod","\\substack"];
+const COLORS = ["red","blue"];
+const PARENT_SYMBOLS = ["\\sqrt","\\overline","\\underline","\\widehat","\\widetilde","\\overrightarrow","\\overleftarrow","\\overleftrightarrow","\\underleftarrow","\\underrightarrow","\\underleftrightarrow","\\bra","\\ket","\\Bra","\\Ket","\\abs","\\norm","\\order","\\stackrel{!}","\\stackrel{?}","\\boxed","\\operatorname","\\mod","\\bmod","\\pmod","\\substack"];
+const INVISIBLE_PARENT_SYMBOLS = ["_","^","\\textcolor{red}"];
 const MULTILINE_PARENT_SYMBOLS = ["\\substack"];
 const ACCENTS = ["\\vec","\\bar","\\dot","\\ddot","\\dddot","\\ddddot","\\hat","\\vu","\\check","\\tilde","\\breve","\\acute","\\grave","\\mathring"];
 const STYLES = ["\\mathcal","\\mathbb","\\mathfrak","\\mathbf","\\mathsf","\\vb","\\va","\\boldsymbol","\\pmb"];
@@ -19,7 +21,7 @@ var ENVIRONMENTS = ENVIRONMENTS_NAMES.reduce((acc, name) => {
   }, {});
 ENVIRONMENTS[`\\begin{array}{}`] = "\\end{array}";
 
-const INVISIBLE_SYMBOLS = ["_","^","\\\\","&","\\hline"]; // Don't have classes attached. Unfortunately seems necessary for hline
+const INVISIBLE_SYMBOLS = ["_","^","\\\\","&","\\hline"]; // Don't have html classes attached. Unfortunately seems necessary for hline
 
 const DELIMITER_SIZES = {auto:["\\left","\\right"],default:["",""],big:["\\bigl","\\bigr"],Big:["\\Bigl","\\Bigr"],bigg:["\\biggl","\\biggr"],Bigg:["\\Biggl","\\Biggr"]};
 
@@ -30,6 +32,7 @@ const DEFAULT_TREE = {isroot:true,nodeletion:true,children:[]};
 // Functions that act like node constructors
 const Symbol = (symbol) => {return {symbol}};
 const ParentSymbol = (symbol) => {return {symbol,children:[],nodeletionfromright:true,ismultiline:MULTILINE_PARENT_SYMBOLS.includes(symbol)}};
+const InvisibleParentSymbol = (symbol) => {return {symbol,children:[],nodeletionfromright:true,nodeletionfromleft:true,ismultiline:MULTILINE_PARENT_SYMBOLS.includes(symbol)}};
 const LimLike = (symbol) => {return {symbol,children:[],childrenaredown:true,implodes:true}};
 const Accent = (symbol) => {return {symbol,children:[],hassinglechild:true}}
 const Style = (symbol) => {return {symbol,children:[],hassinglechild:true,implodes:true}}
@@ -73,6 +76,7 @@ function getNode(symbol,rawtext=false,addplaceholders=false){
   var node = {};
   if (rawtext) node = Symbol(symbol);
   else if (PARENT_SYMBOLS.includes(symbol)) node = ParentSymbol(symbol);
+  else if (INVISIBLE_PARENT_SYMBOLS.includes(symbol)) node = InvisibleParentSymbol(symbol);
   else if (ACCENTS.includes(symbol)) node = Accent(symbol);
   else if (STYLES.includes(symbol)) node = Style(symbol);
   else if (symbol in DELIMITERS) node = Delimiter(symbol);

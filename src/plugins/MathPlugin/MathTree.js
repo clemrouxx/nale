@@ -228,6 +228,14 @@ function deleteNextToCursor(tree,direction){
       }
       return false; 
     }
+    if (direction==="right" && toDelete.nodeletionfromleft){ // Then we should "enter" (if the node has children), and delete nothing for now
+      if (toDelete.children) {
+        cursorParent.children.splice(index,1); // Remove cursor
+        toDelete.children.splice(0,0,MathNodes.CURSOR);
+        return tree;
+      }
+      return false; 
+    }
     else if (toDelete.ismodifier){// Then we need to enter the modifier (depends on how many children it has)
       let nchildren = toDelete.children.length;
       if (nchildren<=1) return deleteNode(tree,path,"cursor"); // We empty the modifier, so we delete it completely.
