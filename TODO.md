@@ -2,6 +2,7 @@
 ## Bugs
 - When adding a PDF image, it is mirrored about 20% of the time.
 - Special characters from .bib files (like "{\'e}") are not taken into account. The parsing function is to be modified.
+- When opening a file, the heading numberings don't appear correctly until the user clicks on the editor.
 
 ## Features
 ### Priority features
@@ -10,17 +11,21 @@
 - Footnotes
 - Working shortcuts and shortcuts indications (ex for section titles)
 
+### Simple tweaks
+- Cursor over math elements should be a text cursor
+
 ### Useful features
 - Export to PDF through LaTeX compilation
-- Subscript and superscript in text rendered using MathJax
 - Support for different languages in code blocks (for syntax highlighting)
 - Save/Open just for documentOptions (global styling)
-- Exporting ready-to-compile folder (with images, bibliography...)
+- Paste images
+- Custom headings font sizes (like main title)
+- Colored text
+- Colored terms in equations
+- Math mode : multi-character selection
+- Fast math mode
 
 ### Minor features
-- Possibility to show margins
-- Two columns layout
-- Custom Figure prefix (FIG instead of Figure for example)
 - Other bibliographic styles
 - Custom style for the bibliography title (replace "References" with a horizontal separator for example)
 - Choice for another font
