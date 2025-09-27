@@ -2,9 +2,9 @@
 
 // The following lists / dictionnaries determine the propesrties of the inserted node (regarding selection, cursor placement, deletion...)
 // Includes the core and AMS commands (as well as a few commands from the physics package)
-const COLORS = ["red","blue"];
+export const MATH_COLORS = ["black", "blue", "brown", "cyan", "darkgray", "gray", "green", "lightgray", "lime", "magenta", "olive", "orange", "pink", "purple", "red", "teal", "violet", "white", "yellow"];
 const PARENT_SYMBOLS = ["\\sqrt","\\overline","\\underline","\\widehat","\\widetilde","\\overrightarrow","\\overleftarrow","\\overleftrightarrow","\\underleftarrow","\\underrightarrow","\\underleftrightarrow","\\bra","\\ket","\\Bra","\\Ket","\\abs","\\norm","\\order","\\stackrel{!}","\\stackrel{?}","\\boxed","\\operatorname","\\mod","\\bmod","\\pmod","\\substack"];
-const INVISIBLE_PARENT_SYMBOLS = ["_","^","\\textcolor{red}"];
+const INVISIBLE_PARENT_SYMBOLS = ["_","^"].concat(MATH_COLORS.map(c=>`\\textcolor{${c}}`));
 const MULTILINE_PARENT_SYMBOLS = ["\\substack"];
 const ACCENTS = ["\\vec","\\bar","\\dot","\\ddot","\\dddot","\\ddddot","\\hat","\\vu","\\check","\\tilde","\\breve","\\acute","\\grave","\\mathring"];
 const STYLES = ["\\mathcal","\\mathbb","\\mathfrak","\\mathbf","\\mathsf","\\vb","\\va","\\boldsymbol","\\pmb"];

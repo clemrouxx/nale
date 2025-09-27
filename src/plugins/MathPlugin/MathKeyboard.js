@@ -1,5 +1,7 @@
 // Defines some constants for typing / shortcuts
 
+import { MATH_COLORS } from "./MathNodes";
+
 // valid characters (including some that can have children) that can be typed directly
 const DIRECT_INPUT = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-+=*,.'`<>/_^([|!?\";:";
 
@@ -257,7 +259,7 @@ const SHORTCUTS = {
   pdv2:"pdv2",
 
   // Colors
-  red:"\\textcolor{red}",
+  ...MATH_COLORS.reduce((acc, colorname) => (acc[colorname] = `\\textcolor{${colorname}}`, acc), {})
 };
 
 const MathKeyboard =  {DIRECT_INPUT,TEXTMODE_ESCAPED_SYMBOLS,SIMPLE_REPLACEMENT,SHORTCUTS};
