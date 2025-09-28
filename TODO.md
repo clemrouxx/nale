@@ -23,7 +23,7 @@
 - Colored text
 - Colored terms in equations
 - Math mode : multi-character selection
-- Fast math mode
+- Fast math mode : make it toggleable, and specify shortcuts in the virtual keyboard.
 
 ### Minor features
 - Other bibliographic styles
