@@ -257,7 +257,7 @@ const SHORTCUTS = {
   rbr:"rbrace",
   dv2:"dv2",
   pdv2:"pdv2",
-  "*":"^{*}",
+  "*":"starred",
 
   // Colors
   ...MATH_COLORS.reduce((acc, colorname) => (acc[colorname] = `\\textcolor{${colorname}}`, acc), {})

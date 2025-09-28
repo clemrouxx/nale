@@ -391,6 +391,7 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
 
     useLayoutEffect(() => { // Updates the formula and thus the displayed equation
         const newformula = MathNodes.getFormula(mathTree,true);
+        //console.log(newformula);
         setFormula(newformula);
     }, [mathTree]);
 

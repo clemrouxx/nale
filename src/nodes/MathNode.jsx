@@ -89,6 +89,7 @@ export class MathNode extends DecoratorNode {
       const delimiter = this.__inline ? "$" : "$$";
       return `${delimiter} ${formula} ${delimiter} ${this.__inline ? '' : '\n'}`
     }
+    
   }
 
 }

@@ -69,6 +69,7 @@ const NAMED_NODES = {
   pdv2: {...FracLike("\\pdv"),childrenstring:"[2]{§0}{§1}"},
   pdvmixed : ThreeChildren("\\pdv"),
   rbrace : {leftsymbol:".",rightsymbol:"\\rbrace",children:[getNode("\\begin{array}{}")],size:"auto"},
+  starred:{...getNode("^"),children:[{symbol:"*"}]},
 }
 
 
