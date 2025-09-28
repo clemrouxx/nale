@@ -351,11 +351,10 @@ function applyReplacementShortcut(tree,fastMath=false){
   }
   // Then, we look in priority at the longest sequences
   const slen = s.length;
-  let minLength = 1;// Minimal length of the shortcut string
-  if (fastMath) minLength = 3;
-  for (var j=0;j<=slen-minLength;j++){
+  for (var j=0;j<=slen-1;j++){
+    let length = slen-j;
     let splitstring = s.slice(j);
-    if (splitstring in MathKeyboard.SHORTCUTS || (fastMath && MathKeyboard.FASTMATH_ACCEPTED_EXCEPTIONS.includes(splitstring))){
+    if (splitstring in MathKeyboard.SHORTCUTS && (!fastMath || (length>=3 || MathKeyboard.FASTMATH_ACCEPTED_EXCEPTIONS.includes(splitstring)))){
       // Apply shortcut
       cursorParent.children.splice(index-slen+j,slen-j); // Remove the "used" nodes
       return {tree,symbol:MathKeyboard.SHORTCUTS[splitstring]};

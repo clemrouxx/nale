@@ -87,6 +87,7 @@ const SHORTCUTS = {
   ex:"\\exists",
   nex:"\\nexists",
   pd:"\\partial",
+  par:"\\partial",
   empty:"\\varnothing",
   neg:"\\neg",
   "...":"\\dots",
@@ -264,7 +265,7 @@ const SHORTCUTS = {
 };
 
 // 2-character shortcuts nonetheless accepted in fastmath mode
-const FASTMATH_ACCEPTED_EXCEPTIONS = ["oo","sq","fr","te","sr"];// TBC
+const FASTMATH_ACCEPTED_EXCEPTIONS = ["oo","sq","fr","te","sr","pi","->","<-","=>","Re","Im","ll","<=",">=","<<",">>","=!","=?","//","+-","-+"];
 
 const MathKeyboard =  {DIRECT_INPUT,TEXTMODE_ESCAPED_SYMBOLS,SIMPLE_REPLACEMENT,SHORTCUTS,FASTMATH_ACCEPTED_EXCEPTIONS};
 
