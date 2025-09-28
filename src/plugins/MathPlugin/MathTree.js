@@ -339,7 +339,7 @@ function adoptNodeBeforeCursor(tree,newnode){ // Add an accent or modifier on th
   return tree;
 }
 
-function applyReplacementShortcut(tree){
+function applyReplacementShortcut(tree,fastMath=false){
   const cursorParentResults = findCursorParent(tree);
   var cursorParent = cursorParentResults.node;
   const index = cursorParentResults.cursorIndex;
@@ -351,9 +351,12 @@ function applyReplacementShortcut(tree){
   }
   // Then, we look in priority at the longest sequences
   const slen = s.length;
-  for (var j=0;j<=slen-1;j++){
+  let minLength = 1;// Minimal length of the shortcut string
+  if (fastMath) minLength = 3;
+  for (var j=0;j<=slen-minLength;j++){
     let splitstring = s.slice(j);
-    if (splitstring in MathKeyboard.SHORTCUTS){
+    if (splitstring in MathKeyboard.SHORTCUTS || (fastMath && MathKeyboard.FASTMATH_ACCEPTED_EXCEPTIONS.includes(splitstring))){
+      // Apply shortcut
       cursorParent.children.splice(index-slen+j,slen-j); // Remove the "used" nodes
       return {tree,symbol:MathKeyboard.SHORTCUTS[splitstring]};
     }

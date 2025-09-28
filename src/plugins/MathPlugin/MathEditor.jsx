@@ -346,6 +346,14 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
             {
                 event.preventDefault();
                 addSymbol(event.key);
+                // FastMath mode : we check for shortcuts also here
+                if (!event.altKey){
+                    let replacementResult = MathTree.applyReplacementShortcut(mathTree,true);
+                    if (replacementResult.symbol){
+                        setLocalMathTree(replacementResult.tree);// This removes the previously added characters
+                        addSymbol(replacementResult.symbol);// This adds the new symbol (and updates the tree for Undo/Redo)
+                    }
+                }
             }
             else if (event.key in MathKeyboard.SIMPLE_REPLACEMENT){// Mostly for escaped characters that can be typed (ex. '{')
                 event.preventDefault();

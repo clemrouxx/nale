@@ -79,7 +79,7 @@ const SHORTCUTS = {
   maap:"\\longmapsto",
 
   // Misc symbols
-  if:"\\infty",
+  oo:"\\infty",
   all:"\\forall",
   Re:"\\Re",
   Im:"\\Im",
@@ -257,11 +257,15 @@ const SHORTCUTS = {
   rbr:"rbrace",
   dv2:"dv2",
   pdv2:"pdv2",
+  "*":"^{*}",
 
   // Colors
   ...MATH_COLORS.reduce((acc, colorname) => (acc[colorname] = `\\textcolor{${colorname}}`, acc), {})
 };
 
-const MathKeyboard =  {DIRECT_INPUT,TEXTMODE_ESCAPED_SYMBOLS,SIMPLE_REPLACEMENT,SHORTCUTS};
+// 2-character shortcuts nonetheless accepted in fastmath mode
+const FASTMATH_ACCEPTED_EXCEPTIONS = ["oo","sq","fr","te","sr"];// TBC
+
+const MathKeyboard =  {DIRECT_INPUT,TEXTMODE_ESCAPED_SYMBOLS,SIMPLE_REPLACEMENT,SHORTCUTS,FASTMATH_ACCEPTED_EXCEPTIONS};
 
 export default MathKeyboard;
