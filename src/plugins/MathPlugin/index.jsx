@@ -38,7 +38,6 @@ import { useDocumentStructureContext } from '../NumberingPlugin/DocumentStructur
 const COMMANDS_TO_IGNORE = [ // These commands are just completely ignored when in the math node, but some have their events handled with classical event handlers in MathEditor.
   KEY_ARROW_DOWN_COMMAND,
   KEY_ARROW_UP_COMMAND,
-  KEY_TAB_COMMAND,
   KEY_ESCAPE_COMMAND,
 ];
 
@@ -253,8 +252,27 @@ export default function MathPlugin() {
               event.preventDefault();
               const newnode = $createParagraphNode();
               newnode.select();
-              selectedNode.insertAfter(newnode);// Insert after AuthorListNode
+              selectedNode.insertAfter(newnode);
               return true;
+            }
+          }
+          return false; 
+        },
+        COMMAND_PRIORITY_HIGH
+      ),
+      editor.registerCommand(
+        KEY_TAB_COMMAND,
+        (event) => {
+          const selectedNode = $getCurrentMathNode();
+          if (selectedNode){
+            if (selectedNode.isInline()){
+              const mathTree = selectedNode.getMathTree();
+            
+              if (MathTree.isCursorAtEnd(mathTree)){
+                event.preventDefault();
+                selectedNode.selectNext();
+                return true;
+              }
             }
           }
           return false; 

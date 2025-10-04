@@ -15,6 +15,7 @@
 
 ### Simple tweaks
 - Cursor over math elements should be a text cursor
+- Change shortcuts for subscript and superscript to Ctrl+D and U
 
 ### Useful features
 - Export to PDF through LaTeX compilation

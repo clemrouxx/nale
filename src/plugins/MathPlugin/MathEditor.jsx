@@ -213,7 +213,10 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
         switch (event.key){
             case "Tab":
                 if (parent.ismultiline) addSymbol("&");
-                else if (parent.isroot) addSymbol("\\quad");
+                else if (parent.isroot){
+                    if (inline && MathTree.isCursorAtEnd(mathTree)) break; // A bit ugly code since I'm checking the opposite in treating the KEY_TAB_COMMAND
+                    addSymbol("\\quad");
+                }
                 else setLocalMathTree(MathTree.shiftCursor(mathTree,"right"));
                 event.preventDefault();
                 break;
@@ -221,7 +224,7 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
                 if (parent.ismultiline) addSymbol("\\\\");
                 else if (parent.isroot){//AutoAlign
                     if (event.shiftKey){ // Now only if the shift key is pressed, to make leaving the math node easier
-                        event.preventDefault();// For some reason, this doesn't work for the first press.
+                        event.preventDefault();// For some reason, this doesn't work
                         setLocalMathTree(MathTree.alignAll(mathTree));
                         addSymbol("\\\\");
                     }
