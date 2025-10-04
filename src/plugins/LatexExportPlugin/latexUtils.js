@@ -144,7 +144,12 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
         case "text":
             break;
         case "paragraph":
-            string += "\n\n";
+            if (string===""){
+                string = "\\bigskip\n"; // Lineskip
+            }
+            else{
+                string += "\n\n";
+            }
             break;
         case "heading":
             let index = node.getTag()[1]-1;
