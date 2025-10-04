@@ -58,7 +58,7 @@ export class MathNode extends DecoratorNode {
 
   decorate(){
     return (
-    <SelectableComponent nodeKey={this.__key}>
+    <SelectableComponent inline={true} nodeKey={this.__key}>
       <MathEditor nodeKey={this.getKey()} ref={this.__ref} initMathTree={this.__math_tree} inline={this.__inline} numbering={this.__is_numbered?this.__numbering:null}/>
     </SelectableComponent>
     );

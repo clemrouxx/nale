@@ -269,3 +269,17 @@
 .editor-container:not(.emulate-layout) .editor-pagebreak{
     display: none;
 }
+
+.editor-pagebreak > div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.editor-pagebreak .selected{
+    outline: solid var(--selection-primary) 3px;
+}
+
+.editor-pagebreak .selected::before {
+    content: "PAGE BREAK";
+}

@@ -4,7 +4,7 @@
 - Special characters from .bib files (like "{\'e}") are not taken into account. The parsing function is to be modified.
 - When opening a file, the heading numberings don't appear correctly until the user clicks on the editor.
 - Pressing Enter when at the end of a math node itself at the end of a bullet list item doesn't work as expected.
-- Paragraph intentation seems to behave in LaTeX not as implemented in NaLE when the paragraphs are not in a section
+- Paragraph indentation seems to behave in LaTeX not as implemented in NaLE when the paragraphs are not in a section
 
 ## Features
 ### Priority features

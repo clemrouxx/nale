@@ -1,5 +1,6 @@
 
 import { DecoratorNode } from 'lexical';
+import { SelectableComponent } from '../plugins/SelectableComponent';
 
 export class PageBreakNode extends DecoratorNode {
   static getType() {
@@ -21,7 +22,7 @@ export class PageBreakNode extends DecoratorNode {
   }
 
   decorate() {
-    return (<>PAGE BREAK</>);
+    return (<SelectableComponent nodeKey={this.__key}>TTTTEEEESSSSSSSSSTTTTTT</SelectableComponent>);
   }
 
   isInline() {

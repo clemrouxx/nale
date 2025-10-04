@@ -41,7 +41,7 @@ export class ReferenceNode extends DecoratorNode {
   };
 
   decorate(){
-    return <SelectableComponent nodeKey={this.__key} >
+    return <SelectableComponent inline={true} nodeKey={this.__key} >
       <a href={"#"+this.__reference_label}>{this.__text}</a>
     </SelectableComponent>;
   }

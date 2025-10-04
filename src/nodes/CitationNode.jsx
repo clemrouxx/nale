@@ -48,7 +48,7 @@ export class CitationNode extends DecoratorNode {
 
   decorate(){
     return (
-    <SelectableComponent nodeKey={this.__key}>
+    <SelectableComponent inline={true} nodeKey={this.__key}>
       {this.__text}
     </SelectableComponent>
     );
