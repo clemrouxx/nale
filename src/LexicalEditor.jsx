@@ -19,7 +19,7 @@ import { setGlobalCSSRule } from './utils/generalUtils';
 import { AutoOptionsPanel } from './plugins/Options/OptionsPanel';
 import ImagesPlugin from './plugins/ImagesPlugin';
 import MathPlugin from './plugins/MathPlugin';
-import { useDisplayOptions, zoomFactors, zoomLevelToText } from './plugins/DisplayOptionsContext';
+import { useEditorOptions, zoomFactors, zoomLevelToText } from './plugins/EditorOptionsContext';
 import { AbstractNodePlugin } from './plugins/AbstractNodePlugin';
 import { AuthorshipPlugin } from './nodes/AuthorNodes';
 import { VirtualKeyboardContainer } from './plugins/MathPlugin/VirtualKeyboard';
@@ -32,7 +32,7 @@ function Editor() {
   const [activeEditor, setActiveEditor] = useState(editor);
   const [isLinkEditMode, setIsLinkEditMode] = useState(false);
   const {documentOptions} = useDocumentOptions();
-  const {displayOptions,setDisplayOption} = useDisplayOptions();
+  const {editorOptions,setDisplayOption} = useEditorOptions();
   const editorRef = useRef(null);
 
   const updateDocumentCSS = () => { // Update CSS when documentOptions is modified
@@ -82,15 +82,15 @@ function Editor() {
     
   useEffect(() => {
       const zoomIn = () => {
-        if (displayOptions.zoomLevel<zoomFactors.length-1){
-          const newZoomLevel = displayOptions.zoomLevel+1
+        if (editorOptions.zoomLevel<zoomFactors.length-1){
+          const newZoomLevel = editorOptions.zoomLevel+1
           setDisplayOption("zoomLevel",newZoomLevel);
           showToast(zoomLevelToText(newZoomLevel),1000);
         }
       }
       const zoomOut = () => {
-          if (displayOptions.zoomLevel>=1) { 
-            const newZoomLevel = displayOptions.zoomLevel-1;
+          if (editorOptions.zoomLevel>=1) { 
+            const newZoomLevel = editorOptions.zoomLevel-1;
             setDisplayOption("zoomLevel",newZoomLevel);
             showToast(zoomLevelToText(newZoomLevel),1000);
           }
@@ -108,12 +108,12 @@ function Editor() {
       return () => {
           element?.removeEventListener('wheel', handleWheel);
       };
-  }, [displayOptions]);
+  }, [editorOptions]);
 
   return (
     <>
         <AutoOptionsPanel/>
-        <div className={'editor-block '+(displayOptions.fullscreen?"fullscreen":"")}>
+        <div className={'editor-block '+(editorOptions.fullscreen?"fullscreen":"")}>
           <ToolbarContext>
             <ToolbarPlugin
                 editor={editor}
@@ -122,14 +122,14 @@ function Editor() {
                 setIsLinkEditMode={setIsLinkEditMode}
               />
           </ToolbarContext>
-          <div id="main-editor-container" className={"editor-container "+(displayOptions.emulateLayout?"emulate-layout":"")}>
+          <div id="main-editor-container" className={"editor-container "+(editorOptions.emulateLayout?"emulate-layout":"")}>
             <RichTextPlugin
             contentEditable={
               <ContentEditable
                 id='main-editor'
                 aria-placeholder={""}
                 placeholder={<></>}
-                className={`editor-base ${getAdditionalEditorClassName(documentOptions,displayOptions)}`}
+                className={`editor-base ${getAdditionalEditorClassName(documentOptions,editorOptions)}`}
                 spellCheck={false}
                 ref={editorRef}
               />

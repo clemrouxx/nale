@@ -1,7 +1,7 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useActiveNode } from "../../utils/lexicalUtils";
 import { useDocumentOptions } from "./DocumentOptionsContext";
-import { useDisplayOptions } from "../DisplayOptionsContext";
+import { useEditorOptions } from "../EditorOptionsContext";
 import { useState } from "react";
 import useModal from "../../hooks/useModal";
 import { InsertImageDialog } from "../ImagesPlugin";
@@ -63,7 +63,7 @@ export function AutoOptionsPanel() { // Automatically chooses the relevant optio
 
 export function GlobalOptionsPanel({category}) {
     const {documentOptions,setDocumentOptions} = useDocumentOptions();
-    const {displayOptions} = useDisplayOptions();
+    const {editorOptions} = useEditorOptions();
 
     const setOption = (option,value) => {
         var newOptions = structuredClone(documentOptions);
@@ -112,7 +112,7 @@ export function GlobalOptionsPanel({category}) {
                         </select>
                     </div>
                     
-                    {displayOptions.emulateLayout && (
+                    {editorOptions.emulateLayout && (
                     <>
                         <div className="form-line">
                             <label htmlFor="margins-left">Left margin: </label>

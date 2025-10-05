@@ -3,7 +3,7 @@ import Editor from "./LexicalEditor";
 import { initialConfig } from "./LexicalConfig";
 import { DocumentOptionsProvider } from "./plugins/Options/DocumentOptionsContext";
 import { ActionBar } from "./ActionBar";
-import { DisplayOptionsProvider } from "./plugins/DisplayOptionsContext";
+import { EditorOptionsProvider } from "./plugins/EditorOptionsContext";
 import { DocumentStructureProvider } from "./plugins/NumberingPlugin/DocumentStructureContext";
 import { MathJaxContext } from "better-react-mathjax";
 import { SaveProvider } from "./plugins/SaveLoadPlugin";
@@ -32,14 +32,14 @@ function App() {
       <LexicalComposer initialConfig={initialConfig}>
         <DocumentOptionsProvider>
         <DocumentStructureProvider>
-        <DisplayOptionsProvider>
+        <EditorOptionsProvider>
         <SaveProvider>
         <MathJaxContext config={mathJaxConfig}>
           <ActionBar/>
           <Editor />
         </MathJaxContext>
         </SaveProvider>
-        </DisplayOptionsProvider>
+        </EditorOptionsProvider>
         </DocumentStructureProvider>
         </DocumentOptionsProvider>
       </LexicalComposer>

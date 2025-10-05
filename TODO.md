@@ -24,7 +24,6 @@
 - Paste images
 - Custom headings font sizes (like main title)
 - Colored text
-- Colored terms in equations
 - Math mode : multi-character selection
 - Fast math mode : make it toggleable, and specify shortcuts in the virtual keyboard.
 

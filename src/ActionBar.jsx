@@ -1,7 +1,7 @@
 import {$getRoot} from 'lexical';
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import {convertToLatex, getLatex} from './plugins/LatexExportPlugin/latexUtils';
-import { useDisplayOptions, zoomFactors, zoomLevelToText } from './plugins/DisplayOptionsContext';
+import { useEditorOptions, zoomFactors, zoomLevelToText } from './plugins/EditorOptionsContext';
 import { useDocumentOptions } from './plugins/Options/DocumentOptionsContext';
 import DropDown, { DropDownItem } from './ui/DropDown';
 import { saveToTextFile, useSaveLoadContext } from './plugins/SaveLoadPlugin';
@@ -80,21 +80,21 @@ const FileButton = () => {
 }
 
 const DisplayMenu = () => {
-    const {displayOptions,setDisplayOption} = useDisplayOptions();
+    const {editorOptions,setDisplayOption} = useEditorOptions();
     const zoomIn = () => {
-        if (displayOptions.zoomLevel<zoomFactors.length-1) setDisplayOption("zoomLevel",displayOptions.zoomLevel+1);
+        if (editorOptions.zoomLevel<zoomFactors.length-1) setDisplayOption("zoomLevel",editorOptions.zoomLevel+1);
     }
     const zoomOut = () => {
-        if (displayOptions.zoomLevel>=1) setDisplayOption("zoomLevel",displayOptions.zoomLevel-1);
+        if (editorOptions.zoomLevel>=1) setDisplayOption("zoomLevel",editorOptions.zoomLevel-1);
     }
 
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.ctrlKey && e.key === "F11"){
                 e.preventDefault();
-                setDisplayOption("fullscreen",!displayOptions.fullscreen);
+                setDisplayOption("fullscreen",!editorOptions.fullscreen);
             }
-            else if(e.key==="Escape" && displayOptions.fullscreen){
+            else if(e.key==="Escape" && editorOptions.fullscreen){
                 e.preventDefault();
                 setDisplayOption("fullscreen",false);
             }
@@ -103,21 +103,21 @@ const DisplayMenu = () => {
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, [displayOptions]);
+    }, [editorOptions]);
 
     return (
         <DropDown buttonLabel={"Display"} stopCloseOnClickSelf={true}>
             <div>
                 <span>Zoom</span>
                 <button onClick={zoomOut}>-</button>
-                <span>{zoomLevelToText(displayOptions.zoomLevel)}</span>
+                <span>{zoomLevelToText(editorOptions.zoomLevel)}</span>
                 <button onClick={zoomIn}>+</button>
             </div>
             <div>
                 <label>
                     <input
                     type="checkbox"
-                    checked={displayOptions.emulateLayout}
+                    checked={editorOptions.emulateLayout}
                     onChange={(e)=>{setDisplayOption("emulateLayout",e.target.checked)}}
                     />
                     Emulate layout
@@ -127,7 +127,7 @@ const DisplayMenu = () => {
                 <label>
                     <input
                     type="checkbox"
-                    checked={displayOptions.darkEditor}
+                    checked={editorOptions.darkEditor}
                     onChange={(e)=>{setDisplayOption("darkEditor",e.target.checked)}}
                     />
                     Editor dark mode
@@ -137,7 +137,7 @@ const DisplayMenu = () => {
                 <label>
                     <input
                     type="checkbox"
-                    checked={displayOptions.fullscreen}
+                    checked={editorOptions.fullscreen}
                     onChange={(e)=>{setDisplayOption("fullscreen",e.target.checked)}}
                     />
                     Full screen editor

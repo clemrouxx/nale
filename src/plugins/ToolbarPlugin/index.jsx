@@ -72,7 +72,7 @@ import { insertTitle } from '../../nodes/TitleNode.jsx';
 import { insertAbstract } from '../../nodes/AbstractNode.jsx';
 import { $appendAuthor } from '../../nodes/AuthorNodes.jsx';
 import { $appendAffiliation } from '../../nodes/AffiliationNodes.jsx';
-import { useDisplayOptions } from '../DisplayOptionsContext.jsx';
+import { useEditorOptions } from '../EditorOptionsContext.jsx';
 import { $createPageBreakNode } from '../../nodes/PageBreakNode.jsx';
 
 function dropDownActiveClass(active) {
@@ -241,7 +241,7 @@ export default function ToolbarPlugin({
   const [modal, showModal] = useModal();
   const [isEditable, setIsEditable] = useState(() => editor.isEditable());
   const {toolbarState, updateToolbarState} = useToolbarState();
-  const {displayOptions} = useDisplayOptions();
+  const {editorOptions} = useEditorOptions();
 
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -594,7 +594,7 @@ export default function ToolbarPlugin({
             buttonIconClassName="plus"
             chevron={false}>
 
-            <DropDownItemWithIcon title={"Page break"} onClick={() => activeEditor.update(() => $insertNodes([$createPageBreakNode()]))} iconClassName={"page-break"} disabled={!(displayOptions.emulateLayout)}/>
+            <DropDownItemWithIcon title={"Page break"} onClick={() => activeEditor.update(() => $insertNodes([$createPageBreakNode()]))} iconClassName={"page-break"} disabled={!(editorOptions.emulateLayout)}/>
           </DropDown>
         </div>
       </>
