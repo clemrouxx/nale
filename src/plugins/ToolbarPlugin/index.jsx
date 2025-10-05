@@ -12,6 +12,7 @@ import {
   $isCodeNode,
   CODE_LANGUAGE_MAP,
 } from '@lexical/code';
+import { $patchStyleText } from '@lexical/selection';
 import {$isLinkNode} from '@lexical/link';
 import {$isListNode, ListNode} from '@lexical/list';
 import {$isTableNode, $isTableSelection} from '@lexical/table';
@@ -36,7 +37,7 @@ import {
   SELECTION_CHANGE_COMMAND,
   UNDO_COMMAND,
 } from 'lexical';
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useState, useRef} from 'react';
 
 import {
   blockTypeToBlockName,
@@ -74,6 +75,8 @@ import { $appendAuthor } from '../../nodes/AuthorNodes.jsx';
 import { $appendAffiliation } from '../../nodes/AffiliationNodes.jsx';
 import { useEditorOptions } from '../EditorOptionsContext.jsx';
 import { $createPageBreakNode } from '../../nodes/PageBreakNode.jsx';
+
+const DEFAULT_COLORS = ["black", "blue", "brown", "cyan", "darkgray", "gray", "green", "lightgray", "lime", "magenta", "olive", "orange", "pink", "purple", "red", "teal", "violet", "white", "yellow"];
 
 function dropDownActiveClass(active) {
   if (active) {
@@ -230,6 +233,37 @@ function CitationDropDown({editor}){
     {modal}
     </>
   )
+}
+
+function ColorTextButton({editor}) {
+  const [isDropdownOpen,setIsDropdownOpen] = useState();
+  const dropdownRef = useRef(null);
+
+  const close = () => setIsDropdownOpen(false);
+
+  return (
+    <div ref={dropdownRef}>
+    <button onClick={()=>setIsDropdownOpen(!isDropdownOpen)} className="toolbar-item"><i className="icon code"/></button>
+    {isDropdownOpen && 
+    (
+      <div className="dropdown grid colorgrid">
+        {([''].concat(DEFAULT_COLORS)).map((color) => (
+          <button key={color} onClick={()=>{
+            editor.update(() => {
+              const selection = $getSelection();
+              if ($isRangeSelection(selection)) {
+                $patchStyleText(selection, { color });
+              }
+            });
+            close();
+          }}>
+            {color}
+          </button>
+        ))}
+      </div>
+    )}
+    </div>
+  );
 }
 
 export default function ToolbarPlugin({
@@ -507,6 +541,7 @@ export default function ToolbarPlugin({
           aria-label="Format text in code style">
           <i className="format code" />
         </button>
+        <ColorTextButton editor={activeEditor}/>
       </div>
 
         <div className="toolbar-itemgroup">

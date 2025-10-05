@@ -12,6 +12,7 @@
 - Tables
 - Footnotes
 - Working shortcuts and shortcuts indications (ex for section titles)
+- Text with links
 
 ### Simple tweaks
 - Cursor over math elements should be a text cursor
