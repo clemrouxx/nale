@@ -421,3 +421,22 @@ i.chevron-right{ background-image: url(/images/icons/chevron-right.svg) }
 .primary-dropdown > *{
   padding: 0;
 }
+
+.dropdown.colorgrid{
+  display: grid;
+  grid-template-columns: repeat(4, 2em);
+  grid-template-rows: repeat(5, 2em);
+  gap: 3px;
+  padding: 5px;
+}
+
+.colorgrid > *{
+  aspect-ratio: 1 / 1;
+  margin: 0;
+  min-width: 0;
+  border-radius: 3px;
+}
+
+.colorgrid button:hover{
+  filter: invert(0.1) brightness(2) brightness(0.8);/* My attempt at a filter that works for any color */
+}

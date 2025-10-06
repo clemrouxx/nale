@@ -5,6 +5,7 @@
 - When opening a file, the heading numberings don't appear correctly until the user clicks on the editor.
 - Pressing Enter when at the end of a math node itself at the end of a bullet list item doesn't work as expected.
 - Paragraph indentation seems to behave in LaTeX not as implemented in NaLE when the paragraphs are not in a section
+- Color text uses CSS values, should use xcolor values instead.
 
 ## Features
 ### Priority features

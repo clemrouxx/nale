@@ -248,7 +248,7 @@ function ColorTextButton({editor}) {
     (
       <div className="dropdown grid colorgrid">
         {([''].concat(DEFAULT_COLORS)).map((color) => (
-          <button key={color} onClick={()=>{
+          <button key={color} title={color ? color : "Restore default"} style={{"background-color":color}} onClick={()=>{
             editor.update(() => {
               const selection = $getSelection();
               if ($isRangeSelection(selection)) {
@@ -257,7 +257,6 @@ function ColorTextButton({editor}) {
             });
             close();
           }}>
-            {color}
           </button>
         ))}
       </div>
