@@ -39,6 +39,28 @@
     color: white;
 }
 
+.editor-block{ /* Because these are also needed in the toolbar */
+    --xcolor-red:red;
+    --xcolor-green:lime;
+    --xcolor-blue:blue;
+    --xcolor-cyan:rgb(0, 185, 242);
+    --xcolor-magenta:rgb(251 49 153);
+    --xcolor-yellow:rgb(255 235 61);
+    --xcolor-black:black;
+    --xcolor-gray:rgb(128 128 128);
+    --xcolor-white:white;
+    --xcolor-darkgray:rgb(64 64 64);
+    --xcolor-lightgray:rgb(191 191 191);
+    --xcolor-brown:rgb(191 128 64);
+    --xcolor-lime:rgb(191 255 0);
+    --xcolor-olive:rgb(159 140 24);
+    --xcolor-orange:rgb(255 128 0);
+    --xcolor-pink:rgb(255 191 191);
+    --xcolor-purple:rgb(191 0 64);
+    --xcolor-teal:rgb(0 128 128);
+    --xcolor-violet:rgb(128 0 128);
+}
+
 .emulate-layout .editor-base.two-columns{
     column-count: 2;
 }

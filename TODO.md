@@ -5,7 +5,6 @@
 - When opening a file, the heading numberings don't appear correctly until the user clicks on the editor.
 - Pressing Enter when at the end of a math node itself at the end of a bullet list item doesn't work as expected.
 - Paragraph indentation seems to behave in LaTeX not as implemented in NaLE when the paragraphs are not in a section
-- Color text uses CSS values, should use xcolor values instead.
 
 ## Features
 ### Priority features
@@ -18,6 +17,8 @@
 ### Simple tweaks
 - Cursor over math elements should be a text cursor
 - Change shortcuts for subscript and superscript to Ctrl+D and U
+- Math : clicking on the color button while having a selection should change the color of the selection
+- Math : using the colored text menu should also work with math
 
 ### Useful features
 - Export to PDF through LaTeX compilation

@@ -438,5 +438,5 @@ i.chevron-right{ background-image: url(/images/icons/chevron-right.svg) }
 }
 
 .colorgrid button:hover{
-  filter: invert(0.1) brightness(2) brightness(0.8);/* My attempt at a filter that works for any color */
+  border: solid 2px var(--border-primary);
 }
