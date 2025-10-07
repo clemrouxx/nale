@@ -27,9 +27,10 @@ button.toolbar-item {
   flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
+  height: 100%;
 }
 
-button.toolbar-item:only-child{
+.toolbar-itemgroup > *:only-child > button, .toolbar-itemgroup > button:only-child{
   border-radius: 0;
 }
 
@@ -86,6 +87,7 @@ button.toolbar-item.active i {
   height: 20px;
   text-align: left;
   padding-right: 10px;
+  margin-left: 8px;
 }
 
 .toolbar .toolbar-item i, .toolbar .toolbar-item i {
@@ -93,7 +95,6 @@ button.toolbar-item.active i {
   width: 15px;
   height: 15px;
   user-select: none;
-  margin-right: 8px;
   line-height: 16px;
   background-size: contain;
   @media not (prefers-color-scheme: light) {
@@ -308,6 +309,7 @@ i.icon-text, i.fonts { background-image: url(/images/icons/fonts.svg) }
 i.clipboard { background-image: url(/images/icons/clipboard.svg) }
 i.page-break { background-image: url(/images/icons/page-break.svg) }
 i.chevron-right{ background-image: url(/images/icons/chevron-right.svg) }
+i.textcolor { background-image: url(/images/icons/palette.svg) }
 
 .dropdown {
   z-index: 100;

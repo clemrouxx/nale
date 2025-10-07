@@ -76,7 +76,7 @@ import { $appendAffiliation } from '../../nodes/AffiliationNodes.jsx';
 import { useEditorOptions } from '../EditorOptionsContext.jsx';
 import { $createPageBreakNode } from '../../nodes/PageBreakNode.jsx';
 
-const DEFAULT_COLORS = ["black", "blue", "brown", "cyan", "darkgray", "gray", "green", "lightgray", "lime", "magenta", "olive", "orange", "pink", "purple", "red", "teal", "violet", "white", "yellow"];
+const DEFAULT_COLORS = ["blue","red","green","violet","purple","magenta","orange","cyan","teal","olive","brown","white","pink","lime","yellow","lightgray","gray","darkgray","black",]
 
 function dropDownActiveClass(active) {
   if (active) {
@@ -243,7 +243,7 @@ function ColorTextButton({editor}) {
 
   return (
     <div ref={dropdownRef}>
-    <button onClick={()=>setIsDropdownOpen(!isDropdownOpen)} className="toolbar-item"><i className="icon code"/></button>
+    <button onClick={()=>setIsDropdownOpen(!isDropdownOpen)} className="toolbar-item"><i className="icon format textcolor"/></button>
     {isDropdownOpen && 
     (
       <div className="dropdown grid colorgrid">
