@@ -90,6 +90,18 @@ function convertDocumentOptions(documentOptions){
     return latex;
 }
 
+function getStyleValue(styleString, property) { // Helper function to get the style value from the CSS of an element (typically the color of a text node)
+  if (!styleString) return null;
+  
+  const match = styleString.match(new RegExp(`${property}:\\s*([^;]+)`));
+  return match ? match[1].trim() : null;
+}
+
+function extractColorName(colorValue){ // Extracts "purple" from "var(--xcolor-purple)", etc.
+    const match = colorValue.match(/var\(--xcolor-(\w+)\)/);
+    return match ? match[1] : null; 
+}
+
 export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Set(),title:null,authors:[]}){
     var string = "";
     
@@ -105,6 +117,17 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
             if (node.hasFormat(format)) string = putInCommand(string,TEXT_FORMAT_COMMANDS[format]);
         }
         if (node.hasFormat("code")) string = `\\verb|${string}|`;
+
+        // "Custom" formatting (e.g. text color)
+        const style = node.getStyle();
+        const colorValue = getStyleValue(style,"color");
+        if (colorValue){
+            let colorName = extractColorName(colorValue);
+            if (colorName){
+                string = putInCommand(string,`\\textcolor{${colorName}}`);
+                bubbledInfo.packages.add("xcolor");
+            }
+        }
     }
     else if (node.getChildren){
         string = node.getChildren().map((n)=>convertToLatex(n,documentOptions,bubbledInfo)).join('');
