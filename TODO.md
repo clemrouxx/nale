@@ -16,7 +16,6 @@
 
 ### Simple tweaks
 - Cursor over math elements should be a text cursor
-- Change shortcuts for subscript and superscript to Ctrl+D and U
 - Math : clicking on the color button while having a selection should change the color of the selection
 - Math : using the colored text menu should also work with math
 - Consistant color order between toolbar and math keyboard

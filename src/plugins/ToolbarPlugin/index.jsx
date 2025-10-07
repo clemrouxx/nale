@@ -243,7 +243,7 @@ function ColorTextButton({editor}) {
 
   return (
     <div ref={dropdownRef}>
-    <button onClick={()=>setIsDropdownOpen(!isDropdownOpen)} className="toolbar-item"><i className="icon format textcolor"/></button>
+    <button onClick={()=>setIsDropdownOpen(!isDropdownOpen)} title='Text color' className="toolbar-item"><i className="icon format textcolor"/></button>
     {isDropdownOpen && 
     (
       <div className="dropdown grid colorgrid">
@@ -416,18 +416,29 @@ export default function ToolbarPlugin({
   // (Some) shortcut handling
   useEffect(() => {
     const handleKeyDown = (e) => {
-        if (e.ctrlKey && e.key === 'F') {
-            e.preventDefault();
-            showModal('Insert Figure', (onClose) => (
-              <InsertImageDialog
-                activeEditor={activeEditor}
-                onClose={onClose}
-                figureMode={true}
-                replaceMode={false}
-              />
-            ));
+        if (e.ctrlKey){
+          switch (e.key){
+            case "F":
+              e.preventDefault();
+              showModal('Insert Figure', (onClose) => (
+                <InsertImageDialog
+                  activeEditor={activeEditor}
+                  onClose={onClose}
+                  figureMode={true}
+                  replaceMode={false}
+                />
+              ));
+              break;
+            case "d":
+              e.preventDefault();
+              activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'subscript');
+              break;
+            case "u":
+              e.preventDefault();
+              activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'superscript');
+              break;
+          }
         }
-        else if (e.ctrlKey && e.key==="_"){ activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'subscript'); }
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => {
@@ -510,10 +521,9 @@ export default function ToolbarPlugin({
           className={
             'toolbar-item ' + (toolbarState.isSubscript ? 'active' : '')
           }
-          title="Subscript (Ctrl+_)"
+          title="Subscript (Ctrl+D)"
           aria-label="Format text with a subscript">
           <i className="format subscript" />
-          <span className="shortcut"></span>
         </button>
         <button
           onClick={() => {
@@ -522,10 +532,9 @@ export default function ToolbarPlugin({
           className={
             'toolbar-item ' + (toolbarState.isSuperscript ? 'active' : '')
           }
-          title="Superscript"
+          title="Superscript (Ctrl+U)"
           aria-label="Format text with a superscript">
           <i className="format superscript" />
-          <span className="shortcut"></span>
         </button>
         <button
           disabled={!isEditable}
