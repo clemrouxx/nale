@@ -68,8 +68,8 @@ function adoptAtPath(tree,path,parent){// The target node is replaced by the nod
   return tree;
 }
 
-function alignAll(tree){ // Puts the whole tree (minus the root) in an align environment
-  const alignNode = MathNodes.getNode("\\begin{align}");
+function alignAll(tree){ // Puts the whole tree (minus the root) in an aligned environment
+  const alignNode = MathNodes.getNode("\\begin{aligned}");
   alignNode.children = tree.children.flatMap(n => (n.symbol==="="?[MathNodes.getNode("&"),n]:[n])); // Put '&' in front of any '='
   tree.children = [alignNode];
   return tree;
@@ -113,6 +113,10 @@ function replaceAndAdopt(tree,path,newnode,placeCursor=false){
   var newtree = insertAtPath(tree,path,newnode,true);
   setUids(newtree);
   return newtree;
+}
+
+function getArrayColNb(node){
+  
 }
 
 function getPositionInArray(tree,path){

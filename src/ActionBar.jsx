@@ -24,7 +24,8 @@ const LatexExportModal = () => {
     const [editor] = useLexicalComposerContext();
 
     const toClipboard = () => {
-        navigator.clipboard.writeText(getLatex(editor,documentOptions)).then(()=>showToast("LaTeX successfully copied to clipboard"));
+        const latex = getLatex(editor,documentOptions);
+        navigator.clipboard.writeText(latex).then(()=>showToast("LaTeX successfully copied to clipboard"));
     };
 
     const toFile = () => {

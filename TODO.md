@@ -5,8 +5,11 @@
 - When opening a file, the heading numberings don't appear correctly until the user clicks on the editor.
 - Pressing Enter when at the end of a math node itself at the end of a bullet list item doesn't work as expected.
 - Paragraph indentation seems to behave in LaTeX not as implemented in NaLE when the paragraphds are not in a section
-- Math-latex : Making multiple lines converts to "align" environment in latex, instead of "aligned".
-- Math-latex : The "cases" environment in latex only supports one "&" per line (i.e. only two columns). This is not emplemented, leading to faulty latex export.
+- Math-latex : The "cases" environment in latex only supports one "&" per line (i.e. only two columns). This is not implemented, leading to faulty latex export.
+- Arrays lead faulty latex export due to lack of aligment parameters
+- Math : in inline math mode, the elements on fractions apppear to be left-aligned instead of centered.
+- Math : Adding \hline does not work, or leads to math display error
+- Math : Color does not work as expected in multiple ways (with cursor deletion, with selection)
 
 ## Features
 ### Priority features
@@ -33,6 +36,9 @@
 - Fast math mode : make it toggleable, and specify shortcuts in the virtual keyboard.
 - Math : add up-down navigation in multiline elements
 - Ability to make images (not just Figures) behave as a block, and be centered
+- Add multiline enumerations
+- Math-latex : add some line breaks when logical
+- Add warning when closing tab without saving
 
 ### Minor features
 - Other bibliographic styles
@@ -40,6 +46,8 @@
 - Choice for another font
 - Other citation styles (ex : superscript)
 - Drag-and-drop Figures or equations for quick references
+- Latex export : maybe do not add unused labels
+- Math-latex : unseless spaces (especially at the edges of the math expression)
 
 ### Possible later features
 - Cooperation
