@@ -116,7 +116,7 @@ function replaceAndAdopt(tree,path,newnode,placeCursor=false){
 }
 
 function getArrayColNb(node){
-  
+  // TODO; for determining the default alignement parameters when exporting to latex
 }
 
 function getPositionInArray(tree,path){
