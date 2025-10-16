@@ -18,6 +18,8 @@
 - Footnotes
 - Working shortcuts and shortcuts indications (ex for section titles)
 - Text with links
+- Add warning when closing tab without saving
+- Math : add [...), (...] and ability to add just the left delimiter alone if wanted.
 
 ### Simple tweaks
 - Cursor over math elements should be a text cursor
@@ -38,7 +40,6 @@
 - Ability to make images (not just Figures) behave as a block, and be centered
 - Add multiline enumerations
 - Math-latex : add some line breaks when logical
-- Add warning when closing tab without saving
 
 ### Minor features
 - Other bibliographic styles
@@ -48,6 +49,7 @@
 - Drag-and-drop Figures or equations for quick references
 - Latex export : maybe do not add unused labels
 - Math-latex : unseless spaces (especially at the edges of the math expression)
+- Page-by-page navigation
 
 ### Possible later features
 - Cooperation
