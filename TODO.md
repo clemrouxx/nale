@@ -20,6 +20,8 @@
 - Text with links
 - Add warning when closing tab without saving
 - Math : add [...), (...] and ability to add just the left delimiter alone if wanted.
+- Make some nodes like page breaks selectable on click.
+- Ability to make images (not just Figures) behave as a block, and be centered
 
 ### Simple tweaks
 - Cursor over math elements should be a text cursor
@@ -33,11 +35,9 @@
 - Save/Open just for documentOptions (global styling)
 - Paste images
 - Custom headings font sizes (like main title)
-- Colored text
 - Math mode : multi-character selection
 - Fast math mode : make it toggleable, and specify shortcuts in the virtual keyboard.
 - Math : add up-down navigation in multiline elements
-- Ability to make images (not just Figures) behave as a block, and be centered
 - Add multiline enumerations
 - Math-latex : add some line breaks when logical
 
@@ -49,7 +49,6 @@
 - Drag-and-drop Figures or equations for quick references
 - Latex export : maybe do not add unused labels
 - Math-latex : unseless spaces (especially at the edges of the math expression)
-- Page-by-page navigation
 
 ### Possible later features
 - Cooperation

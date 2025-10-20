@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { NumberedHeadingNode } from "../../nodes/NumberedHeadingNode";
 import { MathNode } from "../../nodes/MathNode";
 import MathNodes from "../MathPlugin/MathNodes";
+import { PageBreakNode } from "../../nodes/PageBreakNode";
 
 export function AutoNumberer(ref){
     const {setNumberedHeadings,biblio,setFigures,setNumberedEquations} = useDocumentStructureContext();
@@ -23,6 +24,7 @@ export function AutoNumberer(ref){
                 let headingsNumbering = {1:0,2:0,3:0};
                 let figuresNumber = 0; // Last figure number
                 let equationsNumber = 0; // Idem, but for equations (numbered math blocks)
+                let pageNumber = 1;
                 const newheadings = [];
                 const newfigures = [];
                 const newequations = [];
@@ -57,11 +59,16 @@ export function AutoNumberer(ref){
                         });
                     }
 
+                    else if (node instanceof PageBreakNode){
+                        pageNumber++;
+                        node.updatePageNumber(pageNumber);
+                    }
+
                     if (node.getChildren) {
                         node.getChildren().forEach(visit);
                     }
                 };
-                visit(root);
+                visit(root); // Starts the recursive visit of all nodes in the tree.
                 //console.log(newheadings);
 
                 // Possibly, reorder citationKeys, and choose other labels

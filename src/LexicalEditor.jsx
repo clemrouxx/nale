@@ -26,6 +26,7 @@ import { VirtualKeyboardContainer } from './plugins/MathPlugin/VirtualKeyboard';
 import { showToast } from './ui/Toast';
 import { AffiliationsPlugin } from './nodes/AffiliationNodes';
 import PreventRefocusPlugin from './plugins/PreventRefocusPlugin';
+import PageAnchor from './ui/PageAnchor';
 
 function Editor() {
   const [editor] = useLexicalComposerContext();
@@ -34,6 +35,7 @@ function Editor() {
   const {documentOptions} = useDocumentOptions();
   const {editorOptions,setDisplayOption} = useEditorOptions();
   const editorRef = useRef(null);
+  const [currentPage,setCurrentPage] = useState(1);
 
   const updateDocumentCSS = () => { // Update CSS when documentOptions is modified
     setGlobalCSSRule(".editor-base","--fontsize-base",`${String(documentOptions.general.fontSize)}pt`);
@@ -102,6 +104,8 @@ function Editor() {
               if (e.deltaY>0) zoomOut(); else zoomIn();
           }
       };
+
+
       
       element?.addEventListener('wheel', handleWheel, { passive: false });
       
@@ -109,6 +113,32 @@ function Editor() {
           element?.removeEventListener('wheel', handleWheel);
       };
   }, [editorOptions]);
+
+  const autoScrollBehaviour = "instant";
+
+  useEffect(()=>{
+    const handleKeyDown = (e) => {
+      if (e.key === "PageDown") {
+        e.preventDefault();
+        const target = document.getElementById(`page-${currentPage+1}`);
+        if (target){
+          target.scrollIntoView({behavior: autoScrollBehaviour,block: "start"});
+          setCurrentPage(currentPage+1);
+        }
+      }
+      else if (e.key === "PageUp") {
+        e.preventDefault();
+        const target = document.getElementById(`page-${currentPage-1}`);
+        if (target){
+          target.scrollIntoView({behavior: autoScrollBehaviour,block: "start"});
+          setCurrentPage(currentPage-1);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  },[currentPage])
 
   return (
     <>
@@ -123,6 +153,7 @@ function Editor() {
               />
           </ToolbarContext>
           <div id="main-editor-container" className={"editor-container "+(editorOptions.emulateLayout?"emulate-layout":"")}>
+            <PageAnchor pageNumber={1}/>
             <RichTextPlugin
             contentEditable={
               <ContentEditable
