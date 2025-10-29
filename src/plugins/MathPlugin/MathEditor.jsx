@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useImperativeHandle, forwardRef, us
 import {MathJax} from "better-react-mathjax";
 import MathTree from "./MathTree";
 import MathKeyboard from "./MathKeyboard";
-import MathNodes from "./MathNodes";
+import MathNodes, { MATH_COLOR_NODES } from "./MathNodes";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $getNodeByKey, $getSelection, SELECTION_CHANGE_COMMAND, COMMAND_PRIORITY_LOW, $isNodeSelection, $isRangeSelection, $createNodeSelection, $setSelection } from "lexical";
 import { showToast } from "../../ui/Toast";
@@ -83,7 +83,7 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
             else changeMathTree(MathTree.insertAtCursor(mathTree,newnode));
         }
         else if (editMode==="selection"){
-            if (MathNodes.ACCENTS.includes(newnode.symbol) || MathNodes.STYLES.includes(newnode.symbol)){
+            if (MathNodes.ACCENTS.includes(newnode.symbol) || MathNodes.STYLES.includes(newnode.symbol) || MATH_COLOR_NODES.includes(newnode.symbol)){
                 changeMathTree(MathTree.adoptSelectedNode(mathTree,newnode));
             }
             else{

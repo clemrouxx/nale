@@ -206,6 +206,6 @@ function insertCursorInNode(node){// Insert cursor at the "right place", assumin
   return false;
 }
 
-const MathNodes = {DEFAULT_TREE,CURSOR,ACCENTS,STYLES,DELIMITERS,getNode,getFormula,isValidRawText,nChildren,insertCursorInNode,changeDelimiterSize};
+const MathNodes = {DEFAULT_TREE,CURSOR,ACCENTS,STYLES,DELIMITERS,MATH_COLOR_NODES,getNode,getFormula,isValidRawText,nChildren,insertCursorInNode,changeDelimiterSize};
 
 export default MathNodes;
