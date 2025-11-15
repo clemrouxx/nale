@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $getNodeByKey, $getSelection, $isNodeSelection, $isRangeSelection } from 'lexical';
+import { $patchStyleText } from '@lexical/selection';
 
 // Custom hook to track active node (and its parent)
 export function useActiveNode() {
@@ -64,4 +65,20 @@ export function $findSelectedOrBeforeCursor(nodeType){
   }
   
   return null;
+}
+
+export function $betterPatchStyle( // Wrapper of $patchStyleText that allow other nodes to receive the style.
+  selection,style
+) {
+    if (!$isRangeSelection(selection)) return;
+
+    $patchStyleText(selection,style);
+
+    const nodes = selection.getNodes();
+    
+    nodes.forEach((node) => {
+      if (node.applyStyle) {
+        node.applyStyle(style);
+      }
+    });
 }

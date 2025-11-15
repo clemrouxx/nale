@@ -26,7 +26,8 @@ import {
   DELETE_CHARACTER_COMMAND,
   $createRangeSelection,
   COMMAND_PRIORITY_NORMAL,
-  COMMAND_PRIORITY_CRITICAL
+  COMMAND_PRIORITY_CRITICAL,
+  FORMAT_TEXT_COMMAND
 } from 'lexical';
 import { $createMathNode, MathNode } from '../../nodes/MathNode';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';

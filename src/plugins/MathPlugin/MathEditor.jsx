@@ -402,7 +402,7 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering,color},ref
     const tag = numbering ? `\\tag{${numbering}}` : "";
 
   return (
-    <div ref={domRef} className={inline?"inline":""} style={{color:`var(--xcolor-${color})`}}>
+    <div ref={domRef} className={inline?"inline":""} style={{color}}>
         <MathJax key={formula} inline={inline}>{`${delimiter} ${formula} ${tag} ${delimiter}`}</MathJax>
     </div>
   );

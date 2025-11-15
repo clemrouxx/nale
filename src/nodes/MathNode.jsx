@@ -4,6 +4,7 @@ import { SelectableComponent } from '../plugins/SelectableComponent';
 import MathEditor from '../plugins/MathPlugin/MathEditor';
 import MathNodes from '../plugins/MathPlugin/MathNodes';
 import { createRef } from 'react';
+import { extractColorName, putInCommand } from '../plugins/LatexExportPlugin/latexUtils';
 
 export class MathNode extends DecoratorNode {
   constructor(inline,mathTree,versionCounter,is_numbered,labelNumber,color,key) {
@@ -39,9 +40,17 @@ export class MathNode extends DecoratorNode {
   }
   setNumbering(numbering){ this.getWritable().__numbering = structuredClone(numbering) }
   setIsNumbered(is_numbered) { const writable = this.getWritable().__is_numbered = is_numbered }
+  setColor(color){ this.getWritable().__color = color }
+  getColor(){ return this.__color }
 
   updateNumbering(numbering){
     if (numbering !== this.__numbering) this.setNumbering(numbering);
+  }
+
+  applyStyle(style){
+    if (style.color){
+      this.setColor(style.color);
+    }
   }
   
   // DOM
@@ -84,14 +93,19 @@ export class MathNode extends DecoratorNode {
 
   toLatex(){
     const formula = MathNodes.getFormula(this.__math_tree,false);
+    let s = "";
     if (this.__is_numbered){
-      return `\\begin{equation} \n ${formula} \n \\label{${this.getLabel()}} \n \\end{equation} \n`;
+      s += `\\begin{equation} \n ${formula} \n \\label{${this.getLabel()}} \n \\end{equation} \n`;
     }
     else{
       const delimiter = this.__inline ? "$" : "$$";
-      return `${delimiter}${formula}${delimiter}${this.__inline ? '' : '\n'}`
+      s += `${delimiter}${formula}${delimiter}${this.__inline ? '' : '\n'}`
     }
-    
+    const color = extractColorName(this.getColor());
+    if (color){
+      s = putInCommand(s,putInCommand(color,"\\textcolor"));
+    }
+    return s;
   }
 
 }

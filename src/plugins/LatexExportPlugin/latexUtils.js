@@ -9,7 +9,7 @@ const LATEX_END_DOCUMENT =
 `\\end{document}
 `;
 
-function putInCommand(string,command){
+export function putInCommand(string,command){
     return `${command}{${string}}`;
 }
 
@@ -97,7 +97,7 @@ function getStyleValue(styleString, property) { // Helper function to get the st
   return match ? match[1].trim() : null;
 }
 
-function extractColorName(colorValue){ // Extracts "purple" from "var(--xcolor-purple)", etc.
+export function extractColorName(colorValue){ // Extracts "purple" from "var(--xcolor-purple)", etc.
     const match = colorValue.match(/var\(--xcolor-(\w+)\)/);
     return match ? match[1] : null; 
 }

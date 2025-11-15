@@ -75,6 +75,7 @@ import { $appendAuthor } from '../../nodes/AuthorNodes.jsx';
 import { $appendAffiliation } from '../../nodes/AffiliationNodes.jsx';
 import { useEditorOptions } from '../EditorOptionsContext.jsx';
 import { $createPageBreakNode } from '../../nodes/PageBreakNode.jsx';
+import { $betterPatchStyle } from '../../utils/lexicalUtils.js';
 
 const DEFAULT_COLORS = ["blue","red","green","violet","purple","magenta","orange","cyan","teal","olive","brown","white","pink","lime","yellow","lightgray","gray","darkgray","black",]
 
@@ -252,7 +253,7 @@ function ColorTextButton({editor}) {
             editor.update(() => {
               const selection = $getSelection();
               if ($isRangeSelection(selection)) {
-                $patchStyleText(selection, { color:`var(--xcolor-${color})` });
+                $betterPatchStyle(selection, { color:`var(--xcolor-${color})` });
               }
             });
             close();
