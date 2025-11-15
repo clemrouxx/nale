@@ -7,7 +7,7 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { $getNodeByKey, $getSelection, SELECTION_CHANGE_COMMAND, COMMAND_PRIORITY_LOW, $isNodeSelection, $isRangeSelection, $createNodeSelection, $setSelection } from "lexical";
 import { showToast } from "../../ui/Toast";
 
-const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
+const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering,color},ref) => {
     const [mathTree,setMathTree] = useState(structuredClone(initMathTree));
     const [formula,setFormula] = useState("");
     const [command,setCommand] = useState("");
@@ -402,7 +402,7 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering},ref) => {
     const tag = numbering ? `\\tag{${numbering}}` : "";
 
   return (
-    <div ref={domRef} className={inline?"inline":""}>
+    <div ref={domRef} className={inline?"inline":""} style={{color:`var(--xcolor-${color})`}}>
         <MathJax key={formula} inline={inline}>{`${delimiter} ${formula} ${tag} ${delimiter}`}</MathJax>
     </div>
   );

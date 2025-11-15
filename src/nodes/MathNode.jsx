@@ -6,7 +6,7 @@ import MathNodes from '../plugins/MathPlugin/MathNodes';
 import { createRef } from 'react';
 
 export class MathNode extends DecoratorNode {
-  constructor(inline,mathTree,versionCounter,is_numbered,labelNumber,key) {
+  constructor(inline,mathTree,versionCounter,is_numbered,labelNumber,color,key) {
     super(key);
     this.__inline = inline;
     this.__math_tree = mathTree;
@@ -15,10 +15,11 @@ export class MathNode extends DecoratorNode {
     this.__numbering = "?";
     this.__label_number = labelNumber ?? -1;
     this.__ref = createRef();
+    this.__color = color;
   }
 
   static clone(node) {
-    return new MathNode(node.__inline,structuredClone(node.__math_tree),this.__version_counter,node.__is_numbered,node.__label_number,node.__key);
+    return new MathNode(node.__inline,structuredClone(node.__math_tree),this.__version_counter,node.__is_numbered,node.__label_number,node.__color,node.__key);
   }
 
   // Getters
@@ -59,7 +60,7 @@ export class MathNode extends DecoratorNode {
   decorate(){
     return (
     <SelectableComponent inline={true} nodeKey={this.__key}>
-      <MathEditor nodeKey={this.getKey()} ref={this.__ref} initMathTree={this.__math_tree} inline={this.__inline} numbering={this.__is_numbered?this.__numbering:null}/>
+      <MathEditor nodeKey={this.getKey()} ref={this.__ref} initMathTree={this.__math_tree} inline={this.__inline} numbering={this.__is_numbered?this.__numbering:null} color={this.__color}/>
     </SelectableComponent>
     );
   }
@@ -67,7 +68,7 @@ export class MathNode extends DecoratorNode {
   // Import-export
 
   static importJSON(serializedNode) {
-    return new MathNode(serializedNode.inline,serializedNode.math_tree,0,serializedNode.is_numbered,serializedNode.label_number);
+    return new MathNode(serializedNode.inline,serializedNode.math_tree,0,serializedNode.is_numbered,serializedNode.label_number,serializedNode.color);
   }
 
   exportJSON() {
@@ -76,7 +77,8 @@ export class MathNode extends DecoratorNode {
       inline:this.__inline,
       math_tree:this.__math_tree,
       is_numbered:this.__is_numbered,
-      label_number:this.__label_number
+      label_number:this.__label_number,
+      color:this.__color
     };
   }
 
@@ -94,6 +96,6 @@ export class MathNode extends DecoratorNode {
 
 }
 
-export function $createMathNode(inline,label){
-  return new MathNode(inline,structuredClone(MathNodes.DEFAULT_TREE),0,false,label);
+export function $createMathNode(inline,label,color=""){
+  return new MathNode(inline,structuredClone(MathNodes.DEFAULT_TREE),0,false,label,color);
 }

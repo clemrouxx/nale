@@ -10,6 +10,9 @@
 - Math : in inline math mode, the elements on fractions apppear to be left-aligned instead of centered.
 - Math : Adding \hline does not work, or leads to math display error
 - Math : Color does not work as expected in multiple ways (with cursor deletion, with selection)
+- Latex export : \bigskip not working as expected
+- Latex export : leading space of colored text not always respected. (change for "\ " ?)
+- Text both italic and bold only appears as bold.
 
 ## Features
 ### Priority features
