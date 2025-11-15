@@ -27,7 +27,8 @@ import {
   $createRangeSelection,
   COMMAND_PRIORITY_NORMAL,
   COMMAND_PRIORITY_CRITICAL,
-  FORMAT_TEXT_COMMAND
+  FORMAT_TEXT_COMMAND,
+  $isTextNode
 } from 'lexical';
 import { $createMathNode, MathNode } from '../../nodes/MathNode';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -35,6 +36,7 @@ import { useEffect, useState } from 'react';
 import {$wrapNodeInElement, mergeRegister} from '@lexical/utils';
 import MathTree from './MathTree';
 import { useDocumentStructureContext } from '../NumberingPlugin/DocumentStructureContext';
+import { extractColorName } from '../LatexExportPlugin/latexUtils';
 
 const COMMANDS_TO_IGNORE = [ // These commands are just completely ignored when in the math node, but some have their events handled with classical event handlers in MathEditor.
   KEY_ARROW_DOWN_COMMAND,
@@ -115,7 +117,18 @@ export default function MathPlugin() {
             return true;
           }
 
-          const mathNode = $createMathNode(inline,nextLabelNumber);
+          // We want to keep the text color if possible
+          let color = null;
+          const selection = $getSelection();
+          if ($isRangeSelection(selection)){
+            const node = selection.anchor.getNode();
+            if ($isTextNode(node)){
+              color = extractColorName(node.getStyle());
+              if (color) color = `var(--xcolor-${color})`;
+            }
+          }
+
+          const mathNode = $createMathNode(inline,nextLabelNumber,color);
           setNextLabelNumber(nextLabelNumber+1);
 
           $insertNodes([mathNode]);
