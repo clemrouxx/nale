@@ -16,7 +16,7 @@ export class MathNode extends DecoratorNode {
     this.__numbering = "?";
     this.__label_number = labelNumber ?? -1;
     this.__ref = createRef();
-    this.__color = color;
+    this.__color = color ?? "";
   }
 
   static clone(node) {
