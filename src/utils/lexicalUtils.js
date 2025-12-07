@@ -18,8 +18,10 @@ export function useActiveNode() {
         if (selection) {
           const firstNode = selection.getNodes()[0];
           setActiveNode(firstNode);
-          setActiveNodeParent(firstNode.getParent());
-          setActiveNodeAncestorTypes(firstNode.getParents().map(parent => parent.getType()));
+          if (firstNode){
+            setActiveNodeParent(firstNode.getParent());
+            setActiveNodeAncestorTypes(firstNode.getParents().map(parent => parent.getType()));
+          }
         }
         // If selection goes to null, we keep the last selected node as active node (but we update it anyway !)
         else if (activeNode){
