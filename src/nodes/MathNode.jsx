@@ -6,6 +6,7 @@ import MathNodes from '../plugins/MathPlugin/MathNodes';
 import { createRef } from 'react';
 import { extractColorName, putInCommand } from '../plugins/LatexExportPlugin/latexUtils';
 import { StylableNode } from './StylableNode';
+import { DEFAULT_TEXT_STYLE } from '../utils/lexicalUtils';
 
 export class MathNode extends StylableNode {
   constructor(inline,mathTree,versionCounter,is_numbered,labelNumber,style,key) {
@@ -61,7 +62,7 @@ export class MathNode extends StylableNode {
   decorate(){
     return (
     <SelectableComponent inline={true} nodeKey={this.__key}>
-      <MathEditor nodeKey={this.getKey()} ref={this.__ref} initMathTree={this.__math_tree} inline={this.__inline} numbering={this.__is_numbered?this.__numbering:null} color={this.__style.color ?? ""}/>
+      <MathEditor nodeKey={this.getKey()} ref={this.__ref} initMathTree={this.__math_tree} inline={this.__inline} numbering={this.__is_numbered?this.__numbering:null} color={this.__style.inlineStyle.color ?? ""}/>
     </SelectableComponent>
     );
   }
@@ -104,5 +105,5 @@ export class MathNode extends StylableNode {
 }
 
 export function $createMathNode(inline,label){
-  return new MathNode(inline,structuredClone(MathNodes.DEFAULT_TREE),0,false,label,{});
+  return new MathNode(inline,structuredClone(MathNodes.DEFAULT_TREE),0,false,label,DEFAULT_TEXT_STYLE);
 }

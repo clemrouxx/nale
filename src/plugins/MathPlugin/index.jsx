@@ -37,6 +37,7 @@ import {$wrapNodeInElement, mergeRegister} from '@lexical/utils';
 import MathTree from './MathTree';
 import { useDocumentStructureContext } from '../NumberingPlugin/DocumentStructureContext';
 import { extractColorName } from '../LatexExportPlugin/latexUtils';
+import { getTextNodeStyle } from '../../utils/lexicalUtils';
 
 const COMMANDS_TO_IGNORE = [ // These commands are just completely ignored when in the math node, but some have their events handled with classical event handlers in MathEditor.
   KEY_ARROW_DOWN_COMMAND,
@@ -117,18 +118,17 @@ export default function MathPlugin() {
             return true;
           }
 
-          // We want to keep the text color if possible
-          let color = null;
+          const mathNode = $createMathNode(inline,nextLabelNumber);
+
+          // We want to keep the text style
           const selection = $getSelection();
           if ($isRangeSelection(selection)){
             const node = selection.anchor.getNode();
             if ($isTextNode(node)){
-              color = extractColorName(node.getStyle());
-              if (color) color = `var(--xcolor-${color})`;
+              mathNode.applyStyle(getTextNodeStyle(node));
             }
           }
 
-          const mathNode = $createMathNode(inline,nextLabelNumber,color);
           setNextLabelNumber(nextLabelNumber+1);
 
           $insertNodes([mathNode]);

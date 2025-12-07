@@ -12,7 +12,8 @@ export class StylableNode extends DecoratorNode {
 
   applyStyle(style){
     const writable = this.getWritable();
-    writable.__style = {...writable.__style, ...style};
+    writable.__style.format = {...writable.__style.format, ...style.format};
+    writable.__style.inlineStyle = {...writable.__style.inlineStyle, ...style.inlineStyle};
     return writable;
   }
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { $getNodeByKey, $getSelection, $isNodeSelection, $isRangeSelection } from 'lexical';
+import { $getNodeByKey, $getSelection, $isNodeSelection, $isRangeSelection, $isTextNode } from 'lexical';
 import { $patchStyleText } from '@lexical/selection';
 
 // Custom hook to track active node (and its parent)
@@ -68,17 +68,65 @@ export function $findSelectedOrBeforeCursor(nodeType){
 }
 
 export function $betterPatchStyle( // Wrapper of $patchStyleText that allow other nodes to receive the style.
-  selection,style
+  selection,inlineStyle
 ) {
     if (!$isRangeSelection(selection)) return;
 
-    $patchStyleText(selection,style);
+    $patchStyleText(selection,inlineStyle);
 
     const nodes = selection.getNodes();
     
     nodes.forEach((node) => {
       if (node.applyStyle) {
-        node.applyStyle(style);
+        node.applyStyle({format:{},inlineStyle});
       }
     });
 }
+
+function parseInlineStyle(styleString) {
+  if (!styleString) return {};
+  
+  const style = {};
+  styleString.split(';').forEach(rule => {
+    const [property, value] = rule.split(':').map(s => s.trim());
+    if (property && value) {
+      style[property] = value;
+    }
+  });
+  
+  return style;
+}
+
+export function getTextNodeStyle(textNode) {
+  if (!$isTextNode(textNode)) {
+    return null;
+  }
+
+  const styleString = textNode.getStyle();
+  
+  return {
+    format: {
+      bold: textNode.hasFormat('bold'),
+      italic: textNode.hasFormat('italic'),
+      underline: textNode.hasFormat('underline'),
+      strikethrough: textNode.hasFormat('strikethrough'),
+      code: textNode.hasFormat('code'),
+      subscript: textNode.hasFormat('subscript'),
+      superscript: textNode.hasFormat('superscript'),
+    },
+    inlineStyle: parseInlineStyle(styleString),
+  };
+}
+
+export const DEFAULT_TEXT_STYLE = {
+    format: {
+      bold: false,
+      italic: false,
+      underline: false,
+      strikethrough: false,
+      code: false,
+      subscript: false,
+      superscript: false,
+    },
+    inlineStyle: {},
+  };
