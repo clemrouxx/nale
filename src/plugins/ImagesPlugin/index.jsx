@@ -8,6 +8,7 @@ import {
   COMMAND_PRIORITY_LOW,
   createCommand,
   DELETE_CHARACTER_COMMAND,
+  PASTE_COMMAND
 } from 'lexical';
 import {useEffect, useRef, useState} from 'react';
 
@@ -171,7 +172,50 @@ export default function ImagesPlugin() {
         DELETE_CHARACTER_COMMAND,
         $onDeleteCharacterInCaption,
         COMMAND_PRIORITY_LOW,
-      )
+      ),
+
+      editor.registerCommand(
+        PASTE_COMMAND,
+        (event) => {
+          const clipboardData = event.clipboardData;
+          
+          if (clipboardData && clipboardData.files) {
+            const files = Array.from(clipboardData.files);
+            
+            const allowedTypes = [
+              'image/jpeg',
+              'image/jpg', 
+              'image/png',
+              'application/pdf'
+            ];
+            
+            // Filter for specific file types
+            const validFiles = files.filter(file => 
+              allowedTypes.includes(file.type)
+            );
+            
+            if (validFiles.length > 0) {
+              event.preventDefault();
+              
+              // Process each image
+              validFiles.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                  const src = e.target.result; // base64 data URL
+                  editor.dispatchCommand(INSERT_FIGURE_COMMAND, { src, filename:IMAGES_FOLDER+"/"+file.name });
+                };
+                reader.readAsDataURL(file);
+              });
+              
+              return true;
+            }
+          }
+          
+          return false;
+        },
+        COMMAND_PRIORITY_LOW
+      ),
+
     )
   }, [editor]);
 

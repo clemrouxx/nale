@@ -13,6 +13,7 @@
 - Latex export : \bigskip not working as expected
 - Latex export : leading space of colored text not always respected. (change for "\ " ?)
 - Text both italic and bold only appears as bold.
+- Math : can't use 2 (different) underscripts in a row, throws MathJax error.
 
 ## Features
 ### Priority features
