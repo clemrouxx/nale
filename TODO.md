@@ -24,7 +24,6 @@
 - Text with links
 - Add warning when closing tab without saving
 - Math : add [...), (...] and ability to add just the left delimiter alone if wanted.
-- Make some nodes like page breaks selectable on click.
 - Ability to make images (not just Figures) behave as a block, and be centered
 
 ### Simple tweaks
@@ -37,7 +36,6 @@
 - Export to PDF through LaTeX compilation
 - Support for different languages in code blocks (for syntax highlighting)
 - Save/Open just for documentOptions (global styling)
-- Paste images
 - Custom headings font sizes (like main title)
 - Math mode : multi-character selection
 - Fast math mode : make it toggleable, and specify shortcuts in the virtual keyboard.
