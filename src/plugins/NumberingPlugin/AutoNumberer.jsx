@@ -85,6 +85,10 @@ export function AutoNumberer(ref){
                     else if (node.getType() === "bibliography"){
                         node.updateInner(citationKeys,citationsDict,biblio);
                     }
+                    else if (node.getType() === "toc"){
+                        node.updateInner(newheadings);
+                        console.log(newheadings);
+                    }
                     
                     // Recurse through children
                     else if (node.getChildren) {

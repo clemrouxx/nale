@@ -76,6 +76,7 @@ import { $appendAffiliation } from '../../nodes/AffiliationNodes.jsx';
 import { useEditorOptions } from '../EditorOptionsContext.jsx';
 import { $createPageBreakNode } from '../../nodes/PageBreakNode.jsx';
 import { $betterPatchStyle } from '../../utils/lexicalUtils.js';
+import { insertTableOfContentsNode } from '../../nodes/TableOfContentsNode.jsx';
 
 const DEFAULT_COLORS = ["blue","red","green","violet","purple","magenta","orange","cyan","teal","olive","brown","white","pink","lime","yellow","lightgray","gray","darkgray","black",]
 
@@ -130,7 +131,7 @@ function BlockFormatDropDown({
     return () => {
         document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [editor]);
+  }, [editor,nextLabelNumber,setNextLabelNumber,documentOptions]);
 
 
   return (
@@ -626,6 +627,7 @@ export default function ToolbarPlugin({
             <DropDownItemWithIcon title={"Add author"} onClick={() => activeEditor.update($appendAuthor)} iconClassName={"person-plus"}/>
             <DropDownItemWithIcon title={"Add affiliation"} onClick={() => activeEditor.update($appendAffiliation)} iconClassName={"institution"}/>
             <DropDownItemWithIcon title={"Abstract"} onClick={() => insertAbstract(activeEditor)} iconClassName={"paragraph"}/>
+              <DropDownItemWithIcon title={"Table of Contents"} onClick={() => insertTableOfContentsNode(activeEditor)} iconClassName={"paragraph"}/>
           </DropDown>
         </div>
 

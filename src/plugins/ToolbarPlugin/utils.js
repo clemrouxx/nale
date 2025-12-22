@@ -173,6 +173,7 @@ export const formatHeading = (
       const selection = $getSelection();
       $setBlocksType(selection, () => {
         const labelNumber = nextLabelNumber;
+        console.log(labelNumber);
         setNextLabelNumber(nextLabelNumber+1);
         return $createNumberedHeadingNode(Number(headingSize[1]),documentOptions,labelNumber);
       });
