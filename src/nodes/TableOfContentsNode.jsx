@@ -40,16 +40,20 @@ export class TableOfContentsNode extends DecoratorNode {
 
   decorate(){
     return (
-        <>
-        <h1>Contents</h1>
-        <div className="editor-toc-grid">
-          {this.__inner_array.map(elmt=>(
-            <React.Fragment key={elmt.label}>
-              <span>{`${elmt.numberingString} ${elmt.textContent}`}</span>
-            </React.Fragment>
-          ))}
+        <div className='editor-toc'>
+            <h1>Contents</h1>
+            <ul className="editor-toc-list">
+            {this.__inner_array.map(elmt=>(
+                <li key={elmt.label} className={`editor-toc-item editor-toc-level-${elmt.level}`}>
+                    <a href={"#"+elmt.label}>
+                        <span>{`${elmt.numberingString} ${elmt.textContent}`}</span>
+                        <span className="editor-toc-dots"></span>
+                        <span className="editor-toc-pagenumber">?</span>
+                    </a>
+                </li>
+            ))}
+            </ul>
         </div>
-        </>
     );
   }
 

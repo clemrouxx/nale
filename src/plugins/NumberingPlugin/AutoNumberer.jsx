@@ -37,7 +37,7 @@ export function AutoNumberer(ref){
                         if (!areIdentical(headingsNumbering,node.getNumbering())){
                             node.setNumbering(headingsNumbering);
                         }
-                        newheadings.push({label:node.getLabel(),numberingString:node.getNumberingString(),textContent:node.getTextContent()});
+                        newheadings.push({label:node.getLabel(),numberingString:node.getNumberingString(),textContent:node.getTextContent(),level:node.getLevel()});
                         Object.keys(headingsNumbering).forEach((level)=>{
                             if (level > node.getLevel()) headingsNumbering[level] = 0; // Reset headingsNumbering for lower levels
                         });
@@ -87,7 +87,6 @@ export function AutoNumberer(ref){
                     }
                     else if (node.getType() === "toc"){
                         node.updateInner(newheadings);
-                        console.log(newheadings);
                     }
                     
                     // Recurse through children

@@ -306,3 +306,78 @@
 .editor-pagebreak .selected::before {
     content: "PAGE BREAK";
 }
+
+
+/* TABLE OF CONTENTS */
+
+.editor-toc {
+    margin: 40px 0;
+}
+
+.editor-toc h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.editor-toc-list {
+    list-style: none;
+    padding: 0;
+}
+
+.editor-toc-item {
+    margin: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.editor-toc-item a {
+    text-decoration: none;
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: baseline;
+}
+
+.editor-toc-item a:hover {
+    color: #0066cc;
+}
+
+.editor-toc-text {
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.editor-toc-dots {
+    flex-grow: 1;
+    margin: 0 8px;
+    min-width: 20px;
+    height: 0.7em;
+    /* Making the dots : let's use a repeating radial gradient. Not ideal (the dots can be cropped) but easily customizable */
+    background-image: radial-gradient(circle, black 0.07em, transparent 0.08em);
+    background-position: bottom right;/* At least no clipping on the right */
+    background-size: .8em 0.16em;
+    background-repeat: repeat-x;
+}
+
+.editor-toc-pagenumber {
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.editor-toc-level-1 {
+    font-weight: bold;
+}
+
+.editor-toc-level-2 {
+    padding-left: 20px;
+    font-size: 0.95em;
+}
+
+.editor-toc-level-3 {
+    padding-left: 40px;
+    font-size: 0.9em;
+}
