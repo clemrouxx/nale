@@ -1,10 +1,10 @@
 import { $getSelection, $isRangeSelection, DecoratorNode } from 'lexical';
-import React from 'react';
+import { SelectableComponent } from '../plugins/SelectableComponent';
 
 function compareInnerArrays(a,b){
   if (a.length!==b.length) return false;
   for (let i=0;i<a.length;i++){
-    if (a[i].numberingString!==b[i].numberingString || a[i].textContent!==b[i].textContent) return false;
+    if (a[i].numberingString!==b[i].numberingString || a[i].textContent!==b[i].textContent || a[i].pageNumber!==b[i].pageNumber) return false;
   }
   return true;
 }
@@ -40,20 +40,21 @@ export class TableOfContentsNode extends DecoratorNode {
 
   decorate(){
     return (
-        <div className='editor-toc'>
-            <h1>Contents</h1>
-            <ul className="editor-toc-list">
-            {this.__inner_array.map(elmt=>(
-                <li key={elmt.label} className={`editor-toc-item editor-toc-level-${elmt.level}`}>
-                    <a href={"#"+elmt.label}>
-                        <span>{`${elmt.numberingString} ${elmt.textContent}`}</span>
-                        <span className="editor-toc-dots"></span>
-                        <span className="editor-toc-pagenumber">?</span>
-                    </a>
-                </li>
-            ))}
-            </ul>
-        </div>
+      <SelectableComponent inline={false} nodeKey={this.__key}>
+          <h1>Contents</h1>
+          <ul className="editor-toc-list">
+          {this.__inner_array.map(elmt=>(
+              <li key={elmt.label} className={`editor-toc-item editor-toc-level-${elmt.level}`}>
+                  <a href={"#"+elmt.label}>
+                      <span>{`${elmt.numberingString} ${elmt.textContent}`}</span>
+                      <span className="editor-toc-dots"></span>
+                      <span className="editor-toc-pagenumber">{elmt.pageNumber}</span>
+                  </a>
+              </li>
+          ))}
+          </ul>
+      </SelectableComponent>
+        
     );
   }
 

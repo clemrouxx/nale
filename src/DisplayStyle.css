@@ -299,12 +299,12 @@
     align-items: center;
 }
 
-.editor-pagebreak .selected{
-    outline: solid var(--selection-primary) 3px;
-}
-
 .editor-pagebreak .selected::before {
     content: "PAGE BREAK";
+}
+
+div.selectablecomponent.selected{
+    outline: solid var(--selection-primary) 3px;
 }
 
 

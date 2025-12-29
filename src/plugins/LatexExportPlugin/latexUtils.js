@@ -188,7 +188,7 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
             bubbledInfo.packages.add("graphicx");
             break;
         case "math":
-            console.log(string);
+            //console.log(string);
             bubbledInfo.packages.add("physics");
             bubbledInfo.packages.add("amsmath,amssymb");
             bubbledInfo.packages.add("xcolor");

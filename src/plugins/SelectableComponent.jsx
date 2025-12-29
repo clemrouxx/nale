@@ -2,7 +2,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { useLexicalNodeSelection } from '@lexical/react/useLexicalNodeSelection';
 import { $createNodeSelection, $setSelection } from 'lexical';
 
-export function SelectableComponent({ nodeKey, inline, children }) { // Allow for custom CSS when an element is selected.
+export function SelectableComponent({ nodeKey, inline, children, className='' }) { // Allow for custom CSS when an element is selected.
     const [isSelected] = useLexicalNodeSelection(nodeKey);
     const [editor] = useLexicalComposerContext();
 
@@ -19,11 +19,11 @@ export function SelectableComponent({ nodeKey, inline, children }) { // Allow fo
     };
     
     return (inline ?
-        <span className={"cursor-pointer"+(isSelected ? 'selected' : '')} onClick={handleClick}>
+        <span className={className+" selectablecomponent cursor-pointer"+(isSelected ? 'selected' : '')} onClick={handleClick}>
             {children}
         </span>
         :
-        <div className={"maximize cursor-pointer "+(isSelected ? 'selected' : '')} onClick={handleClick}>
+        <div className={className+" selectablecomponent maximize cursor-pointer "+(isSelected ? 'selected' : '')} onClick={handleClick}>
             {children}
         </div>
     );
