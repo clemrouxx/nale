@@ -8,6 +8,7 @@ import { saveToTextFile, useSaveLoadContext } from './plugins/SaveLoadPlugin';
 import useModal from './hooks/useModal';
 import { showToast } from './ui/Toast';
 import { useEffect } from 'react';
+import { CompileButton } from './plugins/Compilation';
 
 export const ActionBar = () => {
     return (
@@ -15,6 +16,7 @@ export const ActionBar = () => {
             <a className="logo-main" href="https://github.com/clemrouxx/nale"></a>
             <FileButton/>
             <DisplayMenu/>
+            <CompileButton/>
         </div>
     )
 }

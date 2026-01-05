@@ -1,3 +1,6 @@
+Open Chrome without CORS : chrome.exe --user-data-dir="C:/temp/chrome_dev" --disable-web-security
+
+
 # TODO list
 ## Bugs
 - When adding a PDF image, it is mirrored about 20% of the time.
