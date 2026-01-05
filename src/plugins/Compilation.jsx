@@ -28,11 +28,10 @@ export function CompileButton() {
 
       const engine = new PdfTeXEngine();
       
-      //engine.setTexliveEndpoint("/nale/texlive");
-
       console.log(engine);
       if (!engine) throw new Error("PdfTeXEngine not loaded");
       await engine.loadEngine();
+      
 
       // Write files to WASM FS
       engine.writeMemFSFile("main.tex", TEST_TEX);
