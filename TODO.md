@@ -17,6 +17,7 @@ Open Chrome without CORS : chrome.exe --user-data-dir="C:/temp/chrome_dev" --dis
 - Latex export : leading space of colored text not always respected. (change for "\ " ?)
 - Text both italic and bold only appears as bold.
 - Math : can't use 2 (different) underscripts in a row, throws MathJax error.
+- Compilation : Empty (default) files fail to compile.
 
 ## Features
 ### Priority features

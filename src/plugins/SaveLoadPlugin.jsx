@@ -160,15 +160,19 @@ export function SaveProvider({ children }) {
       
       const result = await engine.compileLaTeX();
 
-      console.log(result.log);
-
-      // result.pdf is Uint8Array of PDF
-      const blob = new Blob([result.pdf], { type: "application/pdf" });
-      const url = URL.createObjectURL(blob);
-      window.open(url);
+      if (result.pdf){
+        const blob = new Blob([result.pdf], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+        window.open(url);
+      }
+      else{
+        showToast("Compilation failed. See console for full log.",3000,"error");
+        console.log(result.log);
+      }
+      
     } catch (e) {
-      console.error("Compile error:", e);
-      alert("Compilation failed. See console.");
+      showToast("Compilation failed. See console for details.",3000,"error");
+      console.error("Compilation error:", e);
     }
   }
 
