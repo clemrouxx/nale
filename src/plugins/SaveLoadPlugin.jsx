@@ -133,6 +133,45 @@ export function SaveProvider({ children }) {
     }
   };
 
+  const compile = async ()=>{
+    try {
+
+      const engine = new PdfTeXEngine();
+      
+      console.log(engine);
+      if (!engine) throw new Error("PdfTeXEngine not loaded");
+      await engine.loadEngine();
+      
+      // Write files to WASM FS
+      const latex = getLatex(editor,documentOptions); // For some reason, does not work with empty files.
+      //console.log(latex);
+      //engine.writeMemFSFile("main.tex", getLatex(editor,documentOptions));
+      engine.writeMemFSFile("main.tex", latex);
+      /*
+      engine.writeMemFSFile("main.tex", await texFile.text());
+      if (bibFile) engine.writeMemFSFile("refs.bib", await bibFile.text());
+      for (let img of imageFiles || []) {
+        engine.writeMemFSFile(img.name, new Uint8Array(await img.arrayBuffer()));
+      }*/
+
+      engine.setEngineMainFile("main.tex");
+
+      // Compile (single run, will include bib if present)
+      
+      const result = await engine.compileLaTeX();
+
+      console.log(result.log);
+
+      // result.pdf is Uint8Array of PDF
+      const blob = new Blob([result.pdf], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      window.open(url);
+    } catch (e) {
+      console.error("Compile error:", e);
+      alert("Compilation failed. See console.");
+    }
+  }
+
   const downloadCompilationZip = async ()=>{
     const files = [
       { name: 'README.md', content: '# NaLE Compilation-ready folder\n\nThis folder contains all the necessary files for you to create your pdf. \nThis is done by running a LaTeX PDF compiler in this folder. \nTo do this, we advise you to : \n- Download TeX Live from https://tug.org/texlive/ \n- In a command promp in this folder (on Windows, the Powershell will do), run "latexmk -pdf main.tex"\n- This should create your PDF document "main.pdf", as well as a bunch of other files. You can get rid of them by running "latexmk -pdf -c main.tex".'},
@@ -196,7 +235,8 @@ export function SaveProvider({ children }) {
       quickSave,
       handleFileChange,
       openFile,
-      downloadCompilationZip
+      downloadCompilationZip,
+      compile
     }}>
       {children}
     </SaveContext.Provider>
