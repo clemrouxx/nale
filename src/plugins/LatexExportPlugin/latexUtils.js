@@ -185,6 +185,7 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
             string = "\t\\item " + string + "\n";
             break;
         case "figure":
+        case "image":
             bubbledInfo.packages.add("graphicx");
             break;
         case "math":
