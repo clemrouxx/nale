@@ -1,6 +1,3 @@
-Open Chrome without CORS : chrome.exe --user-data-dir="C:/temp/chrome_dev" --disable-web-security
-
-
 # TODO list
 ## Bugs
 - When adding a PDF image, it is mirrored about 20% of the time.
@@ -18,6 +15,8 @@ Open Chrome without CORS : chrome.exe --user-data-dir="C:/temp/chrome_dev" --dis
 - Text both italic and bold only appears as bold.
 - Math : can't use 2 (different) underscripts in a row, throws MathJax error.
 - Compilation : Empty (default) files fail to compile.
+- Page title : Authors can be wrongly added above a preexisting abstract
+- CRITICAL : Math : In some cases, math nodes prevent saving the file altogether ??
 
 ## Features
 ### Priority features
@@ -34,9 +33,10 @@ Open Chrome without CORS : chrome.exe --user-data-dir="C:/temp/chrome_dev" --dis
 ### Simple tweaks
 - Math : using the colored text menu should also work with math
 - Consistant color order between toolbar and math keyboard
+- Title page : Authors node should be selectable.
 
 ### Useful features
-- Export to PDF through LaTeX compilation
+- Show "Saving..." while saving. (via some sort of status bar probably; useful for compilation as well)
 - Support for different languages in code blocks (for syntax highlighting)
 - Save/Open just for documentOptions (global styling)
 - Custom headings font sizes (like main title)

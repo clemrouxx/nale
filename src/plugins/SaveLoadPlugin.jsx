@@ -135,33 +135,30 @@ export function SaveProvider({ children }) {
 
   const compile = async ()=>{
     try {
-
       const engine = new PdfTeXEngine();
       
       if (!engine) throw new Error("PdfTeXEngine not loaded");
       await engine.loadEngine();
       
       // Write files to WASM FS
+      
       const latex = getLatex(editor,documentOptions); // For some reason, does not work with empty files.
       engine.writeMemFSFile("main.tex", latex);
-      console.log(latex);
       
-      //if (bibFile) engine.writeMemFSFile("refs.bib", await bibFile.text());
+      if (biblio.length > 0){
+        engine.writeMemFSFile("references.bib", jsonToBib(biblio));
+      }
       const imgFiles = await getAllImageFiles(editor);
       if (imgFiles.length>0){
         engine.makeMemFSFolder("images");
         for (let img of imgFiles) {
-          console.log(img.name);
-          console.log(await img.content.arrayBuffer());
           engine.writeMemFSFile(img.name, new Uint8Array(await img.content.arrayBuffer()));
         }
       }
-      
 
       engine.setEngineMainFile("main.tex");
 
       // Compile (single run, will include bib if present)
-      
       const result = await engine.compileLaTeX();
 
       if (result.pdf){
