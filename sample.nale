@@ -29,6 +29,15 @@
                   "format": 0,
                   "mode": "normal",
                   "style": "",
+                  "text": "",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
                   "text": "Clem Rouxx",
                   "type": "text",
                   "version": 1
@@ -310,18 +319,356 @@
               "format": 0,
               "mode": "normal",
               "style": "",
-              "text": "You can easily add math expressions using \"Insert\" > \"Inline math\" or \"Display math\". This will also open a math editor, with most of the mathematical symbols you will ever need. Most of them also have available shortcuts. \"Inline math\" is... inline :  If you use \"Display math\", you can also have your equations labeled (see the options menu on the left when inside a display math node). This allows you to add a reference to the equation. See for example equation ().",
+              "text": "You can easily add math expressions using \"Insert\" > \"Inline math\" or \"Display math\". This will also open a math editor, with most of the mathematical symbols you will ever need. Most of them also have available shortcuts. \"Inline math\" is... inline. For example : ",
+              "type": "text",
+              "version": 1
+            },
+            {
+              "style": {
+                "format": {
+                  "bold": false,
+                  "italic": false,
+                  "underline": false,
+                  "strikethrough": false,
+                  "code": false,
+                  "subscript": false,
+                  "superscript": false
+                },
+                "inlineStyle": {}
+              },
+              "type": "math",
+              "inline": true,
+              "math_tree": {
+                "isroot": true,
+                "nodeletion": true,
+                "children": [
+                  {
+                    "symbol": "E",
+                    "id": 1,
+                    "selected": false
+                  },
+                  {
+                    "symbol": "^",
+                    "children": [
+                      {
+                        "symbol": "2",
+                        "id": 3,
+                        "selected": false
+                      }
+                    ],
+                    "nodeletionfromright": true,
+                    "nodeletionfromleft": true,
+                    "ismultiline": false,
+                    "id": 2,
+                    "selected": false
+                  },
+                  {
+                    "symbol": "=",
+                    "id": 4,
+                    "selected": false
+                  },
+                  {
+                    "leftsymbol": "(",
+                    "rightsymbol": ")",
+                    "children": [
+                      {
+                        "symbol": "m",
+                        "id": 6,
+                        "selected": false
+                      },
+                      {
+                        "symbol": "c",
+                        "id": 7,
+                        "selected": false
+                      },
+                      {
+                        "symbol": "^",
+                        "children": [
+                          {
+                            "symbol": "2",
+                            "id": 9,
+                            "selected": false
+                          }
+                        ],
+                        "nodeletionfromright": true,
+                        "nodeletionfromleft": true,
+                        "ismultiline": false,
+                        "id": 8,
+                        "selected": false
+                      }
+                    ],
+                    "size": "auto",
+                    "id": 5,
+                    "selected": false
+                  },
+                  {
+                    "symbol": "^",
+                    "children": [
+                      {
+                        "symbol": "2",
+                        "id": 11,
+                        "selected": false
+                      }
+                    ],
+                    "nodeletionfromright": true,
+                    "nodeletionfromleft": true,
+                    "ismultiline": false,
+                    "id": 10,
+                    "selected": false
+                  },
+                  {
+                    "symbol": "+",
+                    "id": 12,
+                    "selected": false
+                  },
+                  {
+                    "leftsymbol": "(",
+                    "rightsymbol": ")",
+                    "children": [
+                      {
+                        "symbol": "p",
+                        "id": 14,
+                        "selected": false
+                      },
+                      {
+                        "symbol": "c",
+                        "id": 15,
+                        "selected": false
+                      }
+                    ],
+                    "size": "auto",
+                    "id": 13,
+                    "selected": false
+                  },
+                  {
+                    "symbol": "^",
+                    "children": [
+                      {
+                        "symbol": "2",
+                        "id": 17,
+                        "selected": false
+                      }
+                    ],
+                    "nodeletionfromright": true,
+                    "nodeletionfromleft": true,
+                    "ismultiline": false,
+                    "id": 16,
+                    "selected": false
+                  }
+                ],
+                "selected": false,
+                "id": 0
+              },
+              "is_numbered": false,
+              "label_number": 3
+            },
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": ". If you use \"Display math\", you can also have your equations labeled (see the options menu on the left when inside a display math node). This allows you to add a reference to the equation. See for example equation (",
+              "type": "text",
+              "version": 1
+            },
+            {
+              "type": "reference",
+              "version": 1,
+              "reference_label": "eq:4"
+            },
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": ").",
               "type": "text",
               "version": 1
             }
           ],
-          "direction": null,
+          "direction": "ltr",
           "format": "",
           "indent": 0,
           "type": "paragraph",
           "version": 1,
           "textFormat": 0,
           "textStyle": ""
+        },
+        {
+          "style": {
+            "format": {
+              "bold": false,
+              "italic": false,
+              "underline": false,
+              "strikethrough": false,
+              "code": false,
+              "subscript": false,
+              "superscript": false
+            },
+            "inlineStyle": {}
+          },
+          "type": "math",
+          "inline": false,
+          "math_tree": {
+            "isroot": true,
+            "nodeletion": true,
+            "children": [
+              {
+                "symbol": "\\sum",
+                "verticalorientation": "up",
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "symbol": "n",
+                        "id": 3,
+                        "selected": false
+                      },
+                      {
+                        "symbol": "=",
+                        "id": 4,
+                        "selected": false
+                      },
+                      {
+                        "symbol": "0",
+                        "id": 5,
+                        "selected": false
+                      }
+                    ],
+                    "nodeletion": true,
+                    "id": 2,
+                    "selected": false
+                  },
+                  {
+                    "children": [
+                      {
+                        "symbol": "\\infty",
+                        "id": 7,
+                        "selected": false
+                      }
+                    ],
+                    "nodeletion": true,
+                    "id": 6,
+                    "selected": false
+                  }
+                ],
+                "fixedchildren": true,
+                "implodes": true,
+                "childrenstring": "_{§0}^{§1}",
+                "id": 1,
+                "selected": false
+              },
+              {
+                "symbol": "\\frac",
+                "verticalorientation": "down",
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "symbol": "1",
+                        "id": 10,
+                        "selected": false
+                      }
+                    ],
+                    "nodeletion": true,
+                    "id": 9,
+                    "selected": false
+                  },
+                  {
+                    "children": [
+                      {
+                        "symbol": "n",
+                        "id": 12,
+                        "selected": false
+                      },
+                      {
+                        "symbol": "^",
+                        "children": [
+                          {
+                            "symbol": "2",
+                            "id": 14,
+                            "selected": false
+                          }
+                        ],
+                        "nodeletionfromright": true,
+                        "nodeletionfromleft": true,
+                        "ismultiline": false,
+                        "id": 13,
+                        "selected": false
+                      }
+                    ],
+                    "nodeletion": true,
+                    "id": 11,
+                    "selected": false
+                  }
+                ],
+                "fixedchildren": true,
+                "implodes": true,
+                "childrenstring": "{§0}{§1}",
+                "id": 8,
+                "selected": false
+              },
+              {
+                "symbol": "=",
+                "id": 15,
+                "selected": false
+              },
+              {
+                "symbol": "\\frac",
+                "verticalorientation": "down",
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "symbol": "\\pi",
+                        "id": 18,
+                        "selected": false
+                      },
+                      {
+                        "symbol": "^",
+                        "children": [
+                          {
+                            "symbol": "2",
+                            "id": 20,
+                            "selected": false
+                          }
+                        ],
+                        "nodeletionfromright": true,
+                        "nodeletionfromleft": true,
+                        "ismultiline": false,
+                        "id": 19,
+                        "selected": false
+                      }
+                    ],
+                    "nodeletion": true,
+                    "id": 17,
+                    "selected": false
+                  },
+                  {
+                    "children": [
+                      {
+                        "symbol": "6",
+                        "id": 22,
+                        "selected": false
+                      }
+                    ],
+                    "nodeletion": true,
+                    "id": 21,
+                    "selected": false
+                  }
+                ],
+                "fixedchildren": true,
+                "implodes": true,
+                "childrenstring": "{§0}{§1}",
+                "id": 16,
+                "selected": false
+              }
+            ],
+            "id": 0,
+            "selected": false
+          },
+          "is_numbered": true,
+          "label_number": 4
         },
         {
           "children": [
@@ -409,7 +756,21 @@
               "format": 0,
               "mode": "normal",
               "style": "",
-              "text": ". You can change the size of the image in the options menu on the left. However, most of the time in articles, images are rather included in figures and include a caption. In both cases, it is also possible to add single-page PDF files as \"images\". See for example Figure .",
+              "text": ". You can change the size of the image in the options menu on the left. However, most of the time in articles, images are rather included in figures and include a caption. In both cases, it is also possible to add single-page PDF files as \"images\". See for example Figure ",
+              "type": "text",
+              "version": 1
+            },
+            {
+              "type": "reference",
+              "version": 1,
+              "reference_label": "fig:0"
+            },
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": ".",
               "type": "text",
               "version": 1
             }
@@ -595,6 +956,6 @@
   },
   "biblio": [],
   "documentStructure": {
-    "nextLabelNumber": 3
+    "nextLabelNumber": 5
   }
 }

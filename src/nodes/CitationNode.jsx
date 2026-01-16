@@ -61,6 +61,7 @@ export class CitationNode extends DecoratorNode {
   exportJSON() {
     return {
       ...super.exportJSON(),
+      type:'citation',
       citation_keys : this.__citation_keys,
     };
   }

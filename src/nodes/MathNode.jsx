@@ -70,14 +70,14 @@ export class MathNode extends StylableNode {
   // Import-export
 
   static importJSON(serializedNode) {
-    const node = new MathNode(serializedNode.inline,serializedNode.math_tree,0,serializedNode.is_numbered,serializedNode.label_number);
-    node.applyStyle(serializedNode.__style);
+    const node = new MathNode(serializedNode.inline,serializedNode.math_tree,0,serializedNode.is_numbered,serializedNode.label_number,serializedNode.style);
     return node;
   }
 
   exportJSON() {
     return {
       ...super.exportJSON(),
+      type:'math',
       inline:this.__inline,
       math_tree:this.__math_tree,
       is_numbered:this.__is_numbered,
