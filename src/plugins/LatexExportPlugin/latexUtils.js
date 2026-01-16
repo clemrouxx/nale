@@ -98,6 +98,7 @@ function getStyleValue(styleString, property) { // Helper function to get the st
 }
 
 export function extractColorName(colorValue){ // Extracts "purple" from "var(--xcolor-purple)", etc.
+    if (!colorValue) return null;
     const match = colorValue.match(/var\(--xcolor-(\w+)\)/);
     return match ? match[1] : null; 
 }

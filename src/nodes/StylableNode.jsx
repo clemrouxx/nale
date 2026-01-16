@@ -17,6 +17,10 @@ export class StylableNode extends DecoratorNode {
     return writable;
   }
 
+  getStyle(){
+    return this.__style;
+  }
+
   exportJSON(){
     return {style:this.__style}
   }

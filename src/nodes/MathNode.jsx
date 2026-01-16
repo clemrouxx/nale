@@ -95,7 +95,7 @@ export class MathNode extends StylableNode {
       const delimiter = this.__inline ? "$" : "$$";
       s += `${delimiter}${formula}${delimiter}${this.__inline ? '' : '\n'}`
     }
-    const color = extractColorName(this.getColor());
+    const color = extractColorName(this.getStyle().inlineStyle?.color);
     if (color){
       s = putInCommand(s,putInCommand(color,"\\textcolor"));
     }
