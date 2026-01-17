@@ -9,6 +9,25 @@ import { completeDocumentOptions } from './Options/documentOptions';
 import { convertToLatex, getLatex } from './LatexExportPlugin/latexUtils';
 import { $isImageNode } from '../nodes/ImageNodes';
 
+async function compileUntilStable(engine, maxRuns = 5) {
+  let result = {};
+  let log = "";
+  console.log("RUNNING (first run)");
+  for (let i = 0; i < maxRuns; i++) {
+    result = await engine.compileLaTeX();
+    log = result.log;
+
+    let refs_labels = result.log.includes("Rerun to get cross-references right") || result.log.includes("Label(s) may have changed");
+    let biblio = result.log.includes("undefined references")
+    
+    if (!(refs_labels || biblio)) break;
+
+    let reason = (refs_labels && biblio)?"internal references and citations":(refs_labels?"internal references":"citations");
+    console.log(`Recompiling for ${reason}.`);
+  }
+  return result;
+}
+
 // Create the Save Context
 const SaveContext = createContext();
 
@@ -158,8 +177,8 @@ export function SaveProvider({ children }) {
 
       engine.setEngineMainFile("main.tex");
 
-      // Compile (single run, will include bib if present)
-      const result = await engine.compileLaTeX();
+      //const result = await engine.compileLaTeX();
+      const result = await compileUntilStable(engine,5);
 
       if (result.pdf){
         const blob = new Blob([result.pdf], { type: "application/pdf" });

@@ -38,6 +38,15 @@
                   "format": 0,
                   "mode": "normal",
                   "style": "",
+                  "text": "",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
                   "text": "Clem Rouxx",
                   "type": "text",
                   "version": 1
@@ -892,7 +901,23 @@
               "format": 0,
               "mode": "normal",
               "style": "",
-              "text": "NaLE makes it really easy to include bibliographic references in your document. Just copy the citation in BibTeX format, and use the toolbar : ”Cite...” > ”From clipboard...”. It is also possible to paste the contents of a whole .bib file this way, and then access the individual citations in the \"Cite...\" dropdown. Citations appear like this in your document : ..... To add the bibliography, just go where you want it to be and click ”Cite...” > ”Insert bibliography” !",
+              "text": "NaLE makes it really easy to include bibliographic references in your document. Just copy the citation in BibTeX format, and use the toolbar : ”Cite...” > ”From clipboard...”. It is also possible to paste the contents of a whole .bib file this way, and then access the individual citations in the \"Cite...\" dropdown. Citations appear like this in your document : ",
+              "type": "text",
+              "version": 1
+            },
+            {
+              "type": "citation",
+              "version": 1,
+              "citation_keys": [
+                "Noether1918"
+              ]
+            },
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": ". To add the bibliography, just go where you want it to be and click ”Cite...” > ”Insert bibliography” !",
               "type": "text",
               "version": 1
             }
@@ -904,6 +929,52 @@
           "version": 1,
           "textFormat": 0,
           "textStyle": ""
+        },
+        {
+          "children": [],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        },
+        {
+          "children": [],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        },
+        {
+          "type": "bibliography",
+          "version": 1,
+          "inner_array": [
+            {
+              "label": "1",
+              "bibItem": {
+                "entryType": "article",
+                "key": "Noether1918",
+                "author": [
+                  {
+                    "lastName": "Noether",
+                    "firstName": "E."
+                  }
+                ],
+                "journal": "Nachrichten von der Gesellschaft der Wissenschaften zu Göttingen, Mathematisch-Physikalische Klasse",
+                "language": "ger",
+                "pages": "235-257",
+                "title": "Invariante Variationsprobleme",
+                "url": "http://eudml.org/doc/59024",
+                "volume": "1918",
+                "year": "1918"
+              }
+            }
+          ]
         }
       ],
       "direction": "ltr",
@@ -954,7 +1025,25 @@
       "italic": false
     }
   },
-  "biblio": [],
+  "biblio": [
+    {
+      "entryType": "article",
+      "key": "Noether1918",
+      "author": [
+        {
+          "lastName": "Noether",
+          "firstName": "E."
+        }
+      ],
+      "journal": "Nachrichten von der Gesellschaft der Wissenschaften zu Göttingen, Mathematisch-Physikalische Klasse",
+      "language": "ger",
+      "pages": "235-257",
+      "title": "Invariante Variationsprobleme",
+      "url": "http://eudml.org/doc/59024",
+      "volume": "1918",
+      "year": "1918"
+    }
+  ],
   "documentStructure": {
     "nextLabelNumber": 5
   }

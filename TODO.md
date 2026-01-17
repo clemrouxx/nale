@@ -16,7 +16,8 @@
 - Math : can't use 2 (different) underscripts in a row, throws MathJax error.
 - Compilation : Empty (default) files fail to compile.
 - Page title : Authors can be wrongly added above a preexisting abstract
-- CRITICAL : Math : In some cases, math nodes prevent saving the file altogether ??
+- Display : size of images in Figures is not calculated correctly.
+
 
 ## Features
 ### Priority features
