@@ -9,7 +9,7 @@
               "format": 0,
               "mode": "normal",
               "style": "",
-              "text": "NaLE : Sample document",
+              "text": "NaLE : Sample Document",
               "type": "text",
               "version": 1
             }
@@ -24,33 +24,6 @@
           "children": [
             {
               "children": [
-                {
-                  "detail": 0,
-                  "format": 0,
-                  "mode": "normal",
-                  "style": "",
-                  "text": "",
-                  "type": "text",
-                  "version": 1
-                },
-                {
-                  "detail": 0,
-                  "format": 0,
-                  "mode": "normal",
-                  "style": "",
-                  "text": "",
-                  "type": "text",
-                  "version": 1
-                },
-                {
-                  "detail": 0,
-                  "format": 0,
-                  "mode": "normal",
-                  "style": "",
-                  "text": "",
-                  "type": "text",
-                  "version": 1
-                },
                 {
                   "detail": 0,
                   "format": 0,
@@ -129,7 +102,7 @@
               "format": 0,
               "mode": "normal",
               "style": "",
-              "text": "Text content",
+              "text": "Text content ",
               "type": "text",
               "version": 1
             }
@@ -171,7 +144,7 @@
               "format": 0,
               "mode": "normal",
               "style": "",
-              "text": "Adding titles of various importance is very easy. They get automatically numbered by NaLE. It is possible to toggle the numbering of some specific title, as well as to change the numbering style in the options menu (on the left). It is possible to create references to the titles using the \"Internal reference\" dropdown in the toolbar. The text in these references will be updated automatically. Here is for example a reference to the current subsection : ",
+              "text": "Adding titles of various importance is very easy. They get automatically numbered by NaLE. It is possible to toggle the numbering of some specific title, as well as to change the numbering style in the options menu (on the left). It is possible to create references to the titles using the ”Internal reference” dropdown in the toolbar. The text in these references will be updated automatically. Here is for example a reference to the current subsection : ",
               "type": "text",
               "version": 1
             },
@@ -185,41 +158,7 @@
               "format": 0,
               "mode": "normal",
               "style": "",
-              "text": ".",
-              "type": "text",
-              "version": 1
-            }
-          ],
-          "direction": "ltr",
-          "format": "",
-          "indent": 0,
-          "type": "paragraph",
-          "version": 1,
-          "textFormat": 0,
-          "textStyle": ""
-        },
-        {
-          "children": [
-            {
-              "detail": 0,
-              "format": 0,
-              "mode": "normal",
-              "style": "",
-              "text": "For the main title of the document, see Section ",
-              "type": "text",
-              "version": 1
-            },
-            {
-              "type": "reference",
-              "version": 1,
-              "reference_label": "sec:15"
-            },
-            {
-              "detail": 0,
-              "format": 0,
-              "mode": "normal",
-              "style": "",
-              "text": ".",
+              "text": ". For the main title of the document, see Section ??. ",
               "type": "text",
               "version": 1
             }
@@ -282,7 +221,7 @@
                   "format": 0,
                   "mode": "normal",
                   "style": "",
-                  "text": "Bulleted lists (like this one)",
+                  "text": "Bulleted lists (like this one) ",
                   "type": "text",
                   "version": 1
                 }
@@ -339,7 +278,7 @@
                   "format": 0,
                   "mode": "normal",
                   "style": "",
-                  "text": "Raw LaTeX input (will be displayed as LaTeX in the editor, i.e. not compiled; can be useful if you want to include custom LaTeX before exporting).",
+                  "text": "Raw LaTeX input (will be displayed as LaTeX in the editor. It can be useful if you want to include custom LaTeX before compiling).",
                   "type": "text",
                   "version": 1
                 }
@@ -368,85 +307,7 @@
               "format": 0,
               "mode": "normal",
               "style": "",
-              "text": "Bibliographic references",
-              "type": "text",
-              "version": 1
-            }
-          ],
-          "direction": "ltr",
-          "format": "",
-          "indent": 0,
-          "type": "numbered-heading",
-          "version": 1,
-          "level": 1,
-          "is_numbered": true,
-          "label_number": 7
-        },
-        {
-          "children": [
-            {
-              "detail": 0,
-              "format": 0,
-              "mode": "normal",
-              "style": "",
-              "text": "NaLE makes it really easy to include bibliographic references in your document. Just copy the citation in BibTeX format, and use the toolbar : \"Cite...\" > \"From clipboard...\". It is also possible to paste the contents of a whole .bib file this way, and then access the individual citations in the dropdown. There is even already 2 sample citations just for testing. Citations appear like this in your document : ",
-              "type": "text",
-              "version": 1
-            },
-            {
-              "type": "citation",
-              "version": 1,
-              "citation_keys": [
-                "noether1971invariant",
-                "PhysRev.47.777"
-              ]
-            },
-            {
-              "detail": 0,
-              "format": 0,
-              "mode": "normal",
-              "style": "",
-              "text": ".",
-              "type": "text",
-              "version": 1
-            }
-          ],
-          "direction": "ltr",
-          "format": "",
-          "indent": 0,
-          "type": "paragraph",
-          "version": 1,
-          "textFormat": 0,
-          "textStyle": ""
-        },
-        {
-          "children": [
-            {
-              "detail": 0,
-              "format": 0,
-              "mode": "normal",
-              "style": "",
-              "text": "To add the bibliography, just go where you want it to be and click \"Cite...\" > \"Insert bibliography\" !",
-              "type": "text",
-              "version": 1
-            }
-          ],
-          "direction": "ltr",
-          "format": "",
-          "indent": 0,
-          "type": "paragraph",
-          "version": 1,
-          "textFormat": 0,
-          "textStyle": ""
-        },
-        {
-          "children": [
-            {
-              "detail": 0,
-              "format": 0,
-              "mode": "normal",
-              "style": "",
-              "text": "Images and math",
+              "text": "Math",
               "type": "text",
               "version": 1
             }
@@ -467,291 +328,24 @@
               "format": 0,
               "mode": "normal",
               "style": "",
-              "text": "Using the \"Insert\" dropdown, you can add images or math elements.",
-              "type": "text",
-              "version": 1
-            }
-          ],
-          "direction": "ltr",
-          "format": "",
-          "indent": 0,
-          "type": "paragraph",
-          "version": 1,
-          "textFormat": 0,
-          "textStyle": ""
-        },
-        {
-          "children": [
-            {
-              "detail": 0,
-              "format": 0,
-              "mode": "normal",
-              "style": "",
-              "text": "Inline image",
-              "type": "text",
-              "version": 1
-            }
-          ],
-          "direction": "ltr",
-          "format": "",
-          "indent": 0,
-          "type": "numbered-heading",
-          "version": 1,
-          "level": 2,
-          "is_numbered": true,
-          "label_number": 8
-        },
-        {
-          "children": [
-            {
-              "detail": 0,
-              "format": 0,
-              "mode": "normal",
-              "style": "",
-              "text": "The \"Image\" insertion inserts your image in the text, like this : ",
+              "text": "You can easily add math expressions using \"Insert\" > \"Inline math\" or \"Display math\". This will also open a math editor, with most of the mathematical symbols you will ever need. Most of them also have available shortcuts. \"Inline math\" is... inline. For example : ",
               "type": "text",
               "version": 1
             },
             {
-              "type": "image",
-              "version": 1,
-              "src": "/nale/images/sample.jpg",
-              "filename": "images/sample.jpg",
-              "width_value": 30,
-              "width_unit": "mm"
-            },
-            {
-              "detail": 0,
-              "format": 0,
-              "mode": "normal",
-              "style": "",
-              "text": ". You can change the size of the image in the options menu on the left. However, most of the time in articles, images are rather included in figures and include a caption.",
-              "type": "text",
-              "version": 1
-            }
-          ],
-          "direction": "ltr",
-          "format": "",
-          "indent": 0,
-          "type": "paragraph",
-          "version": 1,
-          "textFormat": 0,
-          "textStyle": ""
-        },
-        {
-          "children": [],
-          "direction": null,
-          "format": "",
-          "indent": 0,
-          "type": "paragraph",
-          "version": 1,
-          "textFormat": 0,
-          "textStyle": ""
-        },
-        {
-          "children": [
-            {
-              "detail": 0,
-              "format": 0,
-              "mode": "normal",
-              "style": "",
-              "text": "Figure",
-              "type": "text",
-              "version": 1
-            }
-          ],
-          "direction": "ltr",
-          "format": "",
-          "indent": 0,
-          "type": "numbered-heading",
-          "version": 1,
-          "level": 2,
-          "is_numbered": true,
-          "label_number": 9
-        },
-        {
-          "children": [
-            {
-              "detail": 0,
-              "format": 0,
-              "mode": "normal",
-              "style": "",
-              "text": "A Figure is a centered image with a caption and a label (number). Take a look at Figure ",
-              "type": "text",
-              "version": 1
-            },
-            {
-              "type": "reference",
-              "version": 1,
-              "reference_label": "fig:10"
-            },
-            {
-              "detail": 0,
-              "format": 0,
-              "mode": "normal",
-              "style": "",
-              "text": ". It is also possible to insert PDF as images, just like in LaTeX documents. This is particularely useful to insert vector images like diagrams : see Figure ",
-              "type": "text",
-              "version": 1
-            },
-            {
-              "type": "reference",
-              "version": 1,
-              "reference_label": "fig:0"
-            },
-            {
-              "detail": 0,
-              "format": 0,
-              "mode": "normal",
-              "style": "",
-              "text": ".",
-              "type": "text",
-              "version": 1
-            }
-          ],
-          "direction": "ltr",
-          "format": "",
-          "indent": 0,
-          "type": "paragraph",
-          "version": 1,
-          "textFormat": 0,
-          "textStyle": ""
-        },
-        {
-          "children": [
-            {
-              "type": "captioned-image",
-              "version": 1,
-              "src": "/nale/images/sample.jpg",
-              "filename": "images/sample.jpg",
-              "width_value": 48,
-              "width_unit": "%"
-            },
-            {
-              "children": [
-                {
-                  "detail": 0,
-                  "format": 0,
-                  "mode": "normal",
-                  "style": "",
-                  "text": "This is the caption of my sample figure.",
-                  "type": "text",
-                  "version": 1
-                }
-              ],
-              "direction": "ltr",
-              "format": "",
-              "indent": 0,
-              "type": "caption",
-              "version": 1,
-              "textFormat": 0,
-              "textStyle": "",
-              "number": 1
-            }
-          ],
-          "direction": "ltr",
-          "format": "",
-          "indent": 0,
-          "type": "figure",
-          "version": 1,
-          "src": "/src/images/sample.jpg",
-          "label_number": 10
-        },
-        {
-          "children": [
-            {
-              "type": "captioned-image",
-              "version": 1,
-              "src": "data:application/pdf;base64,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IDAgMCAwIDY2Ni45OTIxODggMCAwIDY2Ni45OTIxODggMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCA1OTQuMjM4MjgxIDAgMCAwIDU5NC4yMzgyODEgMzMzLjAwNzgxMiA2MjUgMCAyNzAuOTk2MDk0IDAgMCAyNzAuOTk2MDk0IDg4NC43NjU2MjUgMCA2MDQuMDAzOTA2IDYyNSAwIDQzNy45ODgyODEgXQogICAgL1RvVW5pY29kZSAxMCAwIFIKPj4KZW5kb2JqCjEgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzCiAgIC9LaWRzIFsgMiAwIFIgXQogICAvQ291bnQgMQo+PgplbmRvYmoKMTMgMCBvYmoKPDwgL05hbWVzIFsKICAgKHBhZ2UyKSBbMiAwIFIgL1hZWiAwIDU5NiAwXQogIF0KPj4KZW5kb2JqCjE0IDAgb2JqCjw8IC9EZXN0cyAxMyAwIFIgPj4KZW5kb2JqCjE1IDAgb2JqCjw8IC9Qcm9kdWNlciAoY2Fpcm8gMS4xOC4yIChodHRwczovL2NhaXJvZ3JhcGhpY3Mub3JnKSkKICAgL0NyZWF0b3IgKElua3NjYXBlIDEuNCBcKGh0dHBzOi8vaW5rc2NhcGUub3JnXCkpCiAgIC9DcmVhdGlvbkRhdGUgKEQ6MjAyNTA4MDgxOTEzMjcrMDInMDApCj4+CmVuZG9iagoyIDAgb2JqCjw8IC9UeXBlIC9QYWdlICUgMQogICAvUGFyZW50IDEgMCBSCiAgIC9NZWRpYUJveCBbIDAgMCA4NDIgNTk2IF0KICAgL0NvbnRlbnRzIDQgMCBSCiAgIC9Hcm91cCA8PAogICAgICAvVHlwZSAvR3JvdXAKICAgICAgL1MgL1RyYW5zcGFyZW5jeQogICAgICAvSSB0cnVlCiAgICAgIC9DUyAvRGV2aWNlUkdCCiAgID4+CiAgIC9SZXNvdXJjZXMgMyAwIFIKICAgL1N0cnVjdFBhcmVudHMgMAo+PgplbmRvYmoKMTYgMCBvYmoKPDwgL1R5cGUgL0NhdGFsb2cKICAgL1BhZ2VzIDEgMCBSCiAgIC9OYW1lcyAxNCAwIFIKPj4KZW5kb2JqCnhyZWYKMCAxNwowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDkyMDUgMDAwMDAgbiAKMDAwMDAwOTU0MiAwMDAwMCBuIAowMDAwMDA0Nzg1IDAwMDAwIG4gCjAwMDAwMDAwMTUgMDAwMDAgbiAKMDAwMDAwNDc2MiAwMDAwMCBuIAowMDAwMDA0OTM2IDAwMDAwIG4gCjAwMDAwMDg3MDMgMDAwMDAgbiAKMDAwMDAwNDk1NSAwMDAwMCBuIAowMDAwMDA3OTk5IDAwMDAwIG4gCjAwMDAwMDgwMjIgMDAwMDAgbiAKMDAwMDAwODM5NCAwMDAwMCBuIAowMDAwMDA4NDE3IDAwMDAwIG4gCjAwMDAwMDkyNzAgMDAwMDAgbiAKMDAwMDAwOTMzNyAwMDAwMCBuIAowMDAwMDA5MzczIDAwMDAwIG4gCjAwMDAwMDk3ODAgMDAwMDAgbiAKdHJhaWxlcgo8PCAvU2l6ZSAxNwogICAvUm9vdCAxNiAwIFIKICAgL0luZm8gMTUgMCBSCj4+CnN0YXJ0eHJlZgo5ODUwCiUlRU9GCg==",
-              "filename": "images/sample.pdf",
-              "width_value": 36,
-              "width_unit": "%"
-            },
-            {
-              "children": [
-                {
-                  "detail": 0,
-                  "format": 0,
-                  "mode": "normal",
-                  "style": "",
-                  "text": "Sample PDF image",
-                  "type": "text",
-                  "version": 1
-                }
-              ],
-              "direction": "ltr",
-              "format": "",
-              "indent": 0,
-              "type": "caption",
-              "version": 1,
-              "textFormat": 0,
-              "textStyle": "",
-              "number": 2
-            }
-          ],
-          "direction": "ltr",
-          "format": "",
-          "indent": 0,
-          "type": "figure",
-          "version": 1,
-          "src": "data:application/pdf;base64,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IDAgMCAwIDY2Ni45OTIxODggMCAwIDY2Ni45OTIxODggMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCA1OTQuMjM4MjgxIDAgMCAwIDU5NC4yMzgyODEgMzMzLjAwNzgxMiA2MjUgMCAyNzAuOTk2MDk0IDAgMCAyNzAuOTk2MDk0IDg4NC43NjU2MjUgMCA2MDQuMDAzOTA2IDYyNSAwIDQzNy45ODgyODEgXQogICAgL1RvVW5pY29kZSAxMCAwIFIKPj4KZW5kb2JqCjEgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzCiAgIC9LaWRzIFsgMiAwIFIgXQogICAvQ291bnQgMQo+PgplbmRvYmoKMTMgMCBvYmoKPDwgL05hbWVzIFsKICAgKHBhZ2UyKSBbMiAwIFIgL1hZWiAwIDU5NiAwXQogIF0KPj4KZW5kb2JqCjE0IDAgb2JqCjw8IC9EZXN0cyAxMyAwIFIgPj4KZW5kb2JqCjE1IDAgb2JqCjw8IC9Qcm9kdWNlciAoY2Fpcm8gMS4xOC4yIChodHRwczovL2NhaXJvZ3JhcGhpY3Mub3JnKSkKICAgL0NyZWF0b3IgKElua3NjYXBlIDEuNCBcKGh0dHBzOi8vaW5rc2NhcGUub3JnXCkpCiAgIC9DcmVhdGlvbkRhdGUgKEQ6MjAyNTA4MDgxOTEzMjcrMDInMDApCj4+CmVuZG9iagoyIDAgb2JqCjw8IC9UeXBlIC9QYWdlICUgMQogICAvUGFyZW50IDEgMCBSCiAgIC9NZWRpYUJveCBbIDAgMCA4NDIgNTk2IF0KICAgL0NvbnRlbnRzIDQgMCBSCiAgIC9Hcm91cCA8PAogICAgICAvVHlwZSAvR3JvdXAKICAgICAgL1MgL1RyYW5zcGFyZW5jeQogICAgICAvSSB0cnVlCiAgICAgIC9DUyAvRGV2aWNlUkdCCiAgID4+CiAgIC9SZXNvdXJjZXMgMyAwIFIKICAgL1N0cnVjdFBhcmVudHMgMAo+PgplbmRvYmoKMTYgMCBvYmoKPDwgL1R5cGUgL0NhdGFsb2cKICAgL1BhZ2VzIDEgMCBSCiAgIC9OYW1lcyAxNCAwIFIKPj4KZW5kb2JqCnhyZWYKMCAxNwowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDkyMDUgMDAwMDAgbiAKMDAwMDAwOTU0MiAwMDAwMCBuIAowMDAwMDA0Nzg1IDAwMDAwIG4gCjAwMDAwMDAwMTUgMDAwMDAgbiAKMDAwMDAwNDc2MiAwMDAwMCBuIAowMDAwMDA0OTM2IDAwMDAwIG4gCjAwMDAwMDg3MDMgMDAwMDAgbiAKMDAwMDAwNDk1NSAwMDAwMCBuIAowMDAwMDA3OTk5IDAwMDAwIG4gCjAwMDAwMDgwMjIgMDAwMDAgbiAKMDAwMDAwODM5NCAwMDAwMCBuIAowMDAwMDA4NDE3IDAwMDAwIG4gCjAwMDAwMDkyNzAgMDAwMDAgbiAKMDAwMDAwOTMzNyAwMDAwMCBuIAowMDAwMDA5MzczIDAwMDAwIG4gCjAwMDAwMDk3ODAgMDAwMDAgbiAKdHJhaWxlcgo8PCAvU2l6ZSAxNwogICAvUm9vdCAxNiAwIFIKICAgL0luZm8gMTUgMCBSCj4+CnN0YXJ0eHJlZgo5ODUwCiUlRU9GCg==",
-          "label_number": 0
-        },
-        {
-          "children": [
-            {
-              "detail": 0,
-              "format": 0,
-              "mode": "normal",
-              "style": "",
-              "text": "NB : In NaLE, the Figure will be displayed just after where you inserted it. Please keep in mind that this can be changed when the LaTeX gets compiled. Indeed, the compiler will generally make it so that figures are placed at the beginning of a page, and will move the text content if needed.",
-              "type": "text",
-              "version": 1
-            }
-          ],
-          "direction": "ltr",
-          "format": "",
-          "indent": 0,
-          "type": "paragraph",
-          "version": 1,
-          "textFormat": 0,
-          "textStyle": ""
-        },
-        {
-          "children": [
-            {
-              "detail": 0,
-              "format": 0,
-              "mode": "normal",
-              "style": "",
-              "text": "Math",
-              "type": "text",
-              "version": 1
-            }
-          ],
-          "direction": "ltr",
-          "format": "",
-          "indent": 0,
-          "type": "numbered-heading",
-          "version": 1,
-          "level": 2,
-          "is_numbered": true,
-          "label_number": 11
-        },
-        {
-          "children": [
-            {
-              "detail": 0,
-              "format": 0,
-              "mode": "normal",
-              "style": "",
-              "text": "Mathematical expressions can also be added through the same \"Insert\" menu. Math expressions can be inline (in the text, like ",
-              "type": "text",
-              "version": 1
-            },
-            {
+              "style": {
+                "format": {
+                  "bold": false,
+                  "italic": false,
+                  "underline": false,
+                  "strikethrough": false,
+                  "code": false,
+                  "subscript": false,
+                  "superscript": false
+                },
+                "inlineStyle": {}
+              },
               "type": "math",
-              "version": 1,
               "inline": true,
               "math_tree": {
                 "isroot": true,
@@ -759,44 +353,144 @@
                 "children": [
                   {
                     "symbol": "E",
-                    "id": 1
-                  },
-                  {
-                    "symbol": "=",
-                    "id": 2
-                  },
-                  {
-                    "symbol": "m",
-                    "id": 3
-                  },
-                  {
-                    "symbol": "c",
-                    "id": 4
+                    "id": 1,
+                    "selected": false
                   },
                   {
                     "symbol": "^",
                     "children": [
                       {
                         "symbol": "2",
-                        "id": 6
+                        "id": 3,
+                        "selected": false
                       }
                     ],
                     "nodeletionfromright": true,
+                    "nodeletionfromleft": true,
                     "ismultiline": false,
-                    "id": 5
+                    "id": 2,
+                    "selected": false
+                  },
+                  {
+                    "symbol": "=",
+                    "id": 4,
+                    "selected": false
+                  },
+                  {
+                    "leftsymbol": "(",
+                    "rightsymbol": ")",
+                    "children": [
+                      {
+                        "symbol": "m",
+                        "id": 6,
+                        "selected": false
+                      },
+                      {
+                        "symbol": "c",
+                        "id": 7,
+                        "selected": false
+                      },
+                      {
+                        "symbol": "^",
+                        "children": [
+                          {
+                            "symbol": "2",
+                            "id": 9,
+                            "selected": false
+                          }
+                        ],
+                        "nodeletionfromright": true,
+                        "nodeletionfromleft": true,
+                        "ismultiline": false,
+                        "id": 8,
+                        "selected": false
+                      }
+                    ],
+                    "size": "auto",
+                    "id": 5,
+                    "selected": false
+                  },
+                  {
+                    "symbol": "^",
+                    "children": [
+                      {
+                        "symbol": "2",
+                        "id": 11,
+                        "selected": false
+                      }
+                    ],
+                    "nodeletionfromright": true,
+                    "nodeletionfromleft": true,
+                    "ismultiline": false,
+                    "id": 10,
+                    "selected": false
+                  },
+                  {
+                    "symbol": "+",
+                    "id": 12,
+                    "selected": false
+                  },
+                  {
+                    "leftsymbol": "(",
+                    "rightsymbol": ")",
+                    "children": [
+                      {
+                        "symbol": "p",
+                        "id": 14,
+                        "selected": false
+                      },
+                      {
+                        "symbol": "c",
+                        "id": 15,
+                        "selected": false
+                      }
+                    ],
+                    "size": "auto",
+                    "id": 13,
+                    "selected": false
+                  },
+                  {
+                    "symbol": "^",
+                    "children": [
+                      {
+                        "symbol": "2",
+                        "id": 17,
+                        "selected": false
+                      }
+                    ],
+                    "nodeletionfromright": true,
+                    "nodeletionfromleft": true,
+                    "ismultiline": false,
+                    "id": 16,
+                    "selected": false
                   }
                 ],
+                "selected": false,
                 "id": 0
               },
               "is_numbered": false,
-              "label_number": 12
+              "label_number": 3
             },
             {
               "detail": 0,
               "format": 0,
               "mode": "normal",
               "style": "",
-              "text": ") or in \"display\" mode : ",
+              "text": ". If you use \"Display math\", you can also have your equations labeled (see the options menu on the left when inside a display math node). This allows you to add a reference to the equation. See for example equation (",
+              "type": "text",
+              "version": 1
+            },
+            {
+              "type": "reference",
+              "version": 1,
+              "reference_label": "eq:4"
+            },
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": ").",
               "type": "text",
               "version": 1
             }
@@ -810,8 +504,19 @@
           "textStyle": ""
         },
         {
+          "style": {
+            "format": {
+              "bold": false,
+              "italic": false,
+              "underline": false,
+              "strikethrough": false,
+              "code": false,
+              "subscript": false,
+              "superscript": false
+            },
+            "inlineStyle": {}
+          },
           "type": "math",
-          "version": 1,
           "inline": false,
           "math_tree": {
             "isroot": true,
@@ -834,7 +539,7 @@
                         "selected": false
                       },
                       {
-                        "symbol": "1",
+                        "symbol": "0",
                         "id": 5,
                         "selected": false
                       }
@@ -895,6 +600,7 @@
                           }
                         ],
                         "nodeletionfromright": true,
+                        "nodeletionfromleft": true,
                         "ismultiline": false,
                         "id": 13,
                         "selected": false
@@ -937,6 +643,7 @@
                           }
                         ],
                         "nodeletionfromright": true,
+                        "nodeletionfromleft": true,
                         "ismultiline": false,
                         "id": 19,
                         "selected": false
@@ -970,7 +677,7 @@
             "selected": false
           },
           "is_numbered": true,
-          "label_number": 13
+          "label_number": 4
         },
         {
           "children": [
@@ -979,7 +686,28 @@
               "format": 0,
               "mode": "normal",
               "style": "",
-              "text": "When editing a math formula, a virtual keyboard will be available at the bottom of the editor. Most of these symbols can also be inserted using \"shortcuts\", that consist of a sequence of letters followed by pressing Space. You can discover these shortcuts by hovering over the keys. In display mode, you can also use Shift+Enter to create a new line, and Tab for aligning.",
+              "text": "Images",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "numbered-heading",
+          "version": 1,
+          "level": 1,
+          "is_numbered": true,
+          "label_number": 7
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "Using the ”Insert” dropdown, you can also add images. ",
               "type": "text",
               "version": 1
             }
@@ -999,21 +727,59 @@
               "format": 0,
               "mode": "normal",
               "style": "",
-              "text": "Besides, equations can be numbered : just toggle the option in the options menu. You can then add a reference to the equation, for example see Equation (",
+              "text": "Inline image ",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "numbered-heading",
+          "version": 1,
+          "level": 2,
+          "is_numbered": true,
+          "label_number": 8
+        },
+        {
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "The ”Image” insertion inserts your image in the text, like this : ",
+              "type": "text",
+              "version": 1
+            },
+            {
+              "type": "image",
+              "version": 1,
+              "src": "/nale/images/sample.jpg",
+              "filename": "images/sample.jpg",
+              "width_value": 27,
+              "width_unit": "mm"
+            },
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": ". You can change the size of the image in the options menu on the left. However, most of the time in articles, images are rather included in figures and include a caption. In both cases, it is also possible to add single-page PDF files as \"images\". See for example Figure ",
               "type": "text",
               "version": 1
             },
             {
               "type": "reference",
               "version": 1,
-              "reference_label": "eq:13"
+              "reference_label": "fig:0"
             },
             {
               "detail": 0,
               "format": 0,
               "mode": "normal",
               "style": "",
-              "text": ").",
+              "text": ".",
               "type": "text",
               "version": 1
             }
@@ -1033,7 +799,7 @@
               "format": 0,
               "mode": "normal",
               "style": "",
-              "text": "Options menu",
+              "text": "Figure ",
               "type": "text",
               "version": 1
             }
@@ -1043,9 +809,9 @@
           "indent": 0,
           "type": "numbered-heading",
           "version": 1,
-          "level": 1,
+          "level": 2,
           "is_numbered": true,
-          "label_number": 14
+          "label_number": 9
         },
         {
           "children": [
@@ -1054,7 +820,7 @@
               "format": 0,
               "mode": "normal",
               "style": "",
-              "text": "The options menu, on the left, contains up to 3 sections :",
+              "text": "A Figure is a centered image with a caption and a label (number). In NaLE, the Figure will be displayed just after where you inserted it. Please keep in mind that this can be different when the LaTeX gets compiled. Indeed, the compiler will generally make it so that figures are placed at the beginning of a page, and will move the text content around if needed.",
               "type": "text",
               "version": 1
             }
@@ -1070,23 +836,12 @@
         {
           "children": [
             {
-              "children": [
-                {
-                  "detail": 0,
-                  "format": 0,
-                  "mode": "normal",
-                  "style": "",
-                  "text": "Local options : options for the currently selected element (e.g. toggeling numbering of a specific title)",
-                  "type": "text",
-                  "version": 1
-                }
-              ],
-              "direction": "ltr",
-              "format": "",
-              "indent": 0,
-              "type": "listitem",
+              "type": "captioned-image",
               "version": 1,
-              "value": 1
+              "src": "data:application/pdf;base64,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IDAgMCAwIDY2Ni45OTIxODggMCAwIDY2Ni45OTIxODggMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCA1OTQuMjM4MjgxIDAgMCAwIDU5NC4yMzgyODEgMzMzLjAwNzgxMiA2MjUgMCAyNzAuOTk2MDk0IDAgMCAyNzAuOTk2MDk0IDg4NC43NjU2MjUgMCA2MDQuMDAzOTA2IDYyNSAwIDQzNy45ODgyODEgXQogICAgL1RvVW5pY29kZSAxMCAwIFIKPj4KZW5kb2JqCjEgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzCiAgIC9LaWRzIFsgMiAwIFIgXQogICAvQ291bnQgMQo+PgplbmRvYmoKMTMgMCBvYmoKPDwgL05hbWVzIFsKICAgKHBhZ2UyKSBbMiAwIFIgL1hZWiAwIDU5NiAwXQogIF0KPj4KZW5kb2JqCjE0IDAgb2JqCjw8IC9EZXN0cyAxMyAwIFIgPj4KZW5kb2JqCjE1IDAgb2JqCjw8IC9Qcm9kdWNlciAoY2Fpcm8gMS4xOC4yIChodHRwczovL2NhaXJvZ3JhcGhpY3Mub3JnKSkKICAgL0NyZWF0b3IgKElua3NjYXBlIDEuNCBcKGh0dHBzOi8vaW5rc2NhcGUub3JnXCkpCiAgIC9DcmVhdGlvbkRhdGUgKEQ6MjAyNTA4MDgxOTEzMjcrMDInMDApCj4+CmVuZG9iagoyIDAgb2JqCjw8IC9UeXBlIC9QYWdlICUgMQogICAvUGFyZW50IDEgMCBSCiAgIC9NZWRpYUJveCBbIDAgMCA4NDIgNTk2IF0KICAgL0NvbnRlbnRzIDQgMCBSCiAgIC9Hcm91cCA8PAogICAgICAvVHlwZSAvR3JvdXAKICAgICAgL1MgL1RyYW5zcGFyZW5jeQogICAgICAvSSB0cnVlCiAgICAgIC9DUyAvRGV2aWNlUkdCCiAgID4+CiAgIC9SZXNvdXJjZXMgMyAwIFIKICAgL1N0cnVjdFBhcmVudHMgMAo+PgplbmRvYmoKMTYgMCBvYmoKPDwgL1R5cGUgL0NhdGFsb2cKICAgL1BhZ2VzIDEgMCBSCiAgIC9OYW1lcyAxNCAwIFIKPj4KZW5kb2JqCnhyZWYKMCAxNwowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDkyMDUgMDAwMDAgbiAKMDAwMDAwOTU0MiAwMDAwMCBuIAowMDAwMDA0Nzg1IDAwMDAwIG4gCjAwMDAwMDAwMTUgMDAwMDAgbiAKMDAwMDAwNDc2MiAwMDAwMCBuIAowMDAwMDA0OTM2IDAwMDAwIG4gCjAwMDAwMDg3MDMgMDAwMDAgbiAKMDAwMDAwNDk1NSAwMDAwMCBuIAowMDAwMDA3OTk5IDAwMDAwIG4gCjAwMDAwMDgwMjIgMDAwMDAgbiAKMDAwMDAwODM5NCAwMDAwMCBuIAowMDAwMDA4NDE3IDAwMDAwIG4gCjAwMDAwMDkyNzAgMDAwMDAgbiAKMDAwMDAwOTMzNyAwMDAwMCBuIAowMDAwMDA5MzczIDAwMDAwIG4gCjAwMDAwMDk3ODAgMDAwMDAgbiAKdHJhaWxlcgo8PCAvU2l6ZSAxNwogICAvUm9vdCAxNiAwIFIKICAgL0luZm8gMTUgMCBSCj4+CnN0YXJ0eHJlZgo5ODUwCiUlRU9GCg==",
+              "filename": "images/sample.pdf",
+              "width_value": 50,
+              "width_unit": "%"
             },
             {
               "children": [
@@ -1095,7 +850,7 @@
                   "format": 0,
                   "mode": "normal",
                   "style": "",
-                  "text": "Global options for that element type : options that target all elements of a specific type (e.g. numbering style of all titles)",
+                  "text": "Example of figure. This also serves as an example of inserting a PDF as an image. PDF as images are useful for showing diagrams, since they are vectorial images and not pixel-based.",
                   "type": "text",
                   "version": 1
                 }
@@ -1103,38 +858,20 @@
               "direction": "ltr",
               "format": "",
               "indent": 0,
-              "type": "listitem",
+              "type": "caption",
               "version": 1,
-              "value": 2
-            },
-            {
-              "children": [
-                {
-                  "detail": 0,
-                  "format": 0,
-                  "mode": "normal",
-                  "style": "",
-                  "text": "Global options for the document (font size, and margins if \"Display\" > \"Real page width\" is activated).",
-                  "type": "text",
-                  "version": 1
-                }
-              ],
-              "direction": "ltr",
-              "format": "",
-              "indent": 0,
-              "type": "listitem",
-              "version": 1,
-              "value": 3
+              "textFormat": 0,
+              "textStyle": "",
+              "number": 1
             }
           ],
           "direction": "ltr",
           "format": "",
           "indent": 0,
-          "type": "list",
+          "type": "figure",
           "version": 1,
-          "listType": "bullet",
-          "start": 1,
-          "tag": "ul"
+          "src": "data:application/pdf;base64,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IDAgMCAwIDY2Ni45OTIxODggMCAwIDY2Ni45OTIxODggMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCA1OTQuMjM4MjgxIDAgMCAwIDU5NC4yMzgyODEgMzMzLjAwNzgxMiA2MjUgMCAyNzAuOTk2MDk0IDAgMCAyNzAuOTk2MDk0IDg4NC43NjU2MjUgMCA2MDQuMDAzOTA2IDYyNSAwIDQzNy45ODgyODEgXQogICAgL1RvVW5pY29kZSAxMCAwIFIKPj4KZW5kb2JqCjEgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzCiAgIC9LaWRzIFsgMiAwIFIgXQogICAvQ291bnQgMQo+PgplbmRvYmoKMTMgMCBvYmoKPDwgL05hbWVzIFsKICAgKHBhZ2UyKSBbMiAwIFIgL1hZWiAwIDU5NiAwXQogIF0KPj4KZW5kb2JqCjE0IDAgb2JqCjw8IC9EZXN0cyAxMyAwIFIgPj4KZW5kb2JqCjE1IDAgb2JqCjw8IC9Qcm9kdWNlciAoY2Fpcm8gMS4xOC4yIChodHRwczovL2NhaXJvZ3JhcGhpY3Mub3JnKSkKICAgL0NyZWF0b3IgKElua3NjYXBlIDEuNCBcKGh0dHBzOi8vaW5rc2NhcGUub3JnXCkpCiAgIC9DcmVhdGlvbkRhdGUgKEQ6MjAyNTA4MDgxOTEzMjcrMDInMDApCj4+CmVuZG9iagoyIDAgb2JqCjw8IC9UeXBlIC9QYWdlICUgMQogICAvUGFyZW50IDEgMCBSCiAgIC9NZWRpYUJveCBbIDAgMCA4NDIgNTk2IF0KICAgL0NvbnRlbnRzIDQgMCBSCiAgIC9Hcm91cCA8PAogICAgICAvVHlwZSAvR3JvdXAKICAgICAgL1MgL1RyYW5zcGFyZW5jeQogICAgICAvSSB0cnVlCiAgICAgIC9DUyAvRGV2aWNlUkdCCiAgID4+CiAgIC9SZXNvdXJjZXMgMyAwIFIKICAgL1N0cnVjdFBhcmVudHMgMAo+PgplbmRvYmoKMTYgMCBvYmoKPDwgL1R5cGUgL0NhdGFsb2cKICAgL1BhZ2VzIDEgMCBSCiAgIC9OYW1lcyAxNCAwIFIKPj4KZW5kb2JqCnhyZWYKMCAxNwowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDkyMDUgMDAwMDAgbiAKMDAwMDAwOTU0MiAwMDAwMCBuIAowMDAwMDA0Nzg1IDAwMDAwIG4gCjAwMDAwMDAwMTUgMDAwMDAgbiAKMDAwMDAwNDc2MiAwMDAwMCBuIAowMDAwMDA0OTM2IDAwMDAwIG4gCjAwMDAwMDg3MDMgMDAwMDAgbiAKMDAwMDAwNDk1NSAwMDAwMCBuIAowMDAwMDA3OTk5IDAwMDAwIG4gCjAwMDAwMDgwMjIgMDAwMDAgbiAKMDAwMDAwODM5NCAwMDAwMCBuIAowMDAwMDA4NDE3IDAwMDAwIG4gCjAwMDAwMDkyNzAgMDAwMDAgbiAKMDAwMDAwOTMzNyAwMDAwMCBuIAowMDAwMDA5MzczIDAwMDAwIG4gCjAwMDAwMDk3ODAgMDAwMDAgbiAKdHJhaWxlcgo8PCAvU2l6ZSAxNwogICAvUm9vdCAxNiAwIFIKICAgL0luZm8gMTUgMCBSCj4+CnN0YXJ0eHJlZgo5ODUwCiUlRU9GCg==",
+          "label_number": 0
         },
         {
           "children": [
@@ -1143,7 +880,7 @@
               "format": 0,
               "mode": "normal",
               "style": "",
-              "text": "Title page",
+              "text": "Bibliographic references",
               "type": "text",
               "version": 1
             }
@@ -1155,7 +892,7 @@
           "version": 1,
           "level": 1,
           "is_numbered": true,
-          "label_number": 15
+          "label_number": 5
         },
         {
           "children": [
@@ -1164,12 +901,48 @@
               "format": 0,
               "mode": "normal",
               "style": "",
-              "text": "With the title page dropdown in the toolbar, you can set the main title of the document, authors, and create an abstract.",
+              "text": "NaLE makes it really easy to include bibliographic references in your document. Just copy the citation in BibTeX format, and use the toolbar : ”Cite...” > ”From clipboard...”. It is also possible to paste the contents of a whole .bib file this way, and then access the individual citations in the \"Cite...\" dropdown. Citations appear like this in your document : ",
+              "type": "text",
+              "version": 1
+            },
+            {
+              "type": "citation",
+              "version": 1,
+              "citation_keys": [
+                "Noether1918"
+              ]
+            },
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": ". To add the bibliography, just go where you want it to be and click ”Cite...” > ”Insert bibliography” !",
               "type": "text",
               "version": 1
             }
           ],
           "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        },
+        {
+          "children": [],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
+        },
+        {
+          "children": [],
+          "direction": null,
           "format": "",
           "indent": 0,
           "type": "paragraph",
@@ -1185,65 +958,23 @@
               "label": "1",
               "bibItem": {
                 "entryType": "article",
-                "key": "noether1971invariant",
-                "title": "Invariant variation problems",
+                "key": "Noether1918",
                 "author": [
                   {
                     "lastName": "Noether",
-                    "firstName": "Emmy"
+                    "firstName": "E."
                   }
                 ],
-                "journal": "Transport theory and statistical physics",
-                "volume": "1",
-                "number": "3",
-                "pages": "186--207",
-                "year": "1971",
-                "publisher": "Taylor \\& Francis"
-              }
-            },
-            {
-              "label": "2",
-              "bibItem": {
-                "entryType": "article",
-                "key": "PhysRev.47.777",
-                "title": "Can Quantum-Mechanical Description of Physical Reality Be Considered Complete?",
-                "author": [
-                  {
-                    "lastName": "Einstein",
-                    "firstName": "A."
-                  },
-                  {
-                    "lastName": "Podolsky",
-                    "firstName": "B."
-                  },
-                  {
-                    "lastName": "Rosen",
-                    "firstName": "N."
-                  }
-                ],
-                "journal": "Phys. Rev.",
-                "volume": "47",
-                "issue": "10",
-                "pages": "777--780",
-                "numpages": "0",
-                "year": "1935",
-                "month": "May",
-                "publisher": "American Physical Society",
-                "doi": "10.1103/PhysRev.47.777",
-                "url": "https://link.aps.org/doi/10.1103/PhysRev.47.777"
+                "journal": "Nachrichten von der Gesellschaft der Wissenschaften zu Göttingen, Mathematisch-Physikalische Klasse",
+                "language": "ger",
+                "pages": "235-257",
+                "title": "Invariante Variationsprobleme",
+                "url": "http://eudml.org/doc/59024",
+                "volume": "1918",
+                "year": "1918"
               }
             }
           ]
-        },
-        {
-          "children": [],
-          "direction": null,
-          "format": "",
-          "indent": 0,
-          "type": "paragraph",
-          "version": 1,
-          "textFormat": 0,
-          "textStyle": ""
         }
       ],
       "direction": "ltr",
@@ -1266,7 +997,7 @@
     },
     "headings": {
       "numberingStyles": {
-        "1": "Roman",
+        "1": "arabic",
         "2": "arabic",
         "3": "arabic"
       },
@@ -1297,52 +1028,23 @@
   "biblio": [
     {
       "entryType": "article",
-      "key": "noether1971invariant",
-      "title": "Invariant variation problems",
+      "key": "Noether1918",
       "author": [
         {
           "lastName": "Noether",
-          "firstName": "Emmy"
+          "firstName": "E."
         }
       ],
-      "journal": "Transport theory and statistical physics",
-      "volume": "1",
-      "number": "3",
-      "pages": "186--207",
-      "year": "1971",
-      "publisher": "Taylor \\& Francis"
-    },
-    {
-      "entryType": "article",
-      "key": "PhysRev.47.777",
-      "title": "Can Quantum-Mechanical Description of Physical Reality Be Considered Complete?",
-      "author": [
-        {
-          "lastName": "Einstein",
-          "firstName": "A."
-        },
-        {
-          "lastName": "Podolsky",
-          "firstName": "B."
-        },
-        {
-          "lastName": "Rosen",
-          "firstName": "N."
-        }
-      ],
-      "journal": "Phys. Rev.",
-      "volume": "47",
-      "issue": "10",
-      "pages": "777--780",
-      "numpages": "0",
-      "year": "1935",
-      "month": "May",
-      "publisher": "American Physical Society",
-      "doi": "10.1103/PhysRev.47.777",
-      "url": "https://link.aps.org/doi/10.1103/PhysRev.47.777"
+      "journal": "Nachrichten von der Gesellschaft der Wissenschaften zu Göttingen, Mathematisch-Physikalische Klasse",
+      "language": "ger",
+      "pages": "235-257",
+      "title": "Invariante Variationsprobleme",
+      "url": "http://eudml.org/doc/59024",
+      "volume": "1918",
+      "year": "1918"
     }
   ],
   "documentStructure": {
-    "nextLabelNumber": 1
+    "nextLabelNumber": 5
   }
 }

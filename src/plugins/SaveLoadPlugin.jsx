@@ -6,8 +6,29 @@ import { showToast } from '../ui/Toast';
 import { $getRoot, $isElementNode, CLEAR_HISTORY_COMMAND } from 'lexical';
 import { jsonToBib } from '../utils/bibliographyUtils';
 import { completeDocumentOptions } from './Options/documentOptions';
-import { convertToLatex, getLatex } from './LatexExportPlugin/latexUtils';
+import { getLatex } from './LatexExportPlugin/latexUtils';
 import { $isImageNode } from '../nodes/ImageNodes';
+import { useStatus } from '../ui/StatusBar';
+
+async function compileUntilStable(engine, maxRuns = 5, setStatus) {
+  let result = {};
+  let log = "";
+  setStatus("Compiling...");
+  for (let i = 0; i < maxRuns; i++) {
+    result = await engine.compileLaTeX();
+    log = result.log;
+
+    let refs_labels = result.log.includes("Rerun to get cross-references right") || result.log.includes("Label(s) may have changed");
+    let biblio = result.log.includes("undefined references")
+
+    if (!(refs_labels || biblio)) break;
+
+    let reason = (refs_labels && biblio)?"internal references and citations":(refs_labels?"internal references":"citations");
+    setStatus(`Recompiling for ${reason}`);
+  }
+  setStatus("");
+  return result;
+}
 
 // Create the Save Context
 const SaveContext = createContext();
@@ -19,6 +40,7 @@ export function SaveProvider({ children }) {
   const [editor] = useLexicalComposerContext();
   const {documentOptions, setDocumentOptions} = useDocumentOptions();
   const {nextLabelNumber, setNextLabelNumber, biblio, setBiblio} = useDocumentStructureContext();
+  const {updateStatus} = useStatus();
 
   // Returns a string to save in a file
   const getTextToSave = () => {
@@ -133,6 +155,49 @@ export function SaveProvider({ children }) {
     }
   };
 
+  const compile = async ()=>{
+    try {
+      const engine = new PdfTeXEngine();
+      
+      if (!engine) throw new Error("PdfTeXEngine not loaded");
+      await engine.loadEngine();
+      
+      // Write files to WASM FS
+      
+      const latex = getLatex(editor,documentOptions); // For some reason, does not work with empty files.
+      engine.writeMemFSFile("main.tex", latex);
+      
+      if (biblio.length > 0){
+        engine.writeMemFSFile("references.bib", jsonToBib(biblio));
+      }
+      const imgFiles = await getAllImageFiles(editor);
+      if (imgFiles.length>0){
+        engine.makeMemFSFolder("images");
+        for (let img of imgFiles) {
+          engine.writeMemFSFile(img.name, new Uint8Array(await img.content.arrayBuffer()));
+        }
+      }
+
+      engine.setEngineMainFile("main.tex");
+
+      const result = await compileUntilStable(engine,5,(msg)=>updateStatus("compilation",msg));
+
+      if (result.pdf){
+        const blob = new Blob([result.pdf], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+        window.open(url);
+      }
+      else{
+        showToast("Compilation failed. See console for full log.",3000,"error");
+        console.log(result.log);
+      }
+      
+    } catch (e) {
+      showToast("Compilation failed. See console for details.",3000,"error");
+      console.error("Compilation error:", e);
+    }
+  }
+
   const downloadCompilationZip = async ()=>{
     const files = [
       { name: 'README.md', content: '# NaLE Compilation-ready folder\n\nThis folder contains all the necessary files for you to create your pdf. \nThis is done by running a LaTeX PDF compiler in this folder. \nTo do this, we advise you to : \n- Download TeX Live from https://tug.org/texlive/ \n- In a command promp in this folder (on Windows, the Powershell will do), run "latexmk -pdf main.tex"\n- This should create your PDF document "main.pdf", as well as a bunch of other files. You can get rid of them by running "latexmk -pdf -c main.tex".'},
@@ -196,7 +261,8 @@ export function SaveProvider({ children }) {
       quickSave,
       handleFileChange,
       openFile,
-      downloadCompilationZip
+      downloadCompilationZip,
+      compile
     }}>
       {children}
     </SaveContext.Provider>

@@ -14,6 +14,10 @@
 - Latex export : leading space of colored text not always respected. (change for "\ " ?)
 - Text both italic and bold only appears as bold.
 - Math : can't use 2 (different) underscripts in a row, throws MathJax error.
+- Compilation : Empty (default) files fail to compile.
+- Page title : Authors can be wrongly added above a preexisting abstract
+- Display : size of images in Figures is not calculated correctly.
+
 
 ## Features
 ### Priority features
@@ -30,9 +34,10 @@
 ### Simple tweaks
 - Math : using the colored text menu should also work with math
 - Consistant color order between toolbar and math keyboard
+- Title page : Authors node should be selectable.
 
 ### Useful features
-- Export to PDF through LaTeX compilation
+- Show "Saving..." while saving. (via some sort of status bar probably; useful for compilation as well)
 - Support for different languages in code blocks (for syntax highlighting)
 - Save/Open just for documentOptions (global styling)
 - Custom headings font sizes (like main title)

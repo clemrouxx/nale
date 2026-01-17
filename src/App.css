@@ -274,6 +274,12 @@ button:disabled{
   color: white;
 }
 
+.status-bar{
+  display: flex;
+  align-items: center;
+  padding: 0.2em;
+}
+
 
 /* Basic range input styling */
 input[type="range"] {

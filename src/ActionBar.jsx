@@ -8,6 +8,7 @@ import { saveToTextFile, useSaveLoadContext } from './plugins/SaveLoadPlugin';
 import useModal from './hooks/useModal';
 import { showToast } from './ui/Toast';
 import { useEffect } from 'react';
+import StatusBar from './ui/StatusBar';
 
 export const ActionBar = () => {
     return (
@@ -15,6 +16,7 @@ export const ActionBar = () => {
             <a className="logo-main" href="https://github.com/clemrouxx/nale"></a>
             <FileButton/>
             <DisplayMenu/>
+            <StatusBar/>
         </div>
     )
 }
@@ -41,16 +43,20 @@ const LatexExportModal = () => {
 }
 
 const FileButton = () => {
-    const { saveAs, quickSave, handleFileChange, openFile, downloadCompilationZip } = useSaveLoadContext();
+    const { saveAs, quickSave, handleFileChange, openFile, downloadCompilationZip, compile } = useSaveLoadContext();
     const [modal, showModal] = useModal();
     const [editor] = useLexicalComposerContext();
 
-    // latex export shortcut
+    // shortcuts
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.ctrlKey && e.key === 'e') {
                 e.preventDefault();
                 showModal("Export to LaTeX",(onClose)=>(<LatexExportModal/>));
+            }
+            else if (e.code === "F5"){
+                e.preventDefault();
+                compile();
             }
         };
         document.addEventListener('keydown', handleKeyDown);
@@ -73,7 +79,7 @@ const FileButton = () => {
                 <DropDownItem onClick={saveAs}><span className="text">Save As...</span><span className="shortcut">Ctrl + Shift + S</span></DropDownItem>
                 <DropDownItem onClick={openFile}><span className="text">Open...</span><span className="shortcut">Ctrl + O</span></DropDownItem>
                 <DropDownItem onClick={()=>showModal("Export to LaTeX",(onClose)=>(<LatexExportModal/>))}><span>Export to LaTeX</span><span className="shortcut">Ctrl + E</span></DropDownItem>
-                <DropDownItem onClick={downloadCompilationZip}>Get compile-ready project</DropDownItem>
+                <DropDownItem onClick={compile}><span className="text">Compile</span><span className="shortcut">F5</span></DropDownItem>
             </DropDown>
             {modal}
         </>
