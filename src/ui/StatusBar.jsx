@@ -3,7 +3,7 @@ import { createContext, useCallback, useContext, useState } from "react";
 const StatusContext = createContext();
 
 const initialStatus = {
-    compilation:"Test"
+    compilation:""
 }
 
 export function StatusProvider({ children }) {
