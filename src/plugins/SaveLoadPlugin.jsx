@@ -6,25 +6,27 @@ import { showToast } from '../ui/Toast';
 import { $getRoot, $isElementNode, CLEAR_HISTORY_COMMAND } from 'lexical';
 import { jsonToBib } from '../utils/bibliographyUtils';
 import { completeDocumentOptions } from './Options/documentOptions';
-import { convertToLatex, getLatex } from './LatexExportPlugin/latexUtils';
+import { getLatex } from './LatexExportPlugin/latexUtils';
 import { $isImageNode } from '../nodes/ImageNodes';
+import { useStatus } from '../ui/StatusBar';
 
-async function compileUntilStable(engine, maxRuns = 5) {
+async function compileUntilStable(engine, maxRuns = 5, setStatus) {
   let result = {};
   let log = "";
-  console.log("RUNNING (first run)");
+  setStatus("Compiling...");
   for (let i = 0; i < maxRuns; i++) {
     result = await engine.compileLaTeX();
     log = result.log;
 
     let refs_labels = result.log.includes("Rerun to get cross-references right") || result.log.includes("Label(s) may have changed");
     let biblio = result.log.includes("undefined references")
-    
+
     if (!(refs_labels || biblio)) break;
 
     let reason = (refs_labels && biblio)?"internal references and citations":(refs_labels?"internal references":"citations");
-    console.log(`Recompiling for ${reason}.`);
+    setStatus(`Recompiling for ${reason}`);
   }
+  setStatus("");
   return result;
 }
 
@@ -38,6 +40,7 @@ export function SaveProvider({ children }) {
   const [editor] = useLexicalComposerContext();
   const {documentOptions, setDocumentOptions} = useDocumentOptions();
   const {nextLabelNumber, setNextLabelNumber, biblio, setBiblio} = useDocumentStructureContext();
+  const {updateStatus} = useStatus();
 
   // Returns a string to save in a file
   const getTextToSave = () => {
@@ -177,8 +180,7 @@ export function SaveProvider({ children }) {
 
       engine.setEngineMainFile("main.tex");
 
-      //const result = await engine.compileLaTeX();
-      const result = await compileUntilStable(engine,5);
+      const result = await compileUntilStable(engine,5,(msg)=>updateStatus("compilation",msg));
 
       if (result.pdf){
         const blob = new Blob([result.pdf], { type: "application/pdf" });

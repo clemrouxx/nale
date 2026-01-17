@@ -7,6 +7,7 @@ import { EditorOptionsProvider } from "./plugins/EditorOptionsContext";
 import { DocumentStructureProvider } from "./plugins/NumberingPlugin/DocumentStructureContext";
 import { MathJaxContext } from "better-react-mathjax";
 import { SaveProvider } from "./plugins/SaveLoadPlugin";
+import { StatusProvider } from "./ui/StatusBar";
 
 const mathJaxConfig = {
   loader: { load: ["[tex]/html","[tex]/ams","[tex]/physics",'[tex]/boldsymbol'] },
@@ -30,6 +31,7 @@ function App() {
   return (
     <div className="App">
       <LexicalComposer initialConfig={initialConfig}>
+        <StatusProvider>
         <DocumentOptionsProvider>
         <DocumentStructureProvider>
         <EditorOptionsProvider>
@@ -42,6 +44,7 @@ function App() {
         </EditorOptionsProvider>
         </DocumentStructureProvider>
         </DocumentOptionsProvider>
+        </StatusProvider>
       </LexicalComposer>
     </div>
   );

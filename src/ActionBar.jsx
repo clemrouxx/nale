@@ -9,6 +9,7 @@ import useModal from './hooks/useModal';
 import { showToast } from './ui/Toast';
 import { useEffect } from 'react';
 import { CompileButton } from './plugins/Compilation';
+import StatusBar from './ui/StatusBar';
 
 export const ActionBar = () => {
     return (
@@ -17,6 +18,7 @@ export const ActionBar = () => {
             <FileButton/>
             <DisplayMenu/>
             <CompileButton/>
+            <StatusBar/>
         </div>
     )
 }
