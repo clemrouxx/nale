@@ -63,7 +63,7 @@ const FileButton = () => {
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, [editor]);
+    }, [editor,compile]);
 
     return (
         <>

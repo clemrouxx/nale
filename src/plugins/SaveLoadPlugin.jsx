@@ -17,6 +17,7 @@ async function compileUntilStable(engine, maxRuns = 5, setStatus) {
   for (let i = 0; i < maxRuns; i++) {
     result = await engine.compileLaTeX();
     log = result.log;
+    //console.log(log);
 
     let refs_labels = result.log.includes("Rerun to get cross-references right") || result.log.includes("Label(s) may have changed");
     let biblio = result.log.includes("undefined references")
@@ -24,7 +25,7 @@ async function compileUntilStable(engine, maxRuns = 5, setStatus) {
     if (!(refs_labels || biblio)) break;
 
     let reason = (refs_labels && biblio)?"internal references and citations":(refs_labels?"internal references":"citations");
-    setStatus(`Recompiling for ${reason}`);
+    setStatus(`Recompiling for ${reason}...`);
   }
   setStatus("");
   return result;
@@ -41,6 +42,10 @@ export function SaveProvider({ children }) {
   const {documentOptions, setDocumentOptions} = useDocumentOptions();
   const {nextLabelNumber, setNextLabelNumber, biblio, setBiblio} = useDocumentStructureContext();
   const {updateStatus} = useStatus();
+
+  useEffect(()=>{
+    console.log(biblio);
+  },[biblio]);
 
   // Returns a string to save in a file
   const getTextToSave = () => {
@@ -167,6 +172,7 @@ export function SaveProvider({ children }) {
       const latex = getLatex(editor,documentOptions); // For some reason, does not work with empty files.
       engine.writeMemFSFile("main.tex", latex);
       
+      console.log(biblio,jsonToBib(biblio));
       if (biblio.length > 0){
         engine.writeMemFSFile("references.bib", jsonToBib(biblio));
       }
