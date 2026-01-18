@@ -13,7 +13,7 @@ import { useStatus } from '../ui/StatusBar';
 async function compileUntilStable(engine, maxRuns = 5, setStatus) {
   let result = {};
   let log = "";
-  setStatus("Compiling...");
+  setStatus("Compiling... (the first compilation may take longer)");
   for (let i = 0; i < maxRuns; i++) {
     result = await engine.compileLaTeX();
     log = result.log;
@@ -42,10 +42,6 @@ export function SaveProvider({ children }) {
   const {documentOptions, setDocumentOptions} = useDocumentOptions();
   const {nextLabelNumber, setNextLabelNumber, biblio, setBiblio} = useDocumentStructureContext();
   const {updateStatus} = useStatus();
-
-  useEffect(()=>{
-    console.log(biblio);
-  },[biblio]);
 
   // Returns a string to save in a file
   const getTextToSave = () => {
@@ -172,7 +168,6 @@ export function SaveProvider({ children }) {
       const latex = getLatex(editor,documentOptions); // For some reason, does not work with empty files.
       engine.writeMemFSFile("main.tex", latex);
       
-      console.log(biblio,jsonToBib(biblio));
       if (biblio.length > 0){
         engine.writeMemFSFile("references.bib", jsonToBib(biblio));
       }
@@ -195,7 +190,7 @@ export function SaveProvider({ children }) {
       }
       else{
         showToast("Compilation failed. See console for full log.",3000,"error");
-        console.log(result.log);
+        console.error("LaTeX compilation failed.",result.log);
       }
       
     } catch (e) {

@@ -142,7 +142,7 @@ var PdfTeXEngine = /** @class */ (function () {
                                     var log = data['log'];
                                     var status = data['status'];
                                     _this.latexWorkerStatus = EngineStatus.Ready;
-                                    console.log('Engine compilation finish ' + (performance.now() - start_compile_time));
+                                    console.log('Engine compilation finish. Duration : ' + Math.round(performance.now() - start_compile_time) + " ms.");
                                     var nice_report = new CompileResult();
                                     nice_report.status = status;
                                     nice_report.log = log;
