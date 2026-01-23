@@ -15,6 +15,7 @@
 - Text both italic and bold only appears as bold.
 - Math : can't use 2 (different) underscripts in a row, throws MathJax error.
 - Compilation : Empty (default) files fail to compile.
+- Compilation : Empty math nodes causes fail (probably because it creates '$$' that is never closed)
 - Page title : Authors can be wrongly added above a preexisting abstract
 - Display : size of images in Figures is not calculated correctly.
 
@@ -24,7 +25,6 @@
 - Title "page" : author affiliations, date
 - Tables
 - Footnotes
-- Working shortcuts and shortcuts indications (ex for section titles)
 - Text with links
 - Add warning when closing tab without saving
 - Math : add [...), (...] and ability to add just the left delimiter alone if wanted.
@@ -35,6 +35,7 @@
 - Math : using the colored text menu should also work with math
 - Consistant color order between toolbar and math keyboard
 - Title page : Authors node should be selectable.
+- Editor : the editor should remember the user preferences for the math keyboard (visible by default or not)
 
 ### Useful features
 - Show "Saving..." while saving. (via some sort of status bar probably; useful for compilation as well)

@@ -289,6 +289,10 @@ const MathEditor = forwardRef(({nodeKey,initMathTree,inline,numbering,color},ref
                     setLocalMathTree(replacementResult.tree);// This removes the previously added characters
                     addSymbol(replacementResult.symbol);// This adds the new symbol (and updates the tree for Undo/Redo)
                 }
+                else{
+                    // Add 'math space'
+                    addSymbol("~");
+                }
                 event.preventDefault();
                 break;
             default:

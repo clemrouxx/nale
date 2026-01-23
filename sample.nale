@@ -47,6 +47,15 @@
                   "format": 0,
                   "mode": "normal",
                   "style": "",
+                  "text": "",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
                   "text": "Clem Rouxx",
                   "type": "text",
                   "version": 1
@@ -94,6 +103,75 @@
           "indent": 0,
           "type": "abstract",
           "version": 1
+        },
+        {
+          "type": "toc",
+          "version": 1,
+          "inner_array": [
+            {
+              "label": "sec:0",
+              "numberingString": "1",
+              "textContent": "Text content ",
+              "level": 1,
+              "pageNumber": 1
+            },
+            {
+              "label": "sec:1",
+              "numberingString": "1.1",
+              "textContent": "Titles and references",
+              "level": 2,
+              "pageNumber": 1
+            },
+            {
+              "label": "sec:4",
+              "numberingString": "1.2",
+              "textContent": "Other text elements",
+              "level": 2,
+              "pageNumber": 1
+            },
+            {
+              "label": "sec:6",
+              "numberingString": "2",
+              "textContent": "Math",
+              "level": 1,
+              "pageNumber": 1
+            },
+            {
+              "label": "sec:7",
+              "numberingString": "3",
+              "textContent": "Images",
+              "level": 1,
+              "pageNumber": 1
+            },
+            {
+              "label": "sec:8",
+              "numberingString": "3.1",
+              "textContent": "Inline image ",
+              "level": 2,
+              "pageNumber": 1
+            },
+            {
+              "label": "sec:9",
+              "numberingString": "3.2",
+              "textContent": "Figure ",
+              "level": 2,
+              "pageNumber": 1
+            },
+            {
+              "label": "sec:5",
+              "numberingString": "4",
+              "textContent": "Bibliographic references",
+              "level": 1,
+              "pageNumber": 1
+            },
+            {
+              "label": "sec:6",
+              "numberingString": "5",
+              "textContent": "Layout",
+              "level": 1,
+              "pageNumber": 1
+            }
+          ]
         },
         {
           "children": [
@@ -158,7 +236,7 @@
               "format": 0,
               "mode": "normal",
               "style": "",
-              "text": ". For the main title of the document, see Section ??. ",
+              "text": ". For the main title of the document, see in the \"Title page\" menu. ",
               "type": "text",
               "version": 1
             }
@@ -931,18 +1009,39 @@
           "textStyle": ""
         },
         {
-          "children": [],
-          "direction": null,
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "Layout",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
           "format": "",
           "indent": 0,
-          "type": "paragraph",
+          "type": "numbered-heading",
           "version": 1,
-          "textFormat": 0,
-          "textStyle": ""
+          "level": 1,
+          "is_numbered": true,
+          "label_number": 6
         },
         {
-          "children": [],
-          "direction": null,
+          "children": [
+            {
+              "detail": 0,
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "In order to anticipate better what the compiled document will look like, you can activate Display > \"Emulate layout\". This will add margins to the document, and activate the ability to change these margins and toggle two-column layout in the \"Options\" side-panel.",
+              "type": "text",
+              "version": 1
+            }
+          ],
+          "direction": "ltr",
           "format": "",
           "indent": 0,
           "type": "paragraph",
@@ -1045,6 +1144,6 @@
     }
   ],
   "documentStructure": {
-    "nextLabelNumber": 5
+    "nextLabelNumber": 7
   }
 }
