@@ -15,7 +15,6 @@
 - Text both italic and bold only appears as bold.
 - Math : can't use 2 (different) underscripts in a row, throws MathJax error.
 - Compilation : Empty (default) files fail to compile.
-- Compilation : Empty math nodes causes fail (probably because it creates '$$' that is never closed)
 - Page title : Authors can be wrongly added above a preexisting abstract
 - Display : size of images in Figures is not calculated correctly.
 

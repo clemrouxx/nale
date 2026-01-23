@@ -86,7 +86,8 @@ export class MathNode extends StylableNode {
   }
 
   toLatex(){
-    const formula = MathNodes.getFormula(this.__math_tree,false);
+    let formula = MathNodes.getFormula(this.__math_tree,false);
+    if (formula==="") formula = " ";// Solves compilation bug
     let s = "";
     if (this.__is_numbered){
       s += `\\begin{equation} \n ${formula} \n \\label{${this.getLabel()}} \n \\end{equation} \n`;
