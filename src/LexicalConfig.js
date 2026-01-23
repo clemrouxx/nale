@@ -19,6 +19,7 @@ import { AuthorListNode, AuthorNode } from './nodes/AuthorNodes';
 import { AffiliationListNode, AffiliationNode } from './nodes/AffiliationNodes';
 import { PageBreakNode } from './nodes/PageBreakNode';
 import { TableOfContentsNode } from './nodes/TableOfContentsNode';
+import { SkipNode } from './nodes/SkipNode';
 
 // Catch any errors that occur during Lexical updates and log them
 // or throw them as needed. If you don't throw them, Lexical will
@@ -56,6 +57,7 @@ export const initialConfig = {
         AffiliationNode,
         AffiliationListNode,
         PageBreakNode,
+        SkipNode,
         TableOfContentsNode
     ],
 };

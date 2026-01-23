@@ -77,6 +77,7 @@ import { useEditorOptions } from '../EditorOptionsContext.jsx';
 import { $createPageBreakNode } from '../../nodes/PageBreakNode.jsx';
 import { $betterPatchStyle } from '../../utils/lexicalUtils.js';
 import { insertTableOfContentsNode } from '../../nodes/TableOfContentsNode.jsx';
+import { $createSkipNode } from '../../nodes/SkipNode.jsx';
 
 const DEFAULT_COLORS = ["blue","red","green","violet","purple","magenta","orange","cyan","teal","olive","brown","white","pink","lime","yellow","lightgray","gray","darkgray","black",]
 
@@ -640,6 +641,7 @@ export default function ToolbarPlugin({
             buttonIconClassName="plus"
             chevron={false}>
 
+            <DropDownItemWithIcon title={"Medium skip"} onClick={() => activeEditor.update(() => $insertNodes([$createSkipNode()]))} iconClassName={"page-break"}/>
             <DropDownItemWithIcon title={"Page break"} onClick={() => activeEditor.update(() => $insertNodes([$createPageBreakNode()]))} iconClassName={"page-break"} disabled={!(editorOptions.emulateLayout)}/>
           </DropDown>
         </div>

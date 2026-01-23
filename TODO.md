@@ -28,7 +28,6 @@
 - Add warning when closing tab without saving
 - Math : add [...), (...] and ability to add just the left delimiter alone if wanted.
 - Ability to make images (not just Figures) behave as a block, and be centered
-- Table of contents
 
 ### Simple tweaks
 - Math : using the colored text menu should also work with math

@@ -303,6 +303,10 @@
     content: "PAGE BREAK";
 }
 
+.editor-skip{
+    height: calc(var(--editor-scale) * 6pt);
+}
+
 div.selectablecomponent.selected{
     outline: solid var(--selection-primary) 3px;
 }
