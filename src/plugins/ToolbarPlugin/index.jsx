@@ -15,7 +15,7 @@ import {
 import { $patchStyleText } from '@lexical/selection';
 import {$isLinkNode} from '@lexical/link';
 import {$isListNode, ListNode} from '@lexical/list';
-import {$isTableNode, $isTableSelection} from '@lexical/table';
+import {$createTableNodeWithDimensions, $isTableNode, $isTableSelection, INSERT_TABLE_COMMAND} from '@lexical/table';
 import {
   $findMatchingParent,
   $getNearestNodeOfType,
@@ -88,6 +88,14 @@ function dropDownActiveClass(active) {
     return '';
   }
 }
+
+
+const insertTable = (editor) => {
+  editor.update(() => {
+    const tableNode = $createTableNodeWithDimensions(3, 3, false);
+    $insertNodes([tableNode]);
+  });
+};
 
 function BlockFormatDropDown({
   editor,
@@ -606,11 +614,18 @@ export default function ToolbarPlugin({
                     replaceMode={false}
                   />
                 ));
-              }}
-              className="item">
+              }}>
               <i className="icon figure" />
               <span className="text">Figure</span>
               <span className="shortcut">Ctrl+Shift+F</span>
+            </DropDownItem>
+            <DropDownItem
+              onClick={() => {
+                console.log("ok");
+                insertTable(activeEditor);
+              }}>
+              <i className="icon figure" />
+              <span className="text">Table</span>
             </DropDownItem>
           </DropDown>
         </div>

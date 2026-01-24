@@ -389,3 +389,17 @@ div.selectablecomponent.selected{
     padding-left: 40px;
     font-size: 0.9em;
 }
+
+/* TABLES */
+
+.editor-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.editor-table-cell {
+  border: 1px solid #ccc;
+  padding: 8px;
+  min-width: 50px;
+  background-color: red;
+}

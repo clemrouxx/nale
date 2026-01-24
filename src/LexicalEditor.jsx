@@ -27,6 +27,7 @@ import { showToast } from './ui/Toast';
 import { AffiliationsPlugin } from './nodes/AffiliationNodes';
 import PreventRefocusPlugin from './plugins/PreventRefocusPlugin';
 import PageAnchor from './ui/PageAnchor';
+import { TablePlugin } from '@lexical/react/LexicalTablePlugin';
 
 function Editor() {
   const [editor] = useLexicalComposerContext();
@@ -178,6 +179,7 @@ function Editor() {
           <AuthorshipPlugin/>
           <AffiliationsPlugin/>
           <PreventRefocusPlugin />
+          <TablePlugin />
         </div>
         <VirtualKeyboardContainer/>
     </>

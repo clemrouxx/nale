@@ -36,6 +36,9 @@ const theme = {
     debug: 'editor-debug',
     code: 'editor-code',
     figure: 'editor-figure',
+    table: 'editor-table',
+    tableCell: 'editor-table-cell',
+    tableCellHeader: 'editor-table-cell-header',
     caption: 'editor-caption',
     codeHighlight: {
       atrule: 'editor-tokenAttr',
