@@ -641,7 +641,8 @@ export default function ToolbarPlugin({
             buttonIconClassName="plus"
             chevron={false}>
 
-            <DropDownItemWithIcon title={"Medium skip"} onClick={() => activeEditor.update(() => $insertNodes([$createSkipNode()]))} iconClassName={"page-break"}/>
+            <DropDownItemWithIcon title={"Small skip"} onClick={() => activeEditor.update(() => $insertNodes([$createSkipNode("small")]))} iconClassName={"page-break"}/>
+            <DropDownItemWithIcon title={"Medium skip"} onClick={() => activeEditor.update(() => $insertNodes([$createSkipNode("med")]))} iconClassName={"page-break"}/>
             <DropDownItemWithIcon title={"Page break"} onClick={() => activeEditor.update(() => $insertNodes([$createPageBreakNode()]))} iconClassName={"page-break"} disabled={!(editorOptions.emulateLayout)}/>
           </DropDown>
         </div>

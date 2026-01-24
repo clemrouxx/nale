@@ -303,8 +303,12 @@
     content: "PAGE BREAK";
 }
 
-.editor-skip{
+.editor-skip.medskip{
     height: calc(var(--editor-scale) * 6pt);
+}
+
+.editor-skip.smallskip{
+    height: calc(var(--editor-scale) * 3pt);
 }
 
 div.selectablecomponent.selected{

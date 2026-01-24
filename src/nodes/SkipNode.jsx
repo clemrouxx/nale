@@ -5,17 +5,18 @@ import { SelectableComponent } from '../plugins/SelectableComponent';
 export class SkipNode extends DecoratorNode {
   static getType() {return 'skip'}
 
-  constructor(key) {
+  constructor(size,key) {
       super(key);
+      this.__size = size;
   }
 
   static clone(node) {
-    return new SkipNode(node.__key);
+    return new SkipNode(node.__size,node.__key);
   }
 
   createDOM() {
     const div = document.createElement('div');
-    div.className = "editor-skip";
+    div.className = `editor-skip ${this.__size}skip`;
     return div;
   }
 
@@ -37,13 +38,20 @@ export class SkipNode extends DecoratorNode {
     return true;
   }
 
-  toLatex() {return "\\medskip\n" }
+  toLatex() {return `\\${this.__size}skip\n` }
 
   static importJSON(serializedNode) {
-    return new SkipNode();
+    return new SkipNode(serializedNode.size);
+  }
+
+   exportJSON() {
+    return {
+      ...super.exportJSON(),
+      size : this.__size,
+    };
   }
 }
 
-export function $createSkipNode(){
-  return new SkipNode();
+export function $createSkipNode(size){
+  return new SkipNode(size);
 }
