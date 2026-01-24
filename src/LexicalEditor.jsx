@@ -161,7 +161,7 @@ function Editor() {
                 aria-placeholder={""}
                 placeholder={<></>}
                 className={`editor-base ${getAdditionalEditorClassName(documentOptions,editorOptions)}`}
-                spellCheck={false}
+                spellCheck={true}
                 ref={editorRef}
               />
               }
