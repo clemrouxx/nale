@@ -9,11 +9,11 @@ import { InsertImageDialog } from "../ImagesPlugin";
 const OPTIONS_CATEGORY_PER_NODETYPE = {
     paragraph : "paragraphs",
     "numbered-heading":"headings",
-    caption:"figures",
     "captioned-image":"figures",
     title:"title",
     abstract:"abstract",
     affiliation: "affiliations",
+    table:"tables",
 }
 
 const latexFontSizes = [
@@ -39,10 +39,15 @@ export function AutoOptionsPanel() { // Automatically chooses the relevant optio
             useParentNode = true;
             nodeType = activeNodeParent.getType(); // Go up one node in this case
         }
-        // Specific case : if we are in an abstract (and only from a text or paragraph), it takes priority
-        if (nodeType === "paragraph" && activeNodeAncestorTypes.includes("abstract")) nodeType = "abstract";
-        if (nodeType in OPTIONS_CATEGORY_PER_NODETYPE){
+        // Specific case : if we are in an abstract (and only from a text or paragraph), it takes priority;
+        if (nodeType === "paragraph" && activeNodeAncestorTypes.includes("abstract")) category = "abstract";
+        else if (nodeType in OPTIONS_CATEGORY_PER_NODETYPE){
             category = OPTIONS_CATEGORY_PER_NODETYPE[nodeType];
+        }
+        // Specific case : caption
+        else if (nodeType==="caption"){
+            if (useParentNode) category = (activeNodeParent.getFloatType()==="figure"?"figures":"tables");
+            else category = (activeNode.getFloatType()==="figure"?"figures":"tables");
         }
     }
     return (
@@ -224,11 +229,11 @@ export function GlobalOptionsPanel({category}) {
                 <>
                 <h4>Global figures options</h4>
                 <div>
-                    <label htmlFor="figureName">Figure name: </label>
+                    <label htmlFor="name">Figure name: </label>
                     <input
                     type="text"
-                    name={"figureName"}
-                    value={documentOptions.figures.figureName}
+                    name={"name"}
+                    value={documentOptions.figures.name}
                     onChange={handleInputChange}
                     />
                 </div>
@@ -238,6 +243,31 @@ export function GlobalOptionsPanel({category}) {
                     type="text"
                     name={"labelSeparator"}
                     value={documentOptions.figures.labelSeparator}
+                    onChange={handleInputChange}
+                    />
+                </div>
+                </>
+            );
+            break;
+        case "tables":
+            inner = (
+                <>
+                <h4>Global tables options</h4>
+                <div>
+                    <label htmlFor="name">Table name: </label>
+                    <input
+                    type="text"
+                    name={"name"}
+                    value={documentOptions.tables.name}
+                    onChange={handleInputChange}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="labelSeparator">Label separator: </label>
+                    <input
+                    type="text"
+                    name={"labelSeparator"}
+                    value={documentOptions.tables.labelSeparator}
                     onChange={handleInputChange}
                     />
                 </div>

@@ -77,8 +77,8 @@ function convertDocumentOptions(documentOptions){
     }
 
     // figure options
-    if (documentOptions.figures.figureName !== DEFAULT_DOCUMENT_OPTIONS.figures.figureName){
-        latex += `\\renewcommand{\\figurename}{${documentOptions.figures.figureName}}`;
+    if (documentOptions.figures.name !== DEFAULT_DOCUMENT_OPTIONS.figures.name){
+        latex += `\\renewcommand{\\figurename}{${documentOptions.figures.name}}`;
     }
     if (documentOptions.figures.labelSeparator !== DEFAULT_DOCUMENT_OPTIONS.figures.labelSeparator){
         latex += `\\usepackage{caption}

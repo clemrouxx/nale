@@ -15,7 +15,7 @@ import {
 import { $patchStyleText } from '@lexical/selection';
 import {$isLinkNode} from '@lexical/link';
 import {$isListNode, ListNode} from '@lexical/list';
-import {$createTableNodeWithDimensions, $isTableNode, $isTableSelection, INSERT_TABLE_COMMAND} from '@lexical/table';
+import { $isTableNode, $isTableSelection, INSERT_TABLE_COMMAND} from '@lexical/table';
 import {
   $findMatchingParent,
   $getNearestNodeOfType,
@@ -78,6 +78,7 @@ import { $createPageBreakNode } from '../../nodes/PageBreakNode.jsx';
 import { $betterPatchStyle } from '../../utils/lexicalUtils.js';
 import { insertTableOfContentsNode } from '../../nodes/TableOfContentsNode.jsx';
 import { $createSkipNode } from '../../nodes/SkipNode.jsx';
+import { insertTable } from '../../nodes/TableFloatNode.jsx';
 
 const DEFAULT_COLORS = ["blue","red","green","violet","purple","magenta","orange","cyan","teal","olive","brown","white","pink","lime","yellow","lightgray","gray","darkgray","black",]
 
@@ -88,14 +89,6 @@ function dropDownActiveClass(active) {
     return '';
   }
 }
-
-
-const insertTable = (editor) => {
-  editor.update(() => {
-    const tableNode = $createTableNodeWithDimensions(3, 3, false);
-    $insertNodes([tableNode]);
-  });
-};
 
 function BlockFormatDropDown({
   editor,
@@ -286,6 +279,7 @@ export default function ToolbarPlugin({
   const [isEditable, setIsEditable] = useState(() => editor.isEditable());
   const {toolbarState, updateToolbarState} = useToolbarState();
   const {editorOptions} = useEditorOptions();
+  const {documentOptions} = useDocumentOptions();
 
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -622,7 +616,7 @@ export default function ToolbarPlugin({
             <DropDownItem
               onClick={() => {
                 console.log("ok");
-                insertTable(activeEditor);
+                insertTable(activeEditor,documentOptions);
               }}>
               <i className="icon figure" />
               <span className="text">Table</span>

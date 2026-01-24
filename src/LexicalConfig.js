@@ -21,6 +21,7 @@ import { PageBreakNode } from './nodes/PageBreakNode';
 import { TableOfContentsNode } from './nodes/TableOfContentsNode';
 import { SkipNode } from './nodes/SkipNode';
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
+import { TableFloatNode } from './nodes/TableFloatNode';
 
 // Catch any errors that occur during Lexical updates and log them
 // or throw them as needed. If you don't throw them, Lexical will
@@ -38,7 +39,6 @@ export const initialConfig = {
         QuoteNode,
         ListNode,
         ListItemNode,
-        HorizontalRuleNode,
         CodeNode,
         LinkNode,
         LatexNode,
@@ -62,6 +62,7 @@ export const initialConfig = {
         TableOfContentsNode,
         TableNode,
         TableCellNode,
-        TableRowNode
+        TableRowNode,
+        TableFloatNode
     ],
 };

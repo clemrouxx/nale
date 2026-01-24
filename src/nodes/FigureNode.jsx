@@ -88,6 +88,6 @@ ${childrenString}
 export function $createFigureNode(imagePayload,labelNumber,documentOptions) {
     const figureNode = new FigureNode(imagePayload.src,0,labelNumber);
     figureNode.append($createCaptionedImageNode(imagePayload));
-    figureNode.append($createCaptionNode(documentOptions));
+    figureNode.append($createCaptionNode("figure",documentOptions));
     return figureNode;
 }

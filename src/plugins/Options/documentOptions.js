@@ -13,7 +13,11 @@ export const DEFAULT_DOCUMENT_OPTIONS = {
         indentFirst : false,
     },
     figures : {
-        figureName : "Figure",
+        name : "Figure",
+        labelSeparator : ":",
+    },
+    tables : {
+        name : "Table",
         labelSeparator : ":",
     },
     title : {

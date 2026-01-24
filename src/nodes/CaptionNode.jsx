@@ -5,24 +5,28 @@ import {
 import { DEFAULT_DOCUMENT_OPTIONS } from "../plugins/Options/documentOptions";
 
 export class CaptionNode extends ParagraphNode{
-    __figures_options;
+    __specific_options;
     __number;
+    __float_type;
 
-    constructor(number,figures_options,key){
+    constructor(float_type,number,specific_options,key){
         super(key);
-        this.__figures_options = figures_options ?? DEFAULT_DOCUMENT_OPTIONS.figures;
+        this.__float_type = float_type;
+        this.__specific_options = specific_options ?? (float_type==="figure" ? DEFAULT_DOCUMENT_OPTIONS.figures : DEFAULT_DOCUMENT_OPTIONS.tables );
         this.__number = number ?? 0;
     }
 
     static getType() { return "caption" }
 
-    static clone(node){ return new CaptionNode(node.__number,structuredClone(node.__figures_options),node.__key) }
+    getFloatType() { return this.__float_type }
+
+    static clone(node){ return new CaptionNode(node.__float_type,node.__number,structuredClone(node.__specific_options),node.__key) }
 
     setNumber(number){ this.getWritable().__number = number }
 
     setDocumentOptions(documentOptions){
         const writable = this.getWritable();
-        writable.__figures_options = documentOptions.figures;
+        writable.__specific_options = this.__float_type==="figure" ? documentOptions.figures : documentOptions.tables;
         writable.markDirty();
     }
 
@@ -36,7 +40,7 @@ export class CaptionNode extends ParagraphNode{
     }
 
     getPrefix(){
-        return `${this.__figures_options.figureName} ${this.__number}${this.__figures_options.labelSeparator}`;
+        return `${this.__specific_options.name} ${this.__number}${this.__specific_options.labelSeparator}`;
     }
 
     updateDOM(prevNode){ return prevNode.getPrefix() !== this.getPrefix() }
@@ -44,13 +48,14 @@ export class CaptionNode extends ParagraphNode{
     // Serializaton
 
     static importJSON(serializedNode) {
-        return new CaptionNode(serializedNode.number,DEFAULT_DOCUMENT_OPTIONS.figures_options);
+        return new CaptionNode(serializedNode.float_type,serializedNode.number,serializedNode.float_type==="figure"?DEFAULT_DOCUMENT_OPTIONS.figures:DEFAULT_DOCUMENT_OPTIONS.tables);
     }
 
     exportJSON() {
         return {
             ...super.exportJSON(),
             number : this.__number,
+            float_type : this.__float_type,
         };
     }
 
@@ -69,8 +74,8 @@ export class CaptionNode extends ParagraphNode{
 
 }
 
-export function $createCaptionNode(documentOptions){
-    return new CaptionNode(null,documentOptions.figures);
+export function $createCaptionNode(float_type,documentOptions){
+    return new CaptionNode(float_type,null,float_type==="figure"?documentOptions.figures:documentOptions.tables);
 }
 
 function $isCaptionNode(node){ return node instanceof CaptionNode }
