@@ -126,6 +126,10 @@ button.toolbar-item.active i {
   background-color: var(--bg-softest);
   margin: 0 4px;
 }
+
+i{
+  background-repeat: no-repeat;
+}
   
 i.image {
   background-image: url(/images/icons/file-image.svg);
@@ -208,10 +212,6 @@ i.download {
 
 i.share {
   background-image: url(/images/icons/send.svg);
-}
-
-i.equation {
-  background-image: url(/images/icons/plus-slash-minus.svg);
 }
 
 i.copy {
@@ -310,6 +310,13 @@ i.clipboard { background-image: url(/images/icons/clipboard.svg) }
 i.page-break { background-image: url(/images/icons/page-break.svg) }
 i.chevron-right{ background-image: url(/images/icons/chevron-right.svg) }
 i.textcolor { background-image: url(/images/icons/palette.svg) }
+i.table-insert-right { background-image: url(/images/icons/table-insert-right.svg) }
+i.table-insert-left { background-image: url(/images/icons/table-insert-left.svg) }
+i.table-insert-above { background-image: url(/images/icons/table-insert-above.svg) }
+i.table-insert-below { background-image: url(/images/icons/table-insert-below.svg) }
+i.table-delete-row { background-image: url(/images/icons/table-delete-row.svg) }
+i.table-delete-column { background-image: url(/images/icons/table-delete-column.svg) }
+
 
 .dropdown {
   z-index: 100;

@@ -15,7 +15,7 @@ import {
 import { $patchStyleText } from '@lexical/selection';
 import {$isLinkNode} from '@lexical/link';
 import {$isListNode, ListNode} from '@lexical/list';
-import { $isTableNode, $isTableSelection, INSERT_TABLE_COMMAND} from '@lexical/table';
+import { $insertTableColumnAtSelection, $insertTableRowAtSelection, $deleteTableRowAtSelection, $deleteTableColumnAtSelection, $isTableNode, $isTableSelection } from '@lexical/table';
 import {
   $findMatchingParent,
   $getNearestNodeOfType,
@@ -269,6 +269,55 @@ function ColorTextButton({editor}) {
   );
 }
 
+function TableToolbar({editor}) {
+  const insertRowAbove = () => {
+    editor.update(() => {
+      $insertTableRowAtSelection(false);
+    });
+  };
+
+  const insertRowBelow = () => {
+    editor.update(() => {
+      $insertTableRowAtSelection(true);
+    });
+  };
+
+  const deleteRow = () => {
+    editor.update(() => {
+      $deleteTableRowAtSelection();
+    });
+  };
+
+  const insertColumnLeft = () => {
+    editor.update(() => {
+      $insertTableColumnAtSelection(false);
+    });
+  };
+
+  const insertColumnRight = () => {
+    editor.update(() => {
+      $insertTableColumnAtSelection(true);
+    });
+  };
+
+  const deleteColumn = () => {
+    editor.update(() => {
+      $deleteTableColumnAtSelection();
+    });
+  };
+
+  return (
+    <div className='toolbar-itemgroup'>
+      <button onClick={insertRowAbove} className='toolbar-item' title='Insert row above'><i className="icon format table-insert-above"></i></button>
+      <button onClick={insertRowBelow} className='toolbar-item' title='Insert row below'><i className="icon format table-insert-below"></i></button>
+      <button onClick={deleteRow} className='toolbar-item' title='Delete row'><i className="icon format table-delete-row"></i></button>
+      <button onClick={insertColumnLeft} className='toolbar-item' title='Insert column left'><i className="icon format table-insert-left"></i></button>
+      <button onClick={insertColumnRight} className='toolbar-item' title='Insert column right'><i className="icon format table-insert-right"></i></button>
+      <button onClick={deleteColumn} className='toolbar-item' title='Delete column'><i className="icon format table-delete-column"></i></button>
+    </div>
+  );
+}
+
 export default function ToolbarPlugin({
   editor,
   activeEditor,
@@ -306,13 +355,13 @@ export default function ToolbarPlugin({
       const parent = node.getParent();
 
       // Checking if we are in a table
-      /*
+      
       const tableNode = $findMatchingParent(node, $isTableNode);
       if ($isTableNode(tableNode)) {
         updateToolbarState('rootType', 'table');
       } else {
         updateToolbarState('rootType', 'root');
-      }*/
+      }
 
       if (elementDOM !== null) {
         if ($isListNode(element)) {
@@ -482,7 +531,7 @@ export default function ToolbarPlugin({
       activeEditor === editor && (
         <div className="toolbar-itemgroup">
           <BlockFormatDropDown
-            disabled={!isEditable}
+            disabled={(!isEditable || toolbarState.rootType==="table")}
             blockType={toolbarState.blockType}
             rootType={toolbarState.rootType}
             editor={activeEditor}
@@ -615,10 +664,9 @@ export default function ToolbarPlugin({
             </DropDownItem>
             <DropDownItem
               onClick={() => {
-                console.log("ok");
                 insertTable(activeEditor,documentOptions);
               }}>
-              <i className="icon figure" />
+              <i className="icon table" />
               <span className="text">Table</span>
             </DropDownItem>
           </DropDown>
@@ -655,6 +703,8 @@ export default function ToolbarPlugin({
             <DropDownItemWithIcon title={"Page break"} onClick={() => activeEditor.update(() => $insertNodes([$createPageBreakNode()]))} iconClassName={"page-break"} disabled={!(editorOptions.emulateLayout)}/>
           </DropDown>
         </div>
+
+        {toolbarState.rootType==="table" && <TableToolbar editor={activeEditor} />}
       </>
     )}
 
