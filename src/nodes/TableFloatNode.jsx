@@ -9,23 +9,38 @@ import { $createTableNodeWithDimensions } from '@lexical/table';
 export class TableFloatNode extends ElementNode {
     static getType() {return 'table-float'}
 
-    constructor(key) {
+    constructor(number,label_number,key) {
         super(key);
+        this.__number = number ?? 0;
+        this.__label_number = label_number;
     }
   
     static clone(node) {
-        return new TableFloatNode(node.__key,);
+        return new TableFloatNode(node.__number,node.__label_number,node.__key);
+    }
+
+    getNumber(){ return this.__number }
+    getLabel(){ return `table:${this.__label_number}` }
+    setNumber(number){ 
+        this.getWritable().__number = number;
+        this.getChildren().forEach(childNode=>{
+            if (childNode instanceof CaptionNode) childNode.setNumber(number);
+        });
+    }
+    updateNumber(number){
+        if (number !== this.__number) this.setNumber(number);
     }
 
     // Serialization
 
     static importJSON(serializedNode) {
-        return new TableFloatNode();
+        return new TableFloatNode(serializedNode.label_number);
     }
 
     exportJSON() {
         return {
             ...super.exportJSON(),
+            label_number:this.__label_number,
             type:"table-float",
         };
     }
@@ -35,6 +50,7 @@ export class TableFloatNode extends ElementNode {
     createDOM(config) {
         const element = document.createElement('div');
         addClassNamesToElement(element, "editor-table-float");
+        element.setAttribute("id",this.getLabel());
         return element;
     }
   
@@ -58,16 +74,16 @@ ${childrenString}
     }*/
   }
   
-function $createTableFloatNode(documentOptions) {
-    const node = new TableFloatNode();
+function $createTableFloatNode(labelNumber,documentOptions) {
+    const node = new TableFloatNode(0,labelNumber);
     node.append($createTableNodeWithDimensions(3,3,false));
     node.append($createCaptionNode("table",documentOptions));
     return node;
 }
 
-export const insertTable = (editor,documentOptions) => {
+export const insertTable = (editor,labelNumber,documentOptions) => {
   editor.update(() => {
-    const tableFloatNode = $createTableFloatNode(documentOptions);
+    const tableFloatNode = $createTableFloatNode(labelNumber,documentOptions);
     $insertNodes([tableFloatNode]);
   });
 };

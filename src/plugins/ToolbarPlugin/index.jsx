@@ -664,7 +664,7 @@ export default function ToolbarPlugin({
             </DropDownItem>
             <DropDownItem
               onClick={() => {
-                insertTable(activeEditor,documentOptions);
+                insertTable(activeEditor,nextLabelNumber,documentOptions);
               }}>
               <i className="icon table" />
               <span className="text">Table</span>
