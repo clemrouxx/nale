@@ -106,5 +106,5 @@ export class MathNode extends StylableNode {
 }
 
 export function $createMathNode(inline,label){
-  return new MathNode(inline,structuredClone(MathNodes.DEFAULT_TREE),0,false,label,DEFAULT_TEXT_STYLE);
+  return new MathNode(inline,structuredClone(MathNodes.DEFAULT_TREE),0,!inline,label,DEFAULT_TEXT_STYLE);
 }
