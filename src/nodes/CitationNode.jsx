@@ -69,18 +69,20 @@ export class CitationNode extends DecoratorNode {
   toLatex(){return `\\cite{${this.__citation_keys.join(",")}}`}
 }
 
-export function insertCitation(editor,citationKey) {
+export function insertCitation(editor,citationKeys) {
   return editor.update(() => {
     const selection = $getSelection();
     
     // We need to find when we are right after a citation node
     const citationNode = $findSelectedOrBeforeCursor("citation");
     if (citationNode){
-      citationNode.addCitationKey(citationKey);
+      citationKeys.forEach(key => {
+        citationNode.addCitationKey(key);
+      });
       return true;
     }
     else if (selection){
-      selection.insertNodes([new CitationNode([citationKey])]);
+      selection.insertNodes([new CitationNode(citationKeys)]);
       return true;
     }
     return false;

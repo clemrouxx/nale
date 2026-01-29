@@ -4,7 +4,7 @@ import { showToast } from "../ui/Toast";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useDocumentStructureContext } from "../plugins/NumberingPlugin/DocumentStructureContext";
 
-function parseBibTeX(bibContent) {
+export function parseBibTeX(bibContent) {
     const entries = [];
     
     // Regular expression to identify each BibTeX entry
@@ -89,15 +89,16 @@ function handleTextInput(text,editor,biblio,setBiblio){
       return;
     }
     setBiblio(biblio.concat(parsedEntries));
-    if (parsedEntries.length===1){
-      const wasInserted = insertCitation(editor,parsedEntries[0].key);
-      if (!wasInserted){
-        showToast("Entry successfully added to the list. Use toolbar to insert.",4000,"success");
-      }
+    const wasInserted = insertCitation(editor,parsedEntries.map(obj => obj.key));
+    if (!wasInserted){
+      showToast("Entry successfully added to the list. Use toolbar to insert.",4000,"success");
     }
-    else{
-      showToast("Entries successfully added to the list. Use toolbar to insert.",4000,"success");
-    } 
+}
+
+export function insertNewCitation(parsedEntries,editor,biblio,setBiblio){
+  setBiblio(biblio.concat(parsedEntries));
+  const wasInserted = insertCitation(editor,parsedEntries.map(obj => obj.key));
+  return wasInserted;
 }
 
 export async function addBiblioFromClipboard(editor,biblio,setBiblio,showModal){
@@ -142,8 +143,11 @@ export function bibItemToUIString(bibItem) {
       return bibItem.key;
     }
     
-    // Extract last names from author array
-    const lastNames = bibItem.author.map(author => author.lastName).join(', ');
+    // Extract last names from author array (and slice if too long)
+    const authors = bibItem.author;
+    const lastNames = authors.length > 4
+    ? authors.slice(0, 4).map(a => a.lastName).join(', ') + ' et al.'
+    : authors.map(a => a.lastName).join(', ');
     
     // Format the output
     return `${lastNames}, "${bibItem.title}"`;

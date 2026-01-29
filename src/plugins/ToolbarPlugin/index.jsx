@@ -228,7 +228,7 @@ function CitationDropDown({editor}){
       <DropDownItemWithIcon onClick={() => addBiblioFromClipboard(editor,biblio,setBiblio,showModal)} iconClassName={"clipboard"} title={"From clipboard..."}/>
       <DropDownItemWithIcon onClick={() => insertBibliographyNode(editor)} iconClassName={"plus"} title={"Insert Bibliography"}/>
       {biblio.map(bibitem => (
-        <DropDownItem key={bibitem.key} className={"can-be-wide"} onClick={()=>insertCitation(editor,bibitem.key)}>
+        <DropDownItem key={bibitem.key} className={"can-be-wide"} onClick={()=>insertCitation(editor,[bibitem.key])}>
           {bibItemToUIString(bibitem)}
         </DropDownItem>
       ))}
