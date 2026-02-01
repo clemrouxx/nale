@@ -63,15 +63,15 @@ export class TableFloatNode extends ElementNode {
     isShadowRoot(){return true}
 
     // Export
-    /*
+    
     toLatex(childrenString){
         return (
-`\\begin{figure}
+`\\begin{table}
     \\centering
 ${childrenString}
-\\end{figure}
+\\end{table}
 `);
-    }*/
+    }
   }
   
 export function $createTableFloatNode(labelNumber,documentOptions) {

@@ -19,7 +19,6 @@ export default function TablesPlusPlugin() {
   const {documentOptions} = useDocumentOptions();
 
   useEffect(() => {
-
     return mergeRegister(
       editor.registerCommand(
         INSERT_TABLE_FLOAT_COMMAND, // Essentially same as for INSERT_FIGURE_COMMAND

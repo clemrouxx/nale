@@ -32,6 +32,17 @@ export class TablePlusNode extends TableNode {
     self.__columnAlignments[columnIndex] = alignment;
   }
 
+  getColumnCount() {
+    const self = this.getLatest();
+    const firstRow = self.getFirstChild(); // Get first TableRowNode
+    
+    if (!firstRow) {
+      return 0;
+    }
+    
+    return firstRow.getChildrenSize(); // Number of cells in first row
+  }
+
   exportJSON() {
     return {
       ...super.exportJSON(),
@@ -46,12 +57,18 @@ export class TablePlusNode extends TableNode {
     node.__columnAlignments = serializedNode.columnAlignments || {};
     return node;
   }
+
+  toLatex(childrenstring){
+    return `  \\begin{tabular}{|${'l|'.repeat(this.getColumnCount())}}
+    ${childrenstring}
+    \\end{tablular}
+    `
+  }
 }
 
 export function $createTablePlusNode(){
     return new TablePlusNode();
 }
-
 
 export function $createTablePlusNodeWithDimensions(rowCount,columnCount) {
   const tableNode = $createTablePlusNode();
