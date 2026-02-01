@@ -1,8 +1,11 @@
 .editor-base{
     font-family: 'CMU Serif', serif;
-    background-color: white;
-    color: black;
+    --editor-background-color: white;
+    --editor-text-color: black;
 
+    background-color: var(--editor-background-color);
+    color: var(--editor-text-color);
+    
     --fontsize-base : 10pt;
 
     --fontsize-normal: calc(var(--editor-scale)*var(--fontsize-base));
@@ -35,8 +38,8 @@
 }
 
 .editor-base.editor-dark{
-    background-color: black;
-    color: white;
+    --editor-background-color: black;
+    --editor-text-color: white;
 }
 
 .editor-block{ /* Because these are also needed in the toolbar */
@@ -343,7 +346,7 @@ div.selectablecomponent.selected{
 
 .editor-toc-item a {
     text-decoration: none;
-    color: #000;
+    color: var(--editor-text-color);
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -365,7 +368,7 @@ div.selectablecomponent.selected{
     min-width: 20px;
     height: 0.7em;
     /* Making the dots : let's use a repeating radial gradient. Not ideal (the dots can be cropped) but easily customizable */
-    background-image: radial-gradient(circle, black 0.07em, transparent 0.08em);
+    background-image: radial-gradient(circle, var(--editor-text-color) 0.07em, transparent 0.08em);
     background-position: bottom right;/* At least no clipping on the right */
     background-size: .8em 0.16em;
     background-repeat: repeat-x;
@@ -397,7 +400,7 @@ div.selectablecomponent.selected{
 }
 
 .editor-table-cell {
-  border: 1px solid black;
+  border: 1px solid var(--editor-text-color);
   padding: 8px;
   min-width: 50px;
 }

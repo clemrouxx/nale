@@ -29,6 +29,7 @@ import PreventRefocusPlugin from './plugins/PreventRefocusPlugin';
 import PageAnchor from './ui/PageAnchor';
 import { TablePlugin } from '@lexical/react/LexicalTablePlugin';
 import CitationsPlugin from './plugins/CitationsPlugin';
+import TablesPlusPlugin from './plugins/TablesPlusPlugin';
 
 function Editor() {
   const [editor] = useLexicalComposerContext();
@@ -181,6 +182,7 @@ function Editor() {
           <AffiliationsPlugin/>
           <PreventRefocusPlugin />
           <TablePlugin />
+          <TablesPlusPlugin />
           <CitationsPlugin/>
         </div>
         <VirtualKeyboardContainer/>

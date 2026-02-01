@@ -74,16 +74,9 @@ ${childrenString}
     }*/
   }
   
-function $createTableFloatNode(labelNumber,documentOptions) {
+export function $createTableFloatNode(labelNumber,documentOptions) {
     const node = new TableFloatNode(0,labelNumber);
     node.append($createTableNodeWithDimensions(3,3,false));
     node.append($createCaptionNode("table",documentOptions));
     return node;
 }
-
-export const insertTable = (editor,labelNumber,documentOptions) => {
-  editor.update(() => {
-    const tableFloatNode = $createTableFloatNode(labelNumber,documentOptions);
-    $insertNodes([tableFloatNode]);
-  });
-};
