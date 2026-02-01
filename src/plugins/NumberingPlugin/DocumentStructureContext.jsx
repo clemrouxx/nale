@@ -6,6 +6,7 @@ export function DocumentStructureProvider({ children }) {
   const [numberedHeadings,setNumberedHeadings] = useState([]);
   const [biblio,setBiblio] = useState([]);
   const [figures,setFigures] = useState([]);
+  const [tables,setTables] = useState([]);
   const [numberedEquations,setNumberedEquations] = useState([]);
   const [nextLabelNumber,setNextLabelNumber] = useState(0);
   
@@ -16,6 +17,8 @@ export function DocumentStructureProvider({ children }) {
     setBiblio,
     figures,
     setFigures,
+    tables,
+    setTables,
     numberedEquations,
     setNumberedEquations,
     nextLabelNumber,

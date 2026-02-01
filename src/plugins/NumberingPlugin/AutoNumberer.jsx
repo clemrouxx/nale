@@ -9,9 +9,10 @@ import { NumberedHeadingNode } from "../../nodes/NumberedHeadingNode";
 import { MathNode } from "../../nodes/MathNode";
 import MathNodes from "../MathPlugin/MathNodes";
 import { PageBreakNode } from "../../nodes/PageBreakNode";
+import { TableFloatNode } from "../../nodes/TableFloatNode";
 
 export function AutoNumberer(ref){
-    const {setNumberedHeadings,biblio,setFigures,setNumberedEquations} = useDocumentStructureContext();
+    const {setNumberedHeadings,biblio,setFigures,setTables,setNumberedEquations} = useDocumentStructureContext();
     const [editor] = useLexicalComposerContext();
     
     useEffect(() => 
@@ -23,10 +24,12 @@ export function AutoNumberer(ref){
                 // We start by refreshing the numbering of all the headings, and fill a dictionnary with the strings
                 let headingsNumbering = {1:0,2:0,3:0};
                 let figuresNumber = 0; // Last figure number
+                let tablesNumber = 0;
                 let equationsNumber = 0; // Idem, but for equations (numbered math blocks)
                 let pageNumber = 1;
                 const newheadings = [];
                 const newfigures = [];
+                const newtables = [];
                 const newequations = [];
                 const citationKeys = []; // In the order they appear
                 const root = $getRoot();
@@ -45,7 +48,12 @@ export function AutoNumberer(ref){
                     else if (node instanceof FigureNode){
                         figuresNumber++;
                         node.updateNumber(figuresNumber);
-                        newfigures.push({label:node.getLabel(),numberingString:figuresNumber.toString(),textContent:node.getTextContent()});
+                        newfigures.push({label:node.getLabel(),numberingString:figuresNumber.toString(),textContent:node.getTextContent()});// !!! I think the .toString() is to be changed; same for tables.
+                    }
+                    else if (node instanceof TableFloatNode){
+                        tablesNumber++;
+                        node.updateNumber(tablesNumber);
+                        newtables.push({label:node.getLabel(),numberingString:tablesNumber.toString(),textContent:node.getTextContent()});
                     }
                     else if (node instanceof MathNode && node.isNumbered()){
                         equationsNumber++;
@@ -99,6 +107,7 @@ export function AutoNumberer(ref){
                 // Used for the toolbar for example
                 setNumberedHeadings(newheadings);
                 setFigures(newfigures);
+                setTables(newtables);
                 setNumberedEquations(newequations);
             });
         });
