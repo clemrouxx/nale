@@ -4,7 +4,7 @@ import {
 } from 'lexical';
 import { addClassNamesToElement } from '@lexical/utils';
 import { $createCaptionNode, CaptionNode } from './CaptionNode';
-import { $createTableNodeWithDimensions } from '@lexical/table';
+import { $createTablePlusNodeWithDimensions } from './TablePlusNode';
 
 export class TableFloatNode extends ElementNode {
     static getType() {return 'table-float'}
@@ -76,7 +76,7 @@ ${childrenString}
   
 export function $createTableFloatNode(labelNumber,documentOptions) {
     const node = new TableFloatNode(0,labelNumber);
-    node.append($createTableNodeWithDimensions(3,3,false));
+    node.append($createTablePlusNodeWithDimensions(3,3));
     node.append($createCaptionNode("table",documentOptions));
     return node;
 }

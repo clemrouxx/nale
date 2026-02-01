@@ -7,7 +7,6 @@ import {
 } from 'lexical';
 import {useEffect} from 'react';
 
-import { TableNode } from '@lexical/table';
 import { $createTableFloatNode } from '../nodes/TableFloatNode';
 import { useDocumentStructureContext } from './NumberingPlugin/DocumentStructureContext';
 import { useDocumentOptions } from './Options/DocumentOptionsContext';
@@ -20,9 +19,6 @@ export default function TablesPlusPlugin() {
   const {documentOptions} = useDocumentOptions();
 
   useEffect(() => {
-    if (!editor.hasNodes([TableNode])) {
-      throw new Error('TablesPlusPlugin: TableNode not registered on editor');
-    }
 
     return mergeRegister(
       editor.registerCommand(
