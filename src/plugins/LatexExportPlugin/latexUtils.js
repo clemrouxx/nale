@@ -105,6 +105,7 @@ export function extractColorName(colorValue){ // Extracts "purple" from "var(--x
 
 export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Set(),title:null,authors:[]}){
     var string = "";
+    var childrenLatexList = [];
     
     if ($isTextNode(node)) {
         let text = node.getTextContent();
@@ -131,7 +132,8 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
         }
     }
     else if (node.getChildren){
-        string = node.getChildren().map((n)=>convertToLatex(n,documentOptions,bubbledInfo)).join('');
+        childrenLatexList = node.getChildren().map((n)=>convertToLatex(n,documentOptions,bubbledInfo));
+        string = childrenLatexList.join('');
     }
     
     if (node.toLatex){ // Conversion is defined in the node
@@ -167,7 +169,7 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
             break;
         case "text":
             break;
-        case "paragraph":
+        case "paragraph":// Should be treated differently depending on if in a table or not.
             if (string===""){
                 string = "\\bigskip\n"; // Lineskip
             }
@@ -184,6 +186,11 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
             break;
         case "listitem":
             string = "\t\\item " + string + "\n";
+            break;
+        case "tablecell":
+            break;
+        case "tablerow":
+            string = childrenLatexList.join(" & ") + "\\\\ \n \\hline \n";
             break;
         case "figure":
         case "image":

@@ -60,8 +60,9 @@ export class TablePlusNode extends TableNode {
 
   toLatex(childrenstring){
     return `  \\begin{tabular}{|${'l|'.repeat(this.getColumnCount())}}
+    \\hline
     ${childrenstring}
-    \\end{tablular}
+    \\end{tabular}
     `
   }
 }
