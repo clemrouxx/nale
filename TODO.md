@@ -17,7 +17,8 @@
 - Compilation : Empty (default) files fail to compile.
 - Page title : Authors can be wrongly added above a preexisting abstract
 - Display : size of images in Figures is not calculated correctly.
-
+- Tables : prevent deleting last row or column. (or maybe it should delete the float ?)
+- Tables : Make the cell selection visible.
 
 ## Features
 ### Priority features
@@ -28,6 +29,7 @@
 - Add warning when closing tab without saving
 - Math : add [...), (...] and ability to add just the left delimiter alone if wanted.
 - Ability to make images (not just Figures) behave as a block, and be centered
+- Tables : internal references, export...
 
 ### Simple tweaks
 - Math : using the colored text menu should also work with math
