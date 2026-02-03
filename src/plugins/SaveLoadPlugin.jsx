@@ -99,6 +99,7 @@ export function SaveProvider({ children }) {
         await writable.write(getTextToSave());
         await writable.close();
         showToast("Saved !",2000,"success");// Needs some user feedback because it is otherwise invisible
+        editor.dispatchCommand(CLEAR_HISTORY_COMMAND); // Reset History
         return true;
       }
       else{// First time saving... default to the same as saveAs
