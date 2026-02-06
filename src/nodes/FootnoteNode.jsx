@@ -1,4 +1,5 @@
 import { DecoratorNode } from 'lexical';
+import { SelectableComponent } from '../plugins/SelectableComponent';
 
 export class FootnoteNode extends DecoratorNode {
   __footnote_text;
@@ -21,7 +22,6 @@ export class FootnoteNode extends DecoratorNode {
   createDOM(config) {
     const span = document.createElement('span');
     span.className = 'footnote-reference';
-    span.style.cssText = 'vertical-align: super; font-size: smaller; cursor: pointer;';
     return span;
   }
 
@@ -39,7 +39,7 @@ export class FootnoteNode extends DecoratorNode {
     return self.__number;
   }
 
-  setFootNodeText(footnoteText) {
+  setFootnoteText(footnoteText) {
     const writable = this.getWritable();
     writable.__footnote_text = footnoteText;
   }
@@ -68,9 +68,13 @@ export class FootnoteNode extends DecoratorNode {
   }
 
   decorate(){
-    return <span className="footnote-reference">
-      [{this.__number || '?'}]
-    </span>
+    return (<SelectableComponent inline={true} nodeKey={this.__key}>
+        {this.__number || '?'}
+    </SelectableComponent>)
+  }
+
+  toLatex(){
+    return `\\footnote{${this.__footnote_text}}`
   }
 }
 

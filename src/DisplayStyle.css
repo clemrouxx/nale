@@ -404,3 +404,13 @@ div.selectablecomponent.selected{
   padding: 8px;
   min-width: 50px;
 }
+
+.footnote-reference{
+    vertical-align: super;
+    font-size: smaller;
+    cursor: pointer;
+}
+
+.footnote-reference .selected{
+    color: var(--selection-primary);
+}

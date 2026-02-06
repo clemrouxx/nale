@@ -19,7 +19,7 @@ export function SelectableComponent({ nodeKey, inline, children, className='' })
     };
     
     return (inline ?
-        <span className={className+" selectablecomponent cursor-pointer"+(isSelected ? 'selected' : '')} onClick={handleClick}>
+        <span className={className+" selectablecomponent cursor-pointer "+(isSelected ? 'selected' : '')} onClick={handleClick}>
             {children}
         </span>
         :

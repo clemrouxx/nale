@@ -463,6 +463,20 @@ function NodeOptionsPanel({node}) {
                 </>
             );
             break;
+        case "footnote":
+            inner = (
+                <div className="form-line">
+                    <label>Text: </label>
+                    <input 
+                        value={editor.read(() => node.getFootnoteText())}
+                        onChange={(e) => {
+                        editor.update(()=>{
+                            node.setFootnoteText(e.target.value);
+                        })
+                    }}
+                    />
+                </div>
+            )
     }
     return (inner.props.children?<div className="options-panel">{inner}</div>:<></>);
 }
