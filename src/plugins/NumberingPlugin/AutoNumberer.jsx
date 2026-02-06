@@ -10,6 +10,7 @@ import { MathNode } from "../../nodes/MathNode";
 import MathNodes from "../MathPlugin/MathNodes";
 import { PageBreakNode } from "../../nodes/PageBreakNode";
 import { TableFloatNode } from "../../nodes/TableFloatNode";
+import { FootnoteNode } from "../../nodes/FootnoteNode";
 
 export function AutoNumberer(ref){
     const {setNumberedHeadings,biblio,setFigures,setTables,setNumberedEquations} = useDocumentStructureContext();
@@ -26,6 +27,7 @@ export function AutoNumberer(ref){
                 let figuresNumber = 0; // Last figure number
                 let tablesNumber = 0;
                 let equationsNumber = 0; // Idem, but for equations (numbered math blocks)
+                let footnotesNumber = 0;
                 let pageNumber = 1;
                 const newheadings = [];
                 const newfigures = [];
@@ -66,10 +68,13 @@ export function AutoNumberer(ref){
                             if (!citationKeys.includes(citationKey)) citationKeys.push(citationKey);
                         });
                     }
-
                     else if (node instanceof PageBreakNode){
                         pageNumber++;
                         node.updatePageNumber(pageNumber);
+                    }
+                    else if (node instanceof FootnoteNode){
+                        footnotesNumber++;
+                        node.updateNumber(footnotesNumber);
                     }
 
                     if (node.getChildren) {

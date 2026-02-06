@@ -23,6 +23,7 @@ import { SkipNode } from './nodes/SkipNode';
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
 import { TableFloatNode } from './nodes/TableFloatNode';
 import { TablePlusNode } from './nodes/TablePlusNode';
+import { FootnoteNode } from './nodes/FootnoteNode';
 
 // Catch any errors that occur during Lexical updates and log them
 // or throw them as needed. If you don't throw them, Lexical will
@@ -65,6 +66,7 @@ export const initialConfig = {
         TableNode,
         TableCellNode,
         TableRowNode,
-        TableFloatNode
+        TableFloatNode,
+        FootnoteNode
     ],
 };

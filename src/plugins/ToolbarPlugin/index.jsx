@@ -79,6 +79,7 @@ import { $betterPatchStyle } from '../../utils/lexicalUtils.js';
 import { insertTableOfContentsNode } from '../../nodes/TableOfContentsNode.jsx';
 import { $createSkipNode } from '../../nodes/SkipNode.jsx';
 import { INSERT_TABLE_FLOAT_COMMAND } from '../TablesPlusPlugin.jsx';
+import { $createFootnoteNode } from '../../nodes/FootnoteNode.jsx';
 
 const DEFAULT_COLORS = ["blue","red","green","violet","purple","magenta","orange","cyan","teal","olive","brown","white","pink","lime","yellow","lightgray","gray","darkgray","black",]
 
@@ -665,6 +666,9 @@ export default function ToolbarPlugin({
             <DropDownItem onClick={() => {activeEditor.dispatchCommand(INSERT_TABLE_FLOAT_COMMAND)}}>
               <i className="icon table" />
               <span className="text">Table</span>
+            </DropDownItem>
+            <DropDownItem onClick={() => activeEditor.update(() => $insertNodes([$createFootnoteNode()]))}>
+              <span className="text">Footnote</span>
             </DropDownItem>
           </DropDown>
         </div>
