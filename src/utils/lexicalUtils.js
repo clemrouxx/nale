@@ -25,9 +25,12 @@ export function useActiveNode() {
         }
         // If selection goes to null, we keep the last selected node as active node (but we update it anyway !)
         else if (activeNode){
-          setActiveNode($getNodeByKey(activeNode.getKey()));
+          const updatedActiveNode = $getNodeByKey(activeNode.getKey());
+          if (updatedActiveNode){
+            setActiveNode(updatedActiveNode);
+            setActiveNodeAncestorTypes(updatedActiveNode.getParents().map(parent => parent.getType()));
+          }
           setActiveNodeParent($getNodeByKey(activeNodeParent.getKey()));
-          setActiveNodeAncestorTypes(activeNode.getParents().map(parent => parent.getType()));
         }
       });
     });
