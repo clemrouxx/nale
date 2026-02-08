@@ -58,7 +58,8 @@ export class ReferenceNode extends DecoratorNode {
   }
 }
 
-export function insertReferenceNode(editor,referenceLabel) { // To improve
+export function insertReferenceNode(editor,referenceLabel) {
+  console.log(referenceLabel);
   editor.update(() => {
     const selection = $getSelection();
     

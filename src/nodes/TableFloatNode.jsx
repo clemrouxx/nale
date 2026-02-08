@@ -76,7 +76,7 @@ ${childrenString}
   
 export function $createTableFloatNode(labelNumber,documentOptions) {
     const node = new TableFloatNode(0,labelNumber);
-    node.append($createTablePlusNodeWithDimensions(3,3));
+    node.append($createTablePlusNodeWithDimensions(2,2));
     node.append($createCaptionNode("table",documentOptions));
     return node;
 }

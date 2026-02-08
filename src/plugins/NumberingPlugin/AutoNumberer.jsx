@@ -90,7 +90,7 @@ export function AutoNumberer(ref){
                 // Then, we update all reference & citation nodes
                 const update = (node) => {
                     if (node.getType()==="reference") {
-                        node.updateText([].concat(newheadings,newfigures,newequations));
+                        node.updateText([].concat(newheadings,newfigures,newequations,newtables));
                     }
                     else if (node.getType()==="citation"){
                         node.updateText(citationsDict);

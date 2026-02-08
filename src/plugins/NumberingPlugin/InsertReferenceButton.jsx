@@ -8,7 +8,7 @@ import { MathJax } from 'better-react-mathjax';
 
 export function InsertReferenceButton() {
   const [editor] = useLexicalComposerContext();
-  const {numberedHeadings,figures,numberedEquations} = useDocumentStructureContext();
+  const {numberedHeadings,figures,numberedEquations,tables} = useDocumentStructureContext();
   const [isDropdownOpen,setIsDropdownOpen] = useState();
   const dropdownRef = useRef(null);
 
@@ -35,6 +35,16 @@ export function InsertReferenceButton() {
           {figures.map((info) => (
               <DropDownItem key={info.label} onClick={() => insertReferenceNode(editor,info.label)}>
                 Fig. {info.numberingString} : {truncate(info.textContent,30)}
+              </DropDownItem>
+            ))}
+          </DropDown>
+        </div>
+
+        <div className="item">
+          <DropDown disabled={Object.keys(tables).length===0} onClose={close} buttonLabel={"Table..."} position='right' buttonClassName={""}>
+          {tables.map((info) => (
+              <DropDownItem key={info.label} onClick={() => insertReferenceNode(editor,info.label)}>
+                Table {info.numberingString} : {truncate(info.textContent,30)}
               </DropDownItem>
             ))}
           </DropDown>
