@@ -15,7 +15,7 @@ import {useEffect} from 'react';
 import { $createTableFloatNode } from '../nodes/TableFloatNode';
 import { useDocumentStructureContext } from './NumberingPlugin/DocumentStructureContext';
 import { useDocumentOptions } from './Options/DocumentOptionsContext';
-import { $isTableCellNode } from '@lexical/table';
+import { $isTableCellNode, $isTableNode } from '@lexical/table';
 
 export const INSERT_TABLE_FLOAT_COMMAND = createCommand('INSERT_TABLE_FLOAT_COMMAND');
 
@@ -45,6 +45,11 @@ export default function TablesPlusPlugin() {
           }
 
           const nodes = selection.getNodes();
+          const fullTableNode = nodes.find(node => $isTableNode(node));
+          if (fullTableNode){// Then delete the whole floating element
+            fullTableNode.getParent().remove();
+            return true;
+          }
           const tableCellNode = nodes.find(node => 
             $isTableCellNode(node) || $isTableCellNode(node.getParent())
           );
