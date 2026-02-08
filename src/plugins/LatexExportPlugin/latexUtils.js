@@ -103,7 +103,7 @@ export function extractColorName(colorValue){ // Extracts "purple" from "var(--x
     return match ? match[1] : null; 
 }
 
-export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Set(),title:null,authors:[]}){
+export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Set(),title:null,authors:[]},ancestorTypes=[]){
     var string = "";
     var childrenLatexList = [];
     
@@ -132,7 +132,7 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
         }
     }
     else if (node.getChildren){
-        childrenLatexList = node.getChildren().map((n)=>convertToLatex(n,documentOptions,bubbledInfo));
+        childrenLatexList = node.getChildren().map((n)=>convertToLatex(n,documentOptions,bubbledInfo,ancestorTypes.concat(node.getType())));
         string = childrenLatexList.join('');
     }
     
@@ -170,6 +170,7 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
         case "text":
             break;
         case "paragraph":// Should be treated differently depending on if in a table or not.
+            if (ancestorTypes.includes("tablecell")) break;
             if (string===""){
                 string = "\\bigskip\n"; // Lineskip
             }
