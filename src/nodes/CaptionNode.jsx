@@ -40,7 +40,7 @@ export class CaptionNode extends ParagraphNode{
     }
 
     getPrefix(){
-        return `${this.__specific_options.name} ${this.__number}${this.__specific_options.labelSeparator}`;
+        return `${this.__specific_options.name} ${this.__number}${this.__specific_options.labelSeparator} `;
     }
 
     updateDOM(prevNode){ return prevNode.getPrefix() !== this.getPrefix() }
@@ -67,9 +67,9 @@ export class CaptionNode extends ParagraphNode{
 
     // LaTeX
 
-    toLatex(childrenString){
+    toLatex(childrenStringList){
         const label = this.getParent().getLabel();
-        return `    \\caption{\\label{${label}}${childrenString}}`;
+        return `    \\caption{\\label{${label}}${childrenStringList.join("")}}`;
     }
 
 }

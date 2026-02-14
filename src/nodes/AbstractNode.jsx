@@ -32,7 +32,7 @@ export class AbstractNode extends ElementNode {
     return new AbstractNode();
   }
 
-  toLatex(childrenstring){ return putInEnvironment(childrenstring,"abstract") }
+  toLatex(childrenstring){ return putInEnvironment(childrenstring.join(''),"abstract") }
 
   canBeEmpty(){
     return false;

@@ -39,7 +39,7 @@ export class NumberedHeadingNode extends ElementNode{
   getKey() { return this.__key }
   isNumbered() { return this.__is_numbered }
   getLabel() { return `sec:${this.__label_number}`}
-  toLatex(childrenString) { return `${HEADING_COMMANDS[this.__level]}${this.__is_numbered?'':'*'}{${childrenString}}\\label{${this.getLabel()}}\n`}
+  toLatex(childrenStringList) { return `${HEADING_COMMANDS[this.__level]}${this.__is_numbered?'':'*'}{${childrenStringList.join('')}}\\label{${this.getLabel()}}\n`}
 
   static clone(node) {
     return new NumberedHeadingNode(node.__level,node.__numbering,node.__headings_options,node.__is_numbered,node.__label_number,node.__key);

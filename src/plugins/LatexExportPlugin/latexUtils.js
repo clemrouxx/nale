@@ -137,7 +137,7 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
     }
     
     if (node.toLatex){ // Conversion is defined in the node
-        string = node.toLatex(string); // We pass as parameter the string from the children
+        string = node.toLatex(childrenLatexList); // We pass as parameter the list of strings from the children
     }
     switch (node.getType()){
         case "root":
@@ -191,7 +191,7 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
         case "tablecell":
             break;
         case "tablerow":
-            string = childrenLatexList.join(" & ") + "\\\\ \n \\hline \n";
+            string = childrenLatexList.join(" & ") + "\\\\ \n";
             break;
         case "figure":
         case "image":

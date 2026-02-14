@@ -406,12 +406,20 @@ div.selectablecomponent.selected{
 }
 
 .editor-table-cell {
-  border: calc(0.5px*var(--editor-scale)) solid var(--editor-text-color);
   padding: 0 0.5em;
 }
 
 th{
     font-weight: normal;
+}
+
+.editor-table tr:first-of-type{
+    border-top: calc(0.5px*var(--editor-scale)) solid var(--editor-text-color);
+    border-bottom: calc(0.5px*var(--editor-scale)) solid var(--editor-text-color);
+}
+
+.editor-table tr:last-of-type{
+    border-bottom: calc(0.5px*var(--editor-scale)) solid var(--editor-text-color);
 }
 
 .footnote-reference{

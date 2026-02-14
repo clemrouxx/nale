@@ -75,11 +75,11 @@ export class FigureNode extends ElementNode {
     canMergeWhenEmpty() { return false }*/
 
     // Export
-    toLatex(childrenString){
+    toLatex(childrenStringList){
         return (
 `\\begin{figure}
     \\centering
-${childrenString}
+${childrenStringList.join('')}
 \\end{figure}
 `);
     }

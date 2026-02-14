@@ -58,10 +58,13 @@ export class TablePlusNode extends TableNode {
     return node;
   }
 
-  toLatex(childrenstring){
-    return `  \\begin{tabular}{|${'l|'.repeat(this.getColumnCount())}}
+  toLatex(childrenStringList){
+    return `  \\begin{tabular}{${'l'.repeat(this.getColumnCount())}}
     \\hline
-    ${childrenstring}
+    ${childrenStringList[0]}
+    \\hline
+    ${childrenStringList.slice(1).join("")}
+    ${childrenStringList.length>1?"\\hline":""}
     \\end{tabular}
     `
   }
