@@ -410,6 +410,10 @@ div.selectablecomponent.selected{
   padding: 0 0.5em;
 }
 
+th{
+    font-weight: normal;
+}
+
 .footnote-reference{
     vertical-align: super;
     font-size: smaller;
