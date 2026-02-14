@@ -214,18 +214,6 @@ export default function MathPlugin() {
         COMMAND_PRIORITY_HIGH
       ),
       editor.registerCommand(
-        KEY_DOWN_COMMAND,
-        (event) => {
-          if ((event.ctrlKey || event.metaKey) && (event.key === 'm'||event.key==="M")) {
-            event.preventDefault();
-            editor.dispatchCommand(INSERT_MATH_COMMAND,!(event.shiftKey));
-            return true;
-          }
-          return false;
-        },
-        COMMAND_PRIORITY_EDITOR
-      ),
-      editor.registerCommand(
         KEY_BACKSPACE_COMMAND,
         (event) => {
           const selectedNode = $getCurrentMathNode();

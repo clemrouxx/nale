@@ -492,6 +492,14 @@ export default function ToolbarPlugin({
               e.preventDefault();
               activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'superscript');
               break;
+            case "m":
+              e.preventDefault();
+              activeEditor.dispatchCommand(INSERT_MATH_COMMAND,true);
+              break;
+            case "M":
+              e.preventDefault();
+              activeEditor.dispatchCommand(INSERT_MATH_COMMAND,false);
+              break;
           }
         }
     };
