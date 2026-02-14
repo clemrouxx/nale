@@ -67,7 +67,7 @@ export class SimpleImageNode extends DecoratorNode {
   
     decorate(){
       let widthString = this.getWidthString();
-      if (this.width_unit!=="%") widthString = `calc(var(--editor-scale) * ${widthString})`;
+      if (this.__width_unit!=="%") widthString = `calc(var(--editor-scale) * ${widthString})`;
       return (
         <ImageComponent
           src={this.__src}
