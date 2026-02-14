@@ -3,7 +3,7 @@
 // The following lists / dictionnaries determine the propesrties of the inserted node (regarding selection, cursor placement, deletion...)
 // Includes the core and AMS commands (as well as a few commands from the physics package)
 export const MATH_COLORS = ["black", "blue", "brown", "cyan", "darkgray", "gray", "green", "lightgray", "lime", "magenta", "olive", "orange", "pink", "purple", "red", "teal", "violet", "white", "yellow"];
-const PARENT_SYMBOLS = ["\\sqrt","\\overline","\\underline","\\widehat","\\widetilde","\\overrightarrow","\\overleftarrow","\\overleftrightarrow","\\underleftarrow","\\underrightarrow","\\underleftrightarrow","\\bra","\\ket","\\Bra","\\Ket","\\abs","\\norm","\\order","\\stackrel{!}","\\stackrel{?}","\\boxed","\\operatorname","\\mod","\\bmod","\\pmod","\\substack"];
+const PARENT_SYMBOLS = ["\\sqrt","\\overline","\\underline","\\widehat","\\widetilde","\\overrightarrow","\\overleftarrow","\\overleftrightarrow","\\underleftarrow","\\underrightarrow","\\underleftrightarrow","\\bra","\\ket","\\Bra","\\Ket","\\abs","\\norm","\\order","\\stackrel{!}","\\stackrel{?}","\\boxed","\\operatorname","\\mod","\\bmod","\\pmod","\\substack","\\mathrm{e}^"];
 export const MATH_COLOR_NODES = MATH_COLORS.map(c=>`\\textcolor{${c}}`);
 const INVISIBLE_PARENT_SYMBOLS = ["_","^"].concat(MATH_COLOR_NODES);
 const MULTILINE_PARENT_SYMBOLS = ["\\substack"];
