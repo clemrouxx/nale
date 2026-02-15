@@ -2,11 +2,14 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { useLexicalNodeSelection } from '@lexical/react/useLexicalNodeSelection';
 import { $createNodeSelection, $setSelection } from 'lexical';
 
-export function SelectableComponent({ nodeKey, inline, children, className='' }) { // Allow for custom CSS when an element is selected.
+export function SelectableComponent({ nodeKey, inline, children, className='', clickable=true }) { // Allow for custom CSS when an element is selected.
     const [isSelected] = useLexicalNodeSelection(nodeKey);
     const [editor] = useLexicalComposerContext();
 
     const handleClick = (e) => {
+        if (!clickable){
+            return;
+        }
         e.preventDefault();
         e.stopPropagation();
         
