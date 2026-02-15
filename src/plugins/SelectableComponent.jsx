@@ -7,7 +7,9 @@ export function SelectableComponent({ nodeKey, inline, children, className='', c
     const [editor] = useLexicalComposerContext();
 
     const handleClick = (e) => {
-        if (!clickable){
+        // Make an exception for links
+        const isLink = (e.target.tagName === 'A' || e.target.parentElement?.tagName === 'A');
+        if (!clickable || isLink){
             return;
         }
         e.preventDefault();
@@ -17,7 +19,6 @@ export function SelectableComponent({ nodeKey, inline, children, className='', c
             const nodeSelection = $createNodeSelection();
             nodeSelection.add(nodeKey);
             $setSelection(nodeSelection);
-            console.log(nodeSelection);
         });
     };
     
