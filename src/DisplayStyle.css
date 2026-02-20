@@ -185,8 +185,7 @@
 }
 
 .editor-base img.focused, .editor-base canvas.focused{
-    outline: solid var(--selection-primary) 3px;
-    filter: sepia(1) saturate(3) hue-rotate(140deg);
+    outline: solid var(--selection-primary) 6px;
 }
 
 .editor-math .selected{
