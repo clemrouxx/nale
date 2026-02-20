@@ -27,7 +27,7 @@ export const PDFviewer = ({ file, className, width, imageRef }) => {
 
         const canvas = imageRef.current;
         const context = canvas.getContext("2d");
-        const viewport = page.getViewport({ scale: 1 });
+        const viewport = page.getViewport({ scale: 3 }); // Not ideal because we use always the same scaling, but it will do for now.
 
         canvas.width = viewport.width;
         canvas.height = viewport.height;

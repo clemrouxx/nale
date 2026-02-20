@@ -18,6 +18,8 @@
 - Page title : Authors can be wrongly added above a preexisting abstract
 - Tables : prevent deleting last row or column. (or maybe it should delete the float ?)
 - Tables : Make the cell selection visible.
+- Inserting a Figure while the cursor is in a caption separate the original image from its caption.
+- References are just broken.
 
 ## Features
 ### Priority features
@@ -35,6 +37,7 @@
 - Consistant color order between toolbar and math keyboard
 - Title page : Authors node should be selectable.
 - Editor : the editor should remember the user preferences for the math keyboard (visible by default or not)
+- Table : the table preview for references should include the caption, not content.
 
 ### Useful features
 - Show "Saving..." while saving. (via some sort of status bar probably; useful for compilation as well)
@@ -63,4 +66,3 @@
 
 ## Other improvements (UI/UX, ...)
 - In real width mode, show the edges of the page
-- Improve PDF display resolution
