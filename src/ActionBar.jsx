@@ -9,6 +9,7 @@ import useModal from './hooks/useModal';
 import { showToast } from './ui/Toast';
 import { useEffect } from 'react';
 import StatusBar from './ui/StatusBar';
+import { LabelNumberResetter } from './plugins/NumberingPlugin/AutoNumberer';
 
 export const ActionBar = () => {
     return (
@@ -150,6 +151,14 @@ const DisplayMenu = () => {
                     Full screen editor
                 </label>
             </div>
+        </DropDown>
+    )
+}
+
+const DebugMenu = () => {
+    return (
+        <DropDown buttonLabel={"Debug"} stopCloseOnClickSelf={true}>
+            <LabelNumberResetter/>
         </DropDown>
     )
 }

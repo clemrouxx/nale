@@ -118,3 +118,28 @@ export function AutoNumberer(ref){
         });
     }, [editor,biblio]); 
 }
+
+export function LabelNumberResetter(){ // For debugging / repairing files
+    const {setNextLabelNumber} = useDocumentStructureContext();
+    const [editor] = useLexicalComposerContext();
+
+    const reset = ()=>{
+        editor.update(()=>{
+            var nextLabelNumber = 0;
+            const visit = (node) => {
+                if (node.debugSetLabelNumber){
+                    node.debugSetLabelNumber(nextLabelNumber);
+                    nextLabelNumber++;
+                }  
+                if (node.getChildren) {
+                    node.getChildren().forEach(visit);
+                }
+            };
+            const root = $getRoot();
+            visit(root);
+            setNextLabelNumber(nextLabelNumber);
+        });
+    }
+
+    return <button onClick={reset}>Reset label numbers</button>
+}

@@ -27,6 +27,7 @@ export class FigureNode extends ElementNode {
     getSrc() { return this.__src }
     getNumber(){ return this.__number }
     getLabel(){ return `fig:${this.__label_number}` }
+    debugSetLabelNumber(labelNumber){ this.getWritable().__label_number=labelNumber } // Only for debugging in theory
     setNumber(number){ 
         this.getWritable().__number = number;
         this.getChildren().forEach(childNode=>{

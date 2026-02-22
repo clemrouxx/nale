@@ -30,6 +30,7 @@ export class MathNode extends StylableNode {
   getNumbering() { return this.__numbering }
   isNumbered() { return this.__is_numbered }
   isInline(){return this.__inline}
+  debugSetLabelNumber(labelNumber){ this.getWritable().__label_number=labelNumber } // Only for debugging in theory
   getLabel(){return `eq:${this.__label_number}`}
   getEditorRef(){ return this.__ref }
 

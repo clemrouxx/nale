@@ -21,6 +21,7 @@ export class TableFloatNode extends ElementNode {
 
     getNumber(){ return this.__number }
     getLabel(){ return `table:${this.__label_number}` }
+    debugSetLabelNumber(labelNumber){ this.getWritable().__label_number=labelNumber } // Only for debugging in theory
     setNumber(number){ 
         this.getWritable().__number = number;
         this.getChildren().forEach(childNode=>{

@@ -39,6 +39,7 @@ export class NumberedHeadingNode extends ElementNode{
   getKey() { return this.__key }
   isNumbered() { return this.__is_numbered }
   getLabel() { return `sec:${this.__label_number}`}
+  debugSetLabelNumber(labelNumber){ this.getWritable().__label_number=labelNumber } // Only for debugging in theory
   toLatex(childrenStringList) { return `${HEADING_COMMANDS[this.__level]}${this.__is_numbered?'':'*'}{${childrenStringList.join('')}}\\label{${this.getLabel()}}\n`}
 
   static clone(node) {
