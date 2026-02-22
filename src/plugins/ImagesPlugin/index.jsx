@@ -217,7 +217,7 @@ export default function ImagesPlugin() {
       ),
 
     )
-  }, [editor]);
+  }, [editor,nextLabelNumber,documentOptions]);
 
   return null;
 }

@@ -104,7 +104,7 @@ export default function TablesPlusPlugin() {
         COMMAND_PRIORITY_HIGH
       )
     )
-  }, [editor]);
+  }, [editor,nextLabelNumber,documentOptions]);
 
   return null;
 }
