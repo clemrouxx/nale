@@ -13,7 +13,7 @@ import { TableFloatNode } from "../../nodes/TableFloatNode";
 import { FootnoteNode } from "../../nodes/FootnoteNode";
 
 export function AutoNumberer(ref){
-    const {setNumberedHeadings,biblio,setFigures,setTables,setNumberedEquations} = useDocumentStructureContext();
+    const {setNumberedHeadings,biblio,setFigures,setTables,setNumberedEquations,setCitationsDict} = useDocumentStructureContext();
     const [editor] = useLexicalComposerContext();
     
     useEffect(() => 
@@ -82,10 +82,9 @@ export function AutoNumberer(ref){
                     }
                 };
                 visit(root); // Starts the recursive visit of all nodes in the tree.
-                //console.log(newheadings);
 
                 // Possibly, reorder citationKeys, and choose other labels
-                const citationsDict = Object.fromEntries(citationKeys.map((str, i) => [str, `${i+1}`])); // <citationKey> : <label>
+                const newCitationsDict = Object.fromEntries(citationKeys.map((str, i) => [str, `${i+1}`])); // <citationKey> : <label>
 
                 // Then, we update all reference & citation nodes
                 const update = (node) => {
@@ -93,10 +92,10 @@ export function AutoNumberer(ref){
                         node.updateText([].concat(newheadings,newfigures,newequations,newtables));
                     }
                     else if (node.getType()==="citation"){
-                        node.updateText(citationsDict);
+                        node.updateText(newCitationsDict);
                     }
                     else if (node.getType() === "bibliography"){
-                        node.updateInner(citationKeys,citationsDict,biblio);
+                        node.updateInner(citationKeys,newCitationsDict,biblio);
                     }
                     else if (node.getType() === "toc"){
                         node.updateInner(newheadings);
@@ -114,6 +113,7 @@ export function AutoNumberer(ref){
                 setFigures(newfigures);
                 setTables(newtables);
                 setNumberedEquations(newequations);
+                setCitationsDict(newCitationsDict);
             });
         });
     }, [editor,biblio]); 

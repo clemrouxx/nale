@@ -8,6 +8,7 @@ export function DocumentStructureProvider({ children }) {
   const [figures,setFigures] = useState([]);
   const [tables,setTables] = useState([]);
   const [numberedEquations,setNumberedEquations] = useState([]);
+  const [citationsDict,setCitationsDict] = useState({});
   const [nextLabelNumber,setNextLabelNumber] = useState(0);
   
   const contextValue = {
@@ -23,6 +24,8 @@ export function DocumentStructureProvider({ children }) {
     setNumberedEquations,
     nextLabelNumber,
     setNextLabelNumber,
+    citationsDict,
+    setCitationsDict
   };
   
   return (

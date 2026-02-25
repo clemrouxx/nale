@@ -65,7 +65,7 @@ import { useDocumentOptions } from '../Options/DocumentOptionsContext';
 import { InsertReferenceButton } from '../NumberingPlugin/InsertReferenceButton.jsx';
 import { useDocumentStructureContext } from '../NumberingPlugin/DocumentStructureContext.jsx';
 import { insertCitation } from '../../nodes/CitationNode.jsx';
-import { addBiblioFromClipboard, bibItemToUIString } from '../../utils/bibliographyUtils.jsx';
+import { addBiblioFromClipboard, bibItemToUIString, CleanBiblio } from '../../utils/bibliographyUtils.jsx';
 import { insertBibliographyNode } from '../../nodes/BibliographyNode.jsx';
 import { $isNumberedHeadingNode } from '../../nodes/NumberedHeadingNode.js';
 import { INSERT_MATH_COMMAND } from '../MathPlugin/index.jsx';
@@ -220,7 +220,7 @@ function BlockFormatDropDown({
 }
 
 function CitationDropDown({editor}){
-  const {biblio,setBiblio} = useDocumentStructureContext();
+  const {biblio,setBiblio,citationsDict} = useDocumentStructureContext();
   const [modal, showModal] = useModal();
 
   return (
@@ -228,6 +228,7 @@ function CitationDropDown({editor}){
     <DropDown buttonClassName="toolbar-item" buttonLabel={"Cite..."} chevron={false} buttonIconClassName={"citation"}>
       <DropDownItemWithIcon onClick={() => addBiblioFromClipboard(editor,biblio,setBiblio,showModal)} iconClassName={"clipboard"} title={"From clipboard..."}/>
       <DropDownItemWithIcon onClick={() => insertBibliographyNode(editor)} iconClassName={"plus"} title={"Insert Bibliography"}/>
+      <DropDownItemWithIcon onClick={() => CleanBiblio(biblio,setBiblio,citationsDict)} iconClassName={"minus"} title={"Remove unused"}/>
       {biblio.map(bibitem => (
         <DropDownItem key={bibitem.key} className={"can-be-wide"} onClick={()=>insertCitation(editor,[bibitem.key])}>
           {bibItemToUIString(bibitem)}

@@ -137,6 +137,17 @@ function BibTextInputModal(onClose) {
   );
 }
 
+export function CleanBiblio(biblio,setBiblio,citationsDict){
+  // Remove duplicates & unused bibItems  
+  const seenKeys = new Set();
+  const newBiblio = biblio.filter(item => {
+    if (seenKeys.has(item.key)) return false;
+    seenKeys.add(item.key);
+    return true;
+  });
+  setBiblio(newBiblio.filter(bibItem => bibItem.key in citationsDict));
+}
+
 export function bibItemToUIString(bibItem) {
     // Handle missing author or title
     if (!bibItem.author || !bibItem.title) {
