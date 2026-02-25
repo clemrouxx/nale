@@ -28,6 +28,12 @@ const HEADING_NUMBERS = {1:"\\thesection",2:"\\thesubsection",3:"\\thesubsubsect
 const needEscaping = ["#","$","%","&","_","{","}"];
 const replaceBy = {"\\":"\\textbackslash","~":"\\~{}","^":"\\^{}","<":"$<$",">":"$>$"};
 
+function treatText(text){
+    let newText = escapeText(text);
+    newText = replaceQuotes(newText);
+    return newText;
+}
+
 function escapeText(text){
     let escaped = "";
     for (const char of text) {
@@ -40,6 +46,27 @@ function escapeText(text){
         }
     }
     return escaped;
+}
+
+function replaceQuotes(str) {
+  return str.replace(/(\S?)"(\S?)/g, (match, prev, next) => {
+    const prevSpace = prev === '';
+    const nextSpace = next === '';
+
+    if (!prevSpace && !nextSpace) {
+      // Both sides non-whitespace: check letter vs punctuation
+      const nextIsLetter = /\w/.test(next);
+      const prevIsLetter = /\w/.test(prev);
+      if (nextIsLetter && !prevIsLetter) return prev + '``' + next;
+      if (prevIsLetter && !nextIsLetter) return prev + "''" + next;
+    }
+
+    if (nextSpace && !prevSpace) return prev + "''"; // closing
+    if (prevSpace && !nextSpace) return '``' + next; // opening
+    if (!prevSpace && !nextSpace) return prev + '``' + next; // fallback: treat as opening
+
+    return match; // both sides whitespace, leave unchanged
+  });
 }
 
 function getDocumentCommandOptions(documentOptions){
@@ -110,7 +137,7 @@ export function convertToLatex(node,documentOptions,bubbledInfo={packages:new Se
     if ($isTextNode(node)) {
         let text = node.getTextContent();
         if (!node.hasFormat("code")){
-            text = escapeText(text);
+            text = treatText(text);
         }
         string += text;
 
