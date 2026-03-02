@@ -325,6 +325,10 @@ i.table-delete-column { background-image: url(/images/icons/table-delete-column.
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1),    0 6px 16px rgba(0, 0, 0, 0.32);
   border-radius: 8px;
   background-color: var(--bg-intermediate);
+  max-height: 60vh;
+  overflow-y: auto;
+  max-width: 40vw;
+  overflow-x: hidden;
 }
 
 .dropdown > *{
@@ -354,6 +358,7 @@ i.table-delete-column { background-image: url(/images/icons/table-delete-column.
   margin-left: 0;
   margin-right: 0;
   box-sizing: border-box;
+  text-align: left;
 }
 
 .dropdown .item.wide {

@@ -282,7 +282,7 @@
 
 .emulate-layout .editor-pagebreak{
     height: 5ex;
-    background-color:var(--bg-contrasted);
+    background-color:var(--bg-intermediate);
     color: var(--text-muted);
     column-span: all;
     margin-top: calc((var(--marginbottom-base)) * var(--editor-scale));
