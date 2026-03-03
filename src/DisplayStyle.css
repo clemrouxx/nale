@@ -135,6 +135,10 @@
     margin-block: calc(12pt * var(--editor-scale));
 }
 
+.editor-caption{
+    text-align: justify;
+}
+
 .editor-caption::before{
     content: attr(prefix);
 }
@@ -180,7 +184,7 @@
     align-items: stretch;
 }
 
-.editor-figure > *{
+.editor-figure > .editor-image{
     text-align: center;
 }
 
