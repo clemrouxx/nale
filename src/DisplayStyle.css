@@ -284,19 +284,18 @@
     font-size: 0.75em;
 }*/
 
-.emulate-layout .editor-pagebreak{
-    height: 5ex;
+.editor-pagebreak{
+    height: 3ex;
     background-color:var(--bg-intermediate);
     color: var(--text-muted);
     column-span: all;
+}
+
+.emulate-layout .editor-pagebreak{
     margin-top: calc((var(--marginbottom-base)) * var(--editor-scale));
     margin-bottom: calc(var(--margintop-base) * var(--editor-scale));
     margin-left: calc( -1 * var(--marginleft-base) * var(--editor-scale));
     margin-right: calc( -1 * var(--marginright-base) * var(--editor-scale));
-}
-
-.editor-container:not(.emulate-layout) .editor-pagebreak{
-    display: none;
 }
 
 .editor-pagebreak > div{

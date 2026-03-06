@@ -47,7 +47,7 @@ export class PageBreakNode extends DecoratorNode {
     return true;
   }
 
-  toLatex() {return "\n\\newpage\n" }
+  toLatex() {return "\n\\clearpage\n" }
 
   static importJSON(serializedNode) {
     return new PageBreakNode(serializedNode.__page_number);
