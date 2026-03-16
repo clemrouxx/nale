@@ -229,7 +229,7 @@ function CitationDropDown({editor}){
       <DropDownItemWithIcon onClick={() => addBiblioFromClipboard(editor,biblio,setBiblio,showModal)} iconClassName={"clipboard"} title={"From clipboard..."}/>
       <DropDownItemWithIcon onClick={() => insertBibliographyNode(editor)} iconClassName={"plus"} title={"Insert Bibliography"}/>
       <DropDownItemWithIcon onClick={() => CleanBiblio(biblio,setBiblio,citationsDict)} iconClassName={"minus"} title={"Remove unused"}/>
-      {biblio.map(bibitem => (
+      {biblio.sort((a,b)=>a.title.localeCompare(b.title)).map(bibitem => (
         <DropDownItem key={bibitem.key} className={"can-be-wide"} onClick={()=>insertCitation(editor,[bibitem.key])}>
           {bibItemToUIString(bibitem)}
         </DropDownItem>

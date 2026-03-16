@@ -81,6 +81,7 @@ const FileButton = () => {
                 <DropDownItem onClick={openFile}><span className="text">Open...</span><span className="shortcut">Ctrl + O</span></DropDownItem>
                 <DropDownItem onClick={()=>showModal("Export to LaTeX",(onClose)=>(<LatexExportModal/>))}><span>Export to LaTeX</span><span className="shortcut">Ctrl + E</span></DropDownItem>
                 <DropDownItem onClick={compile}><span className="text">Compile</span><span className="shortcut">F5</span></DropDownItem>
+                <DropDownItem onClick={downloadCompilationZip}><span className="text">Get compilation-ready folder</span></DropDownItem>
             </DropDown>
             {modal}
         </>

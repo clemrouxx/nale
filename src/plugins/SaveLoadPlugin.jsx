@@ -204,6 +204,7 @@ export function SaveProvider({ children }) {
     const files = [
       { name: 'README.md', content: '# NaLE Compilation-ready folder\n\nThis folder contains all the necessary files for you to create your pdf. \nThis is done by running a LaTeX PDF compiler in this folder. \nTo do this, we advise you to : \n- Download TeX Live from https://tug.org/texlive/ \n- In a command promp in this folder (on Windows, the Powershell will do), run "latexmk -pdf main.tex"\n- This should create your PDF document "main.pdf", as well as a bunch of other files. You can get rid of them by running "latexmk -pdf -c main.tex".'},
       { name: 'main.tex', content: getLatex(editor,documentOptions)},
+      { name: 'compileOnWindows.bat', content: '@echo off\necho Running pdflatex (pass 1)...\npdflatex main.tex\n\necho.\necho Running bibtex...\nbibtex main\n\necho.\necho Running pdflatex (pass 2)...\npdflatex main.tex\n\necho.\necho Running pdflatex (pass 3)...\npdflatex main.tex\n\necho.\necho Done! Check main.pdf for output.\npause\n'}
     ];
 
     // Images
