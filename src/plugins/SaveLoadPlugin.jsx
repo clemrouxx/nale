@@ -143,10 +143,11 @@ export function SaveProvider({ children }) {
       };
 
       const [fileHandle] = await window.showOpenFilePicker(options);
+      updateStatus("file","Loading...");
       const file = await fileHandle.getFile();
-      
       setLastFileHandle(fileHandle);
       importFile(editor, setDocumentOptions, setBiblio, setNextLabelNumber, file);
+      updateStatus("file","");
       
     } catch (error) {
       if (!error.name === 'AbortError') {
@@ -170,7 +171,7 @@ export function SaveProvider({ children }) {
       engine.writeMemFSFile("main.tex", latex);
       
       if (biblio.length > 0){
-        engine.writeMemFSFile("references.bib", jsonToBib(biblio));
+        engine.writeMemFSFile("references.bib", jsonToBib(biblio));//!!!
       }
       const imgFiles = await getAllImageFiles(editor);
       if (imgFiles.length>0){

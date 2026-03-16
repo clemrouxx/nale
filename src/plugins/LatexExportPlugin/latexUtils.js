@@ -26,7 +26,15 @@ export const HEADING_COMMANDS = {1:"\\section",2:"\\subsection",3:"\\subsubsecti
 const HEADING_NUMBERS = {1:"\\thesection",2:"\\thesubsection",3:"\\thesubsubsection"};
 
 const needEscaping = ["#","$","%","&","_","{","}"];
-const replaceBy = {"\\":"\\textbackslash","~":"\\~{}","^":"\\^{}","<":"$<$",">":"$>$"};
+const replaceBy = {"\\":"\\textbackslash","~":"\\~{}","^":"\\^{}","<":"$<$",">":"$>$","\u2013": "--",    // en dash
+  "\u2014": "---",   // em dash
+  "\u2018": "`",     // left single quote
+  "\u2019": "'",     // right single quote
+  "\u201C": "``",    // left double quote
+  "\u201D": "''",    // right double quote
+  "\u00A0": "~",     // non-breaking space
+  "\u2026": "\\ldots{}", // ellipsis
+};
 
 function treatText(text){
     let newText = escapeText(text);
@@ -34,15 +42,51 @@ function treatText(text){
     return newText;
 }
 
-function escapeText(text){
+function isSafeForPdfTex(cp) {
+  return (
+        (cp >= 0x0020 && cp <= 0x007E) ||  // Printable ASCII
+    (cp >= 0x00A0 && cp <= 0x017F) ||  // Latin-1 + Latin Extended-A (inputenc utf8 + T1)
+     cp === 0x0192              ||      // ƒ  Latin Small F with Hook
+     cp === 0x02C6              ||      // ˆ  Modifier Circumflex
+     cp === 0x02DC              ||      // ˜  Small Tilde
+    (cp >= 0x2013 && cp <= 0x2014) ||  // – —  en/em dash  (\textendash, \textemdash)
+     cp === 0x2018              ||      // '  Left single quote
+     cp === 0x2019              ||      // '  Right single quote
+     cp === 0x201C              ||      // "  Left double quote
+     cp === 0x201D              ||      // "  Right double quote
+     cp === 0x2020              ||      // †  Dagger
+     cp === 0x2021              ||      // ‡  Double dagger
+     cp === 0x2022              ||      // •  Bullet
+     cp === 0x2026              ||      // …  Ellipsis
+     cp === 0x2030              ||      // ‰  Per mille
+     cp === 0x2039              ||      // ‹  Single left angle quote
+     cp === 0x203A              ||      // ›  Single right angle quote
+     cp === 0x0131              ||      // ı  Dotless i
+     cp === 0x0152              ||      // Œ  OE ligature
+     cp === 0x0153              ||      // œ  oe ligature
+     cp === 0x0160              ||      // Š
+     cp === 0x0161              ||      // š
+     cp === 0x0178              ||      // Ÿ
+     cp === 0x017D              ||      // Ž
+     cp === 0x017E               //      ž(covered with `fontenc T1` + `inputenc utf8`)
+  );
+}
+
+export function escapeText(text){
     let escaped = "";
     for (const char of text) {
+        const cp = char.codePointAt(0);
         if (needEscaping.includes(char)) {
             escaped += "\\" + char; // prepend backslash
         } else if (char in replaceBy) {
             escaped += replaceBy[char];// replace with mapped value
         } else {
-            escaped += char;
+            if (!isSafeForPdfTex(cp)) {
+                console.warn(`Unsafe character: "${char}" (${cp}). Will be skipped.`)
+            }
+            else{
+                escaped += char;
+            }
         }
     }
     return escaped;
@@ -79,7 +123,7 @@ function getDocumentCommandOptions(documentOptions){
 }
 
 function convertDocumentOptions(documentOptions){
-    let latex = "";
+    let latex = "\\usepackage[utf8]{inputenc}\n";
     // margins (geometry package)
     const margins = documentOptions.general.margins;
     const default_margins = DEFAULT_DOCUMENT_OPTIONS.general.margins;

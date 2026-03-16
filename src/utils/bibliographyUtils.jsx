@@ -3,6 +3,33 @@ import { insertCitation } from "../nodes/CitationNode";
 import { showToast } from "../ui/Toast";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useDocumentStructureContext } from "../plugins/NumberingPlugin/DocumentStructureContext";
+import { escapeText } from "../plugins/LatexExportPlugin/latexUtils";
+
+
+const accentMap = {
+  'à':'a','á':'a','â':'a','ã':'a','ä':'a','å':'a',
+  'è':'e','é':'e','ê':'e','ë':'e',
+  'ì':'i','í':'i','î':'i','ï':'i',
+  'ò':'o','ó':'o','ô':'o','õ':'o','ö':'o','ø':'o',
+  'ù':'u','ú':'u','û':'u','ü':'u',
+  'ý':'y','ÿ':'y',
+  'ñ':'n','ç':'c','ß':'ss',
+  'À':'A','Á':'A','Â':'A','Ã':'A','Ä':'A','Å':'A',
+  'È':'E','É':'E','Ê':'E','Ë':'E',
+  'Ì':'I','Í':'I','Î':'I','Ï':'I',
+  'Ò':'O','Ó':'O','Ô':'O','Õ':'O','Ö':'O','Ø':'O',
+  'Ù':'U','Ú':'U','Û':'U','Ü':'U',
+  'Ý':'Y','Ñ':'N','Ç':'C',
+};
+
+function toASCII(str) {
+  return str
+    .split('')
+    .map(c => accentMap[c] ?? c)
+    .join('')
+    .replace(/[^\x00-\x7F]/g, ''); // drop anything still non-ASCII
+}
+
 
 export function parseBibTeX(bibContent) {
     const entries = [];
@@ -22,7 +49,7 @@ export function parseBibTeX(bibContent) {
         if (!typeKeyMatch) continue; // Skip if not properly formatted
         
         const entryType = typeKeyMatch[1];
-        const key = typeKeyMatch[2].trim();
+        const key = toASCII(typeKeyMatch[2].trim().replace(' ','_'));
         
         // Create the basic entry object
         const entry = {
@@ -240,13 +267,13 @@ export function jsonToBib(jsonArray) {
   return jsonArray.map(entry => {
     const key = entry.key;
     const authors = entry.author
-      .map(a => `${a.firstName} ${a.lastName}`)
+      .map(a => `${escapeText(a.firstName)} ${escapeText(a.lastName)}`)
       .join(" and ");
 
     // Build fields string dynamically excluding `key` and `author`
     const fields = Object.entries(entry)
       .filter(([k]) => k !== "key" && k !== "author")
-      .map(([k, v]) => `  ${k} = {${v}}`)
+      .map(([k, v]) => `  ${k} = {${escapeText(v)}}`)
       .join(",\n");
 
     return `@article{${key},

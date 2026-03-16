@@ -3,7 +3,8 @@ import { createContext, useCallback, useContext, useState } from "react";
 const StatusContext = createContext();
 
 const initialStatus = {
-    compilation:""
+    compilation:"",
+    file:"",
 }
 
 export function StatusProvider({ children }) {
@@ -26,5 +27,5 @@ export function useStatus() {
 
 export default function StatusBar() {
   const { status } = useStatus();
-  return <div className="status-bar">{status.compilation}</div>;
+  return <div className="status-bar">{status.file} {status.compilation}</div>;
 }
