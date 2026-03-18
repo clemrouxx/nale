@@ -58,7 +58,9 @@ export class TableOfContentsNode extends DecoratorNode {
     );
   }
 
-  toLatex() {return 'TABLE OF CONTENTS'}
+  toLatex() {
+    return '\\setcounter{tocdepth}{2}\n\\tableofcontents\n';
+  }
 
   static importJSON(serializedNode) {
     return new TableOfContentsNode(serializedNode.inner_array);
